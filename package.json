@@ -1,0 +1,28 @@
+{
+  "name": "necoo-webpack-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@riotjs/compiler": "^4.3.2",
+    "@riotjs/webpack-loader": "^4.0.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/plugin-transform-strict-mode": "^7.2.0",
+    "acorn-walk": "^6.1.1",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-types": "^6.26.0",
+    "mobx": "^5.10.1",
+    "riot": "^4.3.1",
+    "superagent": "^5.1.0"
+  }
+}
