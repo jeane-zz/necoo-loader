@@ -1,44 +1,50 @@
 const path = require('path');
 const webpackConfig =  {
     mode: 'development',
-    devtool: 'cheap-module-eval-source-map',
+    // devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     entry: {
-        app: path.resolve(__dirname, '../src/index.js')
+        app: path.resolve(__dirname, '../src/string/index.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'bundle.js',
     },
+    resolveLoader: {
+        modules: [path.join(__dirname, '../loaders/'), 'node_modules']
+    },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                use: [{
-                    loader: './loaders/remove-strict'
-                },
+                use: [
                     {
-                        loader: 'babel-loader'
-                    }]
+                        loader: 'babel-loader',
+                        query: {
+                            plugins: ["transform-remove-strict-mode"]
+                        },
+
+                    }
+                ]
             },
             {
-                test: /riot\/.*\.js$/,
-                use: {
-                    loader: './loaders/necoo-loader'
+                test: /string\.js$/,
+                use:  {
+                    loader: 'necoo-loader'
                 }
             },
-            {
-                test: /\.riot$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: '@riotjs/webpack-loader',
-                    options: {
-                        hot: false, // set it to true if you are using hmr
-                        // add here all the other @riotjs/compiler options riot.js.org/compiler
-                        // template: 'pug' for example
-                    }
-                }]
-            }
+
+            // {
+            //     test: /\.riot$/,
+            //     exclude: /node_modules/,
+            //     use: [{
+            //         loader: '@riotjs/webpack-loader',
+            //         options: {
+            //             hot: false,
+            //         }
+            //     }]
+            // }
         ]
-    }
+    },
 };
 module.exports = webpackConfig;

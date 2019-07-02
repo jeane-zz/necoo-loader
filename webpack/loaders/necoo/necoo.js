@@ -60,6 +60,8 @@ class Necoo {
                     str = str.slice(0, str.length - 1);
                 }
                 var __error__ = new Error();
+                window.StackTrace = {};
+                window.StackTrace.getSync = function() {return []};
                 var stackInfo = getCaller(window.StackTrace.getSync());
                 if (window.__INDEX__ >= 0) {
                     if (!__DATA__[window.__INDEX__]) {
@@ -175,6 +177,8 @@ class Necoo {
                 //     __error__ = e;
                 // }
                 __error__ = new Error();
+                window.StackTrace = {};
+                window.StackTrace.getSync = function() {return []};
                 __error__.stackArray = window.StackTrace.getSync();
                 return __error__;
             }
@@ -203,7 +207,7 @@ class Necoo {
             }
             var __flag__ = false;
             function SAVE(args) {
-                var arguments = args;
+                // var arguments = args;
                 var __error__ = TRY_CATCH();
                 if (window.__INDEX__ >= 0) {
                     if (!__DATA__[window.__INDEX__]) {
