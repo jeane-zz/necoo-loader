@@ -253,9 +253,30 @@ function babelZhProcess(code) {
 
     return code;
 }
+function babelFunctionProcess(code) {
+    const visitor = {
+        FunctionDeclaration(path) {
+            const {start, end} = path.node;
+            const section = path.toString();
+            const functionBody = path.node.body;
+            const {start: bStart, end: bEnd} = functionBody;
+            const diffPos = bStart - start;
+            const newFunBody = section.slice(0, diffPos) + 'var a  = b;' + section.slice(diffPos, section.length);
+            console.log('-------------------', path.node.body);
+            path.replaceWithSourceString('hi');
+        }
+    };
+    const result = babel.transform(code, {
+        plugins: [{
+            visitor: visitor
+        }]
+    });
+    return code;
+}
 module.exports = {
     babelReturnProcess,
     babelVariableProcess,
     babelAssignProcess,
-    babelZhProcess
+    babelZhProcess,
+    babelFunctionProcess
 };

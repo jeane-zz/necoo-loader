@@ -188,322 +188,15 @@ module.exports = splitRight;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var RE_VAR_FIN = /(\b|\'|\"|\|\/|\.|\-|\[)((?!__VAR__|SAVE|arguments|Error|console|var|function|if|else|for|in|do|while|switch|case|typeof|break|continue|return|throw|try|catch|finally|with|new|delete|void|Object|Array|String|Number|Boolean|Function|RegExp|Date|Math|true|false|null|undefined|NaN))[\w$]+(\b|(\'\")?)/g;
-var __DATA__ = [];
-
-function __DEEPCLONE__(o) {
-  return o; // var copy = o;
-  // if (typeof o === 'object') {
-  //     copy = Object.prototype.toString.call(o) === '[object Array]' ? [] : {};
-  //     for (var item in o) {
-  //         if (o.hasOwnProperty(item)) {
-  //             copy[item] = __DEEPCLONE__(o[item]);
-  //         }
-  //     }
-  // }
-  // return copy;
-}
-
-function _ProcessAssign_(value, variable, o) {
-  var str = '';
-
-  if (typeof variable === 'object') {
-    for (var name in variable) {
-      if (typeof o === 'object') {
-        if (!o.runVariable) {
-          o.runVariable = {};
-        }
-
-        o.runVariable[name] = variable[name];
-      }
-
-      str += name + ',';
-    }
-  }
-
-  if (str.length) {
-    str = str.slice(0, str.length - 1);
-  }
-
-  var __error__ = new Error();
-
-  window.StackTrace = {};
-
-  window.StackTrace.getSync = function () {
-    return [];
-  };
-
-  var stackInfo = getCaller(window.StackTrace.getSync());
-
-  if (window.__INDEX__ >= 0) {
-    if (!__DATA__[window.__INDEX__]) {
-      __DATA__[window.__INDEX__] = [];
-    }
-
-    var __obj__ = {
-      name: str,
-      showedName: 'assign: ' + str,
-      isVariable: true,
-      variableType: 'assign',
-      finalValue: value,
-      caller: processName(stackInfo.father.functionName),
-      func: null,
-      args: {},
-      variable: variable,
-      stack: __error__.stack,
-      callLine: stackInfo
-    };
-
-    __DATA__[window.__INDEX__].push(__obj__);
-  }
-
-  return value;
-}
-
-function getCaller(stackArray) {
-  var callerStack = stackArray[1] || {};
-  var currentStack = stackArray[1] || {};
-  return {
-    father: callerStack,
-    self: currentStack,
-    stackSource: stackArray
-  };
-}
-
-function processName(name) {
-  if (!name) {
-    return '';
-  }
-
-  var temp = name.split('.');
-  var len = temp.length;
-  return temp[len - 1].replace(/ [\s\S]*/, '');
-}
-
-function _ProcessVariable_(valueObj) {
-  var str = '';
-
-  if (valueObj) {
-    for (var key in valueObj) {
-      str += key + ',';
-    }
-  }
-
-  if (str.length) {
-    str = str.slice(0, str.length - 1);
-  }
-
-  var __error__ = new Error();
-
-  var stackInfo = getCaller(window.StackTrace.getSync());
-
-  if (window.__INDEX__ >= 0) {
-    if (!__DATA__[window.__INDEX__]) {
-      __DATA__[window.__INDEX__] = [];
-    }
-
-    var __obj__ = {
-      name: str,
-      showedName: 'var: ' + str,
-      isVariable: true,
-      variableType: 'var',
-      caller: processName(stackInfo.father.functionName),
-      func: null,
-      args: {},
-      variable: valueObj,
-      stack: __error__.stack,
-      callLine: stackInfo
-    };
-
-    __DATA__[window.__INDEX__].push(__obj__);
-  }
-}
-
-function _ProcessReturn_(value, O) {
-  if (O) {
-    O.returnValue = value;
-  }
-
-  return value;
-}
-
-function GET_VAR(data) {
-  var FUNC_VAR = [];
-  data.replace(/[,{][\$\w]+(?=:)|(^ *|[^\"\-\'$\w\.{])(?!(?:var|JSON|if|for|else|this|switch|break|arguments|console|return|case|function|typeof|true|false|delete|null|undefined|in|instanceof|is(?:Finite|NaN)|void|NaN|new|Date|RegExp|Math)(?![$\w]))([$_A-Za-z][$\w]*)/g, function (_, $1, $2) {
-    if ($2) {
-      FUNC_VAR.push($2);
-    }
-
-    return _;
-  });
-  var names = FUNC_VAR.join(',');
-
-  try {
-    var fun = new Function('FUNC_VAR', "var a = {};FUNC_VAR.forEach(function(item){try{a[item] = eval(item);}catch(e) {console.log(e)}});console.log(a)");
-    console.log(fun);
-    fun(FUNC_VAR);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function SAVENAME(args, name) {
-  try {
-    if (name) {
-      args.callee.prototype.name = name;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function TRY_CATCH() {
-  var __error__ = {}; // try {
-  //     console.log(iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii);
-  // }
-  // catch (e) {
-  //     __error__ = e;
-  // }
-
-  __error__ = new Error();
-  window.StackTrace = {};
-
-  window.StackTrace.getSync = function () {
-    return [];
-  };
-
-  __error__.stackArray = window.StackTrace.getSync();
-  return __error__;
-} // 获取堆栈信息以获取父级调用者
-
-
-function GET_STACK_PARENT_FUNC(stackStr, funcName) {
-  var o = {};
-
-  if (funcName && stackStr) {
-    var stackArr = [];
-
-    if (stackStr) {
-      stackArr = stackStr.split('  at ');
-    }
-
-    var flag = false;
-
-    for (var i = 0; i < stackArr.length; i++) {
-      var nowStack = stackArr[i];
-
-      if (nowStack.indexOf('<anonymous>') > -1 && flag === false) {
-        flag = true;
-      } else if (nowStack.indexOf('<anonymous>') === -1 && flag === true) {
-        o['type'] = stackArr[i - 1].trim().split(' ')[0];
-        o['parentName'] = stackArr[i].trim().split(' ')[0];
-        break;
-      }
-    }
-  }
-
-  return o;
-}
-
-var __flag__ = false;
-
-function SAVE(args) {
-  // var arguments = args;
-  var __error__ = TRY_CATCH();
-
-  if (window.__INDEX__ >= 0) {
-    if (!__DATA__[window.__INDEX__]) {
-      __DATA__[window.__INDEX__] = [];
-    }
-
-    if (!__flag__) {
-      __flag__ = true;
-      $.ajax({
-        url: __error__.stackArray[0].fileName,
-        type: 'GET',
-        dataType: 'text/plain',
-        contentType: 'text/plain',
-        success: function (response) {
-          window.__SOURCE_CODE__ = response;
-          setTimeout(function () {
-            $(window).trigger('source-code', response);
-          }, 3000);
-        }
-      });
-    } // @todo: 要实现深度克隆复制参数，个人感觉可以对字符串进行克隆就行
-    // arguments.cloneArgs = __DEEPCLONE__(arguments);
-
-
-    var __obj__ = {
-      name: arguments.callee && arguments.callee.name,
-      caller: arguments.callee.caller && arguments.callee.caller.name,
-      func: arguments.callee.toString(),
-      // self: this,
-      args: arguments,
-      callLine: {
-        self: __error__.stackArray[2],
-        father: __error__.stackArray[3],
-        stackSource: __error__
-      }
-    }; // console.log(__obj__);
-    // console.log(__obj__.name, __obj__.caller, __error__.stack);
-
-    if (!__obj__.name) {
-      __obj__.name = args.callee && args.callee.prototype.name;
-    }
-
-    if (!__obj__.caller) {
-      try {
-        __obj__.caller = args.callee.caller && args.callee.caller.prototype.name;
-      } catch (e) {
-        console.log(e);
-      }
-
-      if (!__obj__.caller) {
-        __obj__.stack = __error__.stack;
-        var anonymousInfo = GET_STACK_PARENT_FUNC(__error__.stack, __obj__.name);
-
-        var __nameArr__ = anonymousInfo.parentName && anonymousInfo.parentName.split('.') || [];
-
-        __obj__.caller = __nameArr__[__nameArr__.length - 1] || null;
-        __obj__.anonymousInfo = anonymousInfo;
-      }
-    }
-
-    if (__obj__.caller === 'anonymous') {
-      __obj__.stack = __error__.stack;
-      var anonymousInfo = GET_STACK_PARENT_FUNC(__error__.stack, __obj__.name);
-
-      var __nameArr__ = anonymousInfo.parentName && anonymousInfo.parentName.split('.') || [];
-
-      __obj__.caller = __nameArr__[__nameArr__.length - 1] || null;
-      __obj__.anonymousInfo = anonymousInfo;
-    }
-
-    __DATA__[window.__INDEX__].push(__obj__);
-
-    __obj__.returnValue = 'no return yet';
-
-    if (__obj__.name) {
-      __obj__.showedName = 'function: ' + __obj__.name;
-    }
-
-    return __obj__;
-  }
-}
-
-window.SAVE = SAVE;
-;
-;
-!function _anonymous_1() {
-  ;
-
-  var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+string.js - Copyright (C) 2012-2014, JP Richardson <jprichardson@gmail.com>
+*/
+!function () {
   "use strict";
 
   var VERSION = '3.3.3';
-  var ENTITIES = {};
+  var ENTITIES = {}; // from http://semplicewebsites.com/removing-accents-javascript
+
   var latin_map = {
     "Á": "A",
     "Ă": "A",
@@ -1331,28 +1024,36 @@ window.SAVE = SAVE;
     "ᵤ": "u",
     "ᵥ": "v",
     "ₓ": "x"
-  };
+  }; //******************************************************************************
+  // Added an initialize function which is essentially the code from the S
+  // constructor.  Now, the S constructor calls this and a new method named
+  // setValue calls it as well.  The setValue function allows constructors for
+  // modules that extend string.js to set the initial value of an object without
+  // knowing the internal workings of string.js.
+  //
+  // Also, all methods which return a new S object now call:
+  //
+  //      return new this.constructor(s);
+  //
+  // instead of:
+  //
+  //      return new S(s);
+  //
+  // This allows extended objects to keep their proper instanceOf and constructor.
+  //******************************************************************************
 
   function initialize(object, s) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     if (s !== null && s !== undefined) {
       if (typeof s === 'string') object.s = s;else object.s = s.toString();
     } else {
-      object.s = s;
+      object.s = s; //null or undefined
     }
 
-    object.orig = s;
+    object.orig = s; //original object, currently only used by toCSV() and toBoolean()
 
     if (s !== null && s !== undefined) {
       if (object.__defineGetter__) {
-        object.__defineGetter__('length', function _anonymous_2() {
-          ;
-
-          var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+        object.__defineGetter__('length', function () {
           return object.s.length;
         });
       } else {
@@ -1364,59 +1065,32 @@ window.SAVE = SAVE;
   }
 
   function S(s) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     initialize(this, s);
   }
 
   var __nsp = String.prototype;
 
   var __sp = S.prototype = {
-    between: function _anonymous_3(left, right) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    between: function (left, right) {
       var s = this.s;
       var startPos = s.indexOf(left);
       var endPos = s.indexOf(right, startPos + left.length);
       if (endPos == -1 && right != null) return new this.constructor('');else if (endPos == -1 && right == null) return new this.constructor(s.substring(startPos + left.length));else return new this.constructor(s.slice(startPos + left.length, endPos));
     },
-    camelize: function _anonymous_4() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
-      var s = this.trim().s.replace(/(\-|_|\s)+(.)?/g, function _anonymous_5(mathc, sep, c) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    //# modified slightly from https://github.com/epeli/underscore.string
+    camelize: function () {
+      var s = this.trim().s.replace(/(\-|_|\s)+(.)?/g, function (mathc, sep, c) {
         return c ? c.toUpperCase() : '';
       });
       return new this.constructor(s);
     },
-    capitalize: function _anonymous_6() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    capitalize: function () {
       return new this.constructor(this.s.substr(0, 1).toUpperCase() + this.s.substring(1).toLowerCase());
     },
-    charAt: function _anonymous_7(index) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    charAt: function (index) {
       return this.s.charAt(index);
     },
-    chompLeft: function _anonymous_8(prefix) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    chompLeft: function (prefix) {
       var s = this.s;
 
       if (s.indexOf(prefix) === 0) {
@@ -1426,11 +1100,7 @@ window.SAVE = SAVE;
         return this;
       }
     },
-    chompRight: function _anonymous_9(suffix) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    chompRight: function (suffix) {
       if (this.endsWith(suffix)) {
         var s = this.s;
         s = s.slice(0, s.length - suffix.length);
@@ -1439,81 +1109,40 @@ window.SAVE = SAVE;
         return this;
       }
     },
-    collapseWhitespace: function _anonymous_10() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    //#thanks Google
+    collapseWhitespace: function () {
       var s = this.s.replace(/[\s\xa0]+/g, ' ').replace(/^\s+|\s+$/g, '');
       return new this.constructor(s);
     },
-    contains: function _anonymous_11(ss) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    contains: function (ss) {
       return this.s.indexOf(ss) >= 0;
     },
-    count: function _anonymous_12(ss) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    count: function (ss) {
       return __webpack_require__(/*! ./_count */ "./node_modules/string/lib/_count.js")(this.s, ss);
     },
-    dasherize: function _anonymous_13() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    //#modified from https://github.com/epeli/underscore.string
+    dasherize: function () {
       var s = this.trim().s.replace(/[_\s]+/g, '-').replace(/([A-Z])/g, '-$1').replace(/-+/g, '-').toLowerCase();
       return new this.constructor(s);
     },
-    equalsIgnoreCase: function _anonymous_14(prefix) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    equalsIgnoreCase: function (prefix) {
       var s = this.s;
       return s.toLowerCase() == prefix.toLowerCase();
     },
-    latinise: function _anonymous_15() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
-      var s = this.replace(/[^A-Za-z0-9\[\] ]/g, function _anonymous_16(x) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    latinise: function () {
+      var s = this.replace(/[^A-Za-z0-9\[\] ]/g, function (x) {
         return latin_map[x] || x;
       });
       return new this.constructor(s);
     },
-    decodeHtmlEntities: function _anonymous_17() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    decodeHtmlEntities: function () {
+      //https://github.com/substack/node-ent/blob/master/index.js
       var s = this.s;
-      s = s.replace(/&#(\d+);?/g, function _anonymous_18(_, code) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      s = s.replace(/&#(\d+);?/g, function (_, code) {
         return String.fromCharCode(code);
-      }).replace(/&#[xX]([A-Fa-f0-9]+);?/g, function _anonymous_19(_, hex) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      }).replace(/&#[xX]([A-Fa-f0-9]+);?/g, function (_, hex) {
         return String.fromCharCode(parseInt(hex, 16));
-      }).replace(/&([^;\W]+;?)/g, function _anonymous_20(m, e) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      }).replace(/&([^;\W]+;?)/g, function (m, e) {
         var ee = e.replace(/;$/, '');
         var target = ENTITIES[e] || e.match(/;$/) && ENTITIES[ee];
 
@@ -1527,11 +1156,7 @@ window.SAVE = SAVE;
       });
       return new this.constructor(s);
     },
-    endsWith: function _anonymous_21() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    endsWith: function () {
       var suffixes = Array.prototype.slice.call(arguments, 0);
 
       for (var i = 0; i < suffixes.length; ++i) {
@@ -1541,24 +1166,13 @@ window.SAVE = SAVE;
 
       return false;
     },
-    escapeHTML: function _anonymous_22() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
-      return new this.constructor(this.s.replace(/[&<>"']/g, function _anonymous_23(m) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    escapeHTML: function () {
+      //from underscore.string
+      return new this.constructor(this.s.replace(/[&<>"']/g, function (m) {
         return '&' + reversedEscapeChars[m] + ';';
       }));
     },
-    ensureLeft: function _anonymous_24(prefix) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    ensureLeft: function (prefix) {
       var s = this.s;
 
       if (s.indexOf(prefix) === 0) {
@@ -1567,11 +1181,7 @@ window.SAVE = SAVE;
         return new this.constructor(prefix + s);
       }
     },
-    ensureRight: function _anonymous_25(suffix) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    ensureRight: function (suffix) {
       var s = this.s;
 
       if (this.endsWith(suffix)) {
@@ -1580,62 +1190,31 @@ window.SAVE = SAVE;
         return new this.constructor(s + suffix);
       }
     },
-    humanize: function _anonymous_26() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    humanize: function () {
+      //modified from underscore.string
       if (this.s === null || this.s === undefined) return new this.constructor('');
       var s = this.underscore().replace(/_id$/, '').replace(/_/g, ' ').trim().capitalize();
       return new this.constructor(s);
     },
-    isAlpha: function _anonymous_27() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isAlpha: function () {
       return !/[^a-z\xDF-\xFF]|^$/.test(this.s.toLowerCase());
     },
-    isAlphaNumeric: function _anonymous_28() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isAlphaNumeric: function () {
       return !/[^0-9a-z\xDF-\xFF]/.test(this.s.toLowerCase());
     },
-    isEmpty: function _anonymous_29() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isEmpty: function () {
       return this.s === null || this.s === undefined ? true : /^[\s\xa0]*$/.test(this.s);
     },
-    isLower: function _anonymous_30() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isLower: function () {
       return this.isAlpha() && this.s.toLowerCase() === this.s;
     },
-    isNumeric: function _anonymous_31() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isNumeric: function () {
       return !/[^0-9]/.test(this.s);
     },
-    isUpper: function _anonymous_32() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    isUpper: function () {
       return this.isAlpha() && this.s.toUpperCase() === this.s;
     },
-    left: function _anonymous_33(N) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    left: function (N) {
       if (N >= 0) {
         var s = this.s.substr(0, N);
         return new this.constructor(s);
@@ -1643,18 +1222,12 @@ window.SAVE = SAVE;
         return this.right(-N);
       }
     },
-    lines: function _anonymous_34() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    lines: function () {
+      //convert windows newlines to unix newlines then convert to an Array of lines
       return this.replaceAll('\r\n', '\n').s.split('\n');
     },
-    pad: function _anonymous_35(len, ch) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    pad: function (len, ch) {
+      //https://github.com/component/pad
       if (ch == null) ch = ' ';
       if (this.s.length >= len) return new this.constructor(this.s);
       len = len - this.s.length;
@@ -1662,29 +1235,20 @@ window.SAVE = SAVE;
       var right = Array(Math.floor(len / 2) + 1).join(ch);
       return new this.constructor(left + this.s + right);
     },
-    padLeft: function _anonymous_36(len, ch) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    padLeft: function (len, ch) {
+      //https://github.com/component/pad
       if (ch == null) ch = ' ';
       if (this.s.length >= len) return new this.constructor(this.s);
       return new this.constructor(Array(len - this.s.length + 1).join(ch) + this.s);
     },
-    padRight: function _anonymous_37(len, ch) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    padRight: function (len, ch) {
+      //https://github.com/component/pad
       if (ch == null) ch = ' ';
       if (this.s.length >= len) return new this.constructor(this.s);
       return new this.constructor(this.s + Array(len - this.s.length + 1).join(ch));
     },
-    parseCSV: function _anonymous_38(delimiter, qualifier, escape, lineDelimiter) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    parseCSV: function (delimiter, qualifier, escape, lineDelimiter) {
+      //try to parse no matter what
       delimiter = delimiter || ',';
       escape = escape || '\\';
       if (typeof qualifier == 'undefined') qualifier = '"';
@@ -1696,11 +1260,7 @@ window.SAVE = SAVE;
           inUnqualifiedString = false,
           self = this;
 
-      var ca = function _anonymous_39(i) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      var ca = function (i) {
         return self.s.charAt(i);
       };
 
@@ -1712,6 +1272,7 @@ window.SAVE = SAVE;
 
         switch (current) {
           case escape:
+            //fix for issues #32 and #35
             if (inField && (escape !== qualifier || ca(i + 1) === qualifier)) {
               i += 1;
               fieldBuffer.push(ca(i));
@@ -1782,33 +1343,18 @@ window.SAVE = SAVE;
 
       return fields;
     },
-    replaceAll: function _anonymous_40(ss, r) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    replaceAll: function (ss, r) {
+      //var s = this.s.replace(new RegExp(ss, 'g'), r);
       var s = this.s.split(ss).join(r);
       return new this.constructor(s);
     },
-    splitLeft: function _anonymous_41(sep, maxSplit, limit) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    splitLeft: function (sep, maxSplit, limit) {
       return __webpack_require__(/*! ./_splitLeft */ "./node_modules/string/lib/_splitLeft.js")(this.s, sep, maxSplit, limit);
     },
-    splitRight: function _anonymous_42(sep, maxSplit, limit) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    splitRight: function (sep, maxSplit, limit) {
       return __webpack_require__(/*! ./_splitRight */ "./node_modules/string/lib/_splitRight.js")(this.s, sep, maxSplit, limit);
     },
-    strip: function _anonymous_43() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    strip: function () {
       var ss = this.s;
 
       for (var i = 0, n = arguments.length; i < n; i++) {
@@ -1817,11 +1363,7 @@ window.SAVE = SAVE;
 
       return new this.constructor(ss);
     },
-    stripLeft: function _anonymous_44(chars) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    stripLeft: function (chars) {
       var regex;
       var pattern;
       var ss = ensureString(this.s);
@@ -1835,11 +1377,7 @@ window.SAVE = SAVE;
 
       return new this.constructor(ss.replace(pattern, ""));
     },
-    stripRight: function _anonymous_45(chars) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    stripRight: function (chars) {
       var regex;
       var pattern;
       var ss = ensureString(this.s);
@@ -1853,11 +1391,7 @@ window.SAVE = SAVE;
 
       return new this.constructor(ss.replace(pattern, ""));
     },
-    right: function _anonymous_46(N) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    right: function (N) {
       if (N >= 0) {
         var s = this.s.substr(this.s.length - N, N);
         return new this.constructor(s);
@@ -1865,28 +1399,16 @@ window.SAVE = SAVE;
         return this.left(-N);
       }
     },
-    setValue: function _anonymous_47(s) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    setValue: function (s) {
       initialize(this, s);
       return this;
     },
-    slugify: function _anonymous_48() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    slugify: function () {
       var sl = new S(new S(this.s).latinise().s.replace(/[^\w\s-]/g, '').toLowerCase()).dasherize().s;
       if (sl.charAt(0) === '-') sl = sl.substr(1);
       return new this.constructor(sl);
     },
-    startsWith: function _anonymous_49() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    startsWith: function () {
       var prefixes = Array.prototype.slice.call(arguments, 0);
 
       for (var i = 0; i < prefixes.length; ++i) {
@@ -1895,46 +1417,29 @@ window.SAVE = SAVE;
 
       return false;
     },
-    stripPunctuation: function _anonymous_50() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    stripPunctuation: function () {
+      //return new this.constructor(this.s.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,""));
       return new this.constructor(this.s.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " "));
     },
-    stripTags: function _anonymous_51() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    stripTags: function () {
+      //from sugar.js
       var s = this.s,
           args = arguments.length > 0 ? arguments : [''];
-      multiArgs(args, function _anonymous_52(tag) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      multiArgs(args, function (tag) {
         s = s.replace(RegExp('<\/?' + tag + '[^<>]*>', 'gi'), '');
       });
       return new this.constructor(s);
     },
-    template: function _anonymous_53(values, opening, closing) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    template: function (values, opening, closing) {
       var s = this.s;
       var opening = opening || Export.TMPL_OPEN;
       var closing = closing || Export.TMPL_CLOSE;
       var open = opening.replace(/[-[\]()*\s]/g, "\\$&").replace(/\$/g, '\\$');
       var close = closing.replace(/[-[\]()*\s]/g, "\\$&").replace(/\$/g, '\\$');
-      var r = new RegExp(open + '(.+?)' + close, 'g');
+      var r = new RegExp(open + '(.+?)' + close, 'g'); //, r = /\{\{(.+?)\}\}/g
+
       var matches = s.match(r) || [];
-      matches.forEach(function _anonymous_54(match) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      matches.forEach(function (match) {
         var key = match.substring(opening.length, match.length - closing.length).trim(); //chop {{ and }}
 
         var value = typeof values[key] == 'undefined' ? '' : values[key];
@@ -1942,111 +1447,67 @@ window.SAVE = SAVE;
       });
       return new this.constructor(s);
     },
-    times: function _anonymous_55(n) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    times: function (n) {
       return new this.constructor(new Array(n + 1).join(this.s));
     },
-    titleCase: function _anonymous_56() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    titleCase: function () {
       var s = this.s;
 
       if (s) {
-        s = s.replace(/(^[a-z]| [a-z]|-[a-z]|_[a-z])/g, function _anonymous_57($1) {
-          ;
-
-          var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+        s = s.replace(/(^[a-z]| [a-z]|-[a-z]|_[a-z])/g, function ($1) {
           return $1.toUpperCase();
         });
       }
 
       return new this.constructor(s);
     },
-    toBoolean: function _anonymous_58() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    toBoolean: function () {
       if (typeof this.orig === 'string') {
         var s = this.s.toLowerCase();
         return s === 'true' || s === 'yes' || s === 'on' || s === '1';
       } else return this.orig === true || this.orig === 1;
     },
-    toFloat: function _anonymous_59(precision) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    toFloat: function (precision) {
       var num = parseFloat(this.s);
       if (precision) return parseFloat(num.toFixed(precision));else return num;
     },
-    toInt: function _anonymous_60() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    toInt: function () {
+      //thanks Google
+      // If the string starts with '0x' or '-0x', parse as hex.
       return /^\s*-?0x/i.test(this.s) ? parseInt(this.s, 16) : parseInt(this.s, 10);
     },
-    trim: function _anonymous_61() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    trim: function () {
       var s;
       if (typeof __nsp.trim === 'undefined') s = this.s.replace(/(^\s*|\s*$)/g, '');else s = this.s.trim();
       return new this.constructor(s);
     },
-    trimLeft: function _anonymous_62() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    trimLeft: function () {
       var s;
       if (__nsp.trimLeft) s = this.s.trimLeft();else s = this.s.replace(/(^\s*)/g, '');
       return new this.constructor(s);
     },
-    trimRight: function _anonymous_63() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    trimRight: function () {
       var s;
       if (__nsp.trimRight) s = this.s.trimRight();else s = this.s.replace(/\s+$/, '');
       return new this.constructor(s);
     },
-    truncate: function _anonymous_64(length, pruneStr) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    truncate: function (length, pruneStr) {
+      //from underscore.string, author: github.com/rwz
       var str = this.s;
       length = ~~length;
       pruneStr = pruneStr || '...';
       if (str.length <= length) return new this.constructor(str);
 
-      var tmpl = function _anonymous_65(c) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      var tmpl = function (c) {
         return c.toUpperCase() !== c.toLowerCase() ? 'A' : ' ';
       },
-          template = str.slice(0, length + 1).replace(/.(?=\W*\w*$)/g, tmpl);
+          template = str.slice(0, length + 1).replace(/.(?=\W*\w*$)/g, tmpl); // 'Hello, world' -> 'HellAA AAAAA'
+
 
       if (template.slice(template.length - 2).match(/\w\w/)) template = template.replace(/\s*\S+$/, '');else template = new S(template.slice(0, template.length - 1)).trimRight().s;
       return (template + pruneStr).length > str.length ? new S(str) : new S(str.slice(0, template.length) + pruneStr);
     },
-    toCSV: function _anonymous_66() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    toCSV: function () {
       var delim = ',',
           qualifier = '"',
           escape = '\\',
@@ -2055,10 +1516,6 @@ window.SAVE = SAVE;
       var dataArray = [];
 
       function hasVal(it) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
         return it !== null && it !== '';
       }
 
@@ -2076,6 +1533,7 @@ window.SAVE = SAVE;
       if (typeof arguments[1] === 'string') qualifier = arguments[1];
       if (arguments[1] === null) qualifier = null;
       if (this.orig instanceof Array) dataArray = this.orig;else {
+        //object
         for (var key in this.orig) if (this.orig.hasOwnProperty(key)) if (keys) dataArray.push(key);else dataArray.push(this.orig[key]);
       }
       var rep = escape + qualifier;
@@ -2093,36 +1551,24 @@ window.SAVE = SAVE;
 
         if (shouldQualify) buildString.push(qualifier);
         if (delim) buildString.push(delim);
-      }
+      } //chop last delim
+      //console.log(buildString.length)
+
 
       buildString.length = buildString.length - 1;
       return new this.constructor(buildString.join(''));
     },
-    toString: function _anonymous_67() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    toString: function () {
       return this.s;
     },
-    underscore: function _anonymous_68() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    //#modified from https://github.com/epeli/underscore.string
+    underscore: function () {
       var s = this.trim().s.replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/([A-Z\d]+)([A-Z][a-z])/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
       return new this.constructor(s);
     },
-    unescapeHTML: function _anonymous_69() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
-      return new this.constructor(this.s.replace(/\&([^;]+);/g, function _anonymous_70(entity, entityCode) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    unescapeHTML: function () {
+      //from underscore.string
+      return new this.constructor(this.s.replace(/\&([^;]+);/g, function (entity, entityCode) {
         var match;
 
         if (entityCode in escapeChars) {
@@ -2136,18 +1582,11 @@ window.SAVE = SAVE;
         }
       }));
     },
-    valueOf: function _anonymous_71() {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    valueOf: function () {
       return this.s.valueOf();
     },
-    wrapHTML: function _anonymous_72(tagName, tagAttrs) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    //#Added a New Function called wrapHTML.
+    wrapHTML: function (tagName, tagAttrs) {
       var s = this.s,
           el = tagName == null ? 'span' : tagName,
           elAttr = '',
@@ -2161,26 +1600,14 @@ window.SAVE = SAVE;
   var methodsAdded = [];
 
   function extendPrototype() {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     for (var name in __sp) {
-      (function _anonymous_73(name) {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      (function (name) {
         var func = __sp[name];
 
         if (!__nsp.hasOwnProperty(name)) {
           methodsAdded.push(name);
 
-          __nsp[name] = function _anonymous_74() {
-            ;
-
-            var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+          __nsp[name] = function () {
             String.prototype.s = this;
             return func.apply(this, arguments);
           };
@@ -2190,33 +1617,27 @@ window.SAVE = SAVE;
   }
 
   function restorePrototype() {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     for (var i = 0; i < methodsAdded.length; ++i) delete String.prototype[methodsAdded[i]];
 
     methodsAdded.length = 0;
   }
+  /*************************************
+  /* Attach Native JavaScript String Properties
+  /*************************************/
+
 
   var nativeProperties = getNativeStringProperties();
 
   for (var name in nativeProperties) {
-    (function _anonymous_75(name) {
-      ;
-
-      var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    (function (name) {
       var stringProp = __nsp[name];
 
       if (typeof stringProp == 'function') {
+        //console.log(stringProp)
         if (!__sp[name]) {
           if (nativeProperties[name] === 'string') {
-            __sp[name] = function _anonymous_76() {
-              ;
-
-              var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+            __sp[name] = function () {
+              //console.log(name)
               return new this.constructor(stringProp.apply(this, arguments));
             };
           } else {
@@ -2226,25 +1647,34 @@ window.SAVE = SAVE;
       }
     })(name);
   }
+  /*************************************
+  /* Function Aliases
+  /*************************************/
+
 
   __sp.repeat = __sp.times;
   __sp.include = __sp.contains;
   __sp.toInteger = __sp.toInt;
   __sp.toBool = __sp.toBoolean;
-  __sp.decodeHTMLEntities = __sp.decodeHtmlEntities;
+  __sp.decodeHTMLEntities = __sp.decodeHtmlEntities; //ensure consistent casing scheme of 'HTML'
+  //******************************************************************************
+  // Set the constructor.  Without this, string.js objects are instances of
+  // Object instead of S.
+  //******************************************************************************
+
   __sp.constructor = S;
+  /*************************************
+  /* Private Functions
+  /*************************************/
 
   function getNativeStringProperties() {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     var names = getNativeStringPropertyNames();
     var retObj = {};
 
     for (var i = 0; i < names.length; ++i) {
       var name = names[i];
-      if (name === 'to' || name === 'toEnd') continue;
+      if (name === 'to' || name === 'toEnd') continue; // get rid of the shelljs prototype messup
+
       var func = __nsp[name];
 
       try {
@@ -2257,10 +1687,6 @@ window.SAVE = SAVE;
   }
 
   function getNativeStringPropertyNames() {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     var results = [];
 
     if (Object.getOwnPropertyNames) {
@@ -2269,12 +1695,14 @@ window.SAVE = SAVE;
       results.splice(results.indexOf('toString'), 1);
       return results;
     } else {
+      //meant for legacy cruft, this could probably be made more efficient
       var stringNames = {};
       var objectNames = [];
 
       for (var name in String.prototype) stringNames[name] = name;
 
-      for (var name in Object.prototype) delete stringNames[name];
+      for (var name in Object.prototype) delete stringNames[name]; //stringNames['toString'] = 'toString'; //this was deleted with the rest of the object names
+
 
       for (var name in stringNames) {
         results.push(name);
@@ -2285,41 +1713,38 @@ window.SAVE = SAVE;
   }
 
   function Export(str) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     return new S(str);
   }
 
-  ;
+  ; //attach exports to StringJSWrapper
+
   Export.extendPrototype = extendPrototype;
   Export.restorePrototype = restorePrototype;
   Export.VERSION = VERSION;
   Export.TMPL_OPEN = '{{';
   Export.TMPL_CLOSE = '}}';
   Export.ENTITIES = ENTITIES;
+  /*************************************
+  /* Exports
+  /*************************************/
 
   if ( true && typeof module.exports !== 'undefined') {
     module.exports = Export;
   } else {
     if (true) {
-      !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function _anonymous_77() {
-        ;
-
-        var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+      !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
         return Export;
       }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     } else {}
   }
+  /*************************************
+  /* 3rd Party Private Functions
+  /*************************************/
+  //from sugar.js
+
 
   function multiArgs(args, fn) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     var result = [],
         i;
 
@@ -2329,7 +1754,8 @@ window.SAVE = SAVE;
     }
 
     return result;
-  }
+  } //from underscore.string
+
 
   var escapeChars = {
     lt: '<',
@@ -2340,10 +1766,7 @@ window.SAVE = SAVE;
   };
 
   function escapeRegExp(s) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
+    // most part from https://github.com/skulpt/skulpt/blob/ecaf75e69c2e539eff124b2ab45df0b01eaf2295/src/str.js#L242
     var c;
     var i;
     var ret = [];
@@ -2368,12 +1791,9 @@ window.SAVE = SAVE;
   }
 
   function ensureString(string) {
-    ;
-
-    var __O__ = (this.SAVE ? this : window).SAVE(arguments);
-
     return string == null ? '' : '' + string;
-  }
+  } //from underscore.string
+
 
   var reversedEscapeChars = {};
 
