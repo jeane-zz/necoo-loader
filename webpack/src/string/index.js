@@ -1,4 +1,4 @@
 import S from 'string';
 console.log(S);
-window.__INDEX__ = 0;
+window.necooIndex = 0;
 S('hello').s

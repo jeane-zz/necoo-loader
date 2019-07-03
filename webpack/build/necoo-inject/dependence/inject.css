@@ -1,0 +1,96 @@
+.see-source {
+    width: 90px;
+    height: 40px;
+    background: #43A992;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1111111111111111111111;
+}
+.fresh-button {
+    width: 90px;
+    height: 40px;
+    background: #43A992;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    position: fixed;
+    right: 120px;
+    bottom: 20px;
+    z-index: 1111111111111111111111;
+}
+.iframeClass {
+    width: 50%;
+    height: 50%;
+    border: none;
+}
+
+.node rect {
+    cursor: pointer;
+    fill: #fff;
+    fill-opacity: 0.5;
+    stroke: #3182bd;
+    stroke-width: 1.5px;
+}
+.node text {
+    font: 10px sans-serif;
+    pointer-events: none;
+}
+.link {
+    fill: none;
+    stroke: #9ecae1;
+    stroke-width: 1.5px;
+}
+#allCodeBox {
+    width: 1020px;
+    height: 3000px;
+    vertical-align: top;
+    display: inline-block;
+}
+#allCodePos {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+.tree-box {
+    width: 19000px;
+    display: inline-block;
+    position: relative;
+    z-index: 99999;
+    background-color: #fff;
+}
+.source-panel {
+    width: 30000px;
+}
+#preCode {
+    position: fixed;
+    left: 10px;
+    top: 470px;
+}
+
+.errorHighlight {
+    /*animation:mymove 5s;*/
+    /*-webkit-animation:mymove 5s;*/
+    /*animation-iteration-count:1;*/
+    /*-webkit-animation-iteration-count:1;*/
+}
+@keyframes mymove
+{
+    0% {
+        background: none;
+    }
+    50% {background: red;}
+    100% {background: none;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+    0% {background: none;}
+    50% {background: red;}
+    100% {background: none;}
+}
