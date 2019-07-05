@@ -5,7 +5,7 @@ const webpackConfig =  {
     // devtool: 'cheap-module-eval-source-map',
     devtool: 'source-map',
     entry: {
-        app: path.resolve(__dirname, '../src/vue/index.js')
+        app: path.resolve(__dirname, '../src/mobx/index.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -41,7 +41,7 @@ const webpackConfig =  {
                 ]
             },
             {
-                test: /vue.*\.js$/,
+                test: /mobx.*\.js$/,
                 use:  {
                     loader: 'necoo-loader'
                 }

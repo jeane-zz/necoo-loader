@@ -82,7 +82,7 @@ window.StackTrace = stacktrace;
                 if (!callerName) {
                     callerName = args.callee.caller && args.callee.caller.prototype.name;
                     if (!callerName) {
-                        var caller = getCallerFromSourceStack(stackTrace.sourceStack);
+                        var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
                         if (caller) {
                             callerName = caller;
                         }
@@ -92,7 +92,7 @@ window.StackTrace = stacktrace;
                 }
                 if (callerName === 'anonymous') {
                     // get callerName from stackTrace
-                    var caller = getCallerFromSourceStack(stackTrace.sourceStack);
+                    var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
                     if (caller) {
                         callerName = caller;
                     }
@@ -107,7 +107,7 @@ window.StackTrace = stacktrace;
                     callerInfo: {
                         stackTrace: stackTrace,
                         father: stackTrace && typeof stackTrace.stackTrace[3] !== 'undefined' ? stackTrace.stackTrace[3] : null,
-                        self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[3] : null,
+                        self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[2] : null,
                     }
                 };
                 window.necooData[window.necooIndex].push(callStack);

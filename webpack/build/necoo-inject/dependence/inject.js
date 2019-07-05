@@ -411,6 +411,7 @@ function renderTree() {
             d.y0 = d.y;
         });
         function renderSource(type, d) {
+            console.log(type, d);
             let index = d.data.index;
             let sourceLine = '';
             if (type === 'exec') {

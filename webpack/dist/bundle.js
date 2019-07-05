@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./webpack/src/vue/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./webpack/src/mobx/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -266,6 +266,5705 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 });
+
+/***/ }),
+
+/***/ "./node_modules/mobx/lib/mobx.module.js":
+/*!**********************************************!*\
+  !*** ./node_modules/mobx/lib/mobx.module.js ***!
+  \**********************************************/
+/*! exports provided: $mobx, IDerivationState, ObservableMap, ObservableSet, Reaction, _allowStateChanges, _allowStateChangesInsideComputed, _getAdministration, _getGlobalState, _interceptReads, _isComputingDerivation, _resetGlobalState, action, autorun, comparer, computed, configure, createAtom, decorate, entries, extendObservable, flow, get, getAtom, getDebugName, getDependencyTree, getObserverTree, has, intercept, isAction, isArrayLike, isBoxedObservable, isComputed, isComputedProp, isObservable, isObservableArray, isObservableMap, isObservableObject, isObservableProp, isObservableSet, keys, observable, observe, onBecomeObserved, onBecomeUnobserved, onReactionError, reaction, remove, runInAction, set, spy, toJS, trace, transaction, untracked, values, when */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+// "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(process, global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$mobx", function() { return $mobx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IDerivationState", function() { return IDerivationState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObservableMap", function() { return ObservableMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObservableSet", function() { return ObservableSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Reaction", function() { return Reaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_allowStateChanges", function() { return allowStateChanges; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_allowStateChangesInsideComputed", function() { return allowStateChangesInsideComputed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getAdministration", function() { return getAdministration; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getGlobalState", function() { return getGlobalState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_interceptReads", function() { return interceptReads; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_isComputingDerivation", function() { return isComputingDerivation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_resetGlobalState", function() { return resetGlobalState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "action", function() { return action; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autorun", function() { return autorun; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "comparer", function() { return comparer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "computed", function() { return computed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configure", function() { return configure; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAtom", function() { return createAtom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decorate", function() { return decorate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "entries", function() { return entries; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extendObservable", function() { return extendObservable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flow", function() { return flow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAtom", function() { return getAtom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDebugName", function() { return getDebugName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDependencyTree", function() { return getDependencyTree; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getObserverTree", function() { return getObserverTree; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "has", function() { return has; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "intercept", function() { return intercept; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAction", function() { return isAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isArrayLike", function() { return isArrayLike; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBoxedObservable", function() { return isObservableValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isComputed", function() { return isComputed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isComputedProp", function() { return isComputedProp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservable", function() { return isObservable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservableArray", function() { return isObservableArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservableMap", function() { return isObservableMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservableObject", function() { return isObservableObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservableProp", function() { return isObservableProp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObservableSet", function() { return isObservableSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keys", function() { return keys; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "observable", function() { return observable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "observe", function() { return observe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onBecomeObserved", function() { return onBecomeObserved; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onBecomeUnobserved", function() { return onBecomeUnobserved; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onReactionError", function() { return onReactionError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reaction", function() { return reaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "runInAction", function() { return runInAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spy", function() { return spy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toJS", function() { return toJS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "trace", function() { return trace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transaction", function() { return transaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "untracked", function() { return untracked; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "values", function() { return values; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "when", function() { return when; });
+const stacktrace = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
+
+window.StackTrace = stacktrace;
+
+(function (global, factory) {
+  console.log('0000', typeof exports === 'object' && typeof module !== 'undefined');
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") ? define(['exports'], factory) : (global = global || self, factory(global.necoo = {}));
+})(undefined, function (exports) {
+  function initNecooData() {
+    if (typeof window.necooData === 'undefined') {
+      window.necooData = [];
+    }
+
+    if (!window.necooData[window.necooIndex] && window.necooIndex >= 0) {
+      window.necooData[window.necooIndex] = [];
+    }
+
+    return window.necooIndex >= 0;
+  }
+  /**
+   * 通过StackTrace获取报错堆栈
+   */
+
+
+  function getStackTrace() {
+    var stack = {};
+    var error = new Error();
+    stack.sourceStack = error.stack;
+    stack.stackTrace = window.StackTrace ? window.StackTrace.getSync() : [];
+    return stack;
+  }
+
+  function getCallerFromSourceStack(sourceStack) {
+    var callerName = null;
+
+    if (sourceStack) {
+      var stackArr = [];
+
+      if (sourceStack) {
+        stackArr = sourceStack.split('  at ');
+
+        if (stackArr[4]) {
+          try {
+            callerName = stackArr[4].split('eval at ')[1].split(' ')[0];
+          } catch (e) {}
+        }
+      } // for (var i = 0; i < stackArr.length; i++) {
+      //     var nowStack = stackArr[i];
+      //
+      //     // if (nowStack.indexOf('<anonymous>') > -1 && flag === false) {
+      //     //     flag = true;
+      //     // }
+      //     // else if (nowStack.indexOf('<anonymous>') === -1 && flag === true) {
+      //     //     o['type'] = stackArr[i-1].trim().split(' ')[0];
+      //     //     o['parentName'] = stackArr[i].trim().split(' ')[0];
+      //     //     break;
+      //     // }
+      // }
+
+    }
+
+    return callerName;
+  }
+
+  function getCallerFromTrace(trace) {
+    // 数字根据层级来定
+    if (trace && trace.length > 3) {
+      var calleeTrace = trace[3];
+    }
+  }
+
+  function necooPushCallStack(args) {
+    if (!initNecooData()) {
+      return;
+    }
+
+    var callStack;
+
+    if (window.necooIndex >= 0) {
+      var stackTrace = getStackTrace();
+      var calleeName = null;
+      var callerName = null;
+
+      try {
+        calleeName = args.callee && args.callee.name;
+        callerName = args.callee.caller && args.callee.caller.name;
+
+        if (!calleeName) {
+          calleeName = args.callee && args.callee.prototype.name;
+        }
+
+        if (!callerName) {
+          callerName = args.callee.caller && args.callee.caller.prototype.name;
+
+          if (!callerName) {
+            var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
+
+            if (caller) {
+              callerName = caller;
+            }
+
+            console.log('------', callerName, caller, stackTrace); // get callerName from stackTrace
+          }
+        }
+
+        if (callerName === 'anonymous') {
+          // get callerName from stackTrace
+          var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
+
+          if (caller) {
+            callerName = caller;
+          }
+
+          console.log('anonymous', callerName, caller, stackTrace);
+        }
+
+        callStack = {
+          name: calleeName,
+          showName: 'function: ' + calleeName,
+          caller: callerName,
+          body: args.callee.toString(),
+          arguments: args,
+          callerInfo: {
+            stackTrace: stackTrace,
+            father: stackTrace && typeof stackTrace.stackTrace[3] !== 'undefined' ? stackTrace.stackTrace[3] : null,
+            self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[2] : null
+          }
+        };
+        window.necooData[window.necooIndex].push(callStack);
+      } catch (e) {
+        console.log('sorry for error', e);
+      }
+    }
+
+    return callStack || {};
+  }
+
+  exports.necooPushCallStack = necooPushCallStack;
+
+  if (window) {
+    window.necooPushCallStack = necooPushCallStack;
+  }
+});
+/** MobX - (c) Michel Weststrate 2015 - 2019 - MIT Licensed */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+
+
+var extendStatics = function _anonymous_1(d, b) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function _anonymous_2(d, b) {
+    var necooData = window.necooPushCallStack(arguments);
+    d.__proto__ = b;
+  } || function _anonymous_3(d, b) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  var necooData = window.necooPushCallStack(arguments);
+  extendStatics(d, b);
+
+  function __() {
+    var necooData = window.necooPushCallStack(arguments);
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function _anonymous_4() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  __assign = Object.assign || function __assign(t) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function __values(o) {
+  var necooData = window.necooPushCallStack(arguments);
+  var m = typeof Symbol === "function" && o[Symbol.iterator],
+      i = 0;
+  if (m) return m.call(o);
+  return {
+    next: function _anonymous_5() {
+      var necooData = window.necooPushCallStack(arguments);
+      if (o && i >= o.length) o = void 0;
+      return {
+        value: o && o[i++],
+        done: !o
+      };
+    }
+  };
+}
+
+function __read(o, n) {
+  var necooData = window.necooPushCallStack(arguments);
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m) return o;
+  var i = m.call(o),
+      r,
+      ar = [],
+      e;
+
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+  } catch (error) {
+    e = {
+      error: error
+    };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"])) m.call(i);
+    } finally {
+      if (e) throw e.error;
+    }
+  }
+
+  return ar;
+}
+
+function __spread() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+
+  return ar;
+}
+
+var OBFUSCATED_ERROR = "An invariant failed, however the error is obfuscated because this is an production build.";
+var EMPTY_ARRAY = [];
+Object.freeze(EMPTY_ARRAY);
+var EMPTY_OBJECT = {};
+Object.freeze(EMPTY_OBJECT);
+
+function getNextId() {
+  var necooData = window.necooPushCallStack(arguments);
+  return ++globalState.mobxGuid;
+}
+
+function fail(message) {
+  var necooData = window.necooPushCallStack(arguments);
+  invariant(false, message);
+  throw "X"; // unreachable
+}
+
+function invariant(check, message) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (!check) throw new Error("[mobx] " + (message || OBFUSCATED_ERROR));
+}
+/**
+ * Prints a deprecation message, but only one time.
+ * Returns false if the deprecated message was already printed before
+ */
+
+
+var deprecatedMessages = [];
+
+function deprecated(msg, thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (false) {}
+
+  if (thing) {
+    return deprecated("'" + msg + "', use '" + thing + "' instead.");
+  }
+
+  if (deprecatedMessages.indexOf(msg) !== -1) return false;
+  deprecatedMessages.push(msg);
+  console.error("[mobx] Deprecated: " + msg);
+  return true;
+}
+/**
+ * Makes sure that the provided function is invoked at most once.
+ */
+
+
+function once(func) {
+  var necooData = window.necooPushCallStack(arguments);
+  var invoked = false;
+  return function _anonymous_6() {
+    var necooData = window.necooPushCallStack(arguments);
+    if (invoked) return;
+    invoked = true;
+    return func.apply(this, arguments);
+  };
+}
+
+var noop = function _anonymous_7() {
+  var necooData = window.necooPushCallStack(arguments);
+};
+
+function unique(list) {
+  var necooData = window.necooPushCallStack(arguments);
+  var res = [];
+  list.forEach(function _anonymous_8(item) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (res.indexOf(item) === -1) res.push(item);
+  });
+  return res;
+}
+
+function isObject(value) {
+  var necooData = window.necooPushCallStack(arguments);
+  return value !== null && typeof value === "object";
+}
+
+function isPlainObject(value) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (value === null || typeof value !== "object") return false;
+  var proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function addHiddenProp(object, propName, value) {
+  var necooData = window.necooPushCallStack(arguments);
+  Object.defineProperty(object, propName, {
+    enumerable: false,
+    writable: true,
+    configurable: true,
+    value: value
+  });
+}
+
+function addHiddenFinalProp(object, propName, value) {
+  var necooData = window.necooPushCallStack(arguments);
+  Object.defineProperty(object, propName, {
+    enumerable: false,
+    writable: false,
+    configurable: true,
+    value: value
+  });
+}
+
+function isPropertyConfigurable(object, prop) {
+  var necooData = window.necooPushCallStack(arguments);
+  var descriptor = Object.getOwnPropertyDescriptor(object, prop);
+  return !descriptor || descriptor.configurable !== false && descriptor.writable !== false;
+}
+
+function assertPropertyConfigurable(object, prop) {
+  var necooData = window.necooPushCallStack(arguments);
+  if ( true && !isPropertyConfigurable(object, prop)) fail("Cannot make property '" + prop.toString() + "' observable, it is not configurable and writable in the target object");
+}
+
+function createInstanceofPredicate(name, clazz) {
+  var necooData = window.necooPushCallStack(arguments);
+  var propName = "isMobX" + name;
+  clazz.prototype[propName] = true;
+  return function _anonymous_9(x) {
+    var necooData = window.necooPushCallStack(arguments);
+    return isObject(x) && x[propName] === true;
+  };
+}
+/**
+ * Returns whether the argument is an array, disregarding observability.
+ */
+
+
+function isArrayLike(x) {
+  var necooData = window.necooPushCallStack(arguments);
+  return Array.isArray(x) || isObservableArray(x);
+}
+
+function isES6Map(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  return thing instanceof Map;
+}
+
+function isES6Set(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  return thing instanceof Set;
+}
+/**
+ * Returns the following: own keys, prototype keys & own symbol keys, if they are enumerable.
+ */
+
+
+function getPlainObjectKeys(object) {
+  var necooData = window.necooPushCallStack(arguments);
+  var enumerables = new Set();
+
+  for (var key in object) enumerables.add(key); // *all* enumerables
+
+
+  Object.getOwnPropertySymbols(object).forEach(function _anonymous_10(k) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (Object.getOwnPropertyDescriptor(object, k).enumerable) enumerables.add(k);
+  }); // *own* symbols
+  // Note: this implementation is missing enumerable, inherited, symbolic property names! That would however pretty expensive to add,
+  // as there is no efficient iterator that returns *all* properties
+
+  return Array.from(enumerables);
+}
+
+function stringifyKey(key) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (key && key.toString) return key.toString();else return new String(key).toString();
+}
+
+function getMapLikeKeys(map) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (isPlainObject(map)) return Object.keys(map);
+  if (Array.isArray(map)) return map.map(function _anonymous_11(_a) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _b = __read(_a, 1),
+        key = _b[0];
+
+    return key;
+  });
+  if (isES6Map(map) || isObservableMap(map)) return Array.from(map.keys());
+  return fail("Cannot get keys from '" + map + "'");
+}
+
+function toPrimitive(value) {
+  var necooData = window.necooPushCallStack(arguments);
+  return value === null ? null : typeof value === "object" ? "" + value : value;
+}
+
+var $mobx = Symbol("mobx administration");
+
+var Atom =
+/** @class */
+function _anonymous_12() {
+  var necooData = window.necooPushCallStack(arguments);
+  /**
+   * Create a new atom. For debugging purposes it is recommended to give it a name.
+   * The onBecomeObserved and onBecomeUnobserved callbacks can be used for resource management.
+   */
+
+  function Atom(name) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (name === void 0) {
+      name = "Atom@" + getNextId();
+    }
+
+    this.name = name;
+    this.isPendingUnobservation = false; // for effective unobserving. BaseAtom has true, for extra optimization, so its onBecomeUnobserved never gets called, because it's not needed
+
+    this.isBeingObserved = false;
+    this.observers = new Set();
+    this.diffValue = 0;
+    this.lastAccessedBy = 0;
+    this.lowestObserverState = IDerivationState.NOT_TRACKING;
+  }
+
+  Atom.prototype.onBecomeObserved = function _anonymous_13() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.onBecomeObservedListeners) {
+      this.onBecomeObservedListeners.forEach(function _anonymous_14(listener) {
+        var necooData = window.necooPushCallStack(arguments);
+        return listener();
+      });
+    }
+  };
+
+  Atom.prototype.onBecomeUnobserved = function _anonymous_15() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.onBecomeUnobservedListeners) {
+      this.onBecomeUnobservedListeners.forEach(function _anonymous_16(listener) {
+        var necooData = window.necooPushCallStack(arguments);
+        return listener();
+      });
+    }
+  };
+  /**
+   * Invoke this method to notify mobx that your atom has been used somehow.
+   * Returns true if there is currently a reactive context.
+   */
+
+
+  Atom.prototype.reportObserved = function _anonymous_17() {
+    var necooData = window.necooPushCallStack(arguments);
+    return reportObserved(this);
+  };
+  /**
+   * Invoke this method _after_ this method has changed to signal mobx that all its observers should invalidate.
+   */
+
+
+  Atom.prototype.reportChanged = function _anonymous_18() {
+    var necooData = window.necooPushCallStack(arguments);
+    startBatch();
+    propagateChanged(this);
+    endBatch();
+  };
+
+  Atom.prototype.toString = function _anonymous_19() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.name;
+  };
+
+  return Atom;
+}();
+
+var isAtom = createInstanceofPredicate("Atom", Atom);
+
+function createAtom(name, onBecomeObservedHandler, onBecomeUnobservedHandler) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (onBecomeObservedHandler === void 0) {
+    onBecomeObservedHandler = noop;
+  }
+
+  if (onBecomeUnobservedHandler === void 0) {
+    onBecomeUnobservedHandler = noop;
+  }
+
+  var atom = new Atom(name); // default `noop` listener will not initialize the hook Set
+
+  if (onBecomeObservedHandler !== noop) {
+    onBecomeObserved(atom, onBecomeObservedHandler);
+  }
+
+  if (onBecomeUnobservedHandler !== noop) {
+    onBecomeUnobserved(atom, onBecomeUnobservedHandler);
+  }
+
+  return atom;
+}
+
+function identityComparer(a, b) {
+  var necooData = window.necooPushCallStack(arguments);
+  return a === b;
+}
+
+function structuralComparer(a, b) {
+  var necooData = window.necooPushCallStack(arguments);
+  return deepEqual(a, b);
+}
+
+function defaultComparer(a, b) {
+  var necooData = window.necooPushCallStack(arguments);
+  return Object.is(a, b);
+}
+
+var comparer = {
+  identity: identityComparer,
+  structural: structuralComparer,
+  default: defaultComparer
+};
+var mobxDidRunLazyInitializersSymbol = Symbol("mobx did run lazy initializers");
+var mobxPendingDecorators = Symbol("mobx pending decorators");
+var enumerableDescriptorCache = {};
+var nonEnumerableDescriptorCache = {};
+
+function createPropertyInitializerDescriptor(prop, enumerable) {
+  var necooData = window.necooPushCallStack(arguments);
+  var cache = enumerable ? enumerableDescriptorCache : nonEnumerableDescriptorCache;
+  return cache[prop] || (cache[prop] = {
+    configurable: true,
+    enumerable: enumerable,
+    get: function _anonymous_20() {
+      var necooData = window.necooPushCallStack(arguments);
+      initializeInstance(this);
+      return this[prop];
+    },
+    set: function _anonymous_21(value) {
+      var necooData = window.necooPushCallStack(arguments);
+      initializeInstance(this);
+      this[prop] = value;
+    }
+  });
+}
+
+function initializeInstance(target) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (target[mobxDidRunLazyInitializersSymbol] === true) return;
+  var decorators = target[mobxPendingDecorators];
+
+  if (decorators) {
+    addHiddenProp(target, mobxDidRunLazyInitializersSymbol, true);
+
+    for (var key in decorators) {
+      var d = decorators[key];
+      d.propertyCreator(target, d.prop, d.descriptor, d.decoratorTarget, d.decoratorArguments);
+    }
+  }
+}
+
+function createPropDecorator(propertyInitiallyEnumerable, propertyCreator) {
+  var necooData = window.necooPushCallStack(arguments);
+  return function decoratorFactory() {
+    var necooData = window.necooPushCallStack(arguments);
+    var decoratorArguments;
+
+    var decorator = function decorate(target, prop, descriptor, applyImmediately // This is a special parameter to signal the direct application of a decorator, allow extendObservable to skip the entire type decoration part,
+    // as the instance to apply the decorator to equals the target
+    ) {
+      var necooData = window.necooPushCallStack(arguments);
+
+      if (applyImmediately === true) {
+        propertyCreator(target, prop, descriptor, target, decoratorArguments);
+        return null;
+      }
+
+      if ( true && !quacksLikeADecorator(arguments)) fail("This function is a decorator, but it wasn't invoked like a decorator");
+
+      if (!Object.prototype.hasOwnProperty.call(target, mobxPendingDecorators)) {
+        var inheritedDecorators = target[mobxPendingDecorators];
+        addHiddenProp(target, mobxPendingDecorators, __assign({}, inheritedDecorators));
+      }
+
+      target[mobxPendingDecorators][prop] = {
+        prop: prop,
+        propertyCreator: propertyCreator,
+        descriptor: descriptor,
+        decoratorTarget: target,
+        decoratorArguments: decoratorArguments
+      };
+      return createPropertyInitializerDescriptor(prop, propertyInitiallyEnumerable);
+    };
+
+    if (quacksLikeADecorator(arguments)) {
+      // @decorator
+      decoratorArguments = EMPTY_ARRAY;
+      return decorator.apply(null, arguments);
+    } else {
+      // @decorator(args)
+      decoratorArguments = Array.prototype.slice.call(arguments);
+      return decorator;
+    }
+  };
+}
+
+function quacksLikeADecorator(args) {
+  var necooData = window.necooPushCallStack(arguments);
+  return (args.length === 2 || args.length === 3) && typeof args[1] === "string" || args.length === 4 && args[3] === true;
+}
+
+function deepEnhancer(v, _, name) {
+  var necooData = window.necooPushCallStack(arguments); // it is an observable already, done
+
+  if (isObservable(v)) return v; // something that can be converted and mutated?
+
+  if (Array.isArray(v)) return observable.array(v, {
+    name: name
+  });
+  if (isPlainObject(v)) return observable.object(v, undefined, {
+    name: name
+  });
+  if (isES6Map(v)) return observable.map(v, {
+    name: name
+  });
+  if (isES6Set(v)) return observable.set(v, {
+    name: name
+  });
+  return v;
+}
+
+function shallowEnhancer(v, _, name) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (v === undefined || v === null) return v;
+  if (isObservableObject(v) || isObservableArray(v) || isObservableMap(v) || isObservableSet(v)) return v;
+  if (Array.isArray(v)) return observable.array(v, {
+    name: name,
+    deep: false
+  });
+  if (isPlainObject(v)) return observable.object(v, undefined, {
+    name: name,
+    deep: false
+  });
+  if (isES6Map(v)) return observable.map(v, {
+    name: name,
+    deep: false
+  });
+  if (isES6Set(v)) return observable.set(v, {
+    name: name,
+    deep: false
+  });
+  return fail( true && "The shallow modifier / decorator can only used in combination with arrays, objects, maps and sets");
+}
+
+function referenceEnhancer(newValue) {
+  var necooData = window.necooPushCallStack(arguments); // never turn into an observable
+
+  return newValue;
+}
+
+function refStructEnhancer(v, oldValue, name) {
+  var necooData = window.necooPushCallStack(arguments);
+  if ( true && isObservable(v)) throw "observable.struct should not be used with observable values";
+  if (deepEqual(v, oldValue)) return oldValue;
+  return v;
+}
+
+function createDecoratorForEnhancer(enhancer) {
+  var necooData = window.necooPushCallStack(arguments);
+  invariant(enhancer);
+  var decorator = createPropDecorator(true, function _anonymous_22(target, propertyName, descriptor, _decoratorTarget, decoratorArgs) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (true) {
+      invariant(!descriptor || !descriptor.get, "@observable cannot be used on getter (property \"" + stringifyKey(propertyName) + "\"), use @computed instead.");
+    }
+
+    var initialValue = descriptor ? descriptor.initializer ? descriptor.initializer.call(target) : descriptor.value : undefined;
+    asObservableObject(target).addObservableProp(propertyName, initialValue, enhancer);
+  });
+  var res = // Extra process checks, as this happens during module initialization
+  typeof process !== "undefined" && process.env && "development" !== "production" ? function observableDecorator() {
+    var necooData = window.necooPushCallStack(arguments); // This wrapper function is just to detect illegal decorator invocations, deprecate in a next version
+    // and simply return the created prop decorator
+
+    if (arguments.length < 2) return fail("Incorrect decorator invocation. @observable decorator doesn't expect any arguments");
+    return decorator.apply(null, arguments);
+  } : decorator;
+  res.enhancer = enhancer;
+  return res;
+} // Predefined bags of create observable options, to avoid allocating temporarily option objects
+// in the majority of cases
+
+
+var defaultCreateObservableOptions = {
+  deep: true,
+  name: undefined,
+  defaultDecorator: undefined,
+  proxy: true
+};
+Object.freeze(defaultCreateObservableOptions);
+
+function assertValidOption(key) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (!/^(deep|name|equals|defaultDecorator|proxy)$/.test(key)) fail("invalid option for (extend)observable: " + key);
+}
+
+function asCreateObservableOptions(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (thing === null || thing === undefined) return defaultCreateObservableOptions;
+  if (typeof thing === "string") return {
+    name: thing,
+    deep: true,
+    proxy: true
+  };
+
+  if (true) {
+    if (typeof thing !== "object") return fail("expected options object");
+    Object.keys(thing).forEach(assertValidOption);
+  }
+
+  return thing;
+}
+
+var deepDecorator = createDecoratorForEnhancer(deepEnhancer);
+var shallowDecorator = createDecoratorForEnhancer(shallowEnhancer);
+var refDecorator = createDecoratorForEnhancer(referenceEnhancer);
+var refStructDecorator = createDecoratorForEnhancer(refStructEnhancer);
+
+function getEnhancerFromOptions(options) {
+  var necooData = window.necooPushCallStack(arguments);
+  return options.defaultDecorator ? options.defaultDecorator.enhancer : options.deep === false ? referenceEnhancer : deepEnhancer;
+}
+/**
+ * Turns an object, array or function into a reactive structure.
+ * @param v the value which should become observable.
+ */
+
+
+function createObservable(v, arg2, arg3) {
+  var necooData = window.necooPushCallStack(arguments); // @observable someProp;
+
+  if (typeof arguments[1] === "string") {
+    return deepDecorator.apply(null, arguments);
+  } // it is an observable already, done
+
+
+  if (isObservable(v)) return v; // something that can be converted and mutated?
+
+  var res = isPlainObject(v) ? observable.object(v, arg2, arg3) : Array.isArray(v) ? observable.array(v, arg2) : isES6Map(v) ? observable.map(v, arg2) : isES6Set(v) ? observable.set(v, arg2) : v; // this value could be converted to a new observable data structure, return it
+
+  if (res !== v) return res; // otherwise, just box it
+
+  fail( true && "The provided value could not be converted into an observable. If you want just create an observable reference to the object use 'observable.box(value)'");
+}
+
+var observableFactories = {
+  box: function _anonymous_23(value, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (arguments.length > 2) incorrectlyUsedAsDecorator("box");
+    var o = asCreateObservableOptions(options);
+    return new ObservableValue(value, getEnhancerFromOptions(o), o.name, true, o.equals);
+  },
+  array: function _anonymous_24(initialValues, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (arguments.length > 2) incorrectlyUsedAsDecorator("array");
+    var o = asCreateObservableOptions(options);
+    return createObservableArray(initialValues, getEnhancerFromOptions(o), o.name);
+  },
+  map: function _anonymous_25(initialValues, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (arguments.length > 2) incorrectlyUsedAsDecorator("map");
+    var o = asCreateObservableOptions(options);
+    return new ObservableMap(initialValues, getEnhancerFromOptions(o), o.name);
+  },
+  set: function _anonymous_26(initialValues, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (arguments.length > 2) incorrectlyUsedAsDecorator("set");
+    var o = asCreateObservableOptions(options);
+    return new ObservableSet(initialValues, getEnhancerFromOptions(o), o.name);
+  },
+  object: function _anonymous_27(props, decorators, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (typeof arguments[1] === "string") incorrectlyUsedAsDecorator("object");
+    var o = asCreateObservableOptions(options);
+
+    if (o.proxy === false) {
+      return extendObservable({}, props, decorators, o);
+    } else {
+      var defaultDecorator = getDefaultDecoratorFromObjectOptions(o);
+      var base = extendObservable({}, undefined, undefined, o);
+      var proxy = createDynamicObservableObject(base);
+      extendObservableObjectWithProperties(proxy, props, decorators, defaultDecorator);
+      return proxy;
+    }
+  },
+  ref: refDecorator,
+  shallow: shallowDecorator,
+  deep: deepDecorator,
+  struct: refStructDecorator
+};
+var observable = createObservable; // weird trick to keep our typings nicely with our funcs, and still extend the observable function
+
+Object.keys(observableFactories).forEach(function _anonymous_28(name) {
+  var necooData = window.necooPushCallStack(arguments);
+  return observable[name] = observableFactories[name];
+});
+
+function incorrectlyUsedAsDecorator(methodName) {
+  var necooData = window.necooPushCallStack(arguments);
+  fail( // process.env.NODE_ENV !== "production" &&
+  "Expected one or two arguments to observable." + methodName + ". Did you accidentally try to use observable." + methodName + " as decorator?");
+}
+
+var computedDecorator = createPropDecorator(false, function _anonymous_29(instance, propertyName, descriptor, decoratorTarget, decoratorArgs) {
+  var necooData = window.necooPushCallStack(arguments);
+  var get = descriptor.get,
+      set = descriptor.set; // initialValue is the descriptor for get / set props
+  // Optimization: faster on decorator target or instance? Assuming target
+  // Optimization: find out if declaring on instance isn't just faster. (also makes the property descriptor simpler). But, more memory usage..
+  // Forcing instance now, fixes hot reloadig issues on React Native:
+
+  var options = decoratorArgs[0] || {};
+  asObservableObject(instance).addComputedProp(instance, propertyName, __assign({
+    get: get,
+    set: set,
+    context: instance
+  }, options));
+});
+var computedStructDecorator = computedDecorator({
+  equals: comparer.structural
+});
+/**
+ * Decorator for class properties: @computed get value() { return expr; }.
+ * For legacy purposes also invokable as ES5 observable created: `computed(() => expr)`;
+ */
+
+var computed = function computed(arg1, arg2, arg3) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (typeof arg2 === "string") {
+    // @computed
+    return computedDecorator.apply(null, arguments);
+  }
+
+  if (arg1 !== null && typeof arg1 === "object" && arguments.length === 1) {
+    // @computed({ options })
+    return computedDecorator.apply(null, arguments);
+  } // computed(expr, options?)
+
+
+  if (true) {
+    invariant(typeof arg1 === "function", "First argument to `computed` should be an expression.");
+    invariant(arguments.length < 3, "Computed takes one or two arguments if used as function");
+  }
+
+  var opts = typeof arg2 === "object" ? arg2 : {};
+  opts.get = arg1;
+  opts.set = typeof arg2 === "function" ? arg2 : opts.set;
+  opts.name = opts.name || arg1.name || "";
+  /* for generated name */
+
+  return new ComputedValue(opts);
+};
+
+computed.struct = computedStructDecorator;
+
+function createAction(actionName, fn, ref) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (true) {
+    invariant(typeof fn === "function", "`action` can only be invoked on functions");
+    if (typeof actionName !== "string" || !actionName) fail("actions should have valid names, got: '" + actionName + "'");
+  }
+
+  var res = function _anonymous_30() {
+    var necooData = window.necooPushCallStack(arguments);
+    return executeAction(actionName, fn, ref || this, arguments);
+  };
+
+  res.isMobxAction = true;
+  return res;
+}
+
+function executeAction(actionName, fn, scope, args) {
+  var necooData = window.necooPushCallStack(arguments);
+  var runInfo = startAction(actionName, fn, scope, args);
+  var shouldSupressReactionError = true;
+
+  try {
+    var res = fn.apply(scope, args);
+    shouldSupressReactionError = false;
+    return res;
+  } finally {
+    if (shouldSupressReactionError) {
+      globalState.suppressReactionErrors = shouldSupressReactionError;
+      endAction(runInfo);
+      globalState.suppressReactionErrors = false;
+    } else {
+      endAction(runInfo);
+    }
+  }
+}
+
+function startAction(actionName, fn, scope, args) {
+  var necooData = window.necooPushCallStack(arguments);
+  var notifySpy = isSpyEnabled() && !!actionName;
+  var startTime = 0;
+
+  if (notifySpy && "development" !== "production") {
+    startTime = Date.now();
+    var l = args && args.length || 0;
+    var flattendArgs = new Array(l);
+    if (l > 0) for (var i = 0; i < l; i++) flattendArgs[i] = args[i];
+    spyReportStart({
+      type: "action",
+      name: actionName,
+      object: scope,
+      arguments: flattendArgs
+    });
+  }
+
+  var prevDerivation = untrackedStart();
+  startBatch();
+  var prevAllowStateChanges = allowStateChangesStart(true);
+  return {
+    prevDerivation: prevDerivation,
+    prevAllowStateChanges: prevAllowStateChanges,
+    notifySpy: notifySpy,
+    startTime: startTime
+  };
+}
+
+function endAction(runInfo) {
+  var necooData = window.necooPushCallStack(arguments);
+  allowStateChangesEnd(runInfo.prevAllowStateChanges);
+  endBatch();
+  untrackedEnd(runInfo.prevDerivation);
+  if (runInfo.notifySpy && "development" !== "production") spyReportEnd({
+    time: Date.now() - runInfo.startTime
+  });
+}
+
+function allowStateChanges(allowStateChanges, func) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prev = allowStateChangesStart(allowStateChanges);
+  var res;
+
+  try {
+    res = func();
+  } finally {
+    allowStateChangesEnd(prev);
+  }
+
+  return res;
+}
+
+function allowStateChangesStart(allowStateChanges) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prev = globalState.allowStateChanges;
+  globalState.allowStateChanges = allowStateChanges;
+  return prev;
+}
+
+function allowStateChangesEnd(prev) {
+  var necooData = window.necooPushCallStack(arguments);
+  globalState.allowStateChanges = prev;
+}
+
+function allowStateChangesInsideComputed(func) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prev = globalState.computationDepth;
+  globalState.computationDepth = 0;
+  var res;
+
+  try {
+    res = func();
+  } finally {
+    globalState.computationDepth = prev;
+  }
+
+  return res;
+}
+
+var ObservableValue =
+/** @class */
+function _anonymous_31(_super) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  __extends(ObservableValue, _super);
+
+  function ObservableValue(value, enhancer, name, notifySpy, equals) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (name === void 0) {
+      name = "ObservableValue@" + getNextId();
+    }
+
+    if (notifySpy === void 0) {
+      notifySpy = true;
+    }
+
+    if (equals === void 0) {
+      equals = comparer.default;
+    }
+
+    var _this = _super.call(this, name) || this;
+
+    _this.enhancer = enhancer;
+    _this.name = name;
+    _this.equals = equals;
+    _this.hasUnreportedChange = false;
+    _this.value = enhancer(value, undefined, name);
+
+    if (notifySpy && isSpyEnabled() && "development" !== "production") {
+      // only notify spy if this is a stand-alone observable
+      spyReport({
+        type: "create",
+        name: _this.name,
+        newValue: "" + _this.value
+      });
+    }
+
+    return _this;
+  }
+
+  ObservableValue.prototype.dehanceValue = function _anonymous_32(value) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this.dehancer !== undefined) return this.dehancer(value);
+    return value;
+  };
+
+  ObservableValue.prototype.set = function _anonymous_33(newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var oldValue = this.value;
+    newValue = this.prepareNewValue(newValue);
+
+    if (newValue !== globalState.UNCHANGED) {
+      var notifySpy = isSpyEnabled();
+
+      if (notifySpy && "development" !== "production") {
+        spyReportStart({
+          type: "update",
+          name: this.name,
+          newValue: newValue,
+          oldValue: oldValue
+        });
+      }
+
+      this.setNewValue(newValue);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+    }
+  };
+
+  ObservableValue.prototype.prepareNewValue = function _anonymous_34(newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    checkIfStateModificationsAreAllowed(this);
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        object: this,
+        type: "update",
+        newValue: newValue
+      });
+      if (!change) return globalState.UNCHANGED;
+      newValue = change.newValue;
+    } // apply modifier
+
+
+    newValue = this.enhancer(newValue, this.value, this.name);
+    return this.equals(this.value, newValue) ? globalState.UNCHANGED : newValue;
+  };
+
+  ObservableValue.prototype.setNewValue = function _anonymous_35(newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var oldValue = this.value;
+    this.value = newValue;
+    this.reportChanged();
+
+    if (hasListeners(this)) {
+      notifyListeners(this, {
+        type: "update",
+        object: this,
+        newValue: newValue,
+        oldValue: oldValue
+      });
+    }
+  };
+
+  ObservableValue.prototype.get = function _anonymous_36() {
+    var necooData = window.necooPushCallStack(arguments);
+    this.reportObserved();
+    return this.dehanceValue(this.value);
+  };
+
+  ObservableValue.prototype.intercept = function _anonymous_37(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return registerInterceptor(this, handler);
+  };
+
+  ObservableValue.prototype.observe = function _anonymous_38(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (fireImmediately) listener({
+      object: this,
+      type: "update",
+      newValue: this.value,
+      oldValue: undefined
+    });
+    return registerListener(this, listener);
+  };
+
+  ObservableValue.prototype.toJSON = function _anonymous_39() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.get();
+  };
+
+  ObservableValue.prototype.toString = function _anonymous_40() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.name + "[" + this.value + "]";
+  };
+
+  ObservableValue.prototype.valueOf = function _anonymous_41() {
+    var necooData = window.necooPushCallStack(arguments);
+    return toPrimitive(this.get());
+  };
+
+  ObservableValue.prototype[Symbol.toPrimitive] = function _anonymous_42() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.valueOf();
+  };
+
+  return ObservableValue;
+}(Atom);
+
+var isObservableValue = createInstanceofPredicate("ObservableValue", ObservableValue);
+/**
+ * A node in the state dependency root that observes other nodes, and can be observed itself.
+ *
+ * ComputedValue will remember the result of the computation for the duration of the batch, or
+ * while being observed.
+ *
+ * During this time it will recompute only when one of its direct dependencies changed,
+ * but only when it is being accessed with `ComputedValue.get()`.
+ *
+ * Implementation description:
+ * 1. First time it's being accessed it will compute and remember result
+ *    give back remembered result until 2. happens
+ * 2. First time any deep dependency change, propagate POSSIBLY_STALE to all observers, wait for 3.
+ * 3. When it's being accessed, recompute if any shallow dependency changed.
+ *    if result changed: propagate STALE to all observers, that were POSSIBLY_STALE from the last step.
+ *    go to step 2. either way
+ *
+ * If at any point it's outside batch and it isn't observed: reset everything and go to 1.
+ */
+
+var ComputedValue =
+/** @class */
+function _anonymous_43() {
+  var necooData = window.necooPushCallStack(arguments);
+  /**
+   * Create a new computed value based on a function expression.
+   *
+   * The `name` property is for debug purposes only.
+   *
+   * The `equals` property specifies the comparer function to use to determine if a newly produced
+   * value differs from the previous value. Two comparers are provided in the library; `defaultComparer`
+   * compares based on identity comparison (===), and `structualComparer` deeply compares the structure.
+   * Structural comparison can be convenient if you always produce a new aggregated object and
+   * don't want to notify observers if it is structurally the same.
+   * This is useful for working with vectors, mouse coordinates etc.
+   */
+
+  function ComputedValue(options) {
+    var necooData = window.necooPushCallStack(arguments);
+    this.dependenciesState = IDerivationState.NOT_TRACKING;
+    this.observing = []; // nodes we are looking at. Our value depends on these nodes
+
+    this.newObserving = null; // during tracking it's an array with new observed observers
+
+    this.isBeingObserved = false;
+    this.isPendingUnobservation = false;
+    this.observers = new Set();
+    this.diffValue = 0;
+    this.runId = 0;
+    this.lastAccessedBy = 0;
+    this.lowestObserverState = IDerivationState.UP_TO_DATE;
+    this.unboundDepsCount = 0;
+    this.__mapid = "#" + getNextId();
+    this.value = new CaughtException(null);
+    this.isComputing = false; // to check for cycles
+
+    this.isRunningSetter = false;
+    this.isTracing = TraceMode.NONE;
+    if ( true && !options.get) throw "[mobx] missing option for computed: get";
+    this.derivation = options.get;
+    this.name = options.name || "ComputedValue@" + getNextId();
+    if (options.set) this.setter = createAction(this.name + "-setter", options.set);
+    this.equals = options.equals || (options.compareStructural || options.struct ? comparer.structural : comparer.default);
+    this.scope = options.context;
+    this.requiresReaction = !!options.requiresReaction;
+    this.keepAlive = !!options.keepAlive;
+  }
+
+  ComputedValue.prototype.onBecomeStale = function _anonymous_44() {
+    var necooData = window.necooPushCallStack(arguments);
+    propagateMaybeChanged(this);
+  };
+
+  ComputedValue.prototype.onBecomeObserved = function _anonymous_45() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.onBecomeObservedListeners) {
+      this.onBecomeObservedListeners.forEach(function _anonymous_46(listener) {
+        var necooData = window.necooPushCallStack(arguments);
+        return listener();
+      });
+    }
+  };
+
+  ComputedValue.prototype.onBecomeUnobserved = function _anonymous_47() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.onBecomeUnobservedListeners) {
+      this.onBecomeUnobservedListeners.forEach(function _anonymous_48(listener) {
+        var necooData = window.necooPushCallStack(arguments);
+        return listener();
+      });
+    }
+  };
+  /**
+   * Returns the current value of this computed value.
+   * Will evaluate its computation first if needed.
+   */
+
+
+  ComputedValue.prototype.get = function _anonymous_49() {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this.isComputing) fail("Cycle detected in computation " + this.name + ": " + this.derivation);
+
+    if (globalState.inBatch === 0 && this.observers.size === 0 && !this.keepAlive) {
+      if (shouldCompute(this)) {
+        this.warnAboutUntrackedRead();
+        startBatch(); // See perf test 'computed memoization'
+
+        this.value = this.computeValue(false);
+        endBatch();
+      }
+    } else {
+      reportObserved(this);
+      if (shouldCompute(this)) if (this.trackAndCompute()) propagateChangeConfirmed(this);
+    }
+
+    var result = this.value;
+    if (isCaughtException(result)) throw result.cause;
+    return result;
+  };
+
+  ComputedValue.prototype.peek = function _anonymous_50() {
+    var necooData = window.necooPushCallStack(arguments);
+    var res = this.computeValue(false);
+    if (isCaughtException(res)) throw res.cause;
+    return res;
+  };
+
+  ComputedValue.prototype.set = function _anonymous_51(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.setter) {
+      invariant(!this.isRunningSetter, "The setter of computed value '" + this.name + "' is trying to update itself. Did you intend to update an _observable_ value, instead of the computed property?");
+      this.isRunningSetter = true;
+
+      try {
+        this.setter.call(this.scope, value);
+      } finally {
+        this.isRunningSetter = false;
+      }
+    } else invariant(false,  true && "[ComputedValue '" + this.name + "'] It is not possible to assign a new value to a computed value.");
+  };
+
+  ComputedValue.prototype.trackAndCompute = function _anonymous_52() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (isSpyEnabled() && "development" !== "production") {
+      spyReport({
+        object: this.scope,
+        type: "compute",
+        name: this.name
+      });
+    }
+
+    var oldValue = this.value;
+    var wasSuspended =
+    /* see #1208 */
+    this.dependenciesState === IDerivationState.NOT_TRACKING;
+    var newValue = this.computeValue(true);
+    var changed = wasSuspended || isCaughtException(oldValue) || isCaughtException(newValue) || !this.equals(oldValue, newValue);
+
+    if (changed) {
+      this.value = newValue;
+    }
+
+    return changed;
+  };
+
+  ComputedValue.prototype.computeValue = function _anonymous_53(track) {
+    var necooData = window.necooPushCallStack(arguments);
+    this.isComputing = true;
+    globalState.computationDepth++;
+    var res;
+
+    if (track) {
+      res = trackDerivedFunction(this, this.derivation, this.scope);
+    } else {
+      if (globalState.disableErrorBoundaries === true) {
+        res = this.derivation.call(this.scope);
+      } else {
+        try {
+          res = this.derivation.call(this.scope);
+        } catch (e) {
+          res = new CaughtException(e);
+        }
+      }
+    }
+
+    globalState.computationDepth--;
+    this.isComputing = false;
+    return res;
+  };
+
+  ComputedValue.prototype.suspend = function _anonymous_54() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (!this.keepAlive) {
+      clearObserving(this);
+      this.value = undefined; // don't hold on to computed value!
+    }
+  };
+
+  ComputedValue.prototype.observe = function _anonymous_55(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    var firstTime = true;
+    var prevValue = undefined;
+    return autorun(function _anonymous_56() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      var newValue = _this.get();
+
+      if (!firstTime || fireImmediately) {
+        var prevU = untrackedStart();
+        listener({
+          type: "update",
+          object: _this,
+          newValue: newValue,
+          oldValue: prevValue
+        });
+        untrackedEnd(prevU);
+      }
+
+      firstTime = false;
+      prevValue = newValue;
+    });
+  };
+
+  ComputedValue.prototype.warnAboutUntrackedRead = function _anonymous_57() {
+    var necooData = window.necooPushCallStack(arguments);
+    if (false) {}
+
+    if (this.requiresReaction === true) {
+      fail("[mobx] Computed value " + this.name + " is read outside a reactive context");
+    }
+
+    if (this.isTracing !== TraceMode.NONE) {
+      console.log("[mobx.trace] '" + this.name + "' is being read outside a reactive context. Doing a full recompute");
+    }
+
+    if (globalState.computedRequiresReaction) {
+      console.warn("[mobx] Computed value " + this.name + " is being read outside a reactive context. Doing a full recompute");
+    }
+  };
+
+  ComputedValue.prototype.toJSON = function _anonymous_58() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.get();
+  };
+
+  ComputedValue.prototype.toString = function _anonymous_59() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.name + "[" + this.derivation.toString() + "]";
+  };
+
+  ComputedValue.prototype.valueOf = function _anonymous_60() {
+    var necooData = window.necooPushCallStack(arguments);
+    return toPrimitive(this.get());
+  };
+
+  ComputedValue.prototype[Symbol.toPrimitive] = function _anonymous_61() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.valueOf();
+  };
+
+  return ComputedValue;
+}();
+
+var isComputedValue = createInstanceofPredicate("ComputedValue", ComputedValue);
+var IDerivationState;
+
+(function _anonymous_62(IDerivationState) {
+  var necooData = window.necooPushCallStack(arguments); // before being run or (outside batch and not being observed)
+  // at this point derivation is not holding any data about dependency tree
+
+  IDerivationState[IDerivationState["NOT_TRACKING"] = -1] = "NOT_TRACKING"; // no shallow dependency changed since last computation
+  // won't recalculate derivation
+  // this is what makes mobx fast
+
+  IDerivationState[IDerivationState["UP_TO_DATE"] = 0] = "UP_TO_DATE"; // some deep dependency changed, but don't know if shallow dependency changed
+  // will require to check first if UP_TO_DATE or POSSIBLY_STALE
+  // currently only ComputedValue will propagate POSSIBLY_STALE
+  //
+  // having this state is second big optimization:
+  // don't have to recompute on every dependency change, but only when it's needed
+
+  IDerivationState[IDerivationState["POSSIBLY_STALE"] = 1] = "POSSIBLY_STALE"; // A shallow dependency has changed since last computation and the derivation
+  // will need to recompute when it's needed next.
+
+  IDerivationState[IDerivationState["STALE"] = 2] = "STALE";
+})(IDerivationState || (IDerivationState = {}));
+
+var TraceMode;
+
+(function _anonymous_63(TraceMode) {
+  var necooData = window.necooPushCallStack(arguments);
+  TraceMode[TraceMode["NONE"] = 0] = "NONE";
+  TraceMode[TraceMode["LOG"] = 1] = "LOG";
+  TraceMode[TraceMode["BREAK"] = 2] = "BREAK";
+})(TraceMode || (TraceMode = {}));
+
+var CaughtException =
+/** @class */
+function _anonymous_64() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function CaughtException(cause) {
+    var necooData = window.necooPushCallStack(arguments);
+    this.cause = cause; // Empty
+  }
+
+  return CaughtException;
+}();
+
+function isCaughtException(e) {
+  var necooData = window.necooPushCallStack(arguments);
+  return e instanceof CaughtException;
+}
+/**
+ * Finds out whether any dependency of the derivation has actually changed.
+ * If dependenciesState is 1 then it will recalculate dependencies,
+ * if any dependency changed it will propagate it by changing dependenciesState to 2.
+ *
+ * By iterating over the dependencies in the same order that they were reported and
+ * stopping on the first change, all the recalculations are only called for ComputedValues
+ * that will be tracked by derivation. That is because we assume that if the first x
+ * dependencies of the derivation doesn't change then the derivation should run the same way
+ * up until accessing x-th dependency.
+ */
+
+
+function shouldCompute(derivation) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  switch (derivation.dependenciesState) {
+    case IDerivationState.UP_TO_DATE:
+      return false;
+
+    case IDerivationState.NOT_TRACKING:
+    case IDerivationState.STALE:
+      return true;
+
+    case IDerivationState.POSSIBLY_STALE:
+      {
+        var prevUntracked = untrackedStart(); // no need for those computeds to be reported, they will be picked up in trackDerivedFunction.
+
+        var obs = derivation.observing,
+            l = obs.length;
+
+        for (var i = 0; i < l; i++) {
+          var obj = obs[i];
+
+          if (isComputedValue(obj)) {
+            if (globalState.disableErrorBoundaries) {
+              obj.get();
+            } else {
+              try {
+                obj.get();
+              } catch (e) {
+                // we are not interested in the value *or* exception at this moment, but if there is one, notify all
+                untrackedEnd(prevUntracked);
+                return true;
+              }
+            } // if ComputedValue `obj` actually changed it will be computed and propagated to its observers.
+            // and `derivation` is an observer of `obj`
+            // invariantShouldCompute(derivation)
+
+
+            if (derivation.dependenciesState === IDerivationState.STALE) {
+              untrackedEnd(prevUntracked);
+              return true;
+            }
+          }
+        }
+
+        changeDependenciesStateTo0(derivation);
+        untrackedEnd(prevUntracked);
+        return false;
+      }
+  }
+} // function invariantShouldCompute(derivation: IDerivation) {
+//     const newDepState = (derivation as any).dependenciesState
+//     if (
+//         process.env.NODE_ENV === "production" &&
+//         (newDepState === IDerivationState.POSSIBLY_STALE ||
+//             newDepState === IDerivationState.NOT_TRACKING)
+//     )
+//         fail("Illegal dependency state")
+// }
+
+
+function isComputingDerivation() {
+  var necooData = window.necooPushCallStack(arguments);
+  return globalState.trackingDerivation !== null; // filter out actions inside computations
+}
+
+function checkIfStateModificationsAreAllowed(atom) {
+  var necooData = window.necooPushCallStack(arguments);
+  var hasObservers = atom.observers.size > 0; // Should never be possible to change an observed observable from inside computed, see #798
+
+  if (globalState.computationDepth > 0 && hasObservers) fail( true && "Computed values are not allowed to cause side effects by changing observables that are already being observed. Tried to modify: " + atom.name); // Should not be possible to change observed state outside strict mode, except during initialization, see #563
+
+  if (!globalState.allowStateChanges && (hasObservers || globalState.enforceActions === "strict")) fail( true && (globalState.enforceActions ? "Since strict-mode is enabled, changing observed observable values outside actions is not allowed. Please wrap the code in an `action` if this change is intended. Tried to modify: " : "Side effects like changing state are not allowed at this point. Are you trying to modify state from, for example, the render function of a React component? Tried to modify: ") + atom.name);
+}
+/**
+ * Executes the provided function `f` and tracks which observables are being accessed.
+ * The tracking information is stored on the `derivation` object and the derivation is registered
+ * as observer of any of the accessed observables.
+ */
+
+
+function trackDerivedFunction(derivation, f, context) {
+  var necooData = window.necooPushCallStack(arguments); // pre allocate array allocation + room for variation in deps
+  // array will be trimmed by bindDependencies
+
+  changeDependenciesStateTo0(derivation);
+  derivation.newObserving = new Array(derivation.observing.length + 100);
+  derivation.unboundDepsCount = 0;
+  derivation.runId = ++globalState.runId;
+  var prevTracking = globalState.trackingDerivation;
+  globalState.trackingDerivation = derivation;
+  var result;
+
+  if (globalState.disableErrorBoundaries === true) {
+    result = f.call(context);
+  } else {
+    try {
+      result = f.call(context);
+    } catch (e) {
+      result = new CaughtException(e);
+    }
+  }
+
+  globalState.trackingDerivation = prevTracking;
+  bindDependencies(derivation);
+  return result;
+}
+/**
+ * diffs newObserving with observing.
+ * update observing to be newObserving with unique observables
+ * notify observers that become observed/unobserved
+ */
+
+
+function bindDependencies(derivation) {
+  var necooData = window.necooPushCallStack(arguments); // invariant(derivation.dependenciesState !== IDerivationState.NOT_TRACKING, "INTERNAL ERROR bindDependencies expects derivation.dependenciesState !== -1");
+
+  var prevObserving = derivation.observing;
+  var observing = derivation.observing = derivation.newObserving;
+  var lowestNewObservingDerivationState = IDerivationState.UP_TO_DATE; // Go through all new observables and check diffValue: (this list can contain duplicates):
+  //   0: first occurrence, change to 1 and keep it
+  //   1: extra occurrence, drop it
+
+  var i0 = 0,
+      l = derivation.unboundDepsCount;
+
+  for (var i = 0; i < l; i++) {
+    var dep = observing[i];
+
+    if (dep.diffValue === 0) {
+      dep.diffValue = 1;
+      if (i0 !== i) observing[i0] = dep;
+      i0++;
+    } // Upcast is 'safe' here, because if dep is IObservable, `dependenciesState` will be undefined,
+    // not hitting the condition
+
+
+    if (dep.dependenciesState > lowestNewObservingDerivationState) {
+      lowestNewObservingDerivationState = dep.dependenciesState;
+    }
+  }
+
+  observing.length = i0;
+  derivation.newObserving = null; // newObserving shouldn't be needed outside tracking (statement moved down to work around FF bug, see #614)
+  // Go through all old observables and check diffValue: (it is unique after last bindDependencies)
+  //   0: it's not in new observables, unobserve it
+  //   1: it keeps being observed, don't want to notify it. change to 0
+
+  l = prevObserving.length;
+
+  while (l--) {
+    var dep = prevObserving[l];
+
+    if (dep.diffValue === 0) {
+      removeObserver(dep, derivation);
+    }
+
+    dep.diffValue = 0;
+  } // Go through all new observables and check diffValue: (now it should be unique)
+  //   0: it was set to 0 in last loop. don't need to do anything.
+  //   1: it wasn't observed, let's observe it. set back to 0
+
+
+  while (i0--) {
+    var dep = observing[i0];
+
+    if (dep.diffValue === 1) {
+      dep.diffValue = 0;
+      addObserver(dep, derivation);
+    }
+  } // Some new observed derivations may become stale during this derivation computation
+  // so they have had no chance to propagate staleness (#916)
+
+
+  if (lowestNewObservingDerivationState !== IDerivationState.UP_TO_DATE) {
+    derivation.dependenciesState = lowestNewObservingDerivationState;
+    derivation.onBecomeStale();
+  }
+}
+
+function clearObserving(derivation) {
+  var necooData = window.necooPushCallStack(arguments); // invariant(globalState.inBatch > 0, "INTERNAL ERROR clearObserving should be called only inside batch");
+
+  var obs = derivation.observing;
+  derivation.observing = [];
+  var i = obs.length;
+
+  while (i--) removeObserver(obs[i], derivation);
+
+  derivation.dependenciesState = IDerivationState.NOT_TRACKING;
+}
+
+function untracked(action) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prev = untrackedStart();
+
+  try {
+    return action();
+  } finally {
+    untrackedEnd(prev);
+  }
+}
+
+function untrackedStart() {
+  var necooData = window.necooPushCallStack(arguments);
+  var prev = globalState.trackingDerivation;
+  globalState.trackingDerivation = null;
+  return prev;
+}
+
+function untrackedEnd(prev) {
+  var necooData = window.necooPushCallStack(arguments);
+  globalState.trackingDerivation = prev;
+}
+/**
+ * needed to keep `lowestObserverState` correct. when changing from (2 or 1) to 0
+ *
+ */
+
+
+function changeDependenciesStateTo0(derivation) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (derivation.dependenciesState === IDerivationState.UP_TO_DATE) return;
+  derivation.dependenciesState = IDerivationState.UP_TO_DATE;
+  var obs = derivation.observing;
+  var i = obs.length;
+
+  while (i--) obs[i].lowestObserverState = IDerivationState.UP_TO_DATE;
+}
+/**
+ * These values will persist if global state is reset
+ */
+
+
+var persistentKeys = ["mobxGuid", "spyListeners", "enforceActions", "computedRequiresReaction", "disableErrorBoundaries", "runId", "UNCHANGED"];
+
+var MobXGlobals =
+/** @class */
+function _anonymous_65() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function MobXGlobals() {
+    var necooData = window.necooPushCallStack(arguments);
+    /**
+     * MobXGlobals version.
+     * MobX compatiblity with other versions loaded in memory as long as this version matches.
+     * It indicates that the global state still stores similar information
+     *
+     * N.B: this version is unrelated to the package version of MobX, and is only the version of the
+     * internal state storage of MobX, and can be the same across many different package versions
+     */
+
+    this.version = 5;
+    /**
+     * globally unique token to signal unchanged
+     */
+
+    this.UNCHANGED = {};
+    /**
+     * Currently running derivation
+     */
+
+    this.trackingDerivation = null;
+    /**
+     * Are we running a computation currently? (not a reaction)
+     */
+
+    this.computationDepth = 0;
+    /**
+     * Each time a derivation is tracked, it is assigned a unique run-id
+     */
+
+    this.runId = 0;
+    /**
+     * 'guid' for general purpose. Will be persisted amongst resets.
+     */
+
+    this.mobxGuid = 0;
+    /**
+     * Are we in a batch block? (and how many of them)
+     */
+
+    this.inBatch = 0;
+    /**
+     * Observables that don't have observers anymore, and are about to be
+     * suspended, unless somebody else accesses it in the same batch
+     *
+     * @type {IObservable[]}
+     */
+
+    this.pendingUnobservations = [];
+    /**
+     * List of scheduled, not yet executed, reactions.
+     */
+
+    this.pendingReactions = [];
+    /**
+     * Are we currently processing reactions?
+     */
+
+    this.isRunningReactions = false;
+    /**
+     * Is it allowed to change observables at this point?
+     * In general, MobX doesn't allow that when running computations and React.render.
+     * To ensure that those functions stay pure.
+     */
+
+    this.allowStateChanges = true;
+    /**
+     * If strict mode is enabled, state changes are by default not allowed
+     */
+
+    this.enforceActions = false;
+    /**
+     * Spy callbacks
+     */
+
+    this.spyListeners = [];
+    /**
+     * Globally attached error handlers that react specifically to errors in reactions
+     */
+
+    this.globalReactionErrorHandlers = [];
+    /**
+     * Warn if computed values are accessed outside a reactive context
+     */
+
+    this.computedRequiresReaction = false;
+    /*
+     * Don't catch and rethrow exceptions. This is useful for inspecting the state of
+     * the stack when an exception occurs while debugging.
+     */
+
+    this.disableErrorBoundaries = false;
+    /*
+     * If true, we are already handling an exception in an action. Any errors in reactions should be supressed, as
+     * they are not the cause, see: https://github.com/mobxjs/mobx/issues/1836
+     */
+
+    this.suppressReactionErrors = false;
+  }
+
+  return MobXGlobals;
+}();
+
+var canMergeGlobalState = true;
+var isolateCalled = false;
+
+var globalState = function _anonymous_66() {
+  var necooData = window.necooPushCallStack(arguments);
+  var global = getGlobal();
+  if (global.__mobxInstanceCount > 0 && !global.__mobxGlobals) canMergeGlobalState = false;
+  if (global.__mobxGlobals && global.__mobxGlobals.version !== new MobXGlobals().version) canMergeGlobalState = false;
+
+  if (!canMergeGlobalState) {
+    setTimeout(function _anonymous_67() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      if (!isolateCalled) {
+        fail("There are multiple, different versions of MobX active. Make sure MobX is loaded only once or use `configure({ isolateGlobalState: true })`");
+      }
+    }, 1);
+    return new MobXGlobals();
+  } else if (global.__mobxGlobals) {
+    global.__mobxInstanceCount += 1;
+    if (!global.__mobxGlobals.UNCHANGED) global.__mobxGlobals.UNCHANGED = {}; // make merge backward compatible
+
+    return global.__mobxGlobals;
+  } else {
+    global.__mobxInstanceCount = 1;
+    return global.__mobxGlobals = new MobXGlobals();
+  }
+}();
+
+function isolateGlobalState() {
+  var necooData = window.necooPushCallStack(arguments);
+  if (globalState.pendingReactions.length || globalState.inBatch || globalState.isRunningReactions) fail("isolateGlobalState should be called before MobX is running any reactions");
+  isolateCalled = true;
+
+  if (canMergeGlobalState) {
+    if (--getGlobal().__mobxInstanceCount === 0) getGlobal().__mobxGlobals = undefined;
+    globalState = new MobXGlobals();
+  }
+}
+
+function getGlobalState() {
+  var necooData = window.necooPushCallStack(arguments);
+  return globalState;
+}
+/**
+ * For testing purposes only; this will break the internal state of existing observables,
+ * but can be used to get back at a stable state after throwing errors
+ */
+
+
+function resetGlobalState() {
+  var necooData = window.necooPushCallStack(arguments);
+  var defaultGlobals = new MobXGlobals();
+
+  for (var key in defaultGlobals) if (persistentKeys.indexOf(key) === -1) globalState[key] = defaultGlobals[key];
+
+  globalState.allowStateChanges = !globalState.enforceActions;
+}
+
+function getGlobal() {
+  var necooData = window.necooPushCallStack(arguments);
+  return typeof window !== "undefined" ? window : global;
+}
+
+function hasObservers(observable) {
+  var necooData = window.necooPushCallStack(arguments);
+  return observable.observers && observable.observers.size > 0;
+}
+
+function getObservers(observable) {
+  var necooData = window.necooPushCallStack(arguments);
+  return observable.observers;
+} // function invariantObservers(observable: IObservable) {
+//     const list = observable.observers
+//     const map = observable.observersIndexes
+//     const l = list.length
+//     for (let i = 0; i < l; i++) {
+//         const id = list[i].__mapid
+//         if (i) {
+//             invariant(map[id] === i, "INTERNAL ERROR maps derivation.__mapid to index in list") // for performance
+//         } else {
+//             invariant(!(id in map), "INTERNAL ERROR observer on index 0 shouldn't be held in map.") // for performance
+//         }
+//     }
+//     invariant(
+//         list.length === 0 || Object.keys(map).length === list.length - 1,
+//         "INTERNAL ERROR there is no junk in map"
+//     )
+// }
+
+
+function addObserver(observable, node) {
+  var necooData = window.necooPushCallStack(arguments); // invariant(node.dependenciesState !== -1, "INTERNAL ERROR, can add only dependenciesState !== -1");
+  // invariant(observable._observers.indexOf(node) === -1, "INTERNAL ERROR add already added node");
+  // invariantObservers(observable);
+
+  observable.observers.add(node);
+  if (observable.lowestObserverState > node.dependenciesState) observable.lowestObserverState = node.dependenciesState; // invariantObservers(observable);
+  // invariant(observable._observers.indexOf(node) !== -1, "INTERNAL ERROR didn't add node");
+}
+
+function removeObserver(observable, node) {
+  var necooData = window.necooPushCallStack(arguments); // invariant(globalState.inBatch > 0, "INTERNAL ERROR, remove should be called only inside batch");
+  // invariant(observable._observers.indexOf(node) !== -1, "INTERNAL ERROR remove already removed node");
+  // invariantObservers(observable);
+
+  observable.observers.delete(node);
+
+  if (observable.observers.size === 0) {
+    // deleting last observer
+    queueForUnobservation(observable);
+  } // invariantObservers(observable);
+  // invariant(observable._observers.indexOf(node) === -1, "INTERNAL ERROR remove already removed node2");
+
+}
+
+function queueForUnobservation(observable) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (observable.isPendingUnobservation === false) {
+    // invariant(observable._observers.length === 0, "INTERNAL ERROR, should only queue for unobservation unobserved observables");
+    observable.isPendingUnobservation = true;
+    globalState.pendingUnobservations.push(observable);
+  }
+}
+/**
+ * Batch starts a transaction, at least for purposes of memoizing ComputedValues when nothing else does.
+ * During a batch `onBecomeUnobserved` will be called at most once per observable.
+ * Avoids unnecessary recalculations.
+ */
+
+
+function startBatch() {
+  var necooData = window.necooPushCallStack(arguments);
+  globalState.inBatch++;
+}
+
+function endBatch() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (--globalState.inBatch === 0) {
+    runReactions(); // the batch is actually about to finish, all unobserving should happen here.
+
+    var list = globalState.pendingUnobservations;
+
+    for (var i = 0; i < list.length; i++) {
+      var observable = list[i];
+      observable.isPendingUnobservation = false;
+
+      if (observable.observers.size === 0) {
+        if (observable.isBeingObserved) {
+          // if this observable had reactive observers, trigger the hooks
+          observable.isBeingObserved = false;
+          observable.onBecomeUnobserved();
+        }
+
+        if (observable instanceof ComputedValue) {
+          // computed values are automatically teared down when the last observer leaves
+          // this process happens recursively, this computed might be the last observabe of another, etc..
+          observable.suspend();
+        }
+      }
+    }
+
+    globalState.pendingUnobservations = [];
+  }
+}
+
+function reportObserved(observable) {
+  var necooData = window.necooPushCallStack(arguments);
+  var derivation = globalState.trackingDerivation;
+
+  if (derivation !== null) {
+    /**
+     * Simple optimization, give each derivation run an unique id (runId)
+     * Check if last time this observable was accessed the same runId is used
+     * if this is the case, the relation is already known
+     */
+    if (derivation.runId !== observable.lastAccessedBy) {
+      observable.lastAccessedBy = derivation.runId; // Tried storing newObserving, or observing, or both as Set, but performance didn't come close...
+
+      derivation.newObserving[derivation.unboundDepsCount++] = observable;
+
+      if (!observable.isBeingObserved) {
+        observable.isBeingObserved = true;
+        observable.onBecomeObserved();
+      }
+    }
+
+    return true;
+  } else if (observable.observers.size === 0 && globalState.inBatch > 0) {
+    queueForUnobservation(observable);
+  }
+
+  return false;
+} // function invariantLOS(observable: IObservable, msg: string) {
+//     // it's expensive so better not run it in produciton. but temporarily helpful for testing
+//     const min = getObservers(observable).reduce((a, b) => Math.min(a, b.dependenciesState), 2)
+//     if (min >= observable.lowestObserverState) return // <- the only assumption about `lowestObserverState`
+//     throw new Error(
+//         "lowestObserverState is wrong for " +
+//             msg +
+//             " because " +
+//             min +
+//             " < " +
+//             observable.lowestObserverState
+//     )
+// }
+
+/**
+ * NOTE: current propagation mechanism will in case of self reruning autoruns behave unexpectedly
+ * It will propagate changes to observers from previous run
+ * It's hard or maybe impossible (with reasonable perf) to get it right with current approach
+ * Hopefully self reruning autoruns aren't a feature people should depend on
+ * Also most basic use cases should be ok
+ */
+// Called by Atom when its value changes
+
+
+function propagateChanged(observable) {
+  var necooData = window.necooPushCallStack(arguments); // invariantLOS(observable, "changed start");
+
+  if (observable.lowestObserverState === IDerivationState.STALE) return;
+  observable.lowestObserverState = IDerivationState.STALE; // Ideally we use for..of here, but the downcompiled version is really slow...
+
+  observable.observers.forEach(function _anonymous_68(d) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (d.dependenciesState === IDerivationState.UP_TO_DATE) {
+      if (d.isTracing !== TraceMode.NONE) {
+        logTraceInfo(d, observable);
+      }
+
+      d.onBecomeStale();
+    }
+
+    d.dependenciesState = IDerivationState.STALE;
+  }); // invariantLOS(observable, "changed end");
+} // Called by ComputedValue when it recalculate and its value changed
+
+
+function propagateChangeConfirmed(observable) {
+  var necooData = window.necooPushCallStack(arguments); // invariantLOS(observable, "confirmed start");
+
+  if (observable.lowestObserverState === IDerivationState.STALE) return;
+  observable.lowestObserverState = IDerivationState.STALE;
+  observable.observers.forEach(function _anonymous_69(d) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (d.dependenciesState === IDerivationState.POSSIBLY_STALE) d.dependenciesState = IDerivationState.STALE;else if (d.dependenciesState === IDerivationState.UP_TO_DATE // this happens during computing of `d`, just keep lowestObserverState up to date.
+    ) observable.lowestObserverState = IDerivationState.UP_TO_DATE;
+  }); // invariantLOS(observable, "confirmed end");
+} // Used by computed when its dependency changed, but we don't wan't to immediately recompute.
+
+
+function propagateMaybeChanged(observable) {
+  var necooData = window.necooPushCallStack(arguments); // invariantLOS(observable, "maybe start");
+
+  if (observable.lowestObserverState !== IDerivationState.UP_TO_DATE) return;
+  observable.lowestObserverState = IDerivationState.POSSIBLY_STALE;
+  observable.observers.forEach(function _anonymous_70(d) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (d.dependenciesState === IDerivationState.UP_TO_DATE) {
+      d.dependenciesState = IDerivationState.POSSIBLY_STALE;
+
+      if (d.isTracing !== TraceMode.NONE) {
+        logTraceInfo(d, observable);
+      }
+
+      d.onBecomeStale();
+    }
+  }); // invariantLOS(observable, "maybe end");
+}
+
+function logTraceInfo(derivation, observable) {
+  var necooData = window.necooPushCallStack(arguments);
+  console.log("[mobx.trace] '" + derivation.name + "' is invalidated due to a change in: '" + observable.name + "'");
+
+  if (derivation.isTracing === TraceMode.BREAK) {
+    var lines = [];
+    printDepTree(getDependencyTree(derivation), lines, 1); // prettier-ignore
+
+    new Function("debugger;\n/*\nTracing '" + derivation.name + "'\n\nYou are entering this break point because derivation '" + derivation.name + "' is being traced and '" + observable.name + "' is now forcing it to update.\nJust follow the stacktrace you should now see in the devtools to see precisely what piece of your code is causing this update\nThe stackframe you are looking for is at least ~6-8 stack-frames up.\n\n" + (derivation instanceof ComputedValue ? derivation.derivation.toString().replace(/[*]\//g, "/") : "") + "\n\nThe dependencies for this derivation are:\n\n" + lines.join("\n") + "\n*/\n    ")();
+  }
+}
+
+function printDepTree(tree, lines, depth) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (lines.length >= 1000) {
+    lines.push("(and many more)");
+    return;
+  }
+
+  lines.push("" + new Array(depth).join("\t") + tree.name); // MWE: not the fastest, but the easiest way :)
+
+  if (tree.dependencies) tree.dependencies.forEach(function _anonymous_71(child) {
+    var necooData = window.necooPushCallStack(arguments);
+    return printDepTree(child, lines, depth + 1);
+  });
+}
+
+var Reaction =
+/** @class */
+function _anonymous_72() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function Reaction(name, onInvalidate, errorHandler) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (name === void 0) {
+      name = "Reaction@" + getNextId();
+    }
+
+    this.name = name;
+    this.onInvalidate = onInvalidate;
+    this.errorHandler = errorHandler;
+    this.observing = []; // nodes we are looking at. Our value depends on these nodes
+
+    this.newObserving = [];
+    this.dependenciesState = IDerivationState.NOT_TRACKING;
+    this.diffValue = 0;
+    this.runId = 0;
+    this.unboundDepsCount = 0;
+    this.__mapid = "#" + getNextId();
+    this.isDisposed = false;
+    this._isScheduled = false;
+    this._isTrackPending = false;
+    this._isRunning = false;
+    this.isTracing = TraceMode.NONE;
+  }
+
+  Reaction.prototype.onBecomeStale = function _anonymous_73() {
+    var necooData = window.necooPushCallStack(arguments);
+    this.schedule();
+  };
+
+  Reaction.prototype.schedule = function _anonymous_74() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (!this._isScheduled) {
+      this._isScheduled = true;
+      globalState.pendingReactions.push(this);
+      runReactions();
+    }
+  };
+
+  Reaction.prototype.isScheduled = function _anonymous_75() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this._isScheduled;
+  };
+  /**
+   * internal, use schedule() if you intend to kick off a reaction
+   */
+
+
+  Reaction.prototype.runReaction = function _anonymous_76() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (!this.isDisposed) {
+      startBatch();
+      this._isScheduled = false;
+
+      if (shouldCompute(this)) {
+        this._isTrackPending = true;
+
+        try {
+          this.onInvalidate();
+
+          if (this._isTrackPending && isSpyEnabled() && "development" !== "production") {
+            // onInvalidate didn't trigger track right away..
+            spyReport({
+              name: this.name,
+              type: "scheduled-reaction"
+            });
+          }
+        } catch (e) {
+          this.reportExceptionInDerivation(e);
+        }
+      }
+
+      endBatch();
+    }
+  };
+
+  Reaction.prototype.track = function _anonymous_77(fn) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.isDisposed) {
+      return; // console.warn("Reaction already disposed") // Note: Not a warning / error in mobx 4 either
+    }
+
+    startBatch();
+    var notify = isSpyEnabled();
+    var startTime;
+
+    if (notify && "development" !== "production") {
+      startTime = Date.now();
+      spyReportStart({
+        name: this.name,
+        type: "reaction"
+      });
+    }
+
+    this._isRunning = true;
+    var result = trackDerivedFunction(this, fn, undefined);
+    this._isRunning = false;
+    this._isTrackPending = false;
+
+    if (this.isDisposed) {
+      // disposed during last run. Clean up everything that was bound after the dispose call.
+      clearObserving(this);
+    }
+
+    if (isCaughtException(result)) this.reportExceptionInDerivation(result.cause);
+
+    if (notify && "development" !== "production") {
+      spyReportEnd({
+        time: Date.now() - startTime
+      });
+    }
+
+    endBatch();
+  };
+
+  Reaction.prototype.reportExceptionInDerivation = function _anonymous_78(error) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    if (this.errorHandler) {
+      this.errorHandler(error, this);
+      return;
+    }
+
+    if (globalState.disableErrorBoundaries) throw error;
+    var message = "[mobx] Encountered an uncaught exception that was thrown by a reaction or observer component, in: '" + this + "'";
+
+    if (globalState.suppressReactionErrors) {
+      console.warn("[mobx] (error in reaction '" + this.name + "' suppressed, fix error of causing action below)"); // prettier-ignore
+    } else {
+      console.error(message, error);
+      /** If debugging brought you here, please, read the above message :-). Tnx! */
+    }
+
+    if (isSpyEnabled()) {
+      spyReport({
+        type: "error",
+        name: this.name,
+        message: message,
+        error: "" + error
+      });
+    }
+
+    globalState.globalReactionErrorHandlers.forEach(function _anonymous_79(f) {
+      var necooData = window.necooPushCallStack(arguments);
+      return f(error, _this);
+    });
+  };
+
+  Reaction.prototype.dispose = function _anonymous_80() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (!this.isDisposed) {
+      this.isDisposed = true;
+
+      if (!this._isRunning) {
+        // if disposed while running, clean up later. Maybe not optimal, but rare case
+        startBatch();
+        clearObserving(this);
+        endBatch();
+      }
+    }
+  };
+
+  Reaction.prototype.getDisposer = function _anonymous_81() {
+    var necooData = window.necooPushCallStack(arguments);
+    var r = this.dispose.bind(this);
+    r[$mobx] = this;
+    return r;
+  };
+
+  Reaction.prototype.toString = function _anonymous_82() {
+    var necooData = window.necooPushCallStack(arguments);
+    return "Reaction[" + this.name + "]";
+  };
+
+  Reaction.prototype.trace = function _anonymous_83(enterBreakPoint) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (enterBreakPoint === void 0) {
+      enterBreakPoint = false;
+    }
+
+    trace(this, enterBreakPoint);
+  };
+
+  return Reaction;
+}();
+
+function onReactionError(handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  globalState.globalReactionErrorHandlers.push(handler);
+  return function _anonymous_84() {
+    var necooData = window.necooPushCallStack(arguments);
+    var idx = globalState.globalReactionErrorHandlers.indexOf(handler);
+    if (idx >= 0) globalState.globalReactionErrorHandlers.splice(idx, 1);
+  };
+}
+/**
+ * Magic number alert!
+ * Defines within how many times a reaction is allowed to re-trigger itself
+ * until it is assumed that this is gonna be a never ending loop...
+ */
+
+
+var MAX_REACTION_ITERATIONS = 100;
+
+var reactionScheduler = function _anonymous_85(f) {
+  var necooData = window.necooPushCallStack(arguments);
+  return f();
+};
+
+function runReactions() {
+  var necooData = window.necooPushCallStack(arguments); // Trampolining, if runReactions are already running, new reactions will be picked up
+
+  if (globalState.inBatch > 0 || globalState.isRunningReactions) return;
+  reactionScheduler(runReactionsHelper);
+}
+
+function runReactionsHelper() {
+  var necooData = window.necooPushCallStack(arguments);
+  globalState.isRunningReactions = true;
+  var allReactions = globalState.pendingReactions;
+  var iterations = 0; // While running reactions, new reactions might be triggered.
+  // Hence we work with two variables and check whether
+  // we converge to no remaining reactions after a while.
+
+  while (allReactions.length > 0) {
+    if (++iterations === MAX_REACTION_ITERATIONS) {
+      console.error("Reaction doesn't converge to a stable state after " + MAX_REACTION_ITERATIONS + " iterations." + (" Probably there is a cycle in the reactive function: " + allReactions[0]));
+      allReactions.splice(0); // clear reactions
+    }
+
+    var remainingReactions = allReactions.splice(0);
+
+    for (var i = 0, l = remainingReactions.length; i < l; i++) remainingReactions[i].runReaction();
+  }
+
+  globalState.isRunningReactions = false;
+}
+
+var isReaction = createInstanceofPredicate("Reaction", Reaction);
+
+function setReactionScheduler(fn) {
+  var necooData = window.necooPushCallStack(arguments);
+  var baseScheduler = reactionScheduler;
+
+  reactionScheduler = function _anonymous_86(f) {
+    var necooData = window.necooPushCallStack(arguments);
+    return fn(function _anonymous_87() {
+      var necooData = window.necooPushCallStack(arguments);
+      return baseScheduler(f);
+    });
+  };
+}
+
+function isSpyEnabled() {
+  var necooData = window.necooPushCallStack(arguments);
+  return  true && !!globalState.spyListeners.length;
+}
+
+function spyReport(event) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (false) {} // dead code elimination can do the rest
+
+  if (!globalState.spyListeners.length) return;
+  var listeners = globalState.spyListeners;
+
+  for (var i = 0, l = listeners.length; i < l; i++) listeners[i](event);
+}
+
+function spyReportStart(event) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (false) {}
+
+  var change = __assign({}, event, {
+    spyReportStart: true
+  });
+
+  spyReport(change);
+}
+
+var END_EVENT = {
+  spyReportEnd: true
+};
+
+function spyReportEnd(change) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (false) {}
+  if (change) spyReport(__assign({}, change, {
+    spyReportEnd: true
+  }));else spyReport(END_EVENT);
+}
+
+function spy(listener) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (false) {} else {
+    globalState.spyListeners.push(listener);
+    return once(function _anonymous_89() {
+      var necooData = window.necooPushCallStack(arguments);
+      globalState.spyListeners = globalState.spyListeners.filter(function _anonymous_90(l) {
+        var necooData = window.necooPushCallStack(arguments);
+        return l !== listener;
+      });
+    });
+  }
+}
+
+function dontReassignFields() {
+  var necooData = window.necooPushCallStack(arguments);
+  fail( true && "@action fields are not reassignable");
+}
+
+function namedActionDecorator(name) {
+  var necooData = window.necooPushCallStack(arguments);
+  return function _anonymous_91(target, prop, descriptor) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (descriptor) {
+      if ( true && descriptor.get !== undefined) {
+        return fail("@action cannot be used with getters");
+      } // babel / typescript
+      // @action method() { }
+
+
+      if (descriptor.value) {
+        // typescript
+        return {
+          value: createAction(name, descriptor.value),
+          enumerable: false,
+          configurable: true,
+          writable: true // for typescript, this must be writable, otherwise it cannot inherit :/ (see inheritable actions test)
+
+        };
+      } // babel only: @action method = () => {}
+
+
+      var initializer_1 = descriptor.initializer;
+      return {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        initializer: function _anonymous_92() {
+          var necooData = window.necooPushCallStack(arguments); // N.B: we can't immediately invoke initializer; this would be wrong
+
+          return createAction(name, initializer_1.call(this));
+        }
+      };
+    } // bound instance methods
+
+
+    return actionFieldDecorator(name).apply(this, arguments);
+  };
+}
+
+function actionFieldDecorator(name) {
+  var necooData = window.necooPushCallStack(arguments); // Simple property that writes on first invocation to the current instance
+
+  return function _anonymous_93(target, prop, descriptor) {
+    var necooData = window.necooPushCallStack(arguments);
+    Object.defineProperty(target, prop, {
+      configurable: true,
+      enumerable: false,
+      get: function _anonymous_94() {
+        var necooData = window.necooPushCallStack(arguments);
+        return undefined;
+      },
+      set: function _anonymous_95(value) {
+        var necooData = window.necooPushCallStack(arguments);
+        addHiddenProp(this, prop, action(name, value));
+      }
+    });
+  };
+}
+
+function boundActionDecorator(target, propertyName, descriptor, applyToInstance) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (applyToInstance === true) {
+    defineBoundAction(target, propertyName, descriptor.value);
+    return null;
+  }
+
+  if (descriptor) {
+    // if (descriptor.value)
+    // Typescript / Babel: @action.bound method() { }
+    // also: babel @action.bound method = () => {}
+    return {
+      configurable: true,
+      enumerable: false,
+      get: function _anonymous_96() {
+        var necooData = window.necooPushCallStack(arguments);
+        defineBoundAction(this, propertyName, descriptor.value || descriptor.initializer.call(this));
+        return this[propertyName];
+      },
+      set: dontReassignFields
+    };
+  } // field decorator Typescript @action.bound method = () => {}
+
+
+  return {
+    enumerable: false,
+    configurable: true,
+    set: function _anonymous_97(v) {
+      var necooData = window.necooPushCallStack(arguments);
+      defineBoundAction(this, propertyName, v);
+    },
+    get: function _anonymous_98() {
+      var necooData = window.necooPushCallStack(arguments);
+      return undefined;
+    }
+  };
+}
+
+var action = function action(arg1, arg2, arg3, arg4) {
+  var necooData = window.necooPushCallStack(arguments); // action(fn() {})
+
+  if (arguments.length === 1 && typeof arg1 === "function") return createAction(arg1.name || "<unnamed action>", arg1); // action("name", fn() {})
+
+  if (arguments.length === 2 && typeof arg2 === "function") return createAction(arg1, arg2); // @action("name") fn() {}
+
+  if (arguments.length === 1 && typeof arg1 === "string") return namedActionDecorator(arg1); // @action fn() {}
+
+  if (arg4 === true) {
+    // apply to instance immediately
+    addHiddenProp(arg1, arg2, createAction(arg1.name || arg2, arg3.value, this));
+  } else {
+    return namedActionDecorator(arg2).apply(null, arguments);
+  }
+};
+
+action.bound = boundActionDecorator;
+
+function runInAction(arg1, arg2) {
+  var necooData = window.necooPushCallStack(arguments);
+  var actionName = typeof arg1 === "string" ? arg1 : arg1.name || "<unnamed action>";
+  var fn = typeof arg1 === "function" ? arg1 : arg2;
+
+  if (true) {
+    invariant(typeof fn === "function" && fn.length === 0, "`runInAction` expects a function without arguments");
+    if (typeof actionName !== "string" || !actionName) fail("actions should have valid names, got: '" + actionName + "'");
+  }
+
+  return executeAction(actionName, fn, this, undefined);
+}
+
+function isAction(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  return typeof thing === "function" && thing.isMobxAction === true;
+}
+
+function defineBoundAction(target, propertyName, fn) {
+  var necooData = window.necooPushCallStack(arguments);
+  addHiddenProp(target, propertyName, createAction(propertyName, fn.bind(target)));
+}
+/**
+ * Creates a named reactive view and keeps it alive, so that the view is always
+ * updated if one of the dependencies changes, even when the view is not further used by something else.
+ * @param view The reactive view
+ * @returns disposer function, which can be used to stop the view from being updated in the future.
+ */
+
+
+function autorun(view, opts) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (opts === void 0) {
+    opts = EMPTY_OBJECT;
+  }
+
+  if (true) {
+    invariant(typeof view === "function", "Autorun expects a function as first argument");
+    invariant(isAction(view) === false, "Autorun does not accept actions since actions are untrackable");
+  }
+
+  var name = opts && opts.name || view.name || "Autorun@" + getNextId();
+  var runSync = !opts.scheduler && !opts.delay;
+  var reaction;
+
+  if (runSync) {
+    // normal autorun
+    reaction = new Reaction(name, function _anonymous_99() {
+      var necooData = window.necooPushCallStack(arguments);
+      this.track(reactionRunner);
+    }, opts.onError);
+  } else {
+    var scheduler_1 = createSchedulerFromOptions(opts); // debounced autorun
+
+    var isScheduled_1 = false;
+    reaction = new Reaction(name, function _anonymous_100() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      if (!isScheduled_1) {
+        isScheduled_1 = true;
+        scheduler_1(function _anonymous_101() {
+          var necooData = window.necooPushCallStack(arguments);
+          isScheduled_1 = false;
+          if (!reaction.isDisposed) reaction.track(reactionRunner);
+        });
+      }
+    }, opts.onError);
+  }
+
+  function reactionRunner() {
+    var necooData = window.necooPushCallStack(arguments);
+    view(reaction);
+  }
+
+  reaction.schedule();
+  return reaction.getDisposer();
+}
+
+var run = function _anonymous_102(f) {
+  var necooData = window.necooPushCallStack(arguments);
+  return f();
+};
+
+function createSchedulerFromOptions(opts) {
+  var necooData = window.necooPushCallStack(arguments);
+  return opts.scheduler ? opts.scheduler : opts.delay ? function _anonymous_103(f) {
+    var necooData = window.necooPushCallStack(arguments);
+    return setTimeout(f, opts.delay);
+  } : run;
+}
+
+function reaction(expression, effect, opts) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (opts === void 0) {
+    opts = EMPTY_OBJECT;
+  }
+
+  if (true) {
+    invariant(typeof expression === "function", "First argument to reaction should be a function");
+    invariant(typeof opts === "object", "Third argument of reactions should be an object");
+  }
+
+  var name = opts.name || "Reaction@" + getNextId();
+  var effectAction = action(name, opts.onError ? wrapErrorHandler(opts.onError, effect) : effect);
+  var runSync = !opts.scheduler && !opts.delay;
+  var scheduler = createSchedulerFromOptions(opts);
+  var firstTime = true;
+  var isScheduled = false;
+  var value;
+  var equals = opts.compareStructural ? comparer.structural : opts.equals || comparer.default;
+  var r = new Reaction(name, function _anonymous_104() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (firstTime || runSync) {
+      reactionRunner();
+    } else if (!isScheduled) {
+      isScheduled = true;
+      scheduler(reactionRunner);
+    }
+  }, opts.onError);
+
+  function reactionRunner() {
+    var necooData = window.necooPushCallStack(arguments);
+    isScheduled = false; // Q: move into reaction runner?
+
+    if (r.isDisposed) return;
+    var changed = false;
+    r.track(function _anonymous_105() {
+      var necooData = window.necooPushCallStack(arguments);
+      var nextValue = expression(r);
+      changed = firstTime || !equals(value, nextValue);
+      value = nextValue;
+    });
+    if (firstTime && opts.fireImmediately) effectAction(value, r);
+    if (!firstTime && changed === true) effectAction(value, r);
+    if (firstTime) firstTime = false;
+  }
+
+  r.schedule();
+  return r.getDisposer();
+}
+
+function wrapErrorHandler(errorHandler, baseFn) {
+  var necooData = window.necooPushCallStack(arguments);
+  return function _anonymous_106() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    try {
+      return baseFn.apply(this, arguments);
+    } catch (e) {
+      errorHandler.call(this, e);
+    }
+  };
+}
+
+function onBecomeObserved(thing, arg2, arg3) {
+  var necooData = window.necooPushCallStack(arguments);
+  return interceptHook("onBecomeObserved", thing, arg2, arg3);
+}
+
+function onBecomeUnobserved(thing, arg2, arg3) {
+  var necooData = window.necooPushCallStack(arguments);
+  return interceptHook("onBecomeUnobserved", thing, arg2, arg3);
+}
+
+function interceptHook(hook, thing, arg2, arg3) {
+  var necooData = window.necooPushCallStack(arguments);
+  var atom = typeof arg2 === "string" ? getAtom(thing, arg2) : getAtom(thing);
+  var cb = typeof arg2 === "string" ? arg3 : arg2;
+  var listenersKey = hook + "Listeners";
+
+  if (atom[listenersKey]) {
+    atom[listenersKey].add(cb);
+  } else {
+    atom[listenersKey] = new Set([cb]);
+  }
+
+  var orig = atom[hook];
+  if (typeof orig !== "function") return fail( true && "Not an atom that can be (un)observed");
+  return function _anonymous_107() {
+    var necooData = window.necooPushCallStack(arguments);
+    var hookListeners = atom[listenersKey];
+
+    if (hookListeners) {
+      hookListeners.delete(cb);
+
+      if (hookListeners.size === 0) {
+        delete atom[listenersKey];
+      }
+    }
+  };
+}
+
+function configure(options) {
+  var necooData = window.necooPushCallStack(arguments);
+  var enforceActions = options.enforceActions,
+      computedRequiresReaction = options.computedRequiresReaction,
+      disableErrorBoundaries = options.disableErrorBoundaries,
+      reactionScheduler = options.reactionScheduler;
+
+  if (options.isolateGlobalState === true) {
+    isolateGlobalState();
+  }
+
+  if (enforceActions !== undefined) {
+    if (typeof enforceActions === "boolean" || enforceActions === "strict") deprecated("Deprecated value for 'enforceActions', use 'false' => '\"never\"', 'true' => '\"observed\"', '\"strict\"' => \"'always'\" instead");
+    var ea = void 0;
+
+    switch (enforceActions) {
+      case true:
+      case "observed":
+        ea = true;
+        break;
+
+      case false:
+      case "never":
+        ea = false;
+        break;
+
+      case "strict":
+      case "always":
+        ea = "strict";
+        break;
+
+      default:
+        fail("Invalid value for 'enforceActions': '" + enforceActions + "', expected 'never', 'always' or 'observed'");
+    }
+
+    globalState.enforceActions = ea;
+    globalState.allowStateChanges = ea === true || ea === "strict" ? false : true;
+  }
+
+  if (computedRequiresReaction !== undefined) {
+    globalState.computedRequiresReaction = !!computedRequiresReaction;
+  }
+
+  if (disableErrorBoundaries !== undefined) {
+    if (disableErrorBoundaries === true) console.warn("WARNING: Debug feature only. MobX will NOT recover from errors when `disableErrorBoundaries` is enabled.");
+    globalState.disableErrorBoundaries = !!disableErrorBoundaries;
+  }
+
+  if (reactionScheduler) {
+    setReactionScheduler(reactionScheduler);
+  }
+}
+
+function decorate(thing, decorators) {
+  var necooData = window.necooPushCallStack(arguments);
+   true && invariant(isPlainObject(decorators), "Decorators should be a key value map");
+  var target = typeof thing === "function" ? thing.prototype : thing;
+
+  var _loop_1 = function _anonymous_108(prop) {
+    var necooData = window.necooPushCallStack(arguments);
+    var propertyDecorators = decorators[prop];
+
+    if (!Array.isArray(propertyDecorators)) {
+      propertyDecorators = [propertyDecorators];
+    }
+
+     true && invariant(propertyDecorators.every(function _anonymous_109(decorator) {
+      var necooData = window.necooPushCallStack(arguments);
+      return typeof decorator === "function";
+    }), "Decorate: expected a decorator function or array of decorator functions for '" + prop + "'");
+    var descriptor = Object.getOwnPropertyDescriptor(target, prop);
+    var newDescriptor = propertyDecorators.reduce(function _anonymous_110(accDescriptor, decorator) {
+      var necooData = window.necooPushCallStack(arguments);
+      return decorator(target, prop, accDescriptor);
+    }, descriptor);
+    if (newDescriptor) Object.defineProperty(target, prop, newDescriptor);
+  };
+
+  for (var prop in decorators) {
+    _loop_1(prop);
+  }
+
+  return thing;
+}
+
+function extendObservable(target, properties, decorators, options) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (true) {
+    invariant(arguments.length >= 2 && arguments.length <= 4, "'extendObservable' expected 2-4 arguments");
+    invariant(typeof target === "object", "'extendObservable' expects an object as first argument");
+    invariant(!isObservableMap(target), "'extendObservable' should not be used on maps, use map.merge instead");
+  }
+
+  options = asCreateObservableOptions(options);
+  var defaultDecorator = getDefaultDecoratorFromObjectOptions(options);
+  initializeInstance(target); // Fixes #1740
+
+  asObservableObject(target, options.name, defaultDecorator.enhancer); // make sure object is observable, even without initial props
+
+  if (properties) extendObservableObjectWithProperties(target, properties, decorators, defaultDecorator);
+  return target;
+}
+
+function getDefaultDecoratorFromObjectOptions(options) {
+  var necooData = window.necooPushCallStack(arguments);
+  return options.defaultDecorator || (options.deep === false ? refDecorator : deepDecorator);
+}
+
+function extendObservableObjectWithProperties(target, properties, decorators, defaultDecorator) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (true) {
+    invariant(!isObservable(properties), "Extending an object with another observable (object) is not supported. Please construct an explicit propertymap, using `toJS` if need. See issue #540");
+
+    if (decorators) {
+      var keys = getPlainObjectKeys(decorators);
+
+      for (var i in keys) {
+        var key = keys[i];
+        if (!(key in properties)) fail("Trying to declare a decorator for unspecified property '" + stringifyKey(key) + "'");
+      }
+    }
+  }
+
+  startBatch();
+
+  try {
+    var keys = getPlainObjectKeys(properties);
+
+    for (var i in keys) {
+      var key = keys[i];
+      var descriptor = Object.getOwnPropertyDescriptor(properties, key);
+
+      if (true) {
+        if (Object.getOwnPropertyDescriptor(target, key)) fail("'extendObservable' can only be used to introduce new properties. Use 'set' or 'decorate' instead. The property '" + stringifyKey(key) + "' already exists on '" + target + "'");
+        if (isComputed(descriptor.value)) fail("Passing a 'computed' as initial property value is no longer supported by extendObservable. Use a getter or decorator instead");
+      }
+
+      var decorator = decorators && key in decorators ? decorators[key] : descriptor.get ? computedDecorator : defaultDecorator;
+      if ( true && typeof decorator !== "function") fail("Not a valid decorator for '" + stringifyKey(key) + "', got: " + decorator);
+      var resultDescriptor = decorator(target, key, descriptor, true);
+      if (resultDescriptor // otherwise, assume already applied, due to `applyToInstance`
+      ) Object.defineProperty(target, key, resultDescriptor);
+    }
+  } finally {
+    endBatch();
+  }
+}
+
+function getDependencyTree(thing, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  return nodeToDependencyTree(getAtom(thing, property));
+}
+
+function nodeToDependencyTree(node) {
+  var necooData = window.necooPushCallStack(arguments);
+  var result = {
+    name: node.name
+  };
+  if (node.observing && node.observing.length > 0) result.dependencies = unique(node.observing).map(nodeToDependencyTree);
+  return result;
+}
+
+function getObserverTree(thing, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  return nodeToObserverTree(getAtom(thing, property));
+}
+
+function nodeToObserverTree(node) {
+  var necooData = window.necooPushCallStack(arguments);
+  var result = {
+    name: node.name
+  };
+  if (hasObservers(node)) result.observers = Array.from(getObservers(node)).map(nodeToObserverTree);
+  return result;
+}
+
+var generatorId = 0;
+
+function flow(generator) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (arguments.length !== 1) fail( true && "Flow expects one 1 argument and cannot be used as decorator");
+  var name = generator.name || "<unnamed flow>"; // Implementation based on https://github.com/tj/co/blob/master/index.js
+
+  return function _anonymous_111() {
+    var necooData = window.necooPushCallStack(arguments);
+    var ctx = this;
+    var args = arguments;
+    var runId = ++generatorId;
+    var gen = action(name + " - runid: " + runId + " - init", generator).apply(ctx, args);
+    var rejector;
+    var pendingPromise = undefined;
+    var promise = new Promise(function _anonymous_112(resolve, reject) {
+      var necooData = window.necooPushCallStack(arguments);
+      var stepId = 0;
+      rejector = reject;
+
+      function onFulfilled(res) {
+        var necooData = window.necooPushCallStack(arguments);
+        pendingPromise = undefined;
+        var ret;
+
+        try {
+          ret = action(name + " - runid: " + runId + " - yield " + stepId++, gen.next).call(gen, res);
+        } catch (e) {
+          return reject(e);
+        }
+
+        next(ret);
+      }
+
+      function onRejected(err) {
+        var necooData = window.necooPushCallStack(arguments);
+        pendingPromise = undefined;
+        var ret;
+
+        try {
+          ret = action(name + " - runid: " + runId + " - yield " + stepId++, gen.throw).call(gen, err);
+        } catch (e) {
+          return reject(e);
+        }
+
+        next(ret);
+      }
+
+      function next(ret) {
+        var necooData = window.necooPushCallStack(arguments);
+
+        if (ret && typeof ret.then === "function") {
+          // an async iterator
+          ret.then(next, reject);
+          return;
+        }
+
+        if (ret.done) return resolve(ret.value);
+        pendingPromise = Promise.resolve(ret.value);
+        return pendingPromise.then(onFulfilled, onRejected);
+      }
+
+      onFulfilled(undefined); // kick off the process
+    });
+    promise.cancel = action(name + " - runid: " + runId + " - cancel", function _anonymous_113() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      try {
+        if (pendingPromise) cancelPromise(pendingPromise); // Finally block can return (or yield) stuff..
+
+        var res = gen.return(); // eat anything that promise would do, it's cancelled!
+
+        var yieldedPromise = Promise.resolve(res.value);
+        yieldedPromise.then(noop, noop);
+        cancelPromise(yieldedPromise); // maybe it can be cancelled :)
+        // reject our original promise
+
+        rejector(new Error("FLOW_CANCELLED"));
+      } catch (e) {
+        rejector(e); // there could be a throwing finally block
+      }
+    });
+    return promise;
+  };
+}
+
+function cancelPromise(promise) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (typeof promise.cancel === "function") promise.cancel();
+}
+
+function interceptReads(thing, propOrHandler, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  var target;
+
+  if (isObservableMap(thing) || isObservableArray(thing) || isObservableValue(thing)) {
+    target = getAdministration(thing);
+  } else if (isObservableObject(thing)) {
+    if (typeof propOrHandler !== "string") return fail( true && "InterceptReads can only be used with a specific property, not with an object in general");
+    target = getAdministration(thing, propOrHandler);
+  } else {
+    return fail( true && "Expected observable map, object or array as first array");
+  }
+
+  if (target.dehancer !== undefined) return fail( true && "An intercept reader was already established");
+  target.dehancer = typeof propOrHandler === "function" ? propOrHandler : handler;
+  return function _anonymous_114() {
+    var necooData = window.necooPushCallStack(arguments);
+    target.dehancer = undefined;
+  };
+}
+
+function intercept(thing, propOrHandler, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (typeof handler === "function") return interceptProperty(thing, propOrHandler, handler);else return interceptInterceptable(thing, propOrHandler);
+}
+
+function interceptInterceptable(thing, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  return getAdministration(thing).intercept(handler);
+}
+
+function interceptProperty(thing, property, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  return getAdministration(thing, property).intercept(handler);
+}
+
+function _isComputed(value, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (value === null || value === undefined) return false;
+
+  if (property !== undefined) {
+    if (isObservableObject(value) === false) return false;
+    if (!value[$mobx].values.has(property)) return false;
+    var atom = getAtom(value, property);
+    return isComputedValue(atom);
+  }
+
+  return isComputedValue(value);
+}
+
+function isComputed(value) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (arguments.length > 1) return fail( true && "isComputed expects only 1 argument. Use isObservableProp to inspect the observability of a property");
+  return _isComputed(value);
+}
+
+function isComputedProp(value, propName) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (typeof propName !== "string") return fail( true && "isComputed expected a property name as second argument");
+  return _isComputed(value, propName);
+}
+
+function _isObservable(value, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (value === null || value === undefined) return false;
+
+  if (property !== undefined) {
+    if ( true && (isObservableMap(value) || isObservableArray(value))) return fail("isObservable(object, propertyName) is not supported for arrays and maps. Use map.has or array.length instead.");
+
+    if (isObservableObject(value)) {
+      return value[$mobx].values.has(property);
+    }
+
+    return false;
+  } // For first check, see #701
+
+
+  return isObservableObject(value) || !!value[$mobx] || isAtom(value) || isReaction(value) || isComputedValue(value);
+}
+
+function isObservable(value) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (arguments.length !== 1) fail( true && "isObservable expects only 1 argument. Use isObservableProp to inspect the observability of a property");
+  return _isObservable(value);
+}
+
+function isObservableProp(value, propName) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (typeof propName !== "string") return fail( true && "expected a property name as second argument");
+  return _isObservable(value, propName);
+}
+
+function keys(obj) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObservableObject(obj)) {
+    return obj[$mobx].getKeys();
+  }
+
+  if (isObservableMap(obj)) {
+    return Array.from(obj.keys());
+  }
+
+  if (isObservableSet(obj)) {
+    return Array.from(obj.keys());
+  }
+
+  if (isObservableArray(obj)) {
+    return obj.map(function _anonymous_115(_, index) {
+      var necooData = window.necooPushCallStack(arguments);
+      return index;
+    });
+  }
+
+  return fail( true && "'keys()' can only be used on observable objects, arrays, sets and maps");
+}
+
+function values(obj) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObservableObject(obj)) {
+    return keys(obj).map(function _anonymous_116(key) {
+      var necooData = window.necooPushCallStack(arguments);
+      return obj[key];
+    });
+  }
+
+  if (isObservableMap(obj)) {
+    return keys(obj).map(function _anonymous_117(key) {
+      var necooData = window.necooPushCallStack(arguments);
+      return obj.get(key);
+    });
+  }
+
+  if (isObservableSet(obj)) {
+    return Array.from(obj.values());
+  }
+
+  if (isObservableArray(obj)) {
+    return obj.slice();
+  }
+
+  return fail( true && "'values()' can only be used on observable objects, arrays, sets and maps");
+}
+
+function entries(obj) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObservableObject(obj)) {
+    return keys(obj).map(function _anonymous_118(key) {
+      var necooData = window.necooPushCallStack(arguments);
+      return [key, obj[key]];
+    });
+  }
+
+  if (isObservableMap(obj)) {
+    return keys(obj).map(function _anonymous_119(key) {
+      var necooData = window.necooPushCallStack(arguments);
+      return [key, obj.get(key)];
+    });
+  }
+
+  if (isObservableSet(obj)) {
+    return Array.from(obj.entries());
+  }
+
+  if (isObservableArray(obj)) {
+    return obj.map(function _anonymous_120(key, index) {
+      var necooData = window.necooPushCallStack(arguments);
+      return [index, key];
+    });
+  }
+
+  return fail( true && "'entries()' can only be used on observable objects, arrays and maps");
+}
+
+function set(obj, key, value) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (arguments.length === 2 && !isObservableSet(obj)) {
+    startBatch();
+    var values_1 = key;
+
+    try {
+      for (var key_1 in values_1) set(obj, key_1, values_1[key_1]);
+    } finally {
+      endBatch();
+    }
+
+    return;
+  }
+
+  if (isObservableObject(obj)) {
+    var adm = obj[$mobx];
+    var existingObservable = adm.values.get(key);
+
+    if (existingObservable) {
+      adm.write(key, value);
+    } else {
+      adm.addObservableProp(key, value, adm.defaultEnhancer);
+    }
+  } else if (isObservableMap(obj)) {
+    obj.set(key, value);
+  } else if (isObservableSet(obj)) {
+    obj.add(key);
+  } else if (isObservableArray(obj)) {
+    if (typeof key !== "number") key = parseInt(key, 10);
+    invariant(key >= 0, "Not a valid index: '" + key + "'");
+    startBatch();
+    if (key >= obj.length) obj.length = key + 1;
+    obj[key] = value;
+    endBatch();
+  } else {
+    return fail( true && "'set()' can only be used on observable objects, arrays and maps");
+  }
+}
+
+function remove(obj, key) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObservableObject(obj)) {
+    obj[$mobx].remove(key);
+  } else if (isObservableMap(obj)) {
+    obj.delete(key);
+  } else if (isObservableSet(obj)) {
+    obj.delete(key);
+  } else if (isObservableArray(obj)) {
+    if (typeof key !== "number") key = parseInt(key, 10);
+    invariant(key >= 0, "Not a valid index: '" + key + "'");
+    obj.splice(key, 1);
+  } else {
+    return fail( true && "'remove()' can only be used on observable objects, arrays and maps");
+  }
+}
+
+function has(obj, key) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObservableObject(obj)) {
+    // return keys(obj).indexOf(key) >= 0
+    var adm = getAdministration(obj);
+    return adm.has(key);
+  } else if (isObservableMap(obj)) {
+    return obj.has(key);
+  } else if (isObservableSet(obj)) {
+    return obj.has(key);
+  } else if (isObservableArray(obj)) {
+    return key >= 0 && key < obj.length;
+  } else {
+    return fail( true && "'has()' can only be used on observable objects, arrays and maps");
+  }
+}
+
+function get(obj, key) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (!has(obj, key)) return undefined;
+
+  if (isObservableObject(obj)) {
+    return obj[key];
+  } else if (isObservableMap(obj)) {
+    return obj.get(key);
+  } else if (isObservableArray(obj)) {
+    return obj[key];
+  } else {
+    return fail( true && "'get()' can only be used on observable objects, arrays and maps");
+  }
+}
+
+function observe(thing, propOrCb, cbOrFire, fireImmediately) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (typeof cbOrFire === "function") return observeObservableProperty(thing, propOrCb, cbOrFire, fireImmediately);else return observeObservable(thing, propOrCb, cbOrFire);
+}
+
+function observeObservable(thing, listener, fireImmediately) {
+  var necooData = window.necooPushCallStack(arguments);
+  return getAdministration(thing).observe(listener, fireImmediately);
+}
+
+function observeObservableProperty(thing, property, listener, fireImmediately) {
+  var necooData = window.necooPushCallStack(arguments);
+  return getAdministration(thing, property).observe(listener, fireImmediately);
+}
+
+var defaultOptions = {
+  detectCycles: true,
+  exportMapsAsObjects: true,
+  recurseEverything: false
+};
+
+function cache(map, key, value, options) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (options.detectCycles) map.set(key, value);
+  return value;
+}
+
+function toJSHelper(source, options, __alreadySeen) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (!options.recurseEverything && !isObservable(source)) return source;
+  if (typeof source !== "object") return source; // Directly return null if source is null
+
+  if (source === null) return null; // Directly return the Date object itself if contained in the observable
+
+  if (source instanceof Date) return source;
+  if (isObservableValue(source)) return toJSHelper(source.get(), options, __alreadySeen); // make sure we track the keys of the object
+
+  if (isObservable(source)) keys(source);
+  var detectCycles = options.detectCycles === true;
+
+  if (detectCycles && source !== null && __alreadySeen.has(source)) {
+    return __alreadySeen.get(source);
+  }
+
+  if (isObservableArray(source) || Array.isArray(source)) {
+    var res_1 = cache(__alreadySeen, source, [], options);
+    var toAdd = source.map(function _anonymous_121(value) {
+      var necooData = window.necooPushCallStack(arguments);
+      return toJSHelper(value, options, __alreadySeen);
+    });
+    res_1.length = toAdd.length;
+
+    for (var i = 0, l = toAdd.length; i < l; i++) res_1[i] = toAdd[i];
+
+    return res_1;
+  }
+
+  if (isObservableSet(source) || Object.getPrototypeOf(source) === Set.prototype) {
+    if (options.exportMapsAsObjects === false) {
+      var res_2 = cache(__alreadySeen, source, new Set(), options);
+      source.forEach(function _anonymous_122(value) {
+        var necooData = window.necooPushCallStack(arguments);
+        res_2.add(toJSHelper(value, options, __alreadySeen));
+      });
+      return res_2;
+    } else {
+      var res_3 = cache(__alreadySeen, source, [], options);
+      source.forEach(function _anonymous_123(value) {
+        var necooData = window.necooPushCallStack(arguments);
+        res_3.push(toJSHelper(value, options, __alreadySeen));
+      });
+      return res_3;
+    }
+  }
+
+  if (isObservableMap(source) || Object.getPrototypeOf(source) === Map.prototype) {
+    if (options.exportMapsAsObjects === false) {
+      var res_4 = cache(__alreadySeen, source, new Map(), options);
+      source.forEach(function _anonymous_124(value, key) {
+        var necooData = window.necooPushCallStack(arguments);
+        res_4.set(key, toJSHelper(value, options, __alreadySeen));
+      });
+      return res_4;
+    } else {
+      var res_5 = cache(__alreadySeen, source, {}, options);
+      source.forEach(function _anonymous_125(value, key) {
+        var necooData = window.necooPushCallStack(arguments);
+        res_5[key] = toJSHelper(value, options, __alreadySeen);
+      });
+      return res_5;
+    }
+  } // Fallback to the situation that source is an ObservableObject or a plain object
+
+
+  var res = cache(__alreadySeen, source, {}, options);
+  getPlainObjectKeys(source).forEach(function _anonymous_126(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    res[key] = toJSHelper(source[key], options, __alreadySeen);
+  });
+  return res;
+}
+
+function toJS(source, options) {
+  var necooData = window.necooPushCallStack(arguments); // backward compatibility
+
+  if (typeof options === "boolean") options = {
+    detectCycles: options
+  };
+  if (!options) options = defaultOptions;
+  options.detectCycles = options.detectCycles === undefined ? options.recurseEverything === true : options.detectCycles === true;
+
+  var __alreadySeen;
+
+  if (options.detectCycles) __alreadySeen = new Map();
+  return toJSHelper(source, options, __alreadySeen);
+}
+
+function trace() {
+  var necooData = window.necooPushCallStack(arguments);
+  var args = [];
+
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+
+  var enterBreakPoint = false;
+  if (typeof args[args.length - 1] === "boolean") enterBreakPoint = args.pop();
+  var derivation = getAtomFromArgs(args);
+
+  if (!derivation) {
+    return fail( true && "'trace(break?)' can only be used inside a tracked computed value or a Reaction. Consider passing in the computed value or reaction explicitly");
+  }
+
+  if (derivation.isTracing === TraceMode.NONE) {
+    console.log("[mobx.trace] '" + derivation.name + "' tracing enabled");
+  }
+
+  derivation.isTracing = enterBreakPoint ? TraceMode.BREAK : TraceMode.LOG;
+}
+
+function getAtomFromArgs(args) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  switch (args.length) {
+    case 0:
+      return globalState.trackingDerivation;
+
+    case 1:
+      return getAtom(args[0]);
+
+    case 2:
+      return getAtom(args[0], args[1]);
+  }
+}
+/**
+ * During a transaction no views are updated until the end of the transaction.
+ * The transaction will be run synchronously nonetheless.
+ *
+ * @param action a function that updates some reactive state
+ * @returns any value that was returned by the 'action' parameter.
+ */
+
+
+function transaction(action, thisArg) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (thisArg === void 0) {
+    thisArg = undefined;
+  }
+
+  startBatch();
+
+  try {
+    return action.apply(thisArg);
+  } finally {
+    endBatch();
+  }
+}
+
+function when(predicate, arg1, arg2) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (arguments.length === 1 || arg1 && typeof arg1 === "object") return whenPromise(predicate, arg1);
+  return _when(predicate, arg1, arg2 || {});
+}
+
+function _when(predicate, effect, opts) {
+  var necooData = window.necooPushCallStack(arguments);
+  var timeoutHandle;
+
+  if (typeof opts.timeout === "number") {
+    timeoutHandle = setTimeout(function _anonymous_127() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      if (!disposer[$mobx].isDisposed) {
+        disposer();
+        var error = new Error("WHEN_TIMEOUT");
+        if (opts.onError) opts.onError(error);else throw error;
+      }
+    }, opts.timeout);
+  }
+
+  opts.name = opts.name || "When@" + getNextId();
+  var effectAction = createAction(opts.name + "-effect", effect);
+  var disposer = autorun(function _anonymous_128(r) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (predicate()) {
+      r.dispose();
+      if (timeoutHandle) clearTimeout(timeoutHandle);
+      effectAction();
+    }
+  }, opts);
+  return disposer;
+}
+
+function whenPromise(predicate, opts) {
+  var necooData = window.necooPushCallStack(arguments);
+  if ( true && opts && opts.onError) return fail("the options 'onError' and 'promise' cannot be combined");
+  var cancel;
+  var res = new Promise(function _anonymous_129(resolve, reject) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var disposer = _when(predicate, resolve, __assign({}, opts, {
+      onError: reject
+    }));
+
+    cancel = function _anonymous_130() {
+      var necooData = window.necooPushCallStack(arguments);
+      disposer();
+      reject("WHEN_CANCELLED");
+    };
+  });
+  res.cancel = cancel;
+  return res;
+}
+
+function getAdm(target) {
+  var necooData = window.necooPushCallStack(arguments);
+  return target[$mobx];
+}
+
+function isPropertyKey(val) {
+  var necooData = window.necooPushCallStack(arguments);
+  return typeof val === "string" || typeof val === "number" || typeof val === "symbol";
+} // Optimization: we don't need the intermediate objects and could have a completely custom administration for DynamicObjects,
+// and skip either the internal values map, or the base object with its property descriptors!
+
+
+var objectProxyTraps = {
+  has: function _anonymous_131(target, name) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (name === $mobx || name === "constructor" || name === mobxDidRunLazyInitializersSymbol) return true;
+    var adm = getAdm(target); // MWE: should `in` operator be reactive? If not, below code path will be faster / more memory efficient
+    // TODO: check performance stats!
+    // if (adm.values.get(name as string)) return true
+
+    if (isPropertyKey(name)) return adm.has(name);
+    return name in target;
+  },
+  get: function _anonymous_132(target, name) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (name === $mobx || name === "constructor" || name === mobxDidRunLazyInitializersSymbol) return target[name];
+    var adm = getAdm(target);
+    var observable = adm.values.get(name);
+
+    if (observable instanceof Atom) {
+      var result = observable.get();
+
+      if (result === undefined) {
+        // This fixes #1796, because deleting a prop that has an
+        // undefined value won't retrigger a observer (no visible effect),
+        // the autorun wouldn't subscribe to future key changes (see also next comment)
+        adm.has(name);
+      }
+
+      return result;
+    } // make sure we start listening to future keys
+    // note that we only do this here for optimization
+
+
+    if (isPropertyKey(name)) adm.has(name);
+    return target[name];
+  },
+  set: function _anonymous_133(target, name, value) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (!isPropertyKey(name)) return false;
+    set(target, name, value);
+    return true;
+  },
+  deleteProperty: function _anonymous_134(target, name) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (!isPropertyKey(name)) return false;
+    var adm = getAdm(target);
+    adm.remove(name);
+    return true;
+  },
+  ownKeys: function _anonymous_135(target) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = getAdm(target);
+    adm.keysAtom.reportObserved();
+    return Reflect.ownKeys(target);
+  },
+  preventExtensions: function _anonymous_136(target) {
+    var necooData = window.necooPushCallStack(arguments);
+    fail("Dynamic observable objects cannot be frozen");
+    return false;
+  }
+};
+
+function createDynamicObservableObject(base) {
+  var necooData = window.necooPushCallStack(arguments);
+  var proxy = new Proxy(base, objectProxyTraps);
+  base[$mobx].proxy = proxy;
+  return proxy;
+}
+
+function hasInterceptors(interceptable) {
+  var necooData = window.necooPushCallStack(arguments);
+  return interceptable.interceptors !== undefined && interceptable.interceptors.length > 0;
+}
+
+function registerInterceptor(interceptable, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  var interceptors = interceptable.interceptors || (interceptable.interceptors = []);
+  interceptors.push(handler);
+  return once(function _anonymous_137() {
+    var necooData = window.necooPushCallStack(arguments);
+    var idx = interceptors.indexOf(handler);
+    if (idx !== -1) interceptors.splice(idx, 1);
+  });
+}
+
+function interceptChange(interceptable, change) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prevU = untrackedStart();
+
+  try {
+    var interceptors = interceptable.interceptors;
+    if (interceptors) for (var i = 0, l = interceptors.length; i < l; i++) {
+      change = interceptors[i](change);
+      invariant(!change || change.type, "Intercept handlers should return nothing or a change object");
+      if (!change) break;
+    }
+    return change;
+  } finally {
+    untrackedEnd(prevU);
+  }
+}
+
+function hasListeners(listenable) {
+  var necooData = window.necooPushCallStack(arguments);
+  return listenable.changeListeners !== undefined && listenable.changeListeners.length > 0;
+}
+
+function registerListener(listenable, handler) {
+  var necooData = window.necooPushCallStack(arguments);
+  var listeners = listenable.changeListeners || (listenable.changeListeners = []);
+  listeners.push(handler);
+  return once(function _anonymous_138() {
+    var necooData = window.necooPushCallStack(arguments);
+    var idx = listeners.indexOf(handler);
+    if (idx !== -1) listeners.splice(idx, 1);
+  });
+}
+
+function notifyListeners(listenable, change) {
+  var necooData = window.necooPushCallStack(arguments);
+  var prevU = untrackedStart();
+  var listeners = listenable.changeListeners;
+  if (!listeners) return;
+  listeners = listeners.slice();
+
+  for (var i = 0, l = listeners.length; i < l; i++) {
+    listeners[i](change);
+  }
+
+  untrackedEnd(prevU);
+}
+
+var MAX_SPLICE_SIZE = 10000; // See e.g. https://github.com/mobxjs/mobx/issues/859
+
+var arrayTraps = {
+  get: function _anonymous_139(target, name) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (name === $mobx) return target[$mobx];
+    if (name === "length") return target[$mobx].getArrayLength();
+
+    if (typeof name === "number") {
+      return arrayExtensions.get.call(target, name);
+    }
+
+    if (typeof name === "string" && !isNaN(name)) {
+      return arrayExtensions.get.call(target, parseInt(name));
+    }
+
+    if (arrayExtensions.hasOwnProperty(name)) {
+      return arrayExtensions[name];
+    }
+
+    return target[name];
+  },
+  set: function _anonymous_140(target, name, value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (name === "length") {
+      target[$mobx].setArrayLength(value);
+      return true;
+    }
+
+    if (typeof name === "number") {
+      arrayExtensions.set.call(target, name, value);
+      return true;
+    }
+
+    if (!isNaN(name)) {
+      arrayExtensions.set.call(target, parseInt(name), value);
+      return true;
+    }
+
+    return false;
+  },
+  preventExtensions: function _anonymous_141(target) {
+    var necooData = window.necooPushCallStack(arguments);
+    fail("Observable arrays cannot be frozen");
+    return false;
+  }
+};
+
+function createObservableArray(initialValues, enhancer, name, owned) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (name === void 0) {
+    name = "ObservableArray@" + getNextId();
+  }
+
+  if (owned === void 0) {
+    owned = false;
+  }
+
+  var adm = new ObservableArrayAdministration(name, enhancer, owned);
+  addHiddenFinalProp(adm.values, $mobx, adm);
+  var proxy = new Proxy(adm.values, arrayTraps);
+  adm.proxy = proxy;
+
+  if (initialValues && initialValues.length) {
+    var prev = allowStateChangesStart(true);
+    adm.spliceWithArray(0, 0, initialValues);
+    allowStateChangesEnd(prev);
+  }
+
+  return proxy;
+}
+
+var ObservableArrayAdministration =
+/** @class */
+function _anonymous_142() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function ObservableArrayAdministration(name, enhancer, owned) {
+    var necooData = window.necooPushCallStack(arguments);
+    this.owned = owned;
+    this.values = [];
+    this.proxy = undefined;
+    this.lastKnownLength = 0;
+    this.atom = new Atom(name || "ObservableArray@" + getNextId());
+
+    this.enhancer = function _anonymous_143(newV, oldV) {
+      var necooData = window.necooPushCallStack(arguments);
+      return enhancer(newV, oldV, name + "[..]");
+    };
+  }
+
+  ObservableArrayAdministration.prototype.dehanceValue = function _anonymous_144(value) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this.dehancer !== undefined) return this.dehancer(value);
+    return value;
+  };
+
+  ObservableArrayAdministration.prototype.dehanceValues = function _anonymous_145(values) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this.dehancer !== undefined && values.length > 0) return values.map(this.dehancer);
+    return values;
+  };
+
+  ObservableArrayAdministration.prototype.intercept = function _anonymous_146(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return registerInterceptor(this, handler);
+  };
+
+  ObservableArrayAdministration.prototype.observe = function _anonymous_147(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (fireImmediately === void 0) {
+      fireImmediately = false;
+    }
+
+    if (fireImmediately) {
+      listener({
+        object: this.proxy,
+        type: "splice",
+        index: 0,
+        added: this.values.slice(),
+        addedCount: this.values.length,
+        removed: [],
+        removedCount: 0
+      });
+    }
+
+    return registerListener(this, listener);
+  };
+
+  ObservableArrayAdministration.prototype.getArrayLength = function _anonymous_148() {
+    var necooData = window.necooPushCallStack(arguments);
+    this.atom.reportObserved();
+    return this.values.length;
+  };
+
+  ObservableArrayAdministration.prototype.setArrayLength = function _anonymous_149(newLength) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (typeof newLength !== "number" || newLength < 0) throw new Error("[mobx.array] Out of range: " + newLength);
+    var currentLength = this.values.length;
+    if (newLength === currentLength) return;else if (newLength > currentLength) {
+      var newItems = new Array(newLength - currentLength);
+
+      for (var i = 0; i < newLength - currentLength; i++) newItems[i] = undefined; // No Array.fill everywhere...
+
+
+      this.spliceWithArray(currentLength, 0, newItems);
+    } else this.spliceWithArray(newLength, currentLength - newLength);
+  };
+
+  ObservableArrayAdministration.prototype.updateArrayLength = function _anonymous_150(oldLength, delta) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (oldLength !== this.lastKnownLength) throw new Error("[mobx] Modification exception: the internal structure of an observable array was changed.");
+    this.lastKnownLength += delta;
+  };
+
+  ObservableArrayAdministration.prototype.spliceWithArray = function _anonymous_151(index, deleteCount, newItems) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    checkIfStateModificationsAreAllowed(this.atom);
+    var length = this.values.length;
+    if (index === undefined) index = 0;else if (index > length) index = length;else if (index < 0) index = Math.max(0, length + index);
+    if (arguments.length === 1) deleteCount = length - index;else if (deleteCount === undefined || deleteCount === null) deleteCount = 0;else deleteCount = Math.max(0, Math.min(deleteCount, length - index));
+    if (newItems === undefined) newItems = EMPTY_ARRAY;
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        object: this.proxy,
+        type: "splice",
+        index: index,
+        removedCount: deleteCount,
+        added: newItems
+      });
+      if (!change) return EMPTY_ARRAY;
+      deleteCount = change.removedCount;
+      newItems = change.added;
+    }
+
+    newItems = newItems.length === 0 ? newItems : newItems.map(function _anonymous_152(v) {
+      var necooData = window.necooPushCallStack(arguments);
+      return _this.enhancer(v, undefined);
+    });
+
+    if (true) {
+      var lengthDelta = newItems.length - deleteCount;
+      this.updateArrayLength(length, lengthDelta); // checks if internal array wasn't modified
+    }
+
+    var res = this.spliceItemsIntoValues(index, deleteCount, newItems);
+    if (deleteCount !== 0 || newItems.length !== 0) this.notifyArraySplice(index, newItems, res);
+    return this.dehanceValues(res);
+  };
+
+  ObservableArrayAdministration.prototype.spliceItemsIntoValues = function _anonymous_153(index, deleteCount, newItems) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _a;
+
+    if (newItems.length < MAX_SPLICE_SIZE) {
+      return (_a = this.values).splice.apply(_a, __spread([index, deleteCount], newItems));
+    } else {
+      var res = this.values.slice(index, index + deleteCount);
+      this.values = this.values.slice(0, index).concat(newItems, this.values.slice(index + deleteCount));
+      return res;
+    }
+  };
+
+  ObservableArrayAdministration.prototype.notifyArrayChildUpdate = function _anonymous_154(index, newValue, oldValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var notifySpy = !this.owned && isSpyEnabled();
+    var notify = hasListeners(this);
+    var change = notify || notifySpy ? {
+      object: this.proxy,
+      type: "update",
+      index: index,
+      newValue: newValue,
+      oldValue: oldValue
+    } : null; // The reason why this is on right hand side here (and not above), is this way the uglifier will drop it, but it won't
+    // cause any runtime overhead in development mode without NODE_ENV set, unless spying is enabled
+
+    if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+      name: this.atom.name
+    }));
+    this.atom.reportChanged();
+    if (notify) notifyListeners(this, change);
+    if (notifySpy && "development" !== "production") spyReportEnd();
+  };
+
+  ObservableArrayAdministration.prototype.notifyArraySplice = function _anonymous_155(index, added, removed) {
+    var necooData = window.necooPushCallStack(arguments);
+    var notifySpy = !this.owned && isSpyEnabled();
+    var notify = hasListeners(this);
+    var change = notify || notifySpy ? {
+      object: this.proxy,
+      type: "splice",
+      index: index,
+      removed: removed,
+      added: added,
+      removedCount: removed.length,
+      addedCount: added.length
+    } : null;
+    if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+      name: this.atom.name
+    }));
+    this.atom.reportChanged(); // conform: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/observe
+
+    if (notify) notifyListeners(this, change);
+    if (notifySpy && "development" !== "production") spyReportEnd();
+  };
+
+  return ObservableArrayAdministration;
+}();
+
+var arrayExtensions = {
+  intercept: function _anonymous_156(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return this[$mobx].intercept(handler);
+  },
+  observe: function _anonymous_157(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (fireImmediately === void 0) {
+      fireImmediately = false;
+    }
+
+    var adm = this[$mobx];
+    return adm.observe(listener, fireImmediately);
+  },
+  clear: function _anonymous_158() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.splice(0);
+  },
+  replace: function _anonymous_159(newItems) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+    return adm.spliceWithArray(0, adm.values.length, newItems);
+  },
+
+  /**
+   * Converts this array back to a (shallow) javascript structure.
+   * For a deep clone use mobx.toJS
+   */
+  toJS: function _anonymous_160() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.slice();
+  },
+  toJSON: function _anonymous_161() {
+    var necooData = window.necooPushCallStack(arguments); // Used by JSON.stringify
+
+    return this.toJS();
+  },
+
+  /*
+   * functions that do alter the internal structure of the array, (based on lib.es6.d.ts)
+   * since these functions alter the inner structure of the array, the have side effects.
+   * Because the have side effects, they should not be used in computed function,
+   * and for that reason the do not call dependencyState.notifyObserved
+   */
+  splice: function _anonymous_162(index, deleteCount) {
+    var necooData = window.necooPushCallStack(arguments);
+    var newItems = [];
+
+    for (var _i = 2; _i < arguments.length; _i++) {
+      newItems[_i - 2] = arguments[_i];
+    }
+
+    var adm = this[$mobx];
+
+    switch (arguments.length) {
+      case 0:
+        return [];
+
+      case 1:
+        return adm.spliceWithArray(index);
+
+      case 2:
+        return adm.spliceWithArray(index, deleteCount);
+    }
+
+    return adm.spliceWithArray(index, deleteCount, newItems);
+  },
+  spliceWithArray: function _anonymous_163(index, deleteCount, newItems) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+    return adm.spliceWithArray(index, deleteCount, newItems);
+  },
+  push: function _anonymous_164() {
+    var necooData = window.necooPushCallStack(arguments);
+    var items = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      items[_i] = arguments[_i];
+    }
+
+    var adm = this[$mobx];
+    adm.spliceWithArray(adm.values.length, 0, items);
+    return adm.values.length;
+  },
+  pop: function _anonymous_165() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.splice(Math.max(this[$mobx].values.length - 1, 0), 1)[0];
+  },
+  shift: function _anonymous_166() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.splice(0, 1)[0];
+  },
+  unshift: function _anonymous_167() {
+    var necooData = window.necooPushCallStack(arguments);
+    var items = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      items[_i] = arguments[_i];
+    }
+
+    var adm = this[$mobx];
+    adm.spliceWithArray(0, 0, items);
+    return adm.values.length;
+  },
+  reverse: function _anonymous_168() {
+    var necooData = window.necooPushCallStack(arguments); // reverse by default mutates in place before returning the result
+    // which makes it both a 'derivation' and a 'mutation'.
+    // so we deviate from the default and just make it an dervitation
+
+    if (true) {
+      console.warn("[mobx] `observableArray.reverse()` will not update the array in place. Use `observableArray.slice().reverse()` to supress this warning and perform the operation on a copy, or `observableArray.replace(observableArray.slice().reverse())` to reverse & update in place");
+    }
+
+    var clone = this.slice();
+    return clone.reverse.apply(clone, arguments);
+  },
+  sort: function _anonymous_169(compareFn) {
+    var necooData = window.necooPushCallStack(arguments); // sort by default mutates in place before returning the result
+    // which goes against all good practices. Let's not change the array in place!
+
+    if (true) {
+      console.warn("[mobx] `observableArray.sort()` will not update the array in place. Use `observableArray.slice().sort()` to supress this warning and perform the operation on a copy, or `observableArray.replace(observableArray.slice().sort())` to sort & update in place");
+    }
+
+    var clone = this.slice();
+    return clone.sort.apply(clone, arguments);
+  },
+  remove: function _anonymous_170(value) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+    var idx = adm.dehanceValues(adm.values).indexOf(value);
+
+    if (idx > -1) {
+      this.splice(idx, 1);
+      return true;
+    }
+
+    return false;
+  },
+  get: function _anonymous_171(index) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+
+    if (adm) {
+      if (index < adm.values.length) {
+        adm.atom.reportObserved();
+        return adm.dehanceValue(adm.values[index]);
+      }
+
+      console.warn("[mobx.array] Attempt to read an array index (" + index + ") that is out of bounds (" + adm.values.length + "). Please check length first. Out of bound indices will not be tracked by MobX");
+    }
+
+    return undefined;
+  },
+  set: function _anonymous_172(index, newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+    var values = adm.values;
+
+    if (index < values.length) {
+      // update at index in range
+      checkIfStateModificationsAreAllowed(adm.atom);
+      var oldValue = values[index];
+
+      if (hasInterceptors(adm)) {
+        var change = interceptChange(adm, {
+          type: "update",
+          object: adm.proxy,
+          index: index,
+          newValue: newValue
+        });
+        if (!change) return;
+        newValue = change.newValue;
+      }
+
+      newValue = adm.enhancer(newValue, oldValue);
+      var changed = newValue !== oldValue;
+
+      if (changed) {
+        values[index] = newValue;
+        adm.notifyArrayChildUpdate(index, newValue, oldValue);
+      }
+    } else if (index === values.length) {
+      // add a new item
+      adm.spliceWithArray(index, 0, [newValue]);
+    } else {
+      // out of bounds
+      throw new Error("[mobx.array] Index out of bounds, " + index + " is larger than " + values.length);
+    }
+  }
+};
+["concat", "every", "filter", "forEach", "indexOf", "join", "lastIndexOf", "map", "reduce", "reduceRight", "slice", "some", "toString", "toLocaleString"].forEach(function _anonymous_173(funcName) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  arrayExtensions[funcName] = function _anonymous_174() {
+    var necooData = window.necooPushCallStack(arguments);
+    var adm = this[$mobx];
+    adm.atom.reportObserved();
+    var res = adm.dehanceValues(adm.values);
+    return res[funcName].apply(res, arguments);
+  };
+});
+var isObservableArrayAdministration = createInstanceofPredicate("ObservableArrayAdministration", ObservableArrayAdministration);
+
+function isObservableArray(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+  return isObject(thing) && isObservableArrayAdministration(thing[$mobx]);
+}
+
+var _a;
+
+var ObservableMapMarker = {}; // just extend Map? See also https://gist.github.com/nestharus/13b4d74f2ef4a2f4357dbd3fc23c1e54
+// But: https://github.com/mobxjs/mobx/issues/1556
+
+var ObservableMap =
+/** @class */
+function _anonymous_175() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function ObservableMap(initialData, enhancer, name) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (enhancer === void 0) {
+      enhancer = deepEnhancer;
+    }
+
+    if (name === void 0) {
+      name = "ObservableMap@" + getNextId();
+    }
+
+    this.enhancer = enhancer;
+    this.name = name;
+    this[_a] = ObservableMapMarker;
+    this._keysAtom = createAtom(this.name + ".keys()");
+    this[Symbol.toStringTag] = "Map";
+
+    if (typeof Map !== "function") {
+      throw new Error("mobx.map requires Map polyfill for the current browser. Check babel-polyfill or core-js/es6/map.js");
+    }
+
+    this._data = new Map();
+    this._hasMap = new Map();
+    this.merge(initialData);
+  }
+
+  ObservableMap.prototype._has = function _anonymous_176(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    return this._data.has(key);
+  };
+
+  ObservableMap.prototype.has = function _anonymous_177(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this._hasMap.has(key)) return this._hasMap.get(key).get();
+    return this._updateHasMapEntry(key, false).get();
+  };
+
+  ObservableMap.prototype.set = function _anonymous_178(key, value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var hasKey = this._has(key);
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        type: hasKey ? "update" : "add",
+        object: this,
+        newValue: value,
+        name: key
+      });
+      if (!change) return this;
+      value = change.newValue;
+    }
+
+    if (hasKey) {
+      this._updateValue(key, value);
+    } else {
+      this._addValue(key, value);
+    }
+
+    return this;
+  };
+
+  ObservableMap.prototype.delete = function _anonymous_179(key) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        type: "delete",
+        object: this,
+        name: key
+      });
+      if (!change) return false;
+    }
+
+    if (this._has(key)) {
+      var notifySpy = isSpyEnabled();
+      var notify = hasListeners(this);
+      var change = notify || notifySpy ? {
+        type: "delete",
+        object: this,
+        oldValue: this._data.get(key).value,
+        name: key
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+        name: this.name,
+        key: key
+      }));
+      transaction(function _anonymous_180() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        _this._keysAtom.reportChanged();
+
+        _this._updateHasMapEntry(key, false);
+
+        var observable = _this._data.get(key);
+
+        observable.setNewValue(undefined);
+
+        _this._data.delete(key);
+      });
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+      return true;
+    }
+
+    return false;
+  };
+
+  ObservableMap.prototype._updateHasMapEntry = function _anonymous_181(key, value) {
+    var necooData = window.necooPushCallStack(arguments); // optimization; don't fill the hasMap if we are not observing, or remove entry if there are no observers anymore
+
+    var entry = this._hasMap.get(key);
+
+    if (entry) {
+      entry.setNewValue(value);
+    } else {
+      entry = new ObservableValue(value, referenceEnhancer, this.name + "." + stringifyKey(key) + "?", false);
+
+      this._hasMap.set(key, entry);
+    }
+
+    return entry;
+  };
+
+  ObservableMap.prototype._updateValue = function _anonymous_182(key, newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var observable = this._data.get(key);
+
+    newValue = observable.prepareNewValue(newValue);
+
+    if (newValue !== globalState.UNCHANGED) {
+      var notifySpy = isSpyEnabled();
+      var notify = hasListeners(this);
+      var change = notify || notifySpy ? {
+        type: "update",
+        object: this,
+        oldValue: observable.value,
+        name: key,
+        newValue: newValue
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+        name: this.name,
+        key: key
+      }));
+      observable.setNewValue(newValue);
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+    }
+  };
+
+  ObservableMap.prototype._addValue = function _anonymous_183(key, newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    checkIfStateModificationsAreAllowed(this._keysAtom);
+    transaction(function _anonymous_184() {
+      var necooData = window.necooPushCallStack(arguments);
+      var observable = new ObservableValue(newValue, _this.enhancer, _this.name + "." + stringifyKey(key), false);
+
+      _this._data.set(key, observable);
+
+      newValue = observable.value; // value might have been changed
+
+      _this._updateHasMapEntry(key, true);
+
+      _this._keysAtom.reportChanged();
+    });
+    var notifySpy = isSpyEnabled();
+    var notify = hasListeners(this);
+    var change = notify || notifySpy ? {
+      type: "add",
+      object: this,
+      name: key,
+      newValue: newValue
+    } : null;
+    if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+      name: this.name,
+      key: key
+    }));
+    if (notify) notifyListeners(this, change);
+    if (notifySpy && "development" !== "production") spyReportEnd();
+  };
+
+  ObservableMap.prototype.get = function _anonymous_185(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (this.has(key)) return this.dehanceValue(this._data.get(key).get());
+    return this.dehanceValue(undefined);
+  };
+
+  ObservableMap.prototype.dehanceValue = function _anonymous_186(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.dehancer !== undefined) {
+      return this.dehancer(value);
+    }
+
+    return value;
+  };
+
+  ObservableMap.prototype.keys = function _anonymous_187() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    this._keysAtom.reportObserved();
+
+    return this._data.keys();
+  };
+
+  ObservableMap.prototype.values = function _anonymous_188() {
+    var necooData = window.necooPushCallStack(arguments);
+    var self = this;
+    var nextIndex = 0;
+    var keys = Array.from(this.keys());
+    return makeIterable({
+      next: function _anonymous_189() {
+        var necooData = window.necooPushCallStack(arguments);
+        return nextIndex < keys.length ? {
+          value: self.get(keys[nextIndex++]),
+          done: false
+        } : {
+          done: true
+        };
+      }
+    });
+  };
+
+  ObservableMap.prototype.entries = function _anonymous_190() {
+    var necooData = window.necooPushCallStack(arguments);
+    var self = this;
+    var nextIndex = 0;
+    var keys = Array.from(this.keys());
+    return makeIterable({
+      next: function _anonymous_191() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        if (nextIndex < keys.length) {
+          var key = keys[nextIndex++];
+          return {
+            value: [key, self.get(key)],
+            done: false
+          };
+        }
+
+        return {
+          done: true
+        };
+      }
+    });
+  };
+
+  ObservableMap.prototype[(_a = $mobx, Symbol.iterator)] = function _anonymous_192() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.entries();
+  };
+
+  ObservableMap.prototype.forEach = function _anonymous_193(callback, thisArg) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var e_1, _a;
+
+    try {
+      for (var _b = __values(this), _c = _b.next(); !_c.done; _c = _b.next()) {
+        var _d = __read(_c.value, 2),
+            key = _d[0],
+            value = _d[1];
+
+        callback.call(thisArg, value, key, this);
+      }
+    } catch (e_1_1) {
+      e_1 = {
+        error: e_1_1
+      };
+    } finally {
+      try {
+        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+      } finally {
+        if (e_1) throw e_1.error;
+      }
+    }
+  };
+  /** Merge another object into this object, returns this. */
+
+
+  ObservableMap.prototype.merge = function _anonymous_194(other) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    if (isObservableMap(other)) {
+      other = other.toJS();
+    }
+
+    transaction(function _anonymous_195() {
+      var necooData = window.necooPushCallStack(arguments);
+      if (isPlainObject(other)) getPlainObjectKeys(other).forEach(function _anonymous_196(key) {
+        var necooData = window.necooPushCallStack(arguments);
+        return _this.set(key, other[key]);
+      });else if (Array.isArray(other)) other.forEach(function _anonymous_197(_a) {
+        var necooData = window.necooPushCallStack(arguments);
+
+        var _b = __read(_a, 2),
+            key = _b[0],
+            value = _b[1];
+
+        return _this.set(key, value);
+      });else if (isES6Map(other)) {
+        if (other.constructor !== Map) fail("Cannot initialize from classes that inherit from Map: " + other.constructor.name); // prettier-ignore
+
+        other.forEach(function _anonymous_198(value, key) {
+          var necooData = window.necooPushCallStack(arguments);
+          return _this.set(key, value);
+        });
+      } else if (other !== null && other !== undefined) fail("Cannot initialize map from " + other);
+    });
+    return this;
+  };
+
+  ObservableMap.prototype.clear = function _anonymous_199() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    transaction(function _anonymous_200() {
+      var necooData = window.necooPushCallStack(arguments);
+      untracked(function _anonymous_201() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        var e_2, _a;
+
+        try {
+          for (var _b = __values(_this.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var key = _c.value;
+
+            _this.delete(key);
+          }
+        } catch (e_2_1) {
+          e_2 = {
+            error: e_2_1
+          };
+        } finally {
+          try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+          } finally {
+            if (e_2) throw e_2.error;
+          }
+        }
+      });
+    });
+  };
+
+  ObservableMap.prototype.replace = function _anonymous_202(values) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    transaction(function _anonymous_203() {
+      var necooData = window.necooPushCallStack(arguments); // grab all the keys that are present in the new map but not present in the current map
+      // and delete them from the map, then merge the new map
+      // this will cause reactions only on changed values
+
+      var newKeys = getMapLikeKeys(values);
+      var oldKeys = Array.from(_this.keys());
+      var missingKeys = oldKeys.filter(function _anonymous_204(k) {
+        var necooData = window.necooPushCallStack(arguments);
+        return newKeys.indexOf(k) === -1;
+      });
+      missingKeys.forEach(function _anonymous_205(k) {
+        var necooData = window.necooPushCallStack(arguments);
+        return _this.delete(k);
+      });
+
+      _this.merge(values);
+    });
+    return this;
+  };
+
+  Object.defineProperty(ObservableMap.prototype, "size", {
+    get: function _anonymous_206() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      this._keysAtom.reportObserved();
+
+      return this._data.size;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  /**
+   * Returns a plain object that represents this map.
+   * Note that all the keys being stringified.
+   * If there are duplicating keys after converting them to strings, behaviour is undetermined.
+   */
+
+  ObservableMap.prototype.toPOJO = function _anonymous_207() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var e_3, _a;
+
+    var res = {};
+
+    try {
+      for (var _b = __values(this), _c = _b.next(); !_c.done; _c = _b.next()) {
+        var _d = __read(_c.value, 2),
+            key = _d[0],
+            value = _d[1]; // We lie about symbol key types due to https://github.com/Microsoft/TypeScript/issues/1863
+
+
+        res[typeof key === "symbol" ? key : stringifyKey(key)] = value;
+      }
+    } catch (e_3_1) {
+      e_3 = {
+        error: e_3_1
+      };
+    } finally {
+      try {
+        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+      } finally {
+        if (e_3) throw e_3.error;
+      }
+    }
+
+    return res;
+  };
+  /**
+   * Returns a shallow non observable object clone of this map.
+   * Note that the values migth still be observable. For a deep clone use mobx.toJS.
+   */
+
+
+  ObservableMap.prototype.toJS = function _anonymous_208() {
+    var necooData = window.necooPushCallStack(arguments);
+    return new Map(this);
+  };
+
+  ObservableMap.prototype.toJSON = function _anonymous_209() {
+    var necooData = window.necooPushCallStack(arguments); // Used by JSON.stringify
+
+    return this.toPOJO();
+  };
+
+  ObservableMap.prototype.toString = function _anonymous_210() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    return this.name + "[{ " + Array.from(this.keys()).map(function _anonymous_211(key) {
+      var necooData = window.necooPushCallStack(arguments);
+      return stringifyKey(key) + ": " + ("" + _this.get(key));
+    }).join(", ") + " }]";
+  };
+  /**
+   * Observes this object. Triggers for the events 'add', 'update' and 'delete'.
+   * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
+   * for callback details
+   */
+
+
+  ObservableMap.prototype.observe = function _anonymous_212(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+     true && invariant(fireImmediately !== true, "`observe` doesn't support fireImmediately=true in combination with maps.");
+    return registerListener(this, listener);
+  };
+
+  ObservableMap.prototype.intercept = function _anonymous_213(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return registerInterceptor(this, handler);
+  };
+
+  return ObservableMap;
+}();
+/* 'var' fixes small-build issue */
+
+
+var isObservableMap = createInstanceofPredicate("ObservableMap", ObservableMap);
+
+var _a$1;
+
+var ObservableSetMarker = {};
+
+var ObservableSet =
+/** @class */
+function _anonymous_214() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function ObservableSet(initialData, enhancer, name) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (enhancer === void 0) {
+      enhancer = deepEnhancer;
+    }
+
+    if (name === void 0) {
+      name = "ObservableSet@" + getNextId();
+    }
+
+    this.name = name;
+    this[_a$1] = ObservableSetMarker;
+    this._data = new Set();
+    this._atom = createAtom(this.name);
+    this[Symbol.toStringTag] = "Set";
+
+    if (typeof Set !== "function") {
+      throw new Error("mobx.set requires Set polyfill for the current browser. Check babel-polyfill or core-js/es6/set.js");
+    }
+
+    this.enhancer = function _anonymous_215(newV, oldV) {
+      var necooData = window.necooPushCallStack(arguments);
+      return enhancer(newV, oldV, name);
+    };
+
+    if (initialData) {
+      this.replace(initialData);
+    }
+  }
+
+  ObservableSet.prototype.dehanceValue = function _anonymous_216(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (this.dehancer !== undefined) {
+      return this.dehancer(value);
+    }
+
+    return value;
+  };
+
+  ObservableSet.prototype.clear = function _anonymous_217() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    transaction(function _anonymous_218() {
+      var necooData = window.necooPushCallStack(arguments);
+      untracked(function _anonymous_219() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        var e_1, _a;
+
+        try {
+          for (var _b = __values(_this._data.values()), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var value = _c.value;
+
+            _this.delete(value);
+          }
+        } catch (e_1_1) {
+          e_1 = {
+            error: e_1_1
+          };
+        } finally {
+          try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+          } finally {
+            if (e_1) throw e_1.error;
+          }
+        }
+      });
+    });
+  };
+
+  ObservableSet.prototype.forEach = function _anonymous_220(callbackFn, thisArg) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var e_2, _a;
+
+    try {
+      for (var _b = __values(this), _c = _b.next(); !_c.done; _c = _b.next()) {
+        var value = _c.value;
+        callbackFn.call(thisArg, value, value, this);
+      }
+    } catch (e_2_1) {
+      e_2 = {
+        error: e_2_1
+      };
+    } finally {
+      try {
+        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+      } finally {
+        if (e_2) throw e_2.error;
+      }
+    }
+  };
+
+  Object.defineProperty(ObservableSet.prototype, "size", {
+    get: function _anonymous_221() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      this._atom.reportObserved();
+
+      return this._data.size;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  ObservableSet.prototype.add = function _anonymous_222(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    checkIfStateModificationsAreAllowed(this._atom);
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        type: "add",
+        object: this,
+        newValue: value
+      });
+      if (!change) return this; // TODO: ideally, value = change.value would be done here, so that values can be
+      // changed by interceptor. Same applies for other Set and Map api's.
+    }
+
+    if (!this.has(value)) {
+      transaction(function _anonymous_223() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        _this._data.add(_this.enhancer(value, undefined));
+
+        _this._atom.reportChanged();
+      });
+      var notifySpy = isSpyEnabled();
+      var notify = hasListeners(this);
+      var change = notify || notifySpy ? {
+        type: "add",
+        object: this,
+        newValue: value
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(change);
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+    }
+
+    return this;
+  };
+
+  ObservableSet.prototype.delete = function _anonymous_224(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        type: "delete",
+        object: this,
+        oldValue: value
+      });
+      if (!change) return false;
+    }
+
+    if (this.has(value)) {
+      var notifySpy = isSpyEnabled();
+      var notify = hasListeners(this);
+      var change = notify || notifySpy ? {
+        type: "delete",
+        object: this,
+        oldValue: value
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+        name: this.name
+      }));
+      transaction(function _anonymous_225() {
+        var necooData = window.necooPushCallStack(arguments);
+
+        _this._atom.reportChanged();
+
+        _this._data.delete(value);
+      });
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+      return true;
+    }
+
+    return false;
+  };
+
+  ObservableSet.prototype.has = function _anonymous_226(value) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    this._atom.reportObserved();
+
+    return this._data.has(this.dehanceValue(value));
+  };
+
+  ObservableSet.prototype.entries = function _anonymous_227() {
+    var necooData = window.necooPushCallStack(arguments);
+    var nextIndex = 0;
+    var keys = Array.from(this.keys());
+    var values = Array.from(this.values());
+    return makeIterable({
+      next: function _anonymous_228() {
+        var necooData = window.necooPushCallStack(arguments);
+        var index = nextIndex;
+        nextIndex += 1;
+        return index < values.length ? {
+          value: [keys[index], values[index]],
+          done: false
+        } : {
+          done: true
+        };
+      }
+    });
+  };
+
+  ObservableSet.prototype.keys = function _anonymous_229() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.values();
+  };
+
+  ObservableSet.prototype.values = function _anonymous_230() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    this._atom.reportObserved();
+
+    var self = this;
+    var nextIndex = 0;
+    var observableValues = Array.from(this._data.values());
+    return makeIterable({
+      next: function _anonymous_231() {
+        var necooData = window.necooPushCallStack(arguments);
+        return nextIndex < observableValues.length ? {
+          value: self.dehanceValue(observableValues[nextIndex++]),
+          done: false
+        } : {
+          done: true
+        };
+      }
+    });
+  };
+
+  ObservableSet.prototype.replace = function _anonymous_232(other) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var _this = this;
+
+    if (isObservableSet(other)) {
+      other = other.toJS();
+    }
+
+    transaction(function _anonymous_233() {
+      var necooData = window.necooPushCallStack(arguments);
+
+      if (Array.isArray(other)) {
+        _this.clear();
+
+        other.forEach(function _anonymous_234(value) {
+          var necooData = window.necooPushCallStack(arguments);
+          return _this.add(value);
+        });
+      } else if (isES6Set(other)) {
+        _this.clear();
+
+        other.forEach(function _anonymous_235(value) {
+          var necooData = window.necooPushCallStack(arguments);
+          return _this.add(value);
+        });
+      } else if (other !== null && other !== undefined) {
+        fail("Cannot initialize set from " + other);
+      }
+    });
+    return this;
+  };
+
+  ObservableSet.prototype.observe = function _anonymous_236(listener, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments); // TODO 'fireImmediately' can be true?
+
+     true && invariant(fireImmediately !== true, "`observe` doesn't support fireImmediately=true in combination with sets.");
+    return registerListener(this, listener);
+  };
+
+  ObservableSet.prototype.intercept = function _anonymous_237(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return registerInterceptor(this, handler);
+  };
+
+  ObservableSet.prototype.toJS = function _anonymous_238() {
+    var necooData = window.necooPushCallStack(arguments);
+    return new Set(this);
+  };
+
+  ObservableSet.prototype.toString = function _anonymous_239() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.name + "[ " + Array.from(this).join(", ") + " ]";
+  };
+
+  ObservableSet.prototype[(_a$1 = $mobx, Symbol.iterator)] = function _anonymous_240() {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.values();
+  };
+
+  return ObservableSet;
+}();
+
+var isObservableSet = createInstanceofPredicate("ObservableSet", ObservableSet);
+
+var ObservableObjectAdministration =
+/** @class */
+function _anonymous_241() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function ObservableObjectAdministration(target, values, name, defaultEnhancer) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (values === void 0) {
+      values = new Map();
+    }
+
+    this.target = target;
+    this.values = values;
+    this.name = name;
+    this.defaultEnhancer = defaultEnhancer;
+    this.keysAtom = new Atom(name + ".keys");
+  }
+
+  ObservableObjectAdministration.prototype.read = function _anonymous_242(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    return this.values.get(key).get();
+  };
+
+  ObservableObjectAdministration.prototype.write = function _anonymous_243(key, newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var instance = this.target;
+    var observable = this.values.get(key);
+
+    if (observable instanceof ComputedValue) {
+      observable.set(newValue);
+      return;
+    } // intercept
+
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        type: "update",
+        object: this.proxy || instance,
+        name: key,
+        newValue: newValue
+      });
+      if (!change) return;
+      newValue = change.newValue;
+    }
+
+    newValue = observable.prepareNewValue(newValue); // notify spy & observers
+
+    if (newValue !== globalState.UNCHANGED) {
+      var notify = hasListeners(this);
+      var notifySpy = isSpyEnabled();
+      var change = notify || notifySpy ? {
+        type: "update",
+        object: this.proxy || instance,
+        oldValue: observable.value,
+        name: key,
+        newValue: newValue
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+        name: this.name,
+        key: key
+      }));
+      observable.setNewValue(newValue);
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+    }
+  };
+
+  ObservableObjectAdministration.prototype.has = function _anonymous_244(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    var map = this.pendingKeys || (this.pendingKeys = new Map());
+    var entry = map.get(key);
+    if (entry) return entry.get();else {
+      var exists = !!this.values.get(key); // Possible optimization: Don't have a separate map for non existing keys,
+      // but store them in the values map instead, using a special symbol to denote "not existing"
+
+      entry = new ObservableValue(exists, referenceEnhancer, this.name + "." + stringifyKey(key) + "?", false);
+      map.set(key, entry);
+      return entry.get(); // read to subscribe
+    }
+  };
+
+  ObservableObjectAdministration.prototype.addObservableProp = function _anonymous_245(propName, newValue, enhancer) {
+    var necooData = window.necooPushCallStack(arguments);
+
+    if (enhancer === void 0) {
+      enhancer = this.defaultEnhancer;
+    }
+
+    var target = this.target;
+    assertPropertyConfigurable(target, propName);
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        object: this.proxy || target,
+        name: propName,
+        type: "add",
+        newValue: newValue
+      });
+      if (!change) return;
+      newValue = change.newValue;
+    }
+
+    var observable = new ObservableValue(newValue, enhancer, this.name + "." + stringifyKey(propName), false);
+    this.values.set(propName, observable);
+    newValue = observable.value; // observableValue might have changed it
+
+    Object.defineProperty(target, propName, generateObservablePropConfig(propName));
+    this.notifyPropertyAddition(propName, newValue);
+  };
+
+  ObservableObjectAdministration.prototype.addComputedProp = function _anonymous_246(propertyOwner, // where is the property declared?
+  propName, options) {
+    var necooData = window.necooPushCallStack(arguments);
+    var target = this.target;
+    options.name = options.name || this.name + "." + stringifyKey(propName);
+    this.values.set(propName, new ComputedValue(options));
+    if (propertyOwner === target || isPropertyConfigurable(propertyOwner, propName)) Object.defineProperty(propertyOwner, propName, generateComputedPropConfig(propName));
+  };
+
+  ObservableObjectAdministration.prototype.remove = function _anonymous_247(key) {
+    var necooData = window.necooPushCallStack(arguments);
+    if (!this.values.has(key)) return;
+    var target = this.target;
+
+    if (hasInterceptors(this)) {
+      var change = interceptChange(this, {
+        object: this.proxy || target,
+        name: key,
+        type: "remove"
+      });
+      if (!change) return;
+    }
+
+    try {
+      startBatch();
+      var notify = hasListeners(this);
+      var notifySpy = isSpyEnabled();
+      var oldObservable = this.values.get(key);
+      var oldValue = oldObservable && oldObservable.get();
+      oldObservable && oldObservable.set(undefined); // notify key and keyset listeners
+
+      this.keysAtom.reportChanged();
+      this.values.delete(key);
+
+      if (this.pendingKeys) {
+        var entry = this.pendingKeys.get(key);
+        if (entry) entry.set(false);
+      } // delete the prop
+
+
+      delete this.target[key];
+      var change = notify || notifySpy ? {
+        type: "remove",
+        object: this.proxy || target,
+        oldValue: oldValue,
+        name: key
+      } : null;
+      if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+        name: this.name,
+        key: key
+      }));
+      if (notify) notifyListeners(this, change);
+      if (notifySpy && "development" !== "production") spyReportEnd();
+    } finally {
+      endBatch();
+    }
+  };
+
+  ObservableObjectAdministration.prototype.illegalAccess = function _anonymous_248(owner, propName) {
+    var necooData = window.necooPushCallStack(arguments);
+    /**
+     * This happens if a property is accessed through the prototype chain, but the property was
+     * declared directly as own property on the prototype.
+     *
+     * E.g.:
+     * class A {
+     * }
+     * extendObservable(A.prototype, { x: 1 })
+     *
+     * classB extens A {
+     * }
+     * console.log(new B().x)
+     *
+     * It is unclear whether the property should be considered 'static' or inherited.
+     * Either use `console.log(A.x)`
+     * or: decorate(A, { x: observable })
+     *
+     * When using decorate, the property will always be redeclared as own property on the actual instance
+     */
+
+    console.warn("Property '" + propName + "' of '" + owner + "' was accessed through the prototype chain. Use 'decorate' instead to declare the prop or access it statically through it's owner");
+  };
+  /**
+   * Observes this object. Triggers for the events 'add', 'update' and 'delete'.
+   * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
+   * for callback details
+   */
+
+
+  ObservableObjectAdministration.prototype.observe = function _anonymous_249(callback, fireImmediately) {
+    var necooData = window.necooPushCallStack(arguments);
+     true && invariant(fireImmediately !== true, "`observe` doesn't support the fire immediately property for observable objects.");
+    return registerListener(this, callback);
+  };
+
+  ObservableObjectAdministration.prototype.intercept = function _anonymous_250(handler) {
+    var necooData = window.necooPushCallStack(arguments);
+    return registerInterceptor(this, handler);
+  };
+
+  ObservableObjectAdministration.prototype.notifyPropertyAddition = function _anonymous_251(key, newValue) {
+    var necooData = window.necooPushCallStack(arguments);
+    var notify = hasListeners(this);
+    var notifySpy = isSpyEnabled();
+    var change = notify || notifySpy ? {
+      type: "add",
+      object: this.proxy || this.target,
+      name: key,
+      newValue: newValue
+    } : null;
+    if (notifySpy && "development" !== "production") spyReportStart(__assign({}, change, {
+      name: this.name,
+      key: key
+    }));
+    if (notify) notifyListeners(this, change);
+    if (notifySpy && "development" !== "production") spyReportEnd();
+
+    if (this.pendingKeys) {
+      var entry = this.pendingKeys.get(key);
+      if (entry) entry.set(true);
+    }
+
+    this.keysAtom.reportChanged();
+  };
+
+  ObservableObjectAdministration.prototype.getKeys = function _anonymous_252() {
+    var necooData = window.necooPushCallStack(arguments);
+
+    var e_1, _a;
+
+    this.keysAtom.reportObserved(); // return Reflect.ownKeys(this.values) as any
+
+    var res = [];
+
+    try {
+      for (var _b = __values(this.values), _c = _b.next(); !_c.done; _c = _b.next()) {
+        var _d = __read(_c.value, 2),
+            key = _d[0],
+            value = _d[1];
+
+        if (value instanceof ObservableValue) res.push(key);
+      }
+    } catch (e_1_1) {
+      e_1 = {
+        error: e_1_1
+      };
+    } finally {
+      try {
+        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+      } finally {
+        if (e_1) throw e_1.error;
+      }
+    }
+
+    return res;
+  };
+
+  return ObservableObjectAdministration;
+}();
+
+function asObservableObject(target, name, defaultEnhancer) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (name === void 0) {
+    name = "";
+  }
+
+  if (defaultEnhancer === void 0) {
+    defaultEnhancer = deepEnhancer;
+  }
+
+  if (Object.prototype.hasOwnProperty.call(target, $mobx)) return target[$mobx];
+   true && invariant(Object.isExtensible(target), "Cannot make the designated object observable; it is not extensible");
+  if (!isPlainObject(target)) name = (target.constructor.name || "ObservableObject") + "@" + getNextId();
+  if (!name) name = "ObservableObject@" + getNextId();
+  var adm = new ObservableObjectAdministration(target, new Map(), stringifyKey(name), defaultEnhancer);
+  addHiddenProp(target, $mobx, adm);
+  return adm;
+}
+
+var observablePropertyConfigs = Object.create(null);
+var computedPropertyConfigs = Object.create(null);
+
+function generateObservablePropConfig(propName) {
+  var necooData = window.necooPushCallStack(arguments);
+  return observablePropertyConfigs[propName] || (observablePropertyConfigs[propName] = {
+    configurable: true,
+    enumerable: true,
+    get: function _anonymous_253() {
+      var necooData = window.necooPushCallStack(arguments);
+      return this[$mobx].read(propName);
+    },
+    set: function _anonymous_254(v) {
+      var necooData = window.necooPushCallStack(arguments);
+      this[$mobx].write(propName, v);
+    }
+  });
+}
+
+function getAdministrationForComputedPropOwner(owner) {
+  var necooData = window.necooPushCallStack(arguments);
+  var adm = owner[$mobx];
+
+  if (!adm) {
+    // because computed props are declared on proty,
+    // the current instance might not have been initialized yet
+    initializeInstance(owner);
+    return owner[$mobx];
+  }
+
+  return adm;
+}
+
+function generateComputedPropConfig(propName) {
+  var necooData = window.necooPushCallStack(arguments);
+  return computedPropertyConfigs[propName] || (computedPropertyConfigs[propName] = {
+    configurable: false,
+    enumerable: false,
+    get: function _anonymous_255() {
+      var necooData = window.necooPushCallStack(arguments);
+      return getAdministrationForComputedPropOwner(this).read(propName);
+    },
+    set: function _anonymous_256(v) {
+      var necooData = window.necooPushCallStack(arguments);
+      getAdministrationForComputedPropOwner(this).write(propName, v);
+    }
+  });
+}
+
+var isObservableObjectAdministration = createInstanceofPredicate("ObservableObjectAdministration", ObservableObjectAdministration);
+
+function isObservableObject(thing) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (isObject(thing)) {
+    // Initializers run lazily when transpiling to babel, so make sure they are run...
+    initializeInstance(thing);
+    return isObservableObjectAdministration(thing[$mobx]);
+  }
+
+  return false;
+}
+
+function getAtom(thing, property) {
+  var necooData = window.necooPushCallStack(arguments);
+
+  if (typeof thing === "object" && thing !== null) {
+    if (isObservableArray(thing)) {
+      if (property !== undefined) fail( true && "It is not possible to get index atoms from arrays");
+      return thing[$mobx].atom;
+    }
+
+    if (isObservableSet(thing)) {
+      return thing[$mobx];
+    }
+
+    if (isObservableMap(thing)) {
+      var anyThing = thing;
+      if (property === undefined) return anyThing._keysAtom;
+
+      var observable = anyThing._data.get(property) || anyThing._hasMap.get(property);
+
+      if (!observable) fail( true && "the entry '" + property + "' does not exist in the observable map '" + getDebugName(thing) + "'");
+      return observable;
+    } // Initializers run lazily when transpiling to babel, so make sure they are run...
+
+
+    initializeInstance(thing);
+    if (property && !thing[$mobx]) thing[property]; // See #1072
+
+    if (isObservableObject(thing)) {
+      if (!property) return fail( true && "please specify a property");
+      var observable = thing[$mobx].values.get(property);
+      if (!observable) fail( true && "no observable property '" + property + "' found on the observable object '" + getDebugName(thing) + "'");
+      return observable;
+    }
+
+    if (isAtom(thing) || isComputedValue(thing) || isReaction(thing)) {
+      return thing;
+    }
+  } else if (typeof thing === "function") {
+    if (isReaction(thing[$mobx])) {
+      // disposer function
+      return thing[$mobx];
+    }
+  }
+
+  return fail( true && "Cannot obtain atom from " + thing);
+}
+
+function getAdministration(thing, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (!thing) fail("Expecting some object");
+  if (property !== undefined) return getAdministration(getAtom(thing, property));
+  if (isAtom(thing) || isComputedValue(thing) || isReaction(thing)) return thing;
+  if (isObservableMap(thing) || isObservableSet(thing)) return thing; // Initializers run lazily when transpiling to babel, so make sure they are run...
+
+  initializeInstance(thing);
+  if (thing[$mobx]) return thing[$mobx];
+  fail( true && "Cannot obtain administration from " + thing);
+}
+
+function getDebugName(thing, property) {
+  var necooData = window.necooPushCallStack(arguments);
+  var named;
+  if (property !== undefined) named = getAtom(thing, property);else if (isObservableObject(thing) || isObservableMap(thing) || isObservableSet(thing)) named = getAdministration(thing);else named = getAtom(thing); // valid for arrays as well
+
+  return named.name;
+}
+
+var toString = Object.prototype.toString;
+
+function deepEqual(a, b) {
+  var necooData = window.necooPushCallStack(arguments);
+  return eq(a, b);
+} // Copied from https://github.com/jashkenas/underscore/blob/5c237a7c682fb68fd5378203f0bf22dce1624854/underscore.js#L1186-L1289
+// Internal recursive comparison function for `isEqual`.
+
+
+function eq(a, b, aStack, bStack) {
+  var necooData = window.necooPushCallStack(arguments); // Identical objects are equal. `0 === -0`, but they aren't identical.
+  // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+
+  if (a === b) return a !== 0 || 1 / a === 1 / b; // `null` or `undefined` only equal to itself (strict comparison).
+
+  if (a == null || b == null) return false; // `NaN`s are equivalent, but non-reflexive.
+
+  if (a !== a) return b !== b; // Exhaust primitive checks
+
+  var type = typeof a;
+  if (type !== "function" && type !== "object" && typeof b != "object") return false;
+  return deepEq(a, b, aStack, bStack);
+} // Internal recursive comparison function for `isEqual`.
+
+
+function deepEq(a, b, aStack, bStack) {
+  var necooData = window.necooPushCallStack(arguments); // Unwrap any wrapped objects.
+
+  a = unwrap(a);
+  b = unwrap(b); // Compare `[[Class]]` names.
+
+  var className = toString.call(a);
+  if (className !== toString.call(b)) return false;
+
+  switch (className) {
+    // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+    case "[object RegExp]": // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+
+    case "[object String]":
+      // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+      // equivalent to `new String("5")`.
+      return "" + a === "" + b;
+
+    case "[object Number]":
+      // `NaN`s are equivalent, but non-reflexive.
+      // Object(NaN) is equivalent to NaN.
+      if (+a !== +a) return +b !== +b; // An `egal` comparison is performed for other numeric values.
+
+      return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+
+    case "[object Date]":
+    case "[object Boolean]":
+      // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+      // millisecond representations. Note that invalid dates with millisecond representations
+      // of `NaN` are not equivalent.
+      return +a === +b;
+
+    case "[object Symbol]":
+      return typeof Symbol !== "undefined" && Symbol.valueOf.call(a) === Symbol.valueOf.call(b);
+  }
+
+  var areArrays = className === "[object Array]";
+
+  if (!areArrays) {
+    if (typeof a != "object" || typeof b != "object") return false; // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+    // from different frames are.
+
+    var aCtor = a.constructor,
+        bCtor = b.constructor;
+
+    if (aCtor !== bCtor && !(typeof aCtor === "function" && aCtor instanceof aCtor && typeof bCtor === "function" && bCtor instanceof bCtor) && "constructor" in a && "constructor" in b) {
+      return false;
+    }
+  } // Assume equality for cyclic structures. The algorithm for detecting cyclic
+  // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+  // Initializing stack of traversed objects.
+  // It's done here since we only need them for objects and arrays comparison.
+
+
+  aStack = aStack || [];
+  bStack = bStack || [];
+  var length = aStack.length;
+
+  while (length--) {
+    // Linear search. Performance is inversely proportional to the number of
+    // unique nested structures.
+    if (aStack[length] === a) return bStack[length] === b;
+  } // Add the first object to the stack of traversed objects.
+
+
+  aStack.push(a);
+  bStack.push(b); // Recursively compare objects and arrays.
+
+  if (areArrays) {
+    // Compare array lengths to determine if a deep comparison is necessary.
+    length = a.length;
+    if (length !== b.length) return false; // Deep compare the contents, ignoring non-numeric properties.
+
+    while (length--) {
+      if (!eq(a[length], b[length], aStack, bStack)) return false;
+    }
+  } else {
+    // Deep compare objects.
+    var keys = Object.keys(a);
+    var key = void 0;
+    length = keys.length; // Ensure that both objects contain the same number of properties before comparing deep equality.
+
+    if (Object.keys(b).length !== length) return false;
+
+    while (length--) {
+      // Deep compare each member
+      key = keys[length];
+      if (!(has$1(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
+    }
+  } // Remove the first object from the stack of traversed objects.
+
+
+  aStack.pop();
+  bStack.pop();
+  return true;
+}
+
+function unwrap(a) {
+  var necooData = window.necooPushCallStack(arguments);
+  if (isObservableArray(a)) return a.slice();
+  if (isES6Map(a) || isObservableMap(a)) return Array.from(a.entries());
+  if (isES6Set(a) || isObservableSet(a)) return Array.from(a.entries());
+  return a;
+}
+
+function has$1(a, key) {
+  var necooData = window.necooPushCallStack(arguments);
+  return Object.prototype.hasOwnProperty.call(a, key);
+}
+
+function makeIterable(iterator) {
+  var necooData = window.necooPushCallStack(arguments);
+  iterator[Symbol.iterator] = self;
+  return iterator;
+}
+
+function self() {
+  var necooData = window.necooPushCallStack(arguments);
+  return this;
+}
+/*
+The only reason for this file to exist is pure horror:
+Without it rollup can make the bundling fail at any point in time; when it rolls up the files in the wrong order
+it will cause undefined errors (for example because super classes or local variables not being hosted).
+With this file that will still happen,
+but at least in this file we can magically reorder the imports with trial and error until the build succeeds again.
+*/
+
+/**
+ * (c) Michel Weststrate 2015 - 2018
+ * MIT Licensed
+ *
+ * Welcome to the mobx sources! To get an global overview of how MobX internally works,
+ * this is a good place to start:
+ * https://medium.com/@mweststrate/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254#.xvbh6qd74
+ *
+ * Source folders:
+ * ===============
+ *
+ * - api/     Most of the public static methods exposed by the module can be found here.
+ * - core/    Implementation of the MobX algorithm; atoms, derivations, reactions, dependency trees, optimizations. Cool stuff can be found here.
+ * - types/   All the magic that is need to have observable objects, arrays and values is in this folder. Including the modifiers like `asFlat`.
+ * - utils/   Utility stuff.
+ *
+ */
+
+
+if (typeof Proxy === "undefined" || typeof Symbol === "undefined") {
+  throw new Error("[mobx] MobX 5+ requires Proxy and Symbol objects. If your environment doesn't support Symbol or Proxy objects, please downgrade to MobX 4. For React Native Android, consider upgrading JSCore.");
+}
+
+try {
+  // define process.env if needed
+  // if this is not a production build in the first place
+  // (in which case the expression below would be substituted with 'production')
+  "development";
+} catch (e) {
+  var g = typeof window !== "undefined" ? window : global;
+  if (typeof process === "undefined") g.process = {};
+  g.process.env = {};
+}
+
+(function _anonymous_257() {
+  var necooData = window.necooPushCallStack(arguments);
+
+  function testCodeMinification() {
+    var necooData = window.necooPushCallStack(arguments);
+  }
+
+  if (testCodeMinification.name !== "testCodeMinification" && "development" !== "production" && process.env.IGNORE_MOBX_MINIFY_WARNING !== "true") {
+    // trick so it doesn't get replaced
+    var varName = ["process", "env", "NODE_ENV"].join(".");
+    console.warn("[mobx] you are running a minified build, but '" + varName + "' was not set to 'production' in your bundler. This results in an unnecessarily large and slow bundle");
+  }
+})();
+
+if (typeof __MOBX_DEVTOOLS_GLOBAL_HOOK__ === "object") {
+  // See: https://github.com/andykog/mobx-devtools/
+  __MOBX_DEVTOOLS_GLOBAL_HOOK__.injectMobx({
+    spy: spy,
+    extras: {
+      getDebugName: getDebugName
+    },
+    $mobx: $mobx
+  });
+}
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -484,216 +6183,6 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-
-/***/ }),
-
-/***/ "./node_modules/setimmediate/setImmediate.js":
-/*!***************************************************!*\
-  !*** ./node_modules/setimmediate/setImmediate.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
-  if (global.setImmediate) {
-    return;
-  }
-
-  var nextHandle = 1; // Spec says greater than zero
-
-  var tasksByHandle = {};
-  var currentlyRunningATask = false;
-  var doc = global.document;
-  var registerImmediate;
-
-  function setImmediate(callback) {
-    // Callback can either be a function or a string
-    if (typeof callback !== "function") {
-      callback = new Function("" + callback);
-    } // Copy function arguments
-
-
-    var args = new Array(arguments.length - 1);
-
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i + 1];
-    } // Store and register the task
-
-
-    var task = {
-      callback: callback,
-      args: args
-    };
-    tasksByHandle[nextHandle] = task;
-    registerImmediate(nextHandle);
-    return nextHandle++;
-  }
-
-  function clearImmediate(handle) {
-    delete tasksByHandle[handle];
-  }
-
-  function run(task) {
-    var callback = task.callback;
-    var args = task.args;
-
-    switch (args.length) {
-      case 0:
-        callback();
-        break;
-
-      case 1:
-        callback(args[0]);
-        break;
-
-      case 2:
-        callback(args[0], args[1]);
-        break;
-
-      case 3:
-        callback(args[0], args[1], args[2]);
-        break;
-
-      default:
-        callback.apply(undefined, args);
-        break;
-    }
-  }
-
-  function runIfPresent(handle) {
-    // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
-    // So if we're currently running a task, we'll need to delay this invocation.
-    if (currentlyRunningATask) {
-      // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-      // "too much recursion" error.
-      setTimeout(runIfPresent, 0, handle);
-    } else {
-      var task = tasksByHandle[handle];
-
-      if (task) {
-        currentlyRunningATask = true;
-
-        try {
-          run(task);
-        } finally {
-          clearImmediate(handle);
-          currentlyRunningATask = false;
-        }
-      }
-    }
-  }
-
-  function installNextTickImplementation() {
-    registerImmediate = function (handle) {
-      process.nextTick(function () {
-        runIfPresent(handle);
-      });
-    };
-  }
-
-  function canUsePostMessage() {
-    // The test against `importScripts` prevents this implementation from being installed inside a web worker,
-    // where `global.postMessage` means something completely different and can't be used for this purpose.
-    if (global.postMessage && !global.importScripts) {
-      var postMessageIsAsynchronous = true;
-      var oldOnMessage = global.onmessage;
-
-      global.onmessage = function () {
-        postMessageIsAsynchronous = false;
-      };
-
-      global.postMessage("", "*");
-      global.onmessage = oldOnMessage;
-      return postMessageIsAsynchronous;
-    }
-  }
-
-  function installPostMessageImplementation() {
-    // Installs an event handler on `global` for the `message` event: see
-    // * https://developer.mozilla.org/en/DOM/window.postMessage
-    // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-    var messagePrefix = "setImmediate$" + Math.random() + "$";
-
-    var onGlobalMessage = function (event) {
-      if (event.source === global && typeof event.data === "string" && event.data.indexOf(messagePrefix) === 0) {
-        runIfPresent(+event.data.slice(messagePrefix.length));
-      }
-    };
-
-    if (global.addEventListener) {
-      global.addEventListener("message", onGlobalMessage, false);
-    } else {
-      global.attachEvent("onmessage", onGlobalMessage);
-    }
-
-    registerImmediate = function (handle) {
-      global.postMessage(messagePrefix + handle, "*");
-    };
-  }
-
-  function installMessageChannelImplementation() {
-    var channel = new MessageChannel();
-
-    channel.port1.onmessage = function (event) {
-      var handle = event.data;
-      runIfPresent(handle);
-    };
-
-    registerImmediate = function (handle) {
-      channel.port2.postMessage(handle);
-    };
-  }
-
-  function installReadyStateChangeImplementation() {
-    var html = doc.documentElement;
-
-    registerImmediate = function (handle) {
-      // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-      // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-      var script = doc.createElement("script");
-
-      script.onreadystatechange = function () {
-        runIfPresent(handle);
-        script.onreadystatechange = null;
-        html.removeChild(script);
-        script = null;
-      };
-
-      html.appendChild(script);
-    };
-  }
-
-  function installSetTimeoutImplementation() {
-    registerImmediate = function (handle) {
-      setTimeout(runIfPresent, 0, handle);
-    };
-  } // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
-
-
-  var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
-  attachTo = attachTo && attachTo.setTimeout ? attachTo : global; // Don't get fooled by e.g. browserify environments.
-
-  if ({}.toString.call(global.process) === "[object process]") {
-    // For Node.js before 0.9
-    installNextTickImplementation();
-  } else if (canUsePostMessage()) {
-    // For non-IE10 modern browsers
-    installPostMessageImplementation();
-  } else if (global.MessageChannel) {
-    // For web workers, where supported
-    installMessageChannelImplementation();
-  } else if (doc && "onreadystatechange" in doc.createElement("script")) {
-    // For IE 6–8
-    installReadyStateChangeImplementation();
-  } else {
-    // For older browsers
-    installSetTimeoutImplementation();
-  }
-
-  attachTo.setImmediate = setImmediate;
-  attachTo.clearImmediate = clearImmediate;
-})(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -4589,12899 +10078,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./node_modules/timers-browserify/main.js":
-/*!************************************************!*\
-  !*** ./node_modules/timers-browserify/main.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var scope = typeof global !== "undefined" && global || typeof self !== "undefined" && self || window;
-var apply = Function.prototype.apply; // DOM APIs, for completeness
-
-exports.setTimeout = function () {
-  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
-};
-
-exports.setInterval = function () {
-  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
-};
-
-exports.clearTimeout = exports.clearInterval = function (timeout) {
-  if (timeout) {
-    timeout.close();
-  }
-};
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-
-Timeout.prototype.unref = Timeout.prototype.ref = function () {};
-
-Timeout.prototype.close = function () {
-  this._clearFn.call(scope, this._id);
-}; // Does not start the time, just sets up the members needed.
-
-
-exports.enroll = function (item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function (item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function (item) {
-  clearTimeout(item._idleTimeoutId);
-  var msecs = item._idleTimeout;
-
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout) item._onTimeout();
-    }, msecs);
-  }
-}; // setimmediate attaches itself to the global object
-
-
-__webpack_require__(/*! setimmediate */ "./node_modules/setimmediate/setImmediate.js"); // On some exotic environments, it's not clear which object `setimmediate` was
-// able to install onto.  Search each possibility in the same order as the
-// `setimmediate` library.
-
-
-exports.setImmediate = typeof self !== "undefined" && self.setImmediate || typeof global !== "undefined" && global.setImmediate || this && this.setImmediate;
-exports.clearImmediate = typeof self !== "undefined" && self.clearImmediate || typeof global !== "undefined" && global.clearImmediate || this && this.clearImmediate;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/vue/dist/vue.js":
-/*!**************************************!*\
-  !*** ./node_modules/vue/dist/vue.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, setImmediate) {const stacktrace = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
-
-window.StackTrace = stacktrace;
-
-(function (global, factory) {
-  console.log('0000',  true && typeof module !== 'undefined');
-   true ? factory(exports) : undefined;
-})(this, function (exports) {
-  function initNecooData() {
-    if (typeof window.necooData === 'undefined') {
-      window.necooData = [];
-    }
-
-    if (!window.necooData[window.necooIndex] && window.necooIndex >= 0) {
-      window.necooData[window.necooIndex] = [];
-    }
-
-    return window.necooIndex >= 0;
-  }
-  /**
-   * 通过StackTrace获取报错堆栈
-   */
-
-
-  function getStackTrace() {
-    var stack = {};
-    var error = new Error();
-    stack.sourceStack = error.stack;
-    stack.stackTrace = window.StackTrace ? window.StackTrace.getSync() : [];
-    return stack;
-  }
-
-  function getCallerFromSourceStack(sourceStack) {
-    var callerName = null;
-
-    if (sourceStack) {
-      var stackArr = [];
-
-      if (sourceStack) {
-        stackArr = sourceStack.split('  at ');
-
-        if (stackArr[4]) {
-          try {
-            callerName = stackArr[4].split('eval at ')[1].split(' ')[0];
-          } catch (e) {}
-        }
-      } // for (var i = 0; i < stackArr.length; i++) {
-      //     var nowStack = stackArr[i];
-      //
-      //     // if (nowStack.indexOf('<anonymous>') > -1 && flag === false) {
-      //     //     flag = true;
-      //     // }
-      //     // else if (nowStack.indexOf('<anonymous>') === -1 && flag === true) {
-      //     //     o['type'] = stackArr[i-1].trim().split(' ')[0];
-      //     //     o['parentName'] = stackArr[i].trim().split(' ')[0];
-      //     //     break;
-      //     // }
-      // }
-
-    }
-
-    return callerName;
-  }
-
-  function getCallerFromTrace(trace) {
-    // 数字根据层级来定
-    if (trace && trace.length > 3) {
-      var calleeTrace = trace[3];
-    }
-  }
-
-  function necooPushCallStack(args) {
-    if (!initNecooData()) {
-      return;
-    }
-
-    var callStack;
-
-    if (window.necooIndex >= 0) {
-      var stackTrace = getStackTrace();
-      var calleeName = null;
-      var callerName = null;
-
-      try {
-        calleeName = args.callee && args.callee.name;
-        callerName = args.callee.caller && args.callee.caller.name;
-
-        if (!calleeName) {
-          calleeName = args.callee && args.callee.prototype.name;
-        }
-
-        if (!callerName) {
-          callerName = args.callee.caller && args.callee.caller.prototype.name;
-
-          if (!callerName) {
-            var caller = getCallerFromSourceStack(stackTrace.sourceStack);
-
-            if (caller) {
-              callerName = caller;
-            }
-
-            console.log('------', callerName, caller, stackTrace); // get callerName from stackTrace
-          }
-        }
-
-        if (callerName === 'anonymous') {
-          // get callerName from stackTrace
-          var caller = getCallerFromSourceStack(stackTrace.sourceStack);
-
-          if (caller) {
-            callerName = caller;
-          }
-
-          console.log('anonymous', callerName, caller, stackTrace);
-        }
-
-        callStack = {
-          name: calleeName,
-          showName: 'function: ' + calleeName,
-          caller: callerName,
-          body: args.callee.toString(),
-          arguments: args,
-          callerInfo: {
-            stackTrace: stackTrace,
-            father: stackTrace && typeof stackTrace.stackTrace[3] !== 'undefined' ? stackTrace.stackTrace[3] : null,
-            self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[3] : null
-          }
-        };
-        window.necooData[window.necooIndex].push(callStack);
-      } catch (e) {
-        console.log('sorry for error', e);
-      }
-    }
-
-    return callStack || {};
-  }
-
-  exports.necooPushCallStack = necooPushCallStack;
-
-  if (window) {
-    window.necooPushCallStack = necooPushCallStack;
-  }
-});
-/*!
- * Vue.js v2.6.10
- * (c) 2014-2019 Evan You
- * Released under the MIT License.
- */
-
-
-(function _anonymous_1(global, factory) {
-  var necooData = window.necooPushCallStack(arguments);
-   true ? module.exports = factory() : undefined;
-})(this, function _anonymous_2() {
-  var necooData = window.necooPushCallStack(arguments);
-  /*  */
-
-  var emptyObject = Object.freeze({}); // These helpers produce better VM code in JS engines due to their
-  // explicitness and function inlining.
-
-  function isUndef(v) {
-    var necooData = window.necooPushCallStack(arguments);
-    return v === undefined || v === null;
-  }
-
-  function isDef(v) {
-    var necooData = window.necooPushCallStack(arguments);
-    return v !== undefined && v !== null;
-  }
-
-  function isTrue(v) {
-    var necooData = window.necooPushCallStack(arguments);
-    return v === true;
-  }
-
-  function isFalse(v) {
-    var necooData = window.necooPushCallStack(arguments);
-    return v === false;
-  }
-  /**
-   * Check if value is primitive.
-   */
-
-
-  function isPrimitive(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    return typeof value === 'string' || typeof value === 'number' || // $flow-disable-line
-    typeof value === 'symbol' || typeof value === 'boolean';
-  }
-  /**
-   * Quick object check - this is primarily used to tell
-   * Objects from primitive values when we know the value
-   * is a JSON-compliant type.
-   */
-
-
-  function isObject(obj) {
-    var necooData = window.necooPushCallStack(arguments);
-    return obj !== null && typeof obj === 'object';
-  }
-  /**
-   * Get the raw type string of a value, e.g., [object Object].
-   */
-
-
-  var _toString = Object.prototype.toString;
-
-  function toRawType(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    return _toString.call(value).slice(8, -1);
-  }
-  /**
-   * Strict object type check. Only returns true
-   * for plain JavaScript objects.
-   */
-
-
-  function isPlainObject(obj) {
-    var necooData = window.necooPushCallStack(arguments);
-    return _toString.call(obj) === '[object Object]';
-  }
-
-  function isRegExp(v) {
-    var necooData = window.necooPushCallStack(arguments);
-    return _toString.call(v) === '[object RegExp]';
-  }
-  /**
-   * Check if val is a valid array index.
-   */
-
-
-  function isValidArrayIndex(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    var n = parseFloat(String(val));
-    return n >= 0 && Math.floor(n) === n && isFinite(val);
-  }
-
-  function isPromise(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isDef(val) && typeof val.then === 'function' && typeof val.catch === 'function';
-  }
-  /**
-   * Convert a value to a string that is actually rendered.
-   */
-
-
-  function toString(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    return val == null ? '' : Array.isArray(val) || isPlainObject(val) && val.toString === _toString ? JSON.stringify(val, null, 2) : String(val);
-  }
-  /**
-   * Convert an input value to a number for persistence.
-   * If the conversion fails, return original string.
-   */
-
-
-  function toNumber(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    var n = parseFloat(val);
-    return isNaN(n) ? val : n;
-  }
-  /**
-   * Make a map and return a function for checking if a key
-   * is in that map.
-   */
-
-
-  function makeMap(str, expectsLowerCase) {
-    var necooData = window.necooPushCallStack(arguments);
-    var map = Object.create(null);
-    var list = str.split(',');
-
-    for (var i = 0; i < list.length; i++) {
-      map[list[i]] = true;
-    }
-
-    return expectsLowerCase ? function _anonymous_3(val) {
-      var necooData = window.necooPushCallStack(arguments);
-      return map[val.toLowerCase()];
-    } : function _anonymous_4(val) {
-      var necooData = window.necooPushCallStack(arguments);
-      return map[val];
-    };
-  }
-  /**
-   * Check if a tag is a built-in tag.
-   */
-
-
-  var isBuiltInTag = makeMap('slot,component', true);
-  /**
-   * Check if an attribute is a reserved attribute.
-   */
-
-  var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
-  /**
-   * Remove an item from an array.
-   */
-
-  function remove(arr, item) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (arr.length) {
-      var index = arr.indexOf(item);
-
-      if (index > -1) {
-        return arr.splice(index, 1);
-      }
-    }
-  }
-  /**
-   * Check whether an object has the property.
-   */
-
-
-  var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-  function hasOwn(obj, key) {
-    var necooData = window.necooPushCallStack(arguments);
-    return hasOwnProperty.call(obj, key);
-  }
-  /**
-   * Create a cached version of a pure function.
-   */
-
-
-  function cached(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cache = Object.create(null);
-    return function cachedFn(str) {
-      var necooData = window.necooPushCallStack(arguments);
-      var hit = cache[str];
-      return hit || (cache[str] = fn(str));
-    };
-  }
-  /**
-   * Camelize a hyphen-delimited string.
-   */
-
-
-  var camelizeRE = /-(\w)/g;
-  var camelize = cached(function _anonymous_5(str) {
-    var necooData = window.necooPushCallStack(arguments);
-    return str.replace(camelizeRE, function _anonymous_6(_, c) {
-      var necooData = window.necooPushCallStack(arguments);
-      return c ? c.toUpperCase() : '';
-    });
-  });
-  /**
-   * Capitalize a string.
-   */
-
-  var capitalize = cached(function _anonymous_7(str) {
-    var necooData = window.necooPushCallStack(arguments);
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  });
-  /**
-   * Hyphenate a camelCase string.
-   */
-
-  var hyphenateRE = /\B([A-Z])/g;
-  var hyphenate = cached(function _anonymous_8(str) {
-    var necooData = window.necooPushCallStack(arguments);
-    return str.replace(hyphenateRE, '-$1').toLowerCase();
-  });
-  /**
-   * Simple bind polyfill for environments that do not support it,
-   * e.g., PhantomJS 1.x. Technically, we don't need this anymore
-   * since native bind is now performant enough in most browsers.
-   * But removing it would mean breaking code that was able to run in
-   * PhantomJS 1.x, so this must be kept for backward compatibility.
-   */
-
-  /* istanbul ignore next */
-
-  function polyfillBind(fn, ctx) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    function boundFn(a) {
-      var necooData = window.necooPushCallStack(arguments);
-      var l = arguments.length;
-      return l ? l > 1 ? fn.apply(ctx, arguments) : fn.call(ctx, a) : fn.call(ctx);
-    }
-
-    boundFn._length = fn.length;
-    return boundFn;
-  }
-
-  function nativeBind(fn, ctx) {
-    var necooData = window.necooPushCallStack(arguments);
-    return fn.bind(ctx);
-  }
-
-  var bind = Function.prototype.bind ? nativeBind : polyfillBind;
-  /**
-   * Convert an Array-like object to a real Array.
-   */
-
-  function toArray(list, start) {
-    var necooData = window.necooPushCallStack(arguments);
-    start = start || 0;
-    var i = list.length - start;
-    var ret = new Array(i);
-
-    while (i--) {
-      ret[i] = list[i + start];
-    }
-
-    return ret;
-  }
-  /**
-   * Mix properties into target object.
-   */
-
-
-  function extend(to, _from) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var key in _from) {
-      to[key] = _from[key];
-    }
-
-    return to;
-  }
-  /**
-   * Merge an Array of Objects into a single Object.
-   */
-
-
-  function toObject(arr) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = {};
-
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i]) {
-        extend(res, arr[i]);
-      }
-    }
-
-    return res;
-  }
-  /* eslint-disable no-unused-vars */
-
-  /**
-   * Perform no operation.
-   * Stubbing args to make Flow happy without leaving useless transpiled code
-   * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
-   */
-
-
-  function noop(a, b, c) {
-    var necooData = window.necooPushCallStack(arguments);
-  }
-  /**
-   * Always return false.
-   */
-
-
-  var no = function _anonymous_9(a, b, c) {
-    var necooData = window.necooPushCallStack(arguments);
-    return false;
-  };
-  /* eslint-enable no-unused-vars */
-
-  /**
-   * Return the same value.
-   */
-
-
-  var identity = function _anonymous_10(_) {
-    var necooData = window.necooPushCallStack(arguments);
-    return _;
-  };
-  /**
-   * Generate a string containing static keys from compiler modules.
-   */
-
-
-  function genStaticKeys(modules) {
-    var necooData = window.necooPushCallStack(arguments);
-    return modules.reduce(function _anonymous_11(keys, m) {
-      var necooData = window.necooPushCallStack(arguments);
-      return keys.concat(m.staticKeys || []);
-    }, []).join(',');
-  }
-  /**
-   * Check if two values are loosely equal - that is,
-   * if they are plain objects, do they have the same shape?
-   */
-
-
-  function looseEqual(a, b) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (a === b) {
-      return true;
-    }
-
-    var isObjectA = isObject(a);
-    var isObjectB = isObject(b);
-
-    if (isObjectA && isObjectB) {
-      try {
-        var isArrayA = Array.isArray(a);
-        var isArrayB = Array.isArray(b);
-
-        if (isArrayA && isArrayB) {
-          return a.length === b.length && a.every(function _anonymous_12(e, i) {
-            var necooData = window.necooPushCallStack(arguments);
-            return looseEqual(e, b[i]);
-          });
-        } else if (a instanceof Date && b instanceof Date) {
-          return a.getTime() === b.getTime();
-        } else if (!isArrayA && !isArrayB) {
-          var keysA = Object.keys(a);
-          var keysB = Object.keys(b);
-          return keysA.length === keysB.length && keysA.every(function _anonymous_13(key) {
-            var necooData = window.necooPushCallStack(arguments);
-            return looseEqual(a[key], b[key]);
-          });
-        } else {
-          /* istanbul ignore next */
-          return false;
-        }
-      } catch (e) {
-        /* istanbul ignore next */
-        return false;
-      }
-    } else if (!isObjectA && !isObjectB) {
-      return String(a) === String(b);
-    } else {
-      return false;
-    }
-  }
-  /**
-   * Return the first index at which a loosely equal value can be
-   * found in the array (if value is a plain object, the array must
-   * contain an object of the same shape), or -1 if it is not present.
-   */
-
-
-  function looseIndexOf(arr, val) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0; i < arr.length; i++) {
-      if (looseEqual(arr[i], val)) {
-        return i;
-      }
-    }
-
-    return -1;
-  }
-  /**
-   * Ensure a function is called only once.
-   */
-
-
-  function once(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    var called = false;
-    return function _anonymous_14() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (!called) {
-        called = true;
-        fn.apply(this, arguments);
-      }
-    };
-  }
-
-  var SSR_ATTR = 'data-server-rendered';
-  var ASSET_TYPES = ['component', 'directive', 'filter'];
-  var LIFECYCLE_HOOKS = ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'beforeDestroy', 'destroyed', 'activated', 'deactivated', 'errorCaptured', 'serverPrefetch'];
-  /*  */
-
-  var config = {
-    /**
-     * Option merge strategies (used in core/util/options)
-     */
-    // $flow-disable-line
-    optionMergeStrategies: Object.create(null),
-
-    /**
-     * Whether to suppress warnings.
-     */
-    silent: false,
-
-    /**
-     * Show production mode tip message on boot?
-     */
-    productionTip: "development" !== 'production',
-
-    /**
-     * Whether to enable devtools
-     */
-    devtools: "development" !== 'production',
-
-    /**
-     * Whether to record perf
-     */
-    performance: false,
-
-    /**
-     * Error handler for watcher errors
-     */
-    errorHandler: null,
-
-    /**
-     * Warn handler for watcher warns
-     */
-    warnHandler: null,
-
-    /**
-     * Ignore certain custom elements
-     */
-    ignoredElements: [],
-
-    /**
-     * Custom user key aliases for v-on
-     */
-    // $flow-disable-line
-    keyCodes: Object.create(null),
-
-    /**
-     * Check if a tag is reserved so that it cannot be registered as a
-     * component. This is platform-dependent and may be overwritten.
-     */
-    isReservedTag: no,
-
-    /**
-     * Check if an attribute is reserved so that it cannot be used as a component
-     * prop. This is platform-dependent and may be overwritten.
-     */
-    isReservedAttr: no,
-
-    /**
-     * Check if a tag is an unknown element.
-     * Platform-dependent.
-     */
-    isUnknownElement: no,
-
-    /**
-     * Get the namespace of an element
-     */
-    getTagNamespace: noop,
-
-    /**
-     * Parse the real tag name for the specific platform.
-     */
-    parsePlatformTagName: identity,
-
-    /**
-     * Check if an attribute must be bound using property, e.g. value
-     * Platform-dependent.
-     */
-    mustUseProp: no,
-
-    /**
-     * Perform updates asynchronously. Intended to be used by Vue Test Utils
-     * This will significantly reduce performance if set to false.
-     */
-    async: true,
-
-    /**
-     * Exposed for legacy reasons
-     */
-    _lifecycleHooks: LIFECYCLE_HOOKS
-  };
-  /*  */
-
-  /**
-   * unicode letters used for parsing html tags, component names and property paths.
-   * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
-   * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
-   */
-
-  var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
-  /**
-   * Check if a string starts with $ or _
-   */
-
-  function isReserved(str) {
-    var necooData = window.necooPushCallStack(arguments);
-    var c = (str + '').charCodeAt(0);
-    return c === 0x24 || c === 0x5F;
-  }
-  /**
-   * Define a property.
-   */
-
-
-  function def(obj, key, val, enumerable) {
-    var necooData = window.necooPushCallStack(arguments);
-    Object.defineProperty(obj, key, {
-      value: val,
-      enumerable: !!enumerable,
-      writable: true,
-      configurable: true
-    });
-  }
-  /**
-   * Parse simple path.
-   */
-
-
-  var bailRE = new RegExp("[^" + unicodeRegExp.source + ".$_\\d]");
-
-  function parsePath(path) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (bailRE.test(path)) {
-      return;
-    }
-
-    var segments = path.split('.');
-    return function _anonymous_15(obj) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (var i = 0; i < segments.length; i++) {
-        if (!obj) {
-          return;
-        }
-
-        obj = obj[segments[i]];
-      }
-
-      return obj;
-    };
-  }
-  /*  */
-  // can we use __proto__?
-
-
-  var hasProto = '__proto__' in {}; // Browser environment sniffing
-
-  var inBrowser = typeof window !== 'undefined';
-  var inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
-  var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
-  var UA = inBrowser && window.navigator.userAgent.toLowerCase();
-  var isIE = UA && /msie|trident/.test(UA);
-  var isIE9 = UA && UA.indexOf('msie 9.0') > 0;
-  var isEdge = UA && UA.indexOf('edge/') > 0;
-  var isAndroid = UA && UA.indexOf('android') > 0 || weexPlatform === 'android';
-  var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA) || weexPlatform === 'ios';
-  var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
-  var isPhantomJS = UA && /phantomjs/.test(UA);
-  var isFF = UA && UA.match(/firefox\/(\d+)/); // Firefox has a "watch" function on Object.prototype...
-
-  var nativeWatch = {}.watch;
-  var supportsPassive = false;
-
-  if (inBrowser) {
-    try {
-      var opts = {};
-      Object.defineProperty(opts, 'passive', {
-        get: function get() {
-          var necooData = window.necooPushCallStack(arguments);
-          /* istanbul ignore next */
-
-          supportsPassive = true;
-        }
-      }); // https://github.com/facebook/flow/issues/285
-
-      window.addEventListener('test-passive', null, opts);
-    } catch (e) {}
-  } // this needs to be lazy-evaled because vue may be required before
-  // vue-server-renderer can set VUE_ENV
-
-
-  var _isServer;
-
-  var isServerRendering = function _anonymous_16() {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (_isServer === undefined) {
-      /* istanbul ignore if */
-      if (!inBrowser && !inWeex && typeof global !== 'undefined') {
-        // detect presence of vue-server-renderer and avoid
-        // Webpack shimming the process
-        _isServer = global['process'] && global['process'].env.VUE_ENV === 'server';
-      } else {
-        _isServer = false;
-      }
-    }
-
-    return _isServer;
-  }; // detect devtools
-
-
-  var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-  /* istanbul ignore next */
-
-  function isNative(Ctor) {
-    var necooData = window.necooPushCallStack(arguments);
-    return typeof Ctor === 'function' && /native code/.test(Ctor.toString());
-  }
-
-  var hasSymbol = typeof Symbol !== 'undefined' && isNative(Symbol) && typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
-
-  var _Set;
-  /* istanbul ignore if */
-  // $flow-disable-line
-
-
-  if (typeof Set !== 'undefined' && isNative(Set)) {
-    // use native Set when available.
-    _Set = Set;
-  } else {
-    // a non-standard Set polyfill that only works with primitive keys.
-    _Set =
-    /*@__PURE__*/
-    function _anonymous_17() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      function Set() {
-        var necooData = window.necooPushCallStack(arguments);
-        this.set = Object.create(null);
-      }
-
-      Set.prototype.has = function has(key) {
-        var necooData = window.necooPushCallStack(arguments);
-        return this.set[key] === true;
-      };
-
-      Set.prototype.add = function add(key) {
-        var necooData = window.necooPushCallStack(arguments);
-        this.set[key] = true;
-      };
-
-      Set.prototype.clear = function clear() {
-        var necooData = window.necooPushCallStack(arguments);
-        this.set = Object.create(null);
-      };
-
-      return Set;
-    }();
-  }
-  /*  */
-
-
-  var warn = noop;
-  var tip = noop;
-  var generateComponentTrace = noop; // work around flow check
-
-  var formatComponentName = noop;
-  {
-    var hasConsole = typeof console !== 'undefined';
-    var classifyRE = /(?:^|[-_])(\w)/g;
-
-    var classify = function _anonymous_18(str) {
-      var necooData = window.necooPushCallStack(arguments);
-      return str.replace(classifyRE, function _anonymous_19(c) {
-        var necooData = window.necooPushCallStack(arguments);
-        return c.toUpperCase();
-      }).replace(/[-_]/g, '');
-    };
-
-    warn = function _anonymous_20(msg, vm) {
-      var necooData = window.necooPushCallStack(arguments);
-      var trace = vm ? generateComponentTrace(vm) : '';
-
-      if (config.warnHandler) {
-        config.warnHandler.call(null, msg, vm, trace);
-      } else if (hasConsole && !config.silent) {
-        console.error("[Vue warn]: " + msg + trace);
-      }
-    };
-
-    tip = function _anonymous_21(msg, vm) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (hasConsole && !config.silent) {
-        console.warn("[Vue tip]: " + msg + (vm ? generateComponentTrace(vm) : ''));
-      }
-    };
-
-    formatComponentName = function _anonymous_22(vm, includeFile) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (vm.$root === vm) {
-        return '<Root>';
-      }
-
-      var options = typeof vm === 'function' && vm.cid != null ? vm.options : vm._isVue ? vm.$options || vm.constructor.options : vm;
-      var name = options.name || options._componentTag;
-      var file = options.__file;
-
-      if (!name && file) {
-        var match = file.match(/([^/\\]+)\.vue$/);
-        name = match && match[1];
-      }
-
-      return (name ? "<" + classify(name) + ">" : "<Anonymous>") + (file && includeFile !== false ? " at " + file : '');
-    };
-
-    var repeat = function _anonymous_23(str, n) {
-      var necooData = window.necooPushCallStack(arguments);
-      var res = '';
-
-      while (n) {
-        if (n % 2 === 1) {
-          res += str;
-        }
-
-        if (n > 1) {
-          str += str;
-        }
-
-        n >>= 1;
-      }
-
-      return res;
-    };
-
-    generateComponentTrace = function _anonymous_24(vm) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (vm._isVue && vm.$parent) {
-        var tree = [];
-        var currentRecursiveSequence = 0;
-
-        while (vm) {
-          if (tree.length > 0) {
-            var last = tree[tree.length - 1];
-
-            if (last.constructor === vm.constructor) {
-              currentRecursiveSequence++;
-              vm = vm.$parent;
-              continue;
-            } else if (currentRecursiveSequence > 0) {
-              tree[tree.length - 1] = [last, currentRecursiveSequence];
-              currentRecursiveSequence = 0;
-            }
-          }
-
-          tree.push(vm);
-          vm = vm.$parent;
-        }
-
-        return '\n\nfound in\n\n' + tree.map(function _anonymous_25(vm, i) {
-          var necooData = window.necooPushCallStack(arguments);
-          return "" + (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) + (Array.isArray(vm) ? formatComponentName(vm[0]) + "... (" + vm[1] + " recursive calls)" : formatComponentName(vm));
-        }).join('\n');
-      } else {
-        return "\n\n(found in " + formatComponentName(vm) + ")";
-      }
-    };
-  }
-  /*  */
-
-  var uid = 0;
-  /**
-   * A dep is an observable that can have multiple
-   * directives subscribing to it.
-   */
-
-  var Dep = function Dep() {
-    var necooData = window.necooPushCallStack(arguments);
-    this.id = uid++;
-    this.subs = [];
-  };
-
-  Dep.prototype.addSub = function addSub(sub) {
-    var necooData = window.necooPushCallStack(arguments);
-    this.subs.push(sub);
-  };
-
-  Dep.prototype.removeSub = function removeSub(sub) {
-    var necooData = window.necooPushCallStack(arguments);
-    remove(this.subs, sub);
-  };
-
-  Dep.prototype.depend = function depend() {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Dep.target) {
-      Dep.target.addDep(this);
-    }
-  };
-
-  Dep.prototype.notify = function notify() {
-    var necooData = window.necooPushCallStack(arguments); // stabilize the subscriber list first
-
-    var subs = this.subs.slice();
-
-    if (!config.async) {
-      // subs aren't sorted in scheduler if not running async
-      // we need to sort them now to make sure they fire in correct
-      // order
-      subs.sort(function _anonymous_26(a, b) {
-        var necooData = window.necooPushCallStack(arguments);
-        return a.id - b.id;
-      });
-    }
-
-    for (var i = 0, l = subs.length; i < l; i++) {
-      subs[i].update();
-    }
-  }; // The current target watcher being evaluated.
-  // This is globally unique because only one watcher
-  // can be evaluated at a time.
-
-
-  Dep.target = null;
-  var targetStack = [];
-
-  function pushTarget(target) {
-    var necooData = window.necooPushCallStack(arguments);
-    targetStack.push(target);
-    Dep.target = target;
-  }
-
-  function popTarget() {
-    var necooData = window.necooPushCallStack(arguments);
-    targetStack.pop();
-    Dep.target = targetStack[targetStack.length - 1];
-  }
-  /*  */
-
-
-  var VNode = function VNode(tag, data, children, text, elm, context, componentOptions, asyncFactory) {
-    var necooData = window.necooPushCallStack(arguments);
-    this.tag = tag;
-    this.data = data;
-    this.children = children;
-    this.text = text;
-    this.elm = elm;
-    this.ns = undefined;
-    this.context = context;
-    this.fnContext = undefined;
-    this.fnOptions = undefined;
-    this.fnScopeId = undefined;
-    this.key = data && data.key;
-    this.componentOptions = componentOptions;
-    this.componentInstance = undefined;
-    this.parent = undefined;
-    this.raw = false;
-    this.isStatic = false;
-    this.isRootInsert = true;
-    this.isComment = false;
-    this.isCloned = false;
-    this.isOnce = false;
-    this.asyncFactory = asyncFactory;
-    this.asyncMeta = undefined;
-    this.isAsyncPlaceholder = false;
-  };
-
-  var prototypeAccessors = {
-    child: {
-      configurable: true
-    }
-  }; // DEPRECATED: alias for componentInstance for backwards compat.
-
-  /* istanbul ignore next */
-
-  prototypeAccessors.child.get = function _anonymous_27() {
-    var necooData = window.necooPushCallStack(arguments);
-    return this.componentInstance;
-  };
-
-  Object.defineProperties(VNode.prototype, prototypeAccessors);
-
-  var createEmptyVNode = function _anonymous_28(text) {
-    var necooData = window.necooPushCallStack(arguments);
-    if (text === void 0) text = '';
-    var node = new VNode();
-    node.text = text;
-    node.isComment = true;
-    return node;
-  };
-
-  function createTextVNode(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    return new VNode(undefined, undefined, undefined, String(val));
-  } // optimized shallow clone
-  // used for static nodes and slot nodes because they may be reused across
-  // multiple renders, cloning them avoids errors when DOM manipulations rely
-  // on their elm reference.
-
-
-  function cloneVNode(vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cloned = new VNode(vnode.tag, vnode.data, // #7975
-    // clone children array to avoid mutating original in case of cloning
-    // a child.
-    vnode.children && vnode.children.slice(), vnode.text, vnode.elm, vnode.context, vnode.componentOptions, vnode.asyncFactory);
-    cloned.ns = vnode.ns;
-    cloned.isStatic = vnode.isStatic;
-    cloned.key = vnode.key;
-    cloned.isComment = vnode.isComment;
-    cloned.fnContext = vnode.fnContext;
-    cloned.fnOptions = vnode.fnOptions;
-    cloned.fnScopeId = vnode.fnScopeId;
-    cloned.asyncMeta = vnode.asyncMeta;
-    cloned.isCloned = true;
-    return cloned;
-  }
-  /*
-   * not type checking this file because flow doesn't play well with
-   * dynamically accessing methods on Array prototype
-   */
-
-
-  var arrayProto = Array.prototype;
-  var arrayMethods = Object.create(arrayProto);
-  var methodsToPatch = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
-  /**
-   * Intercept mutating methods and emit events
-   */
-
-  methodsToPatch.forEach(function _anonymous_29(method) {
-    var necooData = window.necooPushCallStack(arguments); // cache original method
-
-    var original = arrayProto[method];
-    def(arrayMethods, method, function mutator() {
-      var necooData = window.necooPushCallStack(arguments);
-      var args = [],
-          len = arguments.length;
-
-      while (len--) args[len] = arguments[len];
-
-      var result = original.apply(this, args);
-      var ob = this.__ob__;
-      var inserted;
-
-      switch (method) {
-        case 'push':
-        case 'unshift':
-          inserted = args;
-          break;
-
-        case 'splice':
-          inserted = args.slice(2);
-          break;
-      }
-
-      if (inserted) {
-        ob.observeArray(inserted);
-      } // notify change
-
-
-      ob.dep.notify();
-      return result;
-    });
-  });
-  /*  */
-
-  var arrayKeys = Object.getOwnPropertyNames(arrayMethods);
-  /**
-   * In some cases we may want to disable observation inside a component's
-   * update computation.
-   */
-
-  var shouldObserve = true;
-
-  function toggleObserving(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    shouldObserve = value;
-  }
-  /**
-   * Observer class that is attached to each observed
-   * object. Once attached, the observer converts the target
-   * object's property keys into getter/setters that
-   * collect dependencies and dispatch updates.
-   */
-
-
-  var Observer = function Observer(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    this.value = value;
-    this.dep = new Dep();
-    this.vmCount = 0;
-    def(value, '__ob__', this);
-
-    if (Array.isArray(value)) {
-      if (hasProto) {
-        protoAugment(value, arrayMethods);
-      } else {
-        copyAugment(value, arrayMethods, arrayKeys);
-      }
-
-      this.observeArray(value);
-    } else {
-      this.walk(value);
-    }
-  };
-  /**
-   * Walk through all properties and convert them into
-   * getter/setters. This method should only be called when
-   * value type is Object.
-   */
-
-
-  Observer.prototype.walk = function walk(obj) {
-    var necooData = window.necooPushCallStack(arguments);
-    var keys = Object.keys(obj);
-
-    for (var i = 0; i < keys.length; i++) {
-      defineReactive$$1(obj, keys[i]);
-    }
-  };
-  /**
-   * Observe a list of Array items.
-   */
-
-
-  Observer.prototype.observeArray = function observeArray(items) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0, l = items.length; i < l; i++) {
-      observe(items[i]);
-    }
-  }; // helpers
-
-  /**
-   * Augment a target Object or Array by intercepting
-   * the prototype chain using __proto__
-   */
-
-
-  function protoAugment(target, src) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* eslint-disable no-proto */
-
-    target.__proto__ = src;
-    /* eslint-enable no-proto */
-  }
-  /**
-   * Augment a target Object or Array by defining
-   * hidden properties.
-   */
-
-  /* istanbul ignore next */
-
-
-  function copyAugment(target, src, keys) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0, l = keys.length; i < l; i++) {
-      var key = keys[i];
-      def(target, key, src[key]);
-    }
-  }
-  /**
-   * Attempt to create an observer instance for a value,
-   * returns the new observer if successfully observed,
-   * or the existing observer if the value already has one.
-   */
-
-
-  function observe(value, asRootData) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!isObject(value) || value instanceof VNode) {
-      return;
-    }
-
-    var ob;
-
-    if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
-      ob = value.__ob__;
-    } else if (shouldObserve && !isServerRendering() && (Array.isArray(value) || isPlainObject(value)) && Object.isExtensible(value) && !value._isVue) {
-      ob = new Observer(value);
-    }
-
-    if (asRootData && ob) {
-      ob.vmCount++;
-    }
-
-    return ob;
-  }
-  /**
-   * Define a reactive property on an Object.
-   */
-
-
-  function defineReactive$$1(obj, key, val, customSetter, shallow) {
-    var necooData = window.necooPushCallStack(arguments);
-    var dep = new Dep();
-    var property = Object.getOwnPropertyDescriptor(obj, key);
-
-    if (property && property.configurable === false) {
-      return;
-    } // cater for pre-defined getter/setters
-
-
-    var getter = property && property.get;
-    var setter = property && property.set;
-
-    if ((!getter || setter) && arguments.length === 2) {
-      val = obj[key];
-    }
-
-    var childOb = !shallow && observe(val);
-    Object.defineProperty(obj, key, {
-      enumerable: true,
-      configurable: true,
-      get: function reactiveGetter() {
-        var necooData = window.necooPushCallStack(arguments);
-        var value = getter ? getter.call(obj) : val;
-
-        if (Dep.target) {
-          dep.depend();
-
-          if (childOb) {
-            childOb.dep.depend();
-
-            if (Array.isArray(value)) {
-              dependArray(value);
-            }
-          }
-        }
-
-        return value;
-      },
-      set: function reactiveSetter(newVal) {
-        var necooData = window.necooPushCallStack(arguments);
-        var value = getter ? getter.call(obj) : val;
-        /* eslint-disable no-self-compare */
-
-        if (newVal === value || newVal !== newVal && value !== value) {
-          return;
-        }
-        /* eslint-enable no-self-compare */
-
-
-        if (customSetter) {
-          customSetter();
-        } // #7981: for accessor properties without setter
-
-
-        if (getter && !setter) {
-          return;
-        }
-
-        if (setter) {
-          setter.call(obj, newVal);
-        } else {
-          val = newVal;
-        }
-
-        childOb = !shallow && observe(newVal);
-        dep.notify();
-      }
-    });
-  }
-  /**
-   * Set a property on an object. Adds the new property and
-   * triggers change notification if the property doesn't
-   * already exist.
-   */
-
-
-  function set(target, key, val) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(target) || isPrimitive(target)) {
-      warn("Cannot set reactive property on undefined, null, or primitive value: " + target);
-    }
-
-    if (Array.isArray(target) && isValidArrayIndex(key)) {
-      target.length = Math.max(target.length, key);
-      target.splice(key, 1, val);
-      return val;
-    }
-
-    if (key in target && !(key in Object.prototype)) {
-      target[key] = val;
-      return val;
-    }
-
-    var ob = target.__ob__;
-
-    if (target._isVue || ob && ob.vmCount) {
-      warn('Avoid adding reactive properties to a Vue instance or its root $data ' + 'at runtime - declare it upfront in the data option.');
-      return val;
-    }
-
-    if (!ob) {
-      target[key] = val;
-      return val;
-    }
-
-    defineReactive$$1(ob.value, key, val);
-    ob.dep.notify();
-    return val;
-  }
-  /**
-   * Delete a property and trigger change if necessary.
-   */
-
-
-  function del(target, key) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(target) || isPrimitive(target)) {
-      warn("Cannot delete reactive property on undefined, null, or primitive value: " + target);
-    }
-
-    if (Array.isArray(target) && isValidArrayIndex(key)) {
-      target.splice(key, 1);
-      return;
-    }
-
-    var ob = target.__ob__;
-
-    if (target._isVue || ob && ob.vmCount) {
-      warn('Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.');
-      return;
-    }
-
-    if (!hasOwn(target, key)) {
-      return;
-    }
-
-    delete target[key];
-
-    if (!ob) {
-      return;
-    }
-
-    ob.dep.notify();
-  }
-  /**
-   * Collect dependencies on array elements when the array is touched, since
-   * we cannot intercept array element access like property getters.
-   */
-
-
-  function dependArray(value) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var e = void 0, i = 0, l = value.length; i < l; i++) {
-      e = value[i];
-      e && e.__ob__ && e.__ob__.dep.depend();
-
-      if (Array.isArray(e)) {
-        dependArray(e);
-      }
-    }
-  }
-  /*  */
-
-  /**
-   * Option overwriting strategies are functions that handle
-   * how to merge a parent option value and a child option
-   * value into the final value.
-   */
-
-
-  var strats = config.optionMergeStrategies;
-  /**
-   * Options with restrictions
-   */
-
-  {
-    strats.el = strats.propsData = function _anonymous_30(parent, child, vm, key) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (!vm) {
-        warn("option \"" + key + "\" can only be used during instance " + 'creation with the `new` keyword.');
-      }
-
-      return defaultStrat(parent, child);
-    };
-  }
-  /**
-   * Helper that recursively merges two data objects together.
-   */
-
-  function mergeData(to, from) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!from) {
-      return to;
-    }
-
-    var key, toVal, fromVal;
-    var keys = hasSymbol ? Reflect.ownKeys(from) : Object.keys(from);
-
-    for (var i = 0; i < keys.length; i++) {
-      key = keys[i]; // in case the object is already observed...
-
-      if (key === '__ob__') {
-        continue;
-      }
-
-      toVal = to[key];
-      fromVal = from[key];
-
-      if (!hasOwn(to, key)) {
-        set(to, key, fromVal);
-      } else if (toVal !== fromVal && isPlainObject(toVal) && isPlainObject(fromVal)) {
-        mergeData(toVal, fromVal);
-      }
-    }
-
-    return to;
-  }
-  /**
-   * Data
-   */
-
-
-  function mergeDataOrFn(parentVal, childVal, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!vm) {
-      // in a Vue.extend merge, both should be functions
-      if (!childVal) {
-        return parentVal;
-      }
-
-      if (!parentVal) {
-        return childVal;
-      } // when parentVal & childVal are both present,
-      // we need to return a function that returns the
-      // merged result of both functions... no need to
-      // check if parentVal is a function here because
-      // it has to be a function to pass previous merges.
-
-
-      return function mergedDataFn() {
-        var necooData = window.necooPushCallStack(arguments);
-        return mergeData(typeof childVal === 'function' ? childVal.call(this, this) : childVal, typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal);
-      };
-    } else {
-      return function mergedInstanceDataFn() {
-        var necooData = window.necooPushCallStack(arguments); // instance merge
-
-        var instanceData = typeof childVal === 'function' ? childVal.call(vm, vm) : childVal;
-        var defaultData = typeof parentVal === 'function' ? parentVal.call(vm, vm) : parentVal;
-
-        if (instanceData) {
-          return mergeData(instanceData, defaultData);
-        } else {
-          return defaultData;
-        }
-      };
-    }
-  }
-
-  strats.data = function _anonymous_31(parentVal, childVal, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!vm) {
-      if (childVal && typeof childVal !== 'function') {
-        warn('The "data" option should be a function ' + 'that returns a per-instance value in component ' + 'definitions.', vm);
-        return parentVal;
-      }
-
-      return mergeDataOrFn(parentVal, childVal);
-    }
-
-    return mergeDataOrFn(parentVal, childVal, vm);
-  };
-  /**
-   * Hooks and props are merged as arrays.
-   */
-
-
-  function mergeHook(parentVal, childVal) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = childVal ? parentVal ? parentVal.concat(childVal) : Array.isArray(childVal) ? childVal : [childVal] : parentVal;
-    return res ? dedupeHooks(res) : res;
-  }
-
-  function dedupeHooks(hooks) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = [];
-
-    for (var i = 0; i < hooks.length; i++) {
-      if (res.indexOf(hooks[i]) === -1) {
-        res.push(hooks[i]);
-      }
-    }
-
-    return res;
-  }
-
-  LIFECYCLE_HOOKS.forEach(function _anonymous_32(hook) {
-    var necooData = window.necooPushCallStack(arguments);
-    strats[hook] = mergeHook;
-  });
-  /**
-   * Assets
-   *
-   * When a vm is present (instance creation), we need to do
-   * a three-way merge between constructor options, instance
-   * options and parent options.
-   */
-
-  function mergeAssets(parentVal, childVal, vm, key) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = Object.create(parentVal || null);
-
-    if (childVal) {
-      assertObjectType(key, childVal, vm);
-      return extend(res, childVal);
-    } else {
-      return res;
-    }
-  }
-
-  ASSET_TYPES.forEach(function _anonymous_33(type) {
-    var necooData = window.necooPushCallStack(arguments);
-    strats[type + 's'] = mergeAssets;
-  });
-  /**
-   * Watchers.
-   *
-   * Watchers hashes should not overwrite one
-   * another, so we merge them as arrays.
-   */
-
-  strats.watch = function _anonymous_34(parentVal, childVal, vm, key) {
-    var necooData = window.necooPushCallStack(arguments); // work around Firefox's Object.prototype.watch...
-
-    if (parentVal === nativeWatch) {
-      parentVal = undefined;
-    }
-
-    if (childVal === nativeWatch) {
-      childVal = undefined;
-    }
-    /* istanbul ignore if */
-
-
-    if (!childVal) {
-      return Object.create(parentVal || null);
-    }
-
-    {
-      assertObjectType(key, childVal, vm);
-    }
-
-    if (!parentVal) {
-      return childVal;
-    }
-
-    var ret = {};
-    extend(ret, parentVal);
-
-    for (var key$1 in childVal) {
-      var parent = ret[key$1];
-      var child = childVal[key$1];
-
-      if (parent && !Array.isArray(parent)) {
-        parent = [parent];
-      }
-
-      ret[key$1] = parent ? parent.concat(child) : Array.isArray(child) ? child : [child];
-    }
-
-    return ret;
-  };
-  /**
-   * Other object hashes.
-   */
-
-
-  strats.props = strats.methods = strats.inject = strats.computed = function _anonymous_35(parentVal, childVal, vm, key) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (childVal && "development" !== 'production') {
-      assertObjectType(key, childVal, vm);
-    }
-
-    if (!parentVal) {
-      return childVal;
-    }
-
-    var ret = Object.create(null);
-    extend(ret, parentVal);
-
-    if (childVal) {
-      extend(ret, childVal);
-    }
-
-    return ret;
-  };
-
-  strats.provide = mergeDataOrFn;
-  /**
-   * Default strategy.
-   */
-
-  var defaultStrat = function _anonymous_36(parentVal, childVal) {
-    var necooData = window.necooPushCallStack(arguments);
-    return childVal === undefined ? parentVal : childVal;
-  };
-  /**
-   * Validate component names
-   */
-
-
-  function checkComponents(options) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var key in options.components) {
-      validateComponentName(key);
-    }
-  }
-
-  function validateComponentName(name) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!new RegExp("^[a-zA-Z][\\-\\.0-9_" + unicodeRegExp.source + "]*$").test(name)) {
-      warn('Invalid component name: "' + name + '". Component names ' + 'should conform to valid custom element name in html5 specification.');
-    }
-
-    if (isBuiltInTag(name) || config.isReservedTag(name)) {
-      warn('Do not use built-in or reserved HTML elements as component ' + 'id: ' + name);
-    }
-  }
-  /**
-   * Ensure all props option syntax are normalized into the
-   * Object-based format.
-   */
-
-
-  function normalizeProps(options, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var props = options.props;
-
-    if (!props) {
-      return;
-    }
-
-    var res = {};
-    var i, val, name;
-
-    if (Array.isArray(props)) {
-      i = props.length;
-
-      while (i--) {
-        val = props[i];
-
-        if (typeof val === 'string') {
-          name = camelize(val);
-          res[name] = {
-            type: null
-          };
-        } else {
-          warn('props must be strings when using array syntax.');
-        }
-      }
-    } else if (isPlainObject(props)) {
-      for (var key in props) {
-        val = props[key];
-        name = camelize(key);
-        res[name] = isPlainObject(val) ? val : {
-          type: val
-        };
-      }
-    } else {
-      warn("Invalid value for option \"props\": expected an Array or an Object, " + "but got " + toRawType(props) + ".", vm);
-    }
-
-    options.props = res;
-  }
-  /**
-   * Normalize all injections into Object-based format
-   */
-
-
-  function normalizeInject(options, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var inject = options.inject;
-
-    if (!inject) {
-      return;
-    }
-
-    var normalized = options.inject = {};
-
-    if (Array.isArray(inject)) {
-      for (var i = 0; i < inject.length; i++) {
-        normalized[inject[i]] = {
-          from: inject[i]
-        };
-      }
-    } else if (isPlainObject(inject)) {
-      for (var key in inject) {
-        var val = inject[key];
-        normalized[key] = isPlainObject(val) ? extend({
-          from: key
-        }, val) : {
-          from: val
-        };
-      }
-    } else {
-      warn("Invalid value for option \"inject\": expected an Array or an Object, " + "but got " + toRawType(inject) + ".", vm);
-    }
-  }
-  /**
-   * Normalize raw function directives into object format.
-   */
-
-
-  function normalizeDirectives(options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var dirs = options.directives;
-
-    if (dirs) {
-      for (var key in dirs) {
-        var def$$1 = dirs[key];
-
-        if (typeof def$$1 === 'function') {
-          dirs[key] = {
-            bind: def$$1,
-            update: def$$1
-          };
-        }
-      }
-    }
-  }
-
-  function assertObjectType(name, value, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!isPlainObject(value)) {
-      warn("Invalid value for option \"" + name + "\": expected an Object, " + "but got " + toRawType(value) + ".", vm);
-    }
-  }
-  /**
-   * Merge two option objects into a new one.
-   * Core utility used in both instantiation and inheritance.
-   */
-
-
-  function mergeOptions(parent, child, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    {
-      checkComponents(child);
-    }
-
-    if (typeof child === 'function') {
-      child = child.options;
-    }
-
-    normalizeProps(child, vm);
-    normalizeInject(child, vm);
-    normalizeDirectives(child); // Apply extends and mixins on the child options,
-    // but only if it is a raw options object that isn't
-    // the result of another mergeOptions call.
-    // Only merged options has the _base property.
-
-    if (!child._base) {
-      if (child.extends) {
-        parent = mergeOptions(parent, child.extends, vm);
-      }
-
-      if (child.mixins) {
-        for (var i = 0, l = child.mixins.length; i < l; i++) {
-          parent = mergeOptions(parent, child.mixins[i], vm);
-        }
-      }
-    }
-
-    var options = {};
-    var key;
-
-    for (key in parent) {
-      mergeField(key);
-    }
-
-    for (key in child) {
-      if (!hasOwn(parent, key)) {
-        mergeField(key);
-      }
-    }
-
-    function mergeField(key) {
-      var necooData = window.necooPushCallStack(arguments);
-      var strat = strats[key] || defaultStrat;
-      options[key] = strat(parent[key], child[key], vm, key);
-    }
-
-    return options;
-  }
-  /**
-   * Resolve an asset.
-   * This function is used because child instances need access
-   * to assets defined in its ancestor chain.
-   */
-
-
-  function resolveAsset(options, type, id, warnMissing) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (typeof id !== 'string') {
-      return;
-    }
-
-    var assets = options[type]; // check local registration variations first
-
-    if (hasOwn(assets, id)) {
-      return assets[id];
-    }
-
-    var camelizedId = camelize(id);
-
-    if (hasOwn(assets, camelizedId)) {
-      return assets[camelizedId];
-    }
-
-    var PascalCaseId = capitalize(camelizedId);
-
-    if (hasOwn(assets, PascalCaseId)) {
-      return assets[PascalCaseId];
-    } // fallback to prototype chain
-
-
-    var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
-
-    if (warnMissing && !res) {
-      warn('Failed to resolve ' + type.slice(0, -1) + ': ' + id, options);
-    }
-
-    return res;
-  }
-  /*  */
-
-
-  function validateProp(key, propOptions, propsData, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var prop = propOptions[key];
-    var absent = !hasOwn(propsData, key);
-    var value = propsData[key]; // boolean casting
-
-    var booleanIndex = getTypeIndex(Boolean, prop.type);
-
-    if (booleanIndex > -1) {
-      if (absent && !hasOwn(prop, 'default')) {
-        value = false;
-      } else if (value === '' || value === hyphenate(key)) {
-        // only cast empty string / same name to boolean if
-        // boolean has higher priority
-        var stringIndex = getTypeIndex(String, prop.type);
-
-        if (stringIndex < 0 || booleanIndex < stringIndex) {
-          value = true;
-        }
-      }
-    } // check default value
-
-
-    if (value === undefined) {
-      value = getPropDefaultValue(vm, prop, key); // since the default value is a fresh copy,
-      // make sure to observe it.
-
-      var prevShouldObserve = shouldObserve;
-      toggleObserving(true);
-      observe(value);
-      toggleObserving(prevShouldObserve);
-    }
-
-    {
-      assertProp(prop, key, value, vm, absent);
-    }
-    return value;
-  }
-  /**
-   * Get the default value of a prop.
-   */
-
-
-  function getPropDefaultValue(vm, prop, key) {
-    var necooData = window.necooPushCallStack(arguments); // no default, return undefined
-
-    if (!hasOwn(prop, 'default')) {
-      return undefined;
-    }
-
-    var def = prop.default; // warn against non-factory defaults for Object & Array
-
-    if (isObject(def)) {
-      warn('Invalid default value for prop "' + key + '": ' + 'Props with type Object/Array must use a factory function ' + 'to return the default value.', vm);
-    } // the raw prop value was also undefined from previous render,
-    // return previous default value to avoid unnecessary watcher trigger
-
-
-    if (vm && vm.$options.propsData && vm.$options.propsData[key] === undefined && vm._props[key] !== undefined) {
-      return vm._props[key];
-    } // call factory function for non-Function types
-    // a value is Function if its prototype is function even across different execution context
-
-
-    return typeof def === 'function' && getType(prop.type) !== 'Function' ? def.call(vm) : def;
-  }
-  /**
-   * Assert whether a prop is valid.
-   */
-
-
-  function assertProp(prop, name, value, vm, absent) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (prop.required && absent) {
-      warn('Missing required prop: "' + name + '"', vm);
-      return;
-    }
-
-    if (value == null && !prop.required) {
-      return;
-    }
-
-    var type = prop.type;
-    var valid = !type || type === true;
-    var expectedTypes = [];
-
-    if (type) {
-      if (!Array.isArray(type)) {
-        type = [type];
-      }
-
-      for (var i = 0; i < type.length && !valid; i++) {
-        var assertedType = assertType(value, type[i]);
-        expectedTypes.push(assertedType.expectedType || '');
-        valid = assertedType.valid;
-      }
-    }
-
-    if (!valid) {
-      warn(getInvalidTypeMessage(name, value, expectedTypes), vm);
-      return;
-    }
-
-    var validator = prop.validator;
-
-    if (validator) {
-      if (!validator(value)) {
-        warn('Invalid prop: custom validator check failed for prop "' + name + '".', vm);
-      }
-    }
-  }
-
-  var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
-
-  function assertType(value, type) {
-    var necooData = window.necooPushCallStack(arguments);
-    var valid;
-    var expectedType = getType(type);
-
-    if (simpleCheckRE.test(expectedType)) {
-      var t = typeof value;
-      valid = t === expectedType.toLowerCase(); // for primitive wrapper objects
-
-      if (!valid && t === 'object') {
-        valid = value instanceof type;
-      }
-    } else if (expectedType === 'Object') {
-      valid = isPlainObject(value);
-    } else if (expectedType === 'Array') {
-      valid = Array.isArray(value);
-    } else {
-      valid = value instanceof type;
-    }
-
-    return {
-      valid: valid,
-      expectedType: expectedType
-    };
-  }
-  /**
-   * Use function string name to check built-in types,
-   * because a simple equality check will fail when running
-   * across different vms / iframes.
-   */
-
-
-  function getType(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    var match = fn && fn.toString().match(/^\s*function _anonymous_37(\w+)/);
-    return match ? match[1] : '';
-  }
-
-  function isSameType(a, b) {
-    var necooData = window.necooPushCallStack(arguments);
-    return getType(a) === getType(b);
-  }
-
-  function getTypeIndex(type, expectedTypes) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!Array.isArray(expectedTypes)) {
-      return isSameType(expectedTypes, type) ? 0 : -1;
-    }
-
-    for (var i = 0, len = expectedTypes.length; i < len; i++) {
-      if (isSameType(expectedTypes[i], type)) {
-        return i;
-      }
-    }
-
-    return -1;
-  }
-
-  function getInvalidTypeMessage(name, value, expectedTypes) {
-    var necooData = window.necooPushCallStack(arguments);
-    var message = "Invalid prop: type check failed for prop \"" + name + "\"." + " Expected " + expectedTypes.map(capitalize).join(', ');
-    var expectedType = expectedTypes[0];
-    var receivedType = toRawType(value);
-    var expectedValue = styleValue(value, expectedType);
-    var receivedValue = styleValue(value, receivedType); // check if we need to specify expected value
-
-    if (expectedTypes.length === 1 && isExplicable(expectedType) && !isBoolean(expectedType, receivedType)) {
-      message += " with value " + expectedValue;
-    }
-
-    message += ", got " + receivedType + " "; // check if we need to specify received value
-
-    if (isExplicable(receivedType)) {
-      message += "with value " + receivedValue + ".";
-    }
-
-    return message;
-  }
-
-  function styleValue(value, type) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (type === 'String') {
-      return "\"" + value + "\"";
-    } else if (type === 'Number') {
-      return "" + Number(value);
-    } else {
-      return "" + value;
-    }
-  }
-
-  function isExplicable(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    var explicitTypes = ['string', 'number', 'boolean'];
-    return explicitTypes.some(function _anonymous_38(elem) {
-      var necooData = window.necooPushCallStack(arguments);
-      return value.toLowerCase() === elem;
-    });
-  }
-
-  function isBoolean() {
-    var necooData = window.necooPushCallStack(arguments);
-    var args = [],
-        len = arguments.length;
-
-    while (len--) args[len] = arguments[len];
-
-    return args.some(function _anonymous_39(elem) {
-      var necooData = window.necooPushCallStack(arguments);
-      return elem.toLowerCase() === 'boolean';
-    });
-  }
-  /*  */
-
-
-  function handleError(err, vm, info) {
-    var necooData = window.necooPushCallStack(arguments); // Deactivate deps tracking while processing error handler to avoid possible infinite rendering.
-    // See: https://github.com/vuejs/vuex/issues/1505
-
-    pushTarget();
-
-    try {
-      if (vm) {
-        var cur = vm;
-
-        while (cur = cur.$parent) {
-          var hooks = cur.$options.errorCaptured;
-
-          if (hooks) {
-            for (var i = 0; i < hooks.length; i++) {
-              try {
-                var capture = hooks[i].call(cur, err, vm, info) === false;
-
-                if (capture) {
-                  return;
-                }
-              } catch (e) {
-                globalHandleError(e, cur, 'errorCaptured hook');
-              }
-            }
-          }
-        }
-      }
-
-      globalHandleError(err, vm, info);
-    } finally {
-      popTarget();
-    }
-  }
-
-  function invokeWithErrorHandling(handler, context, args, vm, info) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res;
-
-    try {
-      res = args ? handler.apply(context, args) : handler.call(context);
-
-      if (res && !res._isVue && isPromise(res) && !res._handled) {
-        res.catch(function _anonymous_40(e) {
-          var necooData = window.necooPushCallStack(arguments);
-          return handleError(e, vm, info + " (Promise/async)");
-        }); // issue #9511
-        // avoid catch triggering multiple times when nested calls
-
-        res._handled = true;
-      }
-    } catch (e) {
-      handleError(e, vm, info);
-    }
-
-    return res;
-  }
-
-  function globalHandleError(err, vm, info) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (config.errorHandler) {
-      try {
-        return config.errorHandler.call(null, err, vm, info);
-      } catch (e) {
-        // if the user intentionally throws the original error in the handler,
-        // do not log it twice
-        if (e !== err) {
-          logError(e, null, 'config.errorHandler');
-        }
-      }
-    }
-
-    logError(err, vm, info);
-  }
-
-  function logError(err, vm, info) {
-    var necooData = window.necooPushCallStack(arguments);
-    {
-      warn("Error in " + info + ": \"" + err.toString() + "\"", vm);
-    }
-    /* istanbul ignore else */
-
-    if ((inBrowser || inWeex) && typeof console !== 'undefined') {
-      console.error(err);
-    } else {
-      throw err;
-    }
-  }
-  /*  */
-
-
-  var isUsingMicroTask = false;
-  var callbacks = [];
-  var pending = false;
-
-  function flushCallbacks() {
-    var necooData = window.necooPushCallStack(arguments);
-    pending = false;
-    var copies = callbacks.slice(0);
-    callbacks.length = 0;
-
-    for (var i = 0; i < copies.length; i++) {
-      copies[i]();
-    }
-  } // Here we have async deferring wrappers using microtasks.
-  // In 2.5 we used (macro) tasks (in combination with microtasks).
-  // However, it has subtle problems when state is changed right before repaint
-  // (e.g. #6813, out-in transitions).
-  // Also, using (macro) tasks in event handler would cause some weird behaviors
-  // that cannot be circumvented (e.g. #7109, #7153, #7546, #7834, #8109).
-  // So we now use microtasks everywhere, again.
-  // A major drawback of this tradeoff is that there are some scenarios
-  // where microtasks have too high a priority and fire in between supposedly
-  // sequential events (e.g. #4521, #6690, which have workarounds)
-  // or even between bubbling of the same event (#6566).
-
-
-  var timerFunc; // The nextTick behavior leverages the microtask queue, which can be accessed
-  // via either native Promise.then or MutationObserver.
-  // MutationObserver has wider support, however it is seriously bugged in
-  // UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
-  // completely stops working after triggering a few times... so, if native
-  // Promise is available, we will use it:
-
-  /* istanbul ignore next, $flow-disable-line */
-
-  if (typeof Promise !== 'undefined' && isNative(Promise)) {
-    var p = Promise.resolve();
-
-    timerFunc = function _anonymous_41() {
-      var necooData = window.necooPushCallStack(arguments);
-      p.then(flushCallbacks); // In problematic UIWebViews, Promise.then doesn't completely break, but
-      // it can get stuck in a weird state where callbacks are pushed into the
-      // microtask queue but the queue isn't being flushed, until the browser
-      // needs to do some other work, e.g. handle a timer. Therefore we can
-      // "force" the microtask queue to be flushed by adding an empty timer.
-
-      if (isIOS) {
-        setTimeout(noop);
-      }
-    };
-
-    isUsingMicroTask = true;
-  } else if (!isIE && typeof MutationObserver !== 'undefined' && (isNative(MutationObserver) || // PhantomJS and iOS 7.x
-  MutationObserver.toString() === '[object MutationObserverConstructor]')) {
-    // Use MutationObserver where native Promise is not available,
-    // e.g. PhantomJS, iOS7, Android 4.4
-    // (#6466 MutationObserver is unreliable in IE11)
-    var counter = 1;
-    var observer = new MutationObserver(flushCallbacks);
-    var textNode = document.createTextNode(String(counter));
-    observer.observe(textNode, {
-      characterData: true
-    });
-
-    timerFunc = function _anonymous_42() {
-      var necooData = window.necooPushCallStack(arguments);
-      counter = (counter + 1) % 2;
-      textNode.data = String(counter);
-    };
-
-    isUsingMicroTask = true;
-  } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
-    // Fallback to setImmediate.
-    // Techinically it leverages the (macro) task queue,
-    // but it is still a better choice than setTimeout.
-    timerFunc = function _anonymous_43() {
-      var necooData = window.necooPushCallStack(arguments);
-      setImmediate(flushCallbacks);
-    };
-  } else {
-    // Fallback to setTimeout.
-    timerFunc = function _anonymous_44() {
-      var necooData = window.necooPushCallStack(arguments);
-      setTimeout(flushCallbacks, 0);
-    };
-  }
-
-  function nextTick(cb, ctx) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    var _resolve;
-
-    callbacks.push(function _anonymous_45() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (cb) {
-        try {
-          cb.call(ctx);
-        } catch (e) {
-          handleError(e, ctx, 'nextTick');
-        }
-      } else if (_resolve) {
-        _resolve(ctx);
-      }
-    });
-
-    if (!pending) {
-      pending = true;
-      timerFunc();
-    } // $flow-disable-line
-
-
-    if (!cb && typeof Promise !== 'undefined') {
-      return new Promise(function _anonymous_46(resolve) {
-        var necooData = window.necooPushCallStack(arguments);
-        _resolve = resolve;
-      });
-    }
-  }
-  /*  */
-
-
-  var mark;
-  var measure;
-  {
-    var perf = inBrowser && window.performance;
-    /* istanbul ignore if */
-
-    if (perf && perf.mark && perf.measure && perf.clearMarks && perf.clearMeasures) {
-      mark = function _anonymous_47(tag) {
-        var necooData = window.necooPushCallStack(arguments);
-        return perf.mark(tag);
-      };
-
-      measure = function _anonymous_48(name, startTag, endTag) {
-        var necooData = window.necooPushCallStack(arguments);
-        perf.measure(name, startTag, endTag);
-        perf.clearMarks(startTag);
-        perf.clearMarks(endTag); // perf.clearMeasures(name)
-      };
-    }
-  }
-  /* not type checking this file because flow doesn't play well with Proxy */
-
-  var initProxy;
-  {
-    var allowedGlobals = makeMap('Infinity,undefined,NaN,isFinite,isNaN,' + 'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' + 'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' + 'require' // for Webpack/Browserify
-    );
-
-    var warnNonPresent = function _anonymous_49(target, key) {
-      var necooData = window.necooPushCallStack(arguments);
-      warn("Property or method \"" + key + "\" is not defined on the instance but " + 'referenced during render. Make sure that this property is reactive, ' + 'either in the data option, or for class-based components, by ' + 'initializing the property. ' + 'See: https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties.', target);
-    };
-
-    var warnReservedPrefix = function _anonymous_50(target, key) {
-      var necooData = window.necooPushCallStack(arguments);
-      warn("Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " + 'properties starting with "$" or "_" are not proxied in the Vue instance to ' + 'prevent conflicts with Vue internals' + 'See: https://vuejs.org/v2/api/#data', target);
-    };
-
-    var hasProxy = typeof Proxy !== 'undefined' && isNative(Proxy);
-
-    if (hasProxy) {
-      var isBuiltInModifier = makeMap('stop,prevent,self,ctrl,shift,alt,meta,exact');
-      config.keyCodes = new Proxy(config.keyCodes, {
-        set: function set(target, key, value) {
-          var necooData = window.necooPushCallStack(arguments);
-
-          if (isBuiltInModifier(key)) {
-            warn("Avoid overwriting built-in modifier in config.keyCodes: ." + key);
-            return false;
-          } else {
-            target[key] = value;
-            return true;
-          }
-        }
-      });
-    }
-
-    var hasHandler = {
-      has: function has(target, key) {
-        var necooData = window.necooPushCallStack(arguments);
-        var has = key in target;
-        var isAllowed = allowedGlobals(key) || typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data);
-
-        if (!has && !isAllowed) {
-          if (key in target.$data) {
-            warnReservedPrefix(target, key);
-          } else {
-            warnNonPresent(target, key);
-          }
-        }
-
-        return has || !isAllowed;
-      }
-    };
-    var getHandler = {
-      get: function get(target, key) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (typeof key === 'string' && !(key in target)) {
-          if (key in target.$data) {
-            warnReservedPrefix(target, key);
-          } else {
-            warnNonPresent(target, key);
-          }
-        }
-
-        return target[key];
-      }
-    };
-
-    initProxy = function initProxy(vm) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (hasProxy) {
-        // determine which proxy handler to use
-        var options = vm.$options;
-        var handlers = options.render && options.render._withStripped ? getHandler : hasHandler;
-        vm._renderProxy = new Proxy(vm, handlers);
-      } else {
-        vm._renderProxy = vm;
-      }
-    };
-  }
-  /*  */
-
-  var seenObjects = new _Set();
-  /**
-   * Recursively traverse an object to evoke all converted
-   * getters, so that every nested property inside the object
-   * is collected as a "deep" dependency.
-   */
-
-  function traverse(val) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    _traverse(val, seenObjects);
-
-    seenObjects.clear();
-  }
-
-  function _traverse(val, seen) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i, keys;
-    var isA = Array.isArray(val);
-
-    if (!isA && !isObject(val) || Object.isFrozen(val) || val instanceof VNode) {
-      return;
-    }
-
-    if (val.__ob__) {
-      var depId = val.__ob__.dep.id;
-
-      if (seen.has(depId)) {
-        return;
-      }
-
-      seen.add(depId);
-    }
-
-    if (isA) {
-      i = val.length;
-
-      while (i--) {
-        _traverse(val[i], seen);
-      }
-    } else {
-      keys = Object.keys(val);
-      i = keys.length;
-
-      while (i--) {
-        _traverse(val[keys[i]], seen);
-      }
-    }
-  }
-  /*  */
-
-
-  var normalizeEvent = cached(function _anonymous_51(name) {
-    var necooData = window.necooPushCallStack(arguments);
-    var passive = name.charAt(0) === '&';
-    name = passive ? name.slice(1) : name;
-    var once$$1 = name.charAt(0) === '~'; // Prefixed last, checked first
-
-    name = once$$1 ? name.slice(1) : name;
-    var capture = name.charAt(0) === '!';
-    name = capture ? name.slice(1) : name;
-    return {
-      name: name,
-      once: once$$1,
-      capture: capture,
-      passive: passive
-    };
-  });
-
-  function createFnInvoker(fns, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    function invoker() {
-      var necooData = window.necooPushCallStack(arguments);
-      var arguments$1 = arguments;
-      var fns = invoker.fns;
-
-      if (Array.isArray(fns)) {
-        var cloned = fns.slice();
-
-        for (var i = 0; i < cloned.length; i++) {
-          invokeWithErrorHandling(cloned[i], null, arguments$1, vm, "v-on handler");
-        }
-      } else {
-        // return handler return value for single handlers
-        return invokeWithErrorHandling(fns, null, arguments, vm, "v-on handler");
-      }
-    }
-
-    invoker.fns = fns;
-    return invoker;
-  }
-
-  function updateListeners(on, oldOn, add, remove$$1, createOnceHandler, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var name, def$$1, cur, old, event;
-
-    for (name in on) {
-      def$$1 = cur = on[name];
-      old = oldOn[name];
-      event = normalizeEvent(name);
-
-      if (isUndef(cur)) {
-        warn("Invalid handler for event \"" + event.name + "\": got " + String(cur), vm);
-      } else if (isUndef(old)) {
-        if (isUndef(cur.fns)) {
-          cur = on[name] = createFnInvoker(cur, vm);
-        }
-
-        if (isTrue(event.once)) {
-          cur = on[name] = createOnceHandler(event.name, cur, event.capture);
-        }
-
-        add(event.name, cur, event.capture, event.passive, event.params);
-      } else if (cur !== old) {
-        old.fns = cur;
-        on[name] = old;
-      }
-    }
-
-    for (name in oldOn) {
-      if (isUndef(on[name])) {
-        event = normalizeEvent(name);
-        remove$$1(event.name, oldOn[name], event.capture);
-      }
-    }
-  }
-  /*  */
-
-
-  function mergeVNodeHook(def, hookKey, hook) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (def instanceof VNode) {
-      def = def.data.hook || (def.data.hook = {});
-    }
-
-    var invoker;
-    var oldHook = def[hookKey];
-
-    function wrappedHook() {
-      var necooData = window.necooPushCallStack(arguments);
-      hook.apply(this, arguments); // important: remove merged hook to ensure it's called only once
-      // and prevent memory leak
-
-      remove(invoker.fns, wrappedHook);
-    }
-
-    if (isUndef(oldHook)) {
-      // no existing hook
-      invoker = createFnInvoker([wrappedHook]);
-    } else {
-      /* istanbul ignore if */
-      if (isDef(oldHook.fns) && isTrue(oldHook.merged)) {
-        // already a merged invoker
-        invoker = oldHook;
-        invoker.fns.push(wrappedHook);
-      } else {
-        // existing plain hook
-        invoker = createFnInvoker([oldHook, wrappedHook]);
-      }
-    }
-
-    invoker.merged = true;
-    def[hookKey] = invoker;
-  }
-  /*  */
-
-
-  function extractPropsFromVNodeData(data, Ctor, tag) {
-    var necooData = window.necooPushCallStack(arguments); // we are only extracting raw values here.
-    // validation and default values are handled in the child
-    // component itself.
-
-    var propOptions = Ctor.options.props;
-
-    if (isUndef(propOptions)) {
-      return;
-    }
-
-    var res = {};
-    var attrs = data.attrs;
-    var props = data.props;
-
-    if (isDef(attrs) || isDef(props)) {
-      for (var key in propOptions) {
-        var altKey = hyphenate(key);
-        {
-          var keyInLowerCase = key.toLowerCase();
-
-          if (key !== keyInLowerCase && attrs && hasOwn(attrs, keyInLowerCase)) {
-            tip("Prop \"" + keyInLowerCase + "\" is passed to component " + formatComponentName(tag || Ctor) + ", but the declared prop name is" + " \"" + key + "\". " + "Note that HTML attributes are case-insensitive and camelCased " + "props need to use their kebab-case equivalents when using in-DOM " + "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\".");
-          }
-        }
-        checkProp(res, props, key, altKey, true) || checkProp(res, attrs, key, altKey, false);
-      }
-    }
-
-    return res;
-  }
-
-  function checkProp(res, hash, key, altKey, preserve) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isDef(hash)) {
-      if (hasOwn(hash, key)) {
-        res[key] = hash[key];
-
-        if (!preserve) {
-          delete hash[key];
-        }
-
-        return true;
-      } else if (hasOwn(hash, altKey)) {
-        res[key] = hash[altKey];
-
-        if (!preserve) {
-          delete hash[altKey];
-        }
-
-        return true;
-      }
-    }
-
-    return false;
-  }
-  /*  */
-  // The template compiler attempts to minimize the need for normalization by
-  // statically analyzing the template at compile time.
-  //
-  // For plain HTML markup, normalization can be completely skipped because the
-  // generated render function is guaranteed to return Array<VNode>. There are
-  // two cases where extra normalization is needed:
-  // 1. When the children contains components - because a functional component
-  // may return an Array instead of a single root. In this case, just a simple
-  // normalization is needed - if any child is an Array, we flatten the whole
-  // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
-  // because functional components already normalize their own children.
-
-
-  function simpleNormalizeChildren(children) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0; i < children.length; i++) {
-      if (Array.isArray(children[i])) {
-        return Array.prototype.concat.apply([], children);
-      }
-    }
-
-    return children;
-  } // 2. When the children contains constructs that always generated nested Arrays,
-  // e.g. <template>, <slot>, v-for, or when the children is provided by user
-  // with hand-written render functions / JSX. In such cases a full normalization
-  // is needed to cater to all possible types of children values.
-
-
-  function normalizeChildren(children) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isPrimitive(children) ? [createTextVNode(children)] : Array.isArray(children) ? normalizeArrayChildren(children) : undefined;
-  }
-
-  function isTextNode(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isDef(node) && isDef(node.text) && isFalse(node.isComment);
-  }
-
-  function normalizeArrayChildren(children, nestedIndex) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = [];
-    var i, c, lastIndex, last;
-
-    for (i = 0; i < children.length; i++) {
-      c = children[i];
-
-      if (isUndef(c) || typeof c === 'boolean') {
-        continue;
-      }
-
-      lastIndex = res.length - 1;
-      last = res[lastIndex]; //  nested
-
-      if (Array.isArray(c)) {
-        if (c.length > 0) {
-          c = normalizeArrayChildren(c, (nestedIndex || '') + "_" + i); // merge adjacent text nodes
-
-          if (isTextNode(c[0]) && isTextNode(last)) {
-            res[lastIndex] = createTextVNode(last.text + c[0].text);
-            c.shift();
-          }
-
-          res.push.apply(res, c);
-        }
-      } else if (isPrimitive(c)) {
-        if (isTextNode(last)) {
-          // merge adjacent text nodes
-          // this is necessary for SSR hydration because text nodes are
-          // essentially merged when rendered to HTML strings
-          res[lastIndex] = createTextVNode(last.text + c);
-        } else if (c !== '') {
-          // convert primitive to vnode
-          res.push(createTextVNode(c));
-        }
-      } else {
-        if (isTextNode(c) && isTextNode(last)) {
-          // merge adjacent text nodes
-          res[lastIndex] = createTextVNode(last.text + c.text);
-        } else {
-          // default key for nested array children (likely generated by v-for)
-          if (isTrue(children._isVList) && isDef(c.tag) && isUndef(c.key) && isDef(nestedIndex)) {
-            c.key = "__vlist" + nestedIndex + "_" + i + "__";
-          }
-
-          res.push(c);
-        }
-      }
-    }
-
-    return res;
-  }
-  /*  */
-
-
-  function initProvide(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var provide = vm.$options.provide;
-
-    if (provide) {
-      vm._provided = typeof provide === 'function' ? provide.call(vm) : provide;
-    }
-  }
-
-  function initInjections(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var result = resolveInject(vm.$options.inject, vm);
-
-    if (result) {
-      toggleObserving(false);
-      Object.keys(result).forEach(function _anonymous_52(key) {
-        var necooData = window.necooPushCallStack(arguments);
-        /* istanbul ignore else */
-
-        {
-          defineReactive$$1(vm, key, result[key], function _anonymous_53() {
-            var necooData = window.necooPushCallStack(arguments);
-            warn("Avoid mutating an injected value directly since the changes will be " + "overwritten whenever the provided component re-renders. " + "injection being mutated: \"" + key + "\"", vm);
-          });
-        }
-      });
-      toggleObserving(true);
-    }
-  }
-
-  function resolveInject(inject, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (inject) {
-      // inject is :any because flow is not smart enough to figure out cached
-      var result = Object.create(null);
-      var keys = hasSymbol ? Reflect.ownKeys(inject) : Object.keys(inject);
-
-      for (var i = 0; i < keys.length; i++) {
-        var key = keys[i]; // #6574 in case the inject object is observed...
-
-        if (key === '__ob__') {
-          continue;
-        }
-
-        var provideKey = inject[key].from;
-        var source = vm;
-
-        while (source) {
-          if (source._provided && hasOwn(source._provided, provideKey)) {
-            result[key] = source._provided[provideKey];
-            break;
-          }
-
-          source = source.$parent;
-        }
-
-        if (!source) {
-          if ('default' in inject[key]) {
-            var provideDefault = inject[key].default;
-            result[key] = typeof provideDefault === 'function' ? provideDefault.call(vm) : provideDefault;
-          } else {
-            warn("Injection \"" + key + "\" not found", vm);
-          }
-        }
-      }
-
-      return result;
-    }
-  }
-  /*  */
-
-  /**
-   * Runtime helper for resolving raw children VNodes into a slot object.
-   */
-
-
-  function resolveSlots(children, context) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!children || !children.length) {
-      return {};
-    }
-
-    var slots = {};
-
-    for (var i = 0, l = children.length; i < l; i++) {
-      var child = children[i];
-      var data = child.data; // remove slot attribute if the node is resolved as a Vue slot node
-
-      if (data && data.attrs && data.attrs.slot) {
-        delete data.attrs.slot;
-      } // named slots should only be respected if the vnode was rendered in the
-      // same context.
-
-
-      if ((child.context === context || child.fnContext === context) && data && data.slot != null) {
-        var name = data.slot;
-        var slot = slots[name] || (slots[name] = []);
-
-        if (child.tag === 'template') {
-          slot.push.apply(slot, child.children || []);
-        } else {
-          slot.push(child);
-        }
-      } else {
-        (slots.default || (slots.default = [])).push(child);
-      }
-    } // ignore slots that contains only whitespace
-
-
-    for (var name$1 in slots) {
-      if (slots[name$1].every(isWhitespace)) {
-        delete slots[name$1];
-      }
-    }
-
-    return slots;
-  }
-
-  function isWhitespace(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return node.isComment && !node.asyncFactory || node.text === ' ';
-  }
-  /*  */
-
-
-  function normalizeScopedSlots(slots, normalSlots, prevSlots) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res;
-    var hasNormalSlots = Object.keys(normalSlots).length > 0;
-    var isStable = slots ? !!slots.$stable : !hasNormalSlots;
-    var key = slots && slots.$key;
-
-    if (!slots) {
-      res = {};
-    } else if (slots._normalized) {
-      // fast path 1: child component re-render only, parent did not change
-      return slots._normalized;
-    } else if (isStable && prevSlots && prevSlots !== emptyObject && key === prevSlots.$key && !hasNormalSlots && !prevSlots.$hasNormal) {
-      // fast path 2: stable scoped slots w/ no normal slots to proxy,
-      // only need to normalize once
-      return prevSlots;
-    } else {
-      res = {};
-
-      for (var key$1 in slots) {
-        if (slots[key$1] && key$1[0] !== '$') {
-          res[key$1] = normalizeScopedSlot(normalSlots, key$1, slots[key$1]);
-        }
-      }
-    } // expose normal slots on scopedSlots
-
-
-    for (var key$2 in normalSlots) {
-      if (!(key$2 in res)) {
-        res[key$2] = proxyNormalSlot(normalSlots, key$2);
-      }
-    } // avoriaz seems to mock a non-extensible $scopedSlots object
-    // and when that is passed down this would cause an error
-
-
-    if (slots && Object.isExtensible(slots)) {
-      slots._normalized = res;
-    }
-
-    def(res, '$stable', isStable);
-    def(res, '$key', key);
-    def(res, '$hasNormal', hasNormalSlots);
-    return res;
-  }
-
-  function normalizeScopedSlot(normalSlots, key, fn) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    var normalized = function _anonymous_54() {
-      var necooData = window.necooPushCallStack(arguments);
-      var res = arguments.length ? fn.apply(null, arguments) : fn({});
-      res = res && typeof res === 'object' && !Array.isArray(res) ? [res] // single vnode
-      : normalizeChildren(res);
-      return res && (res.length === 0 || res.length === 1 && res[0].isComment // #9658
-      ) ? undefined : res;
-    }; // this is a slot using the new v-slot syntax without scope. although it is
-    // compiled as a scoped slot, render fn users would expect it to be present
-    // on this.$slots because the usage is semantically a normal slot.
-
-
-    if (fn.proxy) {
-      Object.defineProperty(normalSlots, key, {
-        get: normalized,
-        enumerable: true,
-        configurable: true
-      });
-    }
-
-    return normalized;
-  }
-
-  function proxyNormalSlot(slots, key) {
-    var necooData = window.necooPushCallStack(arguments);
-    return function _anonymous_55() {
-      var necooData = window.necooPushCallStack(arguments);
-      return slots[key];
-    };
-  }
-  /*  */
-
-  /**
-   * Runtime helper for rendering v-for lists.
-   */
-
-
-  function renderList(val, render) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ret, i, l, keys, key;
-
-    if (Array.isArray(val) || typeof val === 'string') {
-      ret = new Array(val.length);
-
-      for (i = 0, l = val.length; i < l; i++) {
-        ret[i] = render(val[i], i);
-      }
-    } else if (typeof val === 'number') {
-      ret = new Array(val);
-
-      for (i = 0; i < val; i++) {
-        ret[i] = render(i + 1, i);
-      }
-    } else if (isObject(val)) {
-      if (hasSymbol && val[Symbol.iterator]) {
-        ret = [];
-        var iterator = val[Symbol.iterator]();
-        var result = iterator.next();
-
-        while (!result.done) {
-          ret.push(render(result.value, ret.length));
-          result = iterator.next();
-        }
-      } else {
-        keys = Object.keys(val);
-        ret = new Array(keys.length);
-
-        for (i = 0, l = keys.length; i < l; i++) {
-          key = keys[i];
-          ret[i] = render(val[key], key, i);
-        }
-      }
-    }
-
-    if (!isDef(ret)) {
-      ret = [];
-    }
-
-    ret._isVList = true;
-    return ret;
-  }
-  /*  */
-
-  /**
-   * Runtime helper for rendering <slot>
-   */
-
-
-  function renderSlot(name, fallback, props, bindObject) {
-    var necooData = window.necooPushCallStack(arguments);
-    var scopedSlotFn = this.$scopedSlots[name];
-    var nodes;
-
-    if (scopedSlotFn) {
-      // scoped slot
-      props = props || {};
-
-      if (bindObject) {
-        if (!isObject(bindObject)) {
-          warn('slot v-bind without argument expects an Object', this);
-        }
-
-        props = extend(extend({}, bindObject), props);
-      }
-
-      nodes = scopedSlotFn(props) || fallback;
-    } else {
-      nodes = this.$slots[name] || fallback;
-    }
-
-    var target = props && props.slot;
-
-    if (target) {
-      return this.$createElement('template', {
-        slot: target
-      }, nodes);
-    } else {
-      return nodes;
-    }
-  }
-  /*  */
-
-  /**
-   * Runtime helper for resolving filters
-   */
-
-
-  function resolveFilter(id) {
-    var necooData = window.necooPushCallStack(arguments);
-    return resolveAsset(this.$options, 'filters', id, true) || identity;
-  }
-  /*  */
-
-
-  function isKeyNotMatch(expect, actual) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(expect)) {
-      return expect.indexOf(actual) === -1;
-    } else {
-      return expect !== actual;
-    }
-  }
-  /**
-   * Runtime helper for checking keyCodes from config.
-   * exposed as Vue.prototype._k
-   * passing in eventKeyName as last argument separately for backwards compat
-   */
-
-
-  function checkKeyCodes(eventKeyCode, key, builtInKeyCode, eventKeyName, builtInKeyName) {
-    var necooData = window.necooPushCallStack(arguments);
-    var mappedKeyCode = config.keyCodes[key] || builtInKeyCode;
-
-    if (builtInKeyName && eventKeyName && !config.keyCodes[key]) {
-      return isKeyNotMatch(builtInKeyName, eventKeyName);
-    } else if (mappedKeyCode) {
-      return isKeyNotMatch(mappedKeyCode, eventKeyCode);
-    } else if (eventKeyName) {
-      return hyphenate(eventKeyName) !== key;
-    }
-  }
-  /*  */
-
-  /**
-   * Runtime helper for merging v-bind="object" into a VNode's data.
-   */
-
-
-  function bindObjectProps(data, tag, value, asProp, isSync) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (value) {
-      if (!isObject(value)) {
-        warn('v-bind without argument expects an Object or Array value', this);
-      } else {
-        if (Array.isArray(value)) {
-          value = toObject(value);
-        }
-
-        var hash;
-
-        var loop = function _anonymous_56(key) {
-          var necooData = window.necooPushCallStack(arguments);
-
-          if (key === 'class' || key === 'style' || isReservedAttribute(key)) {
-            hash = data;
-          } else {
-            var type = data.attrs && data.attrs.type;
-            hash = asProp || config.mustUseProp(tag, type, key) ? data.domProps || (data.domProps = {}) : data.attrs || (data.attrs = {});
-          }
-
-          var camelizedKey = camelize(key);
-          var hyphenatedKey = hyphenate(key);
-
-          if (!(camelizedKey in hash) && !(hyphenatedKey in hash)) {
-            hash[key] = value[key];
-
-            if (isSync) {
-              var on = data.on || (data.on = {});
-
-              on["update:" + key] = function _anonymous_57($event) {
-                var necooData = window.necooPushCallStack(arguments);
-                value[key] = $event;
-              };
-            }
-          }
-        };
-
-        for (var key in value) loop(key);
-      }
-    }
-
-    return data;
-  }
-  /*  */
-
-  /**
-   * Runtime helper for rendering static trees.
-   */
-
-
-  function renderStatic(index, isInFor) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cached = this._staticTrees || (this._staticTrees = []);
-    var tree = cached[index]; // if has already-rendered static tree and not inside v-for,
-    // we can reuse the same tree.
-
-    if (tree && !isInFor) {
-      return tree;
-    } // otherwise, render a fresh tree.
-
-
-    tree = cached[index] = this.$options.staticRenderFns[index].call(this._renderProxy, null, this // for render fns generated for functional component templates
-    );
-    markStatic(tree, "__static__" + index, false);
-    return tree;
-  }
-  /**
-   * Runtime helper for v-once.
-   * Effectively it means marking the node as static with a unique key.
-   */
-
-
-  function markOnce(tree, index, key) {
-    var necooData = window.necooPushCallStack(arguments);
-    markStatic(tree, "__once__" + index + (key ? "_" + key : ""), true);
-    return tree;
-  }
-
-  function markStatic(tree, key, isOnce) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(tree)) {
-      for (var i = 0; i < tree.length; i++) {
-        if (tree[i] && typeof tree[i] !== 'string') {
-          markStaticNode(tree[i], key + "_" + i, isOnce);
-        }
-      }
-    } else {
-      markStaticNode(tree, key, isOnce);
-    }
-  }
-
-  function markStaticNode(node, key, isOnce) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.isStatic = true;
-    node.key = key;
-    node.isOnce = isOnce;
-  }
-  /*  */
-
-
-  function bindObjectListeners(data, value) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (value) {
-      if (!isPlainObject(value)) {
-        warn('v-on without argument expects an Object value', this);
-      } else {
-        var on = data.on = data.on ? extend({}, data.on) : {};
-
-        for (var key in value) {
-          var existing = on[key];
-          var ours = value[key];
-          on[key] = existing ? [].concat(existing, ours) : ours;
-        }
-      }
-    }
-
-    return data;
-  }
-  /*  */
-
-
-  function resolveScopedSlots(fns, // see flow/vnode
-  res, // the following are added in 2.6
-  hasDynamicKeys, contentHashKey) {
-    var necooData = window.necooPushCallStack(arguments);
-    res = res || {
-      $stable: !hasDynamicKeys
-    };
-
-    for (var i = 0; i < fns.length; i++) {
-      var slot = fns[i];
-
-      if (Array.isArray(slot)) {
-        resolveScopedSlots(slot, res, hasDynamicKeys);
-      } else if (slot) {
-        // marker for reverse proxying v-slot without scope on this.$slots
-        if (slot.proxy) {
-          slot.fn.proxy = true;
-        }
-
-        res[slot.key] = slot.fn;
-      }
-    }
-
-    if (contentHashKey) {
-      res.$key = contentHashKey;
-    }
-
-    return res;
-  }
-  /*  */
-
-
-  function bindDynamicKeys(baseObj, values) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0; i < values.length; i += 2) {
-      var key = values[i];
-
-      if (typeof key === 'string' && key) {
-        baseObj[values[i]] = values[i + 1];
-      } else if (key !== '' && key !== null) {
-        // null is a speical value for explicitly removing a binding
-        warn("Invalid value for dynamic directive argument (expected string or null): " + key, this);
-      }
-    }
-
-    return baseObj;
-  } // helper to dynamically append modifier runtime markers to event names.
-  // ensure only append when value is already string, otherwise it will be cast
-  // to string and cause the type check to miss.
-
-
-  function prependModifier(value, symbol) {
-    var necooData = window.necooPushCallStack(arguments);
-    return typeof value === 'string' ? symbol + value : value;
-  }
-  /*  */
-
-
-  function installRenderHelpers(target) {
-    var necooData = window.necooPushCallStack(arguments);
-    target._o = markOnce;
-    target._n = toNumber;
-    target._s = toString;
-    target._l = renderList;
-    target._t = renderSlot;
-    target._q = looseEqual;
-    target._i = looseIndexOf;
-    target._m = renderStatic;
-    target._f = resolveFilter;
-    target._k = checkKeyCodes;
-    target._b = bindObjectProps;
-    target._v = createTextVNode;
-    target._e = createEmptyVNode;
-    target._u = resolveScopedSlots;
-    target._g = bindObjectListeners;
-    target._d = bindDynamicKeys;
-    target._p = prependModifier;
-  }
-  /*  */
-
-
-  function FunctionalRenderContext(data, props, children, parent, Ctor) {
-    var necooData = window.necooPushCallStack(arguments);
-    var this$1 = this;
-    var options = Ctor.options; // ensure the createElement function in functional components
-    // gets a unique context - this is necessary for correct named slot check
-
-    var contextVm;
-
-    if (hasOwn(parent, '_uid')) {
-      contextVm = Object.create(parent); // $flow-disable-line
-
-      contextVm._original = parent;
-    } else {
-      // the context vm passed in is a functional context as well.
-      // in this case we want to make sure we are able to get a hold to the
-      // real context instance.
-      contextVm = parent; // $flow-disable-line
-
-      parent = parent._original;
-    }
-
-    var isCompiled = isTrue(options._compiled);
-    var needNormalization = !isCompiled;
-    this.data = data;
-    this.props = props;
-    this.children = children;
-    this.parent = parent;
-    this.listeners = data.on || emptyObject;
-    this.injections = resolveInject(options.inject, parent);
-
-    this.slots = function _anonymous_58() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (!this$1.$slots) {
-        normalizeScopedSlots(data.scopedSlots, this$1.$slots = resolveSlots(children, parent));
-      }
-
-      return this$1.$slots;
-    };
-
-    Object.defineProperty(this, 'scopedSlots', {
-      enumerable: true,
-      get: function get() {
-        var necooData = window.necooPushCallStack(arguments);
-        return normalizeScopedSlots(data.scopedSlots, this.slots());
-      }
-    }); // support for compiled functional template
-
-    if (isCompiled) {
-      // exposing $options for renderStatic()
-      this.$options = options; // pre-resolve slots for renderSlot()
-
-      this.$slots = this.slots();
-      this.$scopedSlots = normalizeScopedSlots(data.scopedSlots, this.$slots);
-    }
-
-    if (options._scopeId) {
-      this._c = function _anonymous_59(a, b, c, d) {
-        var necooData = window.necooPushCallStack(arguments);
-        var vnode = createElement(contextVm, a, b, c, d, needNormalization);
-
-        if (vnode && !Array.isArray(vnode)) {
-          vnode.fnScopeId = options._scopeId;
-          vnode.fnContext = parent;
-        }
-
-        return vnode;
-      };
-    } else {
-      this._c = function _anonymous_60(a, b, c, d) {
-        var necooData = window.necooPushCallStack(arguments);
-        return createElement(contextVm, a, b, c, d, needNormalization);
-      };
-    }
-  }
-
-  installRenderHelpers(FunctionalRenderContext.prototype);
-
-  function createFunctionalComponent(Ctor, propsData, data, contextVm, children) {
-    var necooData = window.necooPushCallStack(arguments);
-    var options = Ctor.options;
-    var props = {};
-    var propOptions = options.props;
-
-    if (isDef(propOptions)) {
-      for (var key in propOptions) {
-        props[key] = validateProp(key, propOptions, propsData || emptyObject);
-      }
-    } else {
-      if (isDef(data.attrs)) {
-        mergeProps(props, data.attrs);
-      }
-
-      if (isDef(data.props)) {
-        mergeProps(props, data.props);
-      }
-    }
-
-    var renderContext = new FunctionalRenderContext(data, props, children, contextVm, Ctor);
-    var vnode = options.render.call(null, renderContext._c, renderContext);
-
-    if (vnode instanceof VNode) {
-      return cloneAndMarkFunctionalResult(vnode, data, renderContext.parent, options, renderContext);
-    } else if (Array.isArray(vnode)) {
-      var vnodes = normalizeChildren(vnode) || [];
-      var res = new Array(vnodes.length);
-
-      for (var i = 0; i < vnodes.length; i++) {
-        res[i] = cloneAndMarkFunctionalResult(vnodes[i], data, renderContext.parent, options, renderContext);
-      }
-
-      return res;
-    }
-  }
-
-  function cloneAndMarkFunctionalResult(vnode, data, contextVm, options, renderContext) {
-    var necooData = window.necooPushCallStack(arguments); // #7817 clone node before setting fnContext, otherwise if the node is reused
-    // (e.g. it was from a cached normal slot) the fnContext causes named slots
-    // that should not be matched to match.
-
-    var clone = cloneVNode(vnode);
-    clone.fnContext = contextVm;
-    clone.fnOptions = options;
-    {
-      (clone.devtoolsMeta = clone.devtoolsMeta || {}).renderContext = renderContext;
-    }
-
-    if (data.slot) {
-      (clone.data || (clone.data = {})).slot = data.slot;
-    }
-
-    return clone;
-  }
-
-  function mergeProps(to, from) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var key in from) {
-      to[camelize(key)] = from[key];
-    }
-  }
-  /*  */
-
-  /*  */
-
-  /*  */
-
-  /*  */
-  // inline hooks to be invoked on component VNodes during patch
-
-
-  var componentVNodeHooks = {
-    init: function init(vnode, hydrating) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (vnode.componentInstance && !vnode.componentInstance._isDestroyed && vnode.data.keepAlive) {
-        // kept-alive components, treat as a patch
-        var mountedNode = vnode; // work around flow
-
-        componentVNodeHooks.prepatch(mountedNode, mountedNode);
-      } else {
-        var child = vnode.componentInstance = createComponentInstanceForVnode(vnode, activeInstance);
-        child.$mount(hydrating ? vnode.elm : undefined, hydrating);
-      }
-    },
-    prepatch: function prepatch(oldVnode, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var options = vnode.componentOptions;
-      var child = vnode.componentInstance = oldVnode.componentInstance;
-      updateChildComponent(child, options.propsData, // updated props
-      options.listeners, // updated listeners
-      vnode, // new parent vnode
-      options.children // new children
-      );
-    },
-    insert: function insert(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var context = vnode.context;
-      var componentInstance = vnode.componentInstance;
-
-      if (!componentInstance._isMounted) {
-        componentInstance._isMounted = true;
-        callHook(componentInstance, 'mounted');
-      }
-
-      if (vnode.data.keepAlive) {
-        if (context._isMounted) {
-          // vue-router#1212
-          // During updates, a kept-alive component's child components may
-          // change, so directly walking the tree here may call activated hooks
-          // on incorrect children. Instead we push them into a queue which will
-          // be processed after the whole patch process ended.
-          queueActivatedComponent(componentInstance);
-        } else {
-          activateChildComponent(componentInstance, true
-          /* direct */
-          );
-        }
-      }
-    },
-    destroy: function destroy(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var componentInstance = vnode.componentInstance;
-
-      if (!componentInstance._isDestroyed) {
-        if (!vnode.data.keepAlive) {
-          componentInstance.$destroy();
-        } else {
-          deactivateChildComponent(componentInstance, true
-          /* direct */
-          );
-        }
-      }
-    }
-  };
-  var hooksToMerge = Object.keys(componentVNodeHooks);
-
-  function createComponent(Ctor, data, context, children, tag) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(Ctor)) {
-      return;
-    }
-
-    var baseCtor = context.$options._base; // plain options object: turn it into a constructor
-
-    if (isObject(Ctor)) {
-      Ctor = baseCtor.extend(Ctor);
-    } // if at this stage it's not a constructor or an async component factory,
-    // reject.
-
-
-    if (typeof Ctor !== 'function') {
-      {
-        warn("Invalid Component definition: " + String(Ctor), context);
-      }
-      return;
-    } // async component
-
-
-    var asyncFactory;
-
-    if (isUndef(Ctor.cid)) {
-      asyncFactory = Ctor;
-      Ctor = resolveAsyncComponent(asyncFactory, baseCtor);
-
-      if (Ctor === undefined) {
-        // return a placeholder node for async component, which is rendered
-        // as a comment node but preserves all the raw information for the node.
-        // the information will be used for async server-rendering and hydration.
-        return createAsyncPlaceholder(asyncFactory, data, context, children, tag);
-      }
-    }
-
-    data = data || {}; // resolve constructor options in case global mixins are applied after
-    // component constructor creation
-
-    resolveConstructorOptions(Ctor); // transform component v-model data into props & events
-
-    if (isDef(data.model)) {
-      transformModel(Ctor.options, data);
-    } // extract props
-
-
-    var propsData = extractPropsFromVNodeData(data, Ctor, tag); // functional component
-
-    if (isTrue(Ctor.options.functional)) {
-      return createFunctionalComponent(Ctor, propsData, data, context, children);
-    } // extract listeners, since these needs to be treated as
-    // child component listeners instead of DOM listeners
-
-
-    var listeners = data.on; // replace with listeners with .native modifier
-    // so it gets processed during parent component patch.
-
-    data.on = data.nativeOn;
-
-    if (isTrue(Ctor.options.abstract)) {
-      // abstract components do not keep anything
-      // other than props & listeners & slot
-      // work around flow
-      var slot = data.slot;
-      data = {};
-
-      if (slot) {
-        data.slot = slot;
-      }
-    } // install component management hooks onto the placeholder node
-
-
-    installComponentHooks(data); // return a placeholder vnode
-
-    var name = Ctor.options.name || tag;
-    var vnode = new VNode("vue-component-" + Ctor.cid + (name ? "-" + name : ''), data, undefined, undefined, undefined, context, {
-      Ctor: Ctor,
-      propsData: propsData,
-      listeners: listeners,
-      tag: tag,
-      children: children
-    }, asyncFactory);
-    return vnode;
-  }
-
-  function createComponentInstanceForVnode(vnode, // we know it's MountedComponentVNode but flow doesn't
-  parent // activeInstance in lifecycle state
-  ) {
-    var necooData = window.necooPushCallStack(arguments);
-    var options = {
-      _isComponent: true,
-      _parentVnode: vnode,
-      parent: parent
-    }; // check inline-template render functions
-
-    var inlineTemplate = vnode.data.inlineTemplate;
-
-    if (isDef(inlineTemplate)) {
-      options.render = inlineTemplate.render;
-      options.staticRenderFns = inlineTemplate.staticRenderFns;
-    }
-
-    return new vnode.componentOptions.Ctor(options);
-  }
-
-  function installComponentHooks(data) {
-    var necooData = window.necooPushCallStack(arguments);
-    var hooks = data.hook || (data.hook = {});
-
-    for (var i = 0; i < hooksToMerge.length; i++) {
-      var key = hooksToMerge[i];
-      var existing = hooks[key];
-      var toMerge = componentVNodeHooks[key];
-
-      if (existing !== toMerge && !(existing && existing._merged)) {
-        hooks[key] = existing ? mergeHook$1(toMerge, existing) : toMerge;
-      }
-    }
-  }
-
-  function mergeHook$1(f1, f2) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    var merged = function _anonymous_61(a, b) {
-      var necooData = window.necooPushCallStack(arguments); // flow complains about extra args which is why we use any
-
-      f1(a, b);
-      f2(a, b);
-    };
-
-    merged._merged = true;
-    return merged;
-  } // transform component v-model info (value and callback) into
-  // prop and event handler respectively.
-
-
-  function transformModel(options, data) {
-    var necooData = window.necooPushCallStack(arguments);
-    var prop = options.model && options.model.prop || 'value';
-    var event = options.model && options.model.event || 'input';
-    (data.attrs || (data.attrs = {}))[prop] = data.model.value;
-    var on = data.on || (data.on = {});
-    var existing = on[event];
-    var callback = data.model.callback;
-
-    if (isDef(existing)) {
-      if (Array.isArray(existing) ? existing.indexOf(callback) === -1 : existing !== callback) {
-        on[event] = [callback].concat(existing);
-      }
-    } else {
-      on[event] = callback;
-    }
-  }
-  /*  */
-
-
-  var SIMPLE_NORMALIZE = 1;
-  var ALWAYS_NORMALIZE = 2; // wrapper function for providing a more flexible interface
-  // without getting yelled at by flow
-
-  function createElement(context, tag, data, children, normalizationType, alwaysNormalize) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(data) || isPrimitive(data)) {
-      normalizationType = children;
-      children = data;
-      data = undefined;
-    }
-
-    if (isTrue(alwaysNormalize)) {
-      normalizationType = ALWAYS_NORMALIZE;
-    }
-
-    return _createElement(context, tag, data, children, normalizationType);
-  }
-
-  function _createElement(context, tag, data, children, normalizationType) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isDef(data) && isDef(data.__ob__)) {
-      warn("Avoid using observed data object as vnode data: " + JSON.stringify(data) + "\n" + 'Always create fresh vnode data objects in each render!', context);
-      return createEmptyVNode();
-    } // object syntax in v-bind
-
-
-    if (isDef(data) && isDef(data.is)) {
-      tag = data.is;
-    }
-
-    if (!tag) {
-      // in case of component :is set to falsy value
-      return createEmptyVNode();
-    } // warn against non-primitive key
-
-
-    if (isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
-      {
-        warn('Avoid using non-primitive value as key, ' + 'use string/number value instead.', context);
-      }
-    } // support single function children as default scoped slot
-
-
-    if (Array.isArray(children) && typeof children[0] === 'function') {
-      data = data || {};
-      data.scopedSlots = {
-        default: children[0]
-      };
-      children.length = 0;
-    }
-
-    if (normalizationType === ALWAYS_NORMALIZE) {
-      children = normalizeChildren(children);
-    } else if (normalizationType === SIMPLE_NORMALIZE) {
-      children = simpleNormalizeChildren(children);
-    }
-
-    var vnode, ns;
-
-    if (typeof tag === 'string') {
-      var Ctor;
-      ns = context.$vnode && context.$vnode.ns || config.getTagNamespace(tag);
-
-      if (config.isReservedTag(tag)) {
-        // platform built-in elements
-        vnode = new VNode(config.parsePlatformTagName(tag), data, children, undefined, undefined, context);
-      } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
-        // component
-        vnode = createComponent(Ctor, data, context, children, tag);
-      } else {
-        // unknown or unlisted namespaced elements
-        // check at runtime because it may get assigned a namespace when its
-        // parent normalizes children
-        vnode = new VNode(tag, data, children, undefined, undefined, context);
-      }
-    } else {
-      // direct component options / constructor
-      vnode = createComponent(tag, data, context, children);
-    }
-
-    if (Array.isArray(vnode)) {
-      return vnode;
-    } else if (isDef(vnode)) {
-      if (isDef(ns)) {
-        applyNS(vnode, ns);
-      }
-
-      if (isDef(data)) {
-        registerDeepBindings(data);
-      }
-
-      return vnode;
-    } else {
-      return createEmptyVNode();
-    }
-  }
-
-  function applyNS(vnode, ns, force) {
-    var necooData = window.necooPushCallStack(arguments);
-    vnode.ns = ns;
-
-    if (vnode.tag === 'foreignObject') {
-      // use default namespace inside foreignObject
-      ns = undefined;
-      force = true;
-    }
-
-    if (isDef(vnode.children)) {
-      for (var i = 0, l = vnode.children.length; i < l; i++) {
-        var child = vnode.children[i];
-
-        if (isDef(child.tag) && (isUndef(child.ns) || isTrue(force) && child.tag !== 'svg')) {
-          applyNS(child, ns, force);
-        }
-      }
-    }
-  } // ref #5318
-  // necessary to ensure parent re-render when deep bindings like :style and
-  // :class are used on slot nodes
-
-
-  function registerDeepBindings(data) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isObject(data.style)) {
-      traverse(data.style);
-    }
-
-    if (isObject(data.class)) {
-      traverse(data.class);
-    }
-  }
-  /*  */
-
-
-  function initRender(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    vm._vnode = null; // the root of the child tree
-
-    vm._staticTrees = null; // v-once cached trees
-
-    var options = vm.$options;
-    var parentVnode = vm.$vnode = options._parentVnode; // the placeholder node in parent tree
-
-    var renderContext = parentVnode && parentVnode.context;
-    vm.$slots = resolveSlots(options._renderChildren, renderContext);
-    vm.$scopedSlots = emptyObject; // bind the createElement fn to this instance
-    // so that we get proper render context inside it.
-    // args order: tag, data, children, normalizationType, alwaysNormalize
-    // internal version is used by render functions compiled from templates
-
-    vm._c = function _anonymous_62(a, b, c, d) {
-      var necooData = window.necooPushCallStack(arguments);
-      return createElement(vm, a, b, c, d, false);
-    }; // normalization is always applied for the public version, used in
-    // user-written render functions.
-
-
-    vm.$createElement = function _anonymous_63(a, b, c, d) {
-      var necooData = window.necooPushCallStack(arguments);
-      return createElement(vm, a, b, c, d, true);
-    }; // $attrs & $listeners are exposed for easier HOC creation.
-    // they need to be reactive so that HOCs using them are always updated
-
-
-    var parentData = parentVnode && parentVnode.data;
-    /* istanbul ignore else */
-
-    {
-      defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function _anonymous_64() {
-        var necooData = window.necooPushCallStack(arguments);
-        !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
-      }, true);
-      defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, function _anonymous_65() {
-        var necooData = window.necooPushCallStack(arguments);
-        !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
-      }, true);
-    }
-  }
-
-  var currentRenderingInstance = null;
-
-  function renderMixin(Vue) {
-    var necooData = window.necooPushCallStack(arguments); // install runtime convenience helpers
-
-    installRenderHelpers(Vue.prototype);
-
-    Vue.prototype.$nextTick = function _anonymous_66(fn) {
-      var necooData = window.necooPushCallStack(arguments);
-      return nextTick(fn, this);
-    };
-
-    Vue.prototype._render = function _anonymous_67() {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-      var ref = vm.$options;
-      var render = ref.render;
-      var _parentVnode = ref._parentVnode;
-
-      if (_parentVnode) {
-        vm.$scopedSlots = normalizeScopedSlots(_parentVnode.data.scopedSlots, vm.$slots, vm.$scopedSlots);
-      } // set parent vnode. this allows render functions to have access
-      // to the data on the placeholder node.
-
-
-      vm.$vnode = _parentVnode; // render self
-
-      var vnode;
-
-      try {
-        // There's no need to maintain a stack becaues all render fns are called
-        // separately from one another. Nested component's render fns are called
-        // when parent component is patched.
-        currentRenderingInstance = vm;
-        vnode = render.call(vm._renderProxy, vm.$createElement);
-      } catch (e) {
-        handleError(e, vm, "render"); // return error render result,
-        // or previous vnode to prevent render error causing blank component
-
-        /* istanbul ignore else */
-
-        if (vm.$options.renderError) {
-          try {
-            vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
-          } catch (e) {
-            handleError(e, vm, "renderError");
-            vnode = vm._vnode;
-          }
-        } else {
-          vnode = vm._vnode;
-        }
-      } finally {
-        currentRenderingInstance = null;
-      } // if the returned array contains only a single node, allow it
-
-
-      if (Array.isArray(vnode) && vnode.length === 1) {
-        vnode = vnode[0];
-      } // return empty vnode in case the render function errored out
-
-
-      if (!(vnode instanceof VNode)) {
-        if (Array.isArray(vnode)) {
-          warn('Multiple root nodes returned from render function. Render function ' + 'should return a single root node.', vm);
-        }
-
-        vnode = createEmptyVNode();
-      } // set parent
-
-
-      vnode.parent = _parentVnode;
-      return vnode;
-    };
-  }
-  /*  */
-
-
-  function ensureCtor(comp, base) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (comp.__esModule || hasSymbol && comp[Symbol.toStringTag] === 'Module') {
-      comp = comp.default;
-    }
-
-    return isObject(comp) ? base.extend(comp) : comp;
-  }
-
-  function createAsyncPlaceholder(factory, data, context, children, tag) {
-    var necooData = window.necooPushCallStack(arguments);
-    var node = createEmptyVNode();
-    node.asyncFactory = factory;
-    node.asyncMeta = {
-      data: data,
-      context: context,
-      children: children,
-      tag: tag
-    };
-    return node;
-  }
-
-  function resolveAsyncComponent(factory, baseCtor) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isTrue(factory.error) && isDef(factory.errorComp)) {
-      return factory.errorComp;
-    }
-
-    if (isDef(factory.resolved)) {
-      return factory.resolved;
-    }
-
-    var owner = currentRenderingInstance;
-
-    if (owner && isDef(factory.owners) && factory.owners.indexOf(owner) === -1) {
-      // already pending
-      factory.owners.push(owner);
-    }
-
-    if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
-      return factory.loadingComp;
-    }
-
-    if (owner && !isDef(factory.owners)) {
-      var owners = factory.owners = [owner];
-      var sync = true;
-      var timerLoading = null;
-      var timerTimeout = null;
-      owner.$on('hook:destroyed', function _anonymous_68() {
-        var necooData = window.necooPushCallStack(arguments);
-        return remove(owners, owner);
-      });
-
-      var forceRender = function _anonymous_69(renderCompleted) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        for (var i = 0, l = owners.length; i < l; i++) {
-          owners[i].$forceUpdate();
-        }
-
-        if (renderCompleted) {
-          owners.length = 0;
-
-          if (timerLoading !== null) {
-            clearTimeout(timerLoading);
-            timerLoading = null;
-          }
-
-          if (timerTimeout !== null) {
-            clearTimeout(timerTimeout);
-            timerTimeout = null;
-          }
-        }
-      };
-
-      var resolve = once(function _anonymous_70(res) {
-        var necooData = window.necooPushCallStack(arguments); // cache resolved
-
-        factory.resolved = ensureCtor(res, baseCtor); // invoke callbacks only if this is not a synchronous resolve
-        // (async resolves are shimmed as synchronous during SSR)
-
-        if (!sync) {
-          forceRender(true);
-        } else {
-          owners.length = 0;
-        }
-      });
-      var reject = once(function _anonymous_71(reason) {
-        var necooData = window.necooPushCallStack(arguments);
-        warn("Failed to resolve async component: " + String(factory) + (reason ? "\nReason: " + reason : ''));
-
-        if (isDef(factory.errorComp)) {
-          factory.error = true;
-          forceRender(true);
-        }
-      });
-      var res = factory(resolve, reject);
-
-      if (isObject(res)) {
-        if (isPromise(res)) {
-          // () => Promise
-          if (isUndef(factory.resolved)) {
-            res.then(resolve, reject);
-          }
-        } else if (isPromise(res.component)) {
-          res.component.then(resolve, reject);
-
-          if (isDef(res.error)) {
-            factory.errorComp = ensureCtor(res.error, baseCtor);
-          }
-
-          if (isDef(res.loading)) {
-            factory.loadingComp = ensureCtor(res.loading, baseCtor);
-
-            if (res.delay === 0) {
-              factory.loading = true;
-            } else {
-              timerLoading = setTimeout(function _anonymous_72() {
-                var necooData = window.necooPushCallStack(arguments);
-                timerLoading = null;
-
-                if (isUndef(factory.resolved) && isUndef(factory.error)) {
-                  factory.loading = true;
-                  forceRender(false);
-                }
-              }, res.delay || 200);
-            }
-          }
-
-          if (isDef(res.timeout)) {
-            timerTimeout = setTimeout(function _anonymous_73() {
-              var necooData = window.necooPushCallStack(arguments);
-              timerTimeout = null;
-
-              if (isUndef(factory.resolved)) {
-                reject("timeout (" + res.timeout + "ms)");
-              }
-            }, res.timeout);
-          }
-        }
-      }
-
-      sync = false; // return in case resolved synchronously
-
-      return factory.loading ? factory.loadingComp : factory.resolved;
-    }
-  }
-  /*  */
-
-
-  function isAsyncPlaceholder(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return node.isComment && node.asyncFactory;
-  }
-  /*  */
-
-
-  function getFirstComponentChild(children) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(children)) {
-      for (var i = 0; i < children.length; i++) {
-        var c = children[i];
-
-        if (isDef(c) && (isDef(c.componentOptions) || isAsyncPlaceholder(c))) {
-          return c;
-        }
-      }
-    }
-  }
-  /*  */
-
-  /*  */
-
-
-  function initEvents(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    vm._events = Object.create(null);
-    vm._hasHookEvent = false; // init parent attached events
-
-    var listeners = vm.$options._parentListeners;
-
-    if (listeners) {
-      updateComponentListeners(vm, listeners);
-    }
-  }
-
-  var target;
-
-  function add(event, fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    target.$on(event, fn);
-  }
-
-  function remove$1(event, fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    target.$off(event, fn);
-  }
-
-  function createOnceHandler(event, fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    var _target = target;
-    return function onceHandler() {
-      var necooData = window.necooPushCallStack(arguments);
-      var res = fn.apply(null, arguments);
-
-      if (res !== null) {
-        _target.$off(event, onceHandler);
-      }
-    };
-  }
-
-  function updateComponentListeners(vm, listeners, oldListeners) {
-    var necooData = window.necooPushCallStack(arguments);
-    target = vm;
-    updateListeners(listeners, oldListeners || {}, add, remove$1, createOnceHandler, vm);
-    target = undefined;
-  }
-
-  function eventsMixin(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-    var hookRE = /^hook:/;
-
-    Vue.prototype.$on = function _anonymous_74(event, fn) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-
-      if (Array.isArray(event)) {
-        for (var i = 0, l = event.length; i < l; i++) {
-          vm.$on(event[i], fn);
-        }
-      } else {
-        (vm._events[event] || (vm._events[event] = [])).push(fn); // optimize hook:event cost by using a boolean flag marked at registration
-        // instead of a hash lookup
-
-        if (hookRE.test(event)) {
-          vm._hasHookEvent = true;
-        }
-      }
-
-      return vm;
-    };
-
-    Vue.prototype.$once = function _anonymous_75(event, fn) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-
-      function on() {
-        var necooData = window.necooPushCallStack(arguments);
-        vm.$off(event, on);
-        fn.apply(vm, arguments);
-      }
-
-      on.fn = fn;
-      vm.$on(event, on);
-      return vm;
-    };
-
-    Vue.prototype.$off = function _anonymous_76(event, fn) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this; // all
-
-      if (!arguments.length) {
-        vm._events = Object.create(null);
-        return vm;
-      } // array of events
-
-
-      if (Array.isArray(event)) {
-        for (var i$1 = 0, l = event.length; i$1 < l; i$1++) {
-          vm.$off(event[i$1], fn);
-        }
-
-        return vm;
-      } // specific event
-
-
-      var cbs = vm._events[event];
-
-      if (!cbs) {
-        return vm;
-      }
-
-      if (!fn) {
-        vm._events[event] = null;
-        return vm;
-      } // specific handler
-
-
-      var cb;
-      var i = cbs.length;
-
-      while (i--) {
-        cb = cbs[i];
-
-        if (cb === fn || cb.fn === fn) {
-          cbs.splice(i, 1);
-          break;
-        }
-      }
-
-      return vm;
-    };
-
-    Vue.prototype.$emit = function _anonymous_77(event) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-      {
-        var lowerCaseEvent = event.toLowerCase();
-
-        if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
-          tip("Event \"" + lowerCaseEvent + "\" is emitted in component " + formatComponentName(vm) + " but the handler is registered for \"" + event + "\". " + "Note that HTML attributes are case-insensitive and you cannot use " + "v-on to listen to camelCase events when using in-DOM templates. " + "You should probably use \"" + hyphenate(event) + "\" instead of \"" + event + "\".");
-        }
-      }
-      var cbs = vm._events[event];
-
-      if (cbs) {
-        cbs = cbs.length > 1 ? toArray(cbs) : cbs;
-        var args = toArray(arguments, 1);
-        var info = "event handler for \"" + event + "\"";
-
-        for (var i = 0, l = cbs.length; i < l; i++) {
-          invokeWithErrorHandling(cbs[i], vm, args, vm, info);
-        }
-      }
-
-      return vm;
-    };
-  }
-  /*  */
-
-
-  var activeInstance = null;
-  var isUpdatingChildComponent = false;
-
-  function setActiveInstance(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var prevActiveInstance = activeInstance;
-    activeInstance = vm;
-    return function _anonymous_78() {
-      var necooData = window.necooPushCallStack(arguments);
-      activeInstance = prevActiveInstance;
-    };
-  }
-
-  function initLifecycle(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var options = vm.$options; // locate first non-abstract parent
-
-    var parent = options.parent;
-
-    if (parent && !options.abstract) {
-      while (parent.$options.abstract && parent.$parent) {
-        parent = parent.$parent;
-      }
-
-      parent.$children.push(vm);
-    }
-
-    vm.$parent = parent;
-    vm.$root = parent ? parent.$root : vm;
-    vm.$children = [];
-    vm.$refs = {};
-    vm._watcher = null;
-    vm._inactive = null;
-    vm._directInactive = false;
-    vm._isMounted = false;
-    vm._isDestroyed = false;
-    vm._isBeingDestroyed = false;
-  }
-
-  function lifecycleMixin(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    Vue.prototype._update = function _anonymous_79(vnode, hydrating) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-      var prevEl = vm.$el;
-      var prevVnode = vm._vnode;
-      var restoreActiveInstance = setActiveInstance(vm);
-      vm._vnode = vnode; // Vue.prototype.__patch__ is injected in entry points
-      // based on the rendering backend used.
-
-      if (!prevVnode) {
-        // initial render
-        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false
-        /* removeOnly */
-        );
-      } else {
-        // updates
-        vm.$el = vm.__patch__(prevVnode, vnode);
-      }
-
-      restoreActiveInstance(); // update __vue__ reference
-
-      if (prevEl) {
-        prevEl.__vue__ = null;
-      }
-
-      if (vm.$el) {
-        vm.$el.__vue__ = vm;
-      } // if parent is an HOC, update its $el as well
-
-
-      if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
-        vm.$parent.$el = vm.$el;
-      } // updated hook is called by the scheduler to ensure that children are
-      // updated in a parent's updated hook.
-
-    };
-
-    Vue.prototype.$forceUpdate = function _anonymous_80() {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-
-      if (vm._watcher) {
-        vm._watcher.update();
-      }
-    };
-
-    Vue.prototype.$destroy = function _anonymous_81() {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-
-      if (vm._isBeingDestroyed) {
-        return;
-      }
-
-      callHook(vm, 'beforeDestroy');
-      vm._isBeingDestroyed = true; // remove self from parent
-
-      var parent = vm.$parent;
-
-      if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
-        remove(parent.$children, vm);
-      } // teardown watchers
-
-
-      if (vm._watcher) {
-        vm._watcher.teardown();
-      }
-
-      var i = vm._watchers.length;
-
-      while (i--) {
-        vm._watchers[i].teardown();
-      } // remove reference from data ob
-      // frozen object may not have observer.
-
-
-      if (vm._data.__ob__) {
-        vm._data.__ob__.vmCount--;
-      } // call the last hook...
-
-
-      vm._isDestroyed = true; // invoke destroy hooks on current rendered tree
-
-      vm.__patch__(vm._vnode, null); // fire destroyed hook
-
-
-      callHook(vm, 'destroyed'); // turn off all instance listeners.
-
-      vm.$off(); // remove __vue__ reference
-
-      if (vm.$el) {
-        vm.$el.__vue__ = null;
-      } // release circular reference (#6759)
-
-
-      if (vm.$vnode) {
-        vm.$vnode.parent = null;
-      }
-    };
-  }
-
-  function mountComponent(vm, el, hydrating) {
-    var necooData = window.necooPushCallStack(arguments);
-    vm.$el = el;
-
-    if (!vm.$options.render) {
-      vm.$options.render = createEmptyVNode;
-      {
-        /* istanbul ignore if */
-        if (vm.$options.template && vm.$options.template.charAt(0) !== '#' || vm.$options.el || el) {
-          warn('You are using the runtime-only build of Vue where the template ' + 'compiler is not available. Either pre-compile the templates into ' + 'render functions, or use the compiler-included build.', vm);
-        } else {
-          warn('Failed to mount component: template or render function not defined.', vm);
-        }
-      }
-    }
-
-    callHook(vm, 'beforeMount');
-    var updateComponent;
-    /* istanbul ignore if */
-
-    if (config.performance && mark) {
-      updateComponent = function _anonymous_82() {
-        var necooData = window.necooPushCallStack(arguments);
-        var name = vm._name;
-        var id = vm._uid;
-        var startTag = "vue-perf-start:" + id;
-        var endTag = "vue-perf-end:" + id;
-        mark(startTag);
-
-        var vnode = vm._render();
-
-        mark(endTag);
-        measure("vue " + name + " render", startTag, endTag);
-        mark(startTag);
-
-        vm._update(vnode, hydrating);
-
-        mark(endTag);
-        measure("vue " + name + " patch", startTag, endTag);
-      };
-    } else {
-      updateComponent = function _anonymous_83() {
-        var necooData = window.necooPushCallStack(arguments);
-
-        vm._update(vm._render(), hydrating);
-      };
-    } // we set this to vm._watcher inside the watcher's constructor
-    // since the watcher's initial patch may call $forceUpdate (e.g. inside child
-    // component's mounted hook), which relies on vm._watcher being already defined
-
-
-    new Watcher(vm, updateComponent, noop, {
-      before: function before() {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (vm._isMounted && !vm._isDestroyed) {
-          callHook(vm, 'beforeUpdate');
-        }
-      }
-    }, true
-    /* isRenderWatcher */
-    );
-    hydrating = false; // manually mounted instance, call mounted on self
-    // mounted is called for render-created child components in its inserted hook
-
-    if (vm.$vnode == null) {
-      vm._isMounted = true;
-      callHook(vm, 'mounted');
-    }
-
-    return vm;
-  }
-
-  function updateChildComponent(vm, propsData, listeners, parentVnode, renderChildren) {
-    var necooData = window.necooPushCallStack(arguments);
-    {
-      isUpdatingChildComponent = true;
-    } // determine whether component has slot children
-    // we need to do this before overwriting $options._renderChildren.
-    // check if there are dynamic scopedSlots (hand-written or compiled but with
-    // dynamic slot names). Static scoped slots compiled from template has the
-    // "$stable" marker.
-
-    var newScopedSlots = parentVnode.data.scopedSlots;
-    var oldScopedSlots = vm.$scopedSlots;
-    var hasDynamicScopedSlot = !!(newScopedSlots && !newScopedSlots.$stable || oldScopedSlots !== emptyObject && !oldScopedSlots.$stable || newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key); // Any static slot children from the parent may have changed during parent's
-    // update. Dynamic scoped slots may also have changed. In such cases, a forced
-    // update is necessary to ensure correctness.
-
-    var needsForceUpdate = !!(renderChildren || // has new static slots
-    vm.$options._renderChildren || // has old static slots
-    hasDynamicScopedSlot);
-    vm.$options._parentVnode = parentVnode;
-    vm.$vnode = parentVnode; // update vm's placeholder node without re-render
-
-    if (vm._vnode) {
-      // update child tree's parent
-      vm._vnode.parent = parentVnode;
-    }
-
-    vm.$options._renderChildren = renderChildren; // update $attrs and $listeners hash
-    // these are also reactive so they may trigger child update if the child
-    // used them during render
-
-    vm.$attrs = parentVnode.data.attrs || emptyObject;
-    vm.$listeners = listeners || emptyObject; // update props
-
-    if (propsData && vm.$options.props) {
-      toggleObserving(false);
-      var props = vm._props;
-      var propKeys = vm.$options._propKeys || [];
-
-      for (var i = 0; i < propKeys.length; i++) {
-        var key = propKeys[i];
-        var propOptions = vm.$options.props; // wtf flow?
-
-        props[key] = validateProp(key, propOptions, propsData, vm);
-      }
-
-      toggleObserving(true); // keep a copy of raw propsData
-
-      vm.$options.propsData = propsData;
-    } // update listeners
-
-
-    listeners = listeners || emptyObject;
-    var oldListeners = vm.$options._parentListeners;
-    vm.$options._parentListeners = listeners;
-    updateComponentListeners(vm, listeners, oldListeners); // resolve slots + force update if has children
-
-    if (needsForceUpdate) {
-      vm.$slots = resolveSlots(renderChildren, parentVnode.context);
-      vm.$forceUpdate();
-    }
-
-    {
-      isUpdatingChildComponent = false;
-    }
-  }
-
-  function isInInactiveTree(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    while (vm && (vm = vm.$parent)) {
-      if (vm._inactive) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  function activateChildComponent(vm, direct) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (direct) {
-      vm._directInactive = false;
-
-      if (isInInactiveTree(vm)) {
-        return;
-      }
-    } else if (vm._directInactive) {
-      return;
-    }
-
-    if (vm._inactive || vm._inactive === null) {
-      vm._inactive = false;
-
-      for (var i = 0; i < vm.$children.length; i++) {
-        activateChildComponent(vm.$children[i]);
-      }
-
-      callHook(vm, 'activated');
-    }
-  }
-
-  function deactivateChildComponent(vm, direct) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (direct) {
-      vm._directInactive = true;
-
-      if (isInInactiveTree(vm)) {
-        return;
-      }
-    }
-
-    if (!vm._inactive) {
-      vm._inactive = true;
-
-      for (var i = 0; i < vm.$children.length; i++) {
-        deactivateChildComponent(vm.$children[i]);
-      }
-
-      callHook(vm, 'deactivated');
-    }
-  }
-
-  function callHook(vm, hook) {
-    var necooData = window.necooPushCallStack(arguments); // #7573 disable dep collection when invoking lifecycle hooks
-
-    pushTarget();
-    var handlers = vm.$options[hook];
-    var info = hook + " hook";
-
-    if (handlers) {
-      for (var i = 0, j = handlers.length; i < j; i++) {
-        invokeWithErrorHandling(handlers[i], vm, null, vm, info);
-      }
-    }
-
-    if (vm._hasHookEvent) {
-      vm.$emit('hook:' + hook);
-    }
-
-    popTarget();
-  }
-  /*  */
-
-
-  var MAX_UPDATE_COUNT = 100;
-  var queue = [];
-  var activatedChildren = [];
-  var has = {};
-  var circular = {};
-  var waiting = false;
-  var flushing = false;
-  var index = 0;
-  /**
-   * Reset the scheduler's state.
-   */
-
-  function resetSchedulerState() {
-    var necooData = window.necooPushCallStack(arguments);
-    index = queue.length = activatedChildren.length = 0;
-    has = {};
-    {
-      circular = {};
-    }
-    waiting = flushing = false;
-  } // Async edge case #6566 requires saving the timestamp when event listeners are
-  // attached. However, calling performance.now() has a perf overhead especially
-  // if the page has thousands of event listeners. Instead, we take a timestamp
-  // every time the scheduler flushes and use that for all event listeners
-  // attached during that flush.
-
-
-  var currentFlushTimestamp = 0; // Async edge case fix requires storing an event listener's attach timestamp.
-
-  var getNow = Date.now; // Determine what event timestamp the browser is using. Annoyingly, the
-  // timestamp can either be hi-res (relative to page load) or low-res
-  // (relative to UNIX epoch), so in order to compare time we have to use the
-  // same timestamp type when saving the flush timestamp.
-  // All IE versions use low-res event timestamps, and have problematic clock
-  // implementations (#9632)
-
-  if (inBrowser && !isIE) {
-    var performance = window.performance;
-
-    if (performance && typeof performance.now === 'function' && getNow() > document.createEvent('Event').timeStamp) {
-      // if the event timestamp, although evaluated AFTER the Date.now(), is
-      // smaller than it, it means the event is using a hi-res timestamp,
-      // and we need to use the hi-res version for event listener timestamps as
-      // well.
-      getNow = function _anonymous_84() {
-        var necooData = window.necooPushCallStack(arguments);
-        return performance.now();
-      };
-    }
-  }
-  /**
-   * Flush both queues and run the watchers.
-   */
-
-
-  function flushSchedulerQueue() {
-    var necooData = window.necooPushCallStack(arguments);
-    currentFlushTimestamp = getNow();
-    flushing = true;
-    var watcher, id; // Sort queue before flush.
-    // This ensures that:
-    // 1. Components are updated from parent to child. (because parent is always
-    //    created before the child)
-    // 2. A component's user watchers are run before its render watcher (because
-    //    user watchers are created before the render watcher)
-    // 3. If a component is destroyed during a parent component's watcher run,
-    //    its watchers can be skipped.
-
-    queue.sort(function _anonymous_85(a, b) {
-      var necooData = window.necooPushCallStack(arguments);
-      return a.id - b.id;
-    }); // do not cache length because more watchers might be pushed
-    // as we run existing watchers
-
-    for (index = 0; index < queue.length; index++) {
-      watcher = queue[index];
-
-      if (watcher.before) {
-        watcher.before();
-      }
-
-      id = watcher.id;
-      has[id] = null;
-      watcher.run(); // in dev build, check and stop circular updates.
-
-      if (has[id] != null) {
-        circular[id] = (circular[id] || 0) + 1;
-
-        if (circular[id] > MAX_UPDATE_COUNT) {
-          warn('You may have an infinite update loop ' + (watcher.user ? "in watcher with expression \"" + watcher.expression + "\"" : "in a component render function."), watcher.vm);
-          break;
-        }
-      }
-    } // keep copies of post queues before resetting state
-
-
-    var activatedQueue = activatedChildren.slice();
-    var updatedQueue = queue.slice();
-    resetSchedulerState(); // call component updated and activated hooks
-
-    callActivatedHooks(activatedQueue);
-    callUpdatedHooks(updatedQueue); // devtool hook
-
-    /* istanbul ignore if */
-
-    if (devtools && config.devtools) {
-      devtools.emit('flush');
-    }
-  }
-
-  function callUpdatedHooks(queue) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i = queue.length;
-
-    while (i--) {
-      var watcher = queue[i];
-      var vm = watcher.vm;
-
-      if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
-        callHook(vm, 'updated');
-      }
-    }
-  }
-  /**
-   * Queue a kept-alive component that was activated during patch.
-   * The queue will be processed after the entire tree has been patched.
-   */
-
-
-  function queueActivatedComponent(vm) {
-    var necooData = window.necooPushCallStack(arguments); // setting _inactive to false here so that a render function can
-    // rely on checking whether it's in an inactive tree (e.g. router-view)
-
-    vm._inactive = false;
-    activatedChildren.push(vm);
-  }
-
-  function callActivatedHooks(queue) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var i = 0; i < queue.length; i++) {
-      queue[i]._inactive = true;
-      activateChildComponent(queue[i], true
-      /* true */
-      );
-    }
-  }
-  /**
-   * Push a watcher into the watcher queue.
-   * Jobs with duplicate IDs will be skipped unless it's
-   * pushed when the queue is being flushed.
-   */
-
-
-  function queueWatcher(watcher) {
-    var necooData = window.necooPushCallStack(arguments);
-    var id = watcher.id;
-
-    if (has[id] == null) {
-      has[id] = true;
-
-      if (!flushing) {
-        queue.push(watcher);
-      } else {
-        // if already flushing, splice the watcher based on its id
-        // if already past its id, it will be run next immediately.
-        var i = queue.length - 1;
-
-        while (i > index && queue[i].id > watcher.id) {
-          i--;
-        }
-
-        queue.splice(i + 1, 0, watcher);
-      } // queue the flush
-
-
-      if (!waiting) {
-        waiting = true;
-
-        if (!config.async) {
-          flushSchedulerQueue();
-          return;
-        }
-
-        nextTick(flushSchedulerQueue);
-      }
-    }
-  }
-  /*  */
-
-
-  var uid$2 = 0;
-  /**
-   * A watcher parses an expression, collects dependencies,
-   * and fires callback when the expression value changes.
-   * This is used for both the $watch() api and directives.
-   */
-
-  var Watcher = function Watcher(vm, expOrFn, cb, options, isRenderWatcher) {
-    var necooData = window.necooPushCallStack(arguments);
-    this.vm = vm;
-
-    if (isRenderWatcher) {
-      vm._watcher = this;
-    }
-
-    vm._watchers.push(this); // options
-
-
-    if (options) {
-      this.deep = !!options.deep;
-      this.user = !!options.user;
-      this.lazy = !!options.lazy;
-      this.sync = !!options.sync;
-      this.before = options.before;
-    } else {
-      this.deep = this.user = this.lazy = this.sync = false;
-    }
-
-    this.cb = cb;
-    this.id = ++uid$2; // uid for batching
-
-    this.active = true;
-    this.dirty = this.lazy; // for lazy watchers
-
-    this.deps = [];
-    this.newDeps = [];
-    this.depIds = new _Set();
-    this.newDepIds = new _Set();
-    this.expression = expOrFn.toString(); // parse expression for getter
-
-    if (typeof expOrFn === 'function') {
-      this.getter = expOrFn;
-    } else {
-      this.getter = parsePath(expOrFn);
-
-      if (!this.getter) {
-        this.getter = noop;
-        warn("Failed watching path: \"" + expOrFn + "\" " + 'Watcher only accepts simple dot-delimited paths. ' + 'For full control, use a function instead.', vm);
-      }
-    }
-
-    this.value = this.lazy ? undefined : this.get();
-  };
-  /**
-   * Evaluate the getter, and re-collect dependencies.
-   */
-
-
-  Watcher.prototype.get = function get() {
-    var necooData = window.necooPushCallStack(arguments);
-    pushTarget(this);
-    var value;
-    var vm = this.vm;
-
-    try {
-      value = this.getter.call(vm, vm);
-    } catch (e) {
-      if (this.user) {
-        handleError(e, vm, "getter for watcher \"" + this.expression + "\"");
-      } else {
-        throw e;
-      }
-    } finally {
-      // "touch" every property so they are all tracked as
-      // dependencies for deep watching
-      if (this.deep) {
-        traverse(value);
-      }
-
-      popTarget();
-      this.cleanupDeps();
-    }
-
-    return value;
-  };
-  /**
-   * Add a dependency to this directive.
-   */
-
-
-  Watcher.prototype.addDep = function addDep(dep) {
-    var necooData = window.necooPushCallStack(arguments);
-    var id = dep.id;
-
-    if (!this.newDepIds.has(id)) {
-      this.newDepIds.add(id);
-      this.newDeps.push(dep);
-
-      if (!this.depIds.has(id)) {
-        dep.addSub(this);
-      }
-    }
-  };
-  /**
-   * Clean up for dependency collection.
-   */
-
-
-  Watcher.prototype.cleanupDeps = function cleanupDeps() {
-    var necooData = window.necooPushCallStack(arguments);
-    var i = this.deps.length;
-
-    while (i--) {
-      var dep = this.deps[i];
-
-      if (!this.newDepIds.has(dep.id)) {
-        dep.removeSub(this);
-      }
-    }
-
-    var tmp = this.depIds;
-    this.depIds = this.newDepIds;
-    this.newDepIds = tmp;
-    this.newDepIds.clear();
-    tmp = this.deps;
-    this.deps = this.newDeps;
-    this.newDeps = tmp;
-    this.newDeps.length = 0;
-  };
-  /**
-   * Subscriber interface.
-   * Will be called when a dependency changes.
-   */
-
-
-  Watcher.prototype.update = function update() {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore else */
-
-    if (this.lazy) {
-      this.dirty = true;
-    } else if (this.sync) {
-      this.run();
-    } else {
-      queueWatcher(this);
-    }
-  };
-  /**
-   * Scheduler job interface.
-   * Will be called by the scheduler.
-   */
-
-
-  Watcher.prototype.run = function run() {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (this.active) {
-      var value = this.get();
-
-      if (value !== this.value || // Deep watchers and watchers on Object/Arrays should fire even
-      // when the value is the same, because the value may
-      // have mutated.
-      isObject(value) || this.deep) {
-        // set new value
-        var oldValue = this.value;
-        this.value = value;
-
-        if (this.user) {
-          try {
-            this.cb.call(this.vm, value, oldValue);
-          } catch (e) {
-            handleError(e, this.vm, "callback for watcher \"" + this.expression + "\"");
-          }
-        } else {
-          this.cb.call(this.vm, value, oldValue);
-        }
-      }
-    }
-  };
-  /**
-   * Evaluate the value of the watcher.
-   * This only gets called for lazy watchers.
-   */
-
-
-  Watcher.prototype.evaluate = function evaluate() {
-    var necooData = window.necooPushCallStack(arguments);
-    this.value = this.get();
-    this.dirty = false;
-  };
-  /**
-   * Depend on all deps collected by this watcher.
-   */
-
-
-  Watcher.prototype.depend = function depend() {
-    var necooData = window.necooPushCallStack(arguments);
-    var i = this.deps.length;
-
-    while (i--) {
-      this.deps[i].depend();
-    }
-  };
-  /**
-   * Remove self from all dependencies' subscriber list.
-   */
-
-
-  Watcher.prototype.teardown = function teardown() {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (this.active) {
-      // remove self from vm's watcher list
-      // this is a somewhat expensive operation so we skip it
-      // if the vm is being destroyed.
-      if (!this.vm._isBeingDestroyed) {
-        remove(this.vm._watchers, this);
-      }
-
-      var i = this.deps.length;
-
-      while (i--) {
-        this.deps[i].removeSub(this);
-      }
-
-      this.active = false;
-    }
-  };
-  /*  */
-
-
-  var sharedPropertyDefinition = {
-    enumerable: true,
-    configurable: true,
-    get: noop,
-    set: noop
-  };
-
-  function proxy(target, sourceKey, key) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    sharedPropertyDefinition.get = function proxyGetter() {
-      var necooData = window.necooPushCallStack(arguments);
-      return this[sourceKey][key];
-    };
-
-    sharedPropertyDefinition.set = function proxySetter(val) {
-      var necooData = window.necooPushCallStack(arguments);
-      this[sourceKey][key] = val;
-    };
-
-    Object.defineProperty(target, key, sharedPropertyDefinition);
-  }
-
-  function initState(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    vm._watchers = [];
-    var opts = vm.$options;
-
-    if (opts.props) {
-      initProps(vm, opts.props);
-    }
-
-    if (opts.methods) {
-      initMethods(vm, opts.methods);
-    }
-
-    if (opts.data) {
-      initData(vm);
-    } else {
-      observe(vm._data = {}, true
-      /* asRootData */
-      );
-    }
-
-    if (opts.computed) {
-      initComputed(vm, opts.computed);
-    }
-
-    if (opts.watch && opts.watch !== nativeWatch) {
-      initWatch(vm, opts.watch);
-    }
-  }
-
-  function initProps(vm, propsOptions) {
-    var necooData = window.necooPushCallStack(arguments);
-    var propsData = vm.$options.propsData || {};
-    var props = vm._props = {}; // cache prop keys so that future props updates can iterate using Array
-    // instead of dynamic object key enumeration.
-
-    var keys = vm.$options._propKeys = [];
-    var isRoot = !vm.$parent; // root instance props should be converted
-
-    if (!isRoot) {
-      toggleObserving(false);
-    }
-
-    var loop = function _anonymous_86(key) {
-      var necooData = window.necooPushCallStack(arguments);
-      keys.push(key);
-      var value = validateProp(key, propsOptions, propsData, vm);
-      /* istanbul ignore else */
-
-      {
-        var hyphenatedKey = hyphenate(key);
-
-        if (isReservedAttribute(hyphenatedKey) || config.isReservedAttr(hyphenatedKey)) {
-          warn("\"" + hyphenatedKey + "\" is a reserved attribute and cannot be used as component prop.", vm);
-        }
-
-        defineReactive$$1(props, key, value, function _anonymous_87() {
-          var necooData = window.necooPushCallStack(arguments);
-
-          if (!isRoot && !isUpdatingChildComponent) {
-            warn("Avoid mutating a prop directly since the value will be " + "overwritten whenever the parent component re-renders. " + "Instead, use a data or computed property based on the prop's " + "value. Prop being mutated: \"" + key + "\"", vm);
-          }
-        });
-      } // static props are already proxied on the component's prototype
-      // during Vue.extend(). We only need to proxy props defined at
-      // instantiation here.
-
-      if (!(key in vm)) {
-        proxy(vm, "_props", key);
-      }
-    };
-
-    for (var key in propsOptions) loop(key);
-
-    toggleObserving(true);
-  }
-
-  function initData(vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = vm.$options.data;
-    data = vm._data = typeof data === 'function' ? getData(data, vm) : data || {};
-
-    if (!isPlainObject(data)) {
-      data = {};
-      warn('data functions should return an object:\n' + 'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function', vm);
-    } // proxy data on instance
-
-
-    var keys = Object.keys(data);
-    var props = vm.$options.props;
-    var methods = vm.$options.methods;
-    var i = keys.length;
-
-    while (i--) {
-      var key = keys[i];
-      {
-        if (methods && hasOwn(methods, key)) {
-          warn("Method \"" + key + "\" has already been defined as a data property.", vm);
-        }
-      }
-
-      if (props && hasOwn(props, key)) {
-        warn("The data property \"" + key + "\" is already declared as a prop. " + "Use prop default value instead.", vm);
-      } else if (!isReserved(key)) {
-        proxy(vm, "_data", key);
-      }
-    } // observe data
-
-
-    observe(data, true
-    /* asRootData */
-    );
-  }
-
-  function getData(data, vm) {
-    var necooData = window.necooPushCallStack(arguments); // #7573 disable dep collection when invoking data getters
-
-    pushTarget();
-
-    try {
-      return data.call(vm, vm);
-    } catch (e) {
-      handleError(e, vm, "data()");
-      return {};
-    } finally {
-      popTarget();
-    }
-  }
-
-  var computedWatcherOptions = {
-    lazy: true
-  };
-
-  function initComputed(vm, computed) {
-    var necooData = window.necooPushCallStack(arguments); // $flow-disable-line
-
-    var watchers = vm._computedWatchers = Object.create(null); // computed properties are just getters during SSR
-
-    var isSSR = isServerRendering();
-
-    for (var key in computed) {
-      var userDef = computed[key];
-      var getter = typeof userDef === 'function' ? userDef : userDef.get;
-
-      if (getter == null) {
-        warn("Getter is missing for computed property \"" + key + "\".", vm);
-      }
-
-      if (!isSSR) {
-        // create internal watcher for the computed property.
-        watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions);
-      } // component-defined computed properties are already defined on the
-      // component prototype. We only need to define computed properties defined
-      // at instantiation here.
-
-
-      if (!(key in vm)) {
-        defineComputed(vm, key, userDef);
-      } else {
-        if (key in vm.$data) {
-          warn("The computed property \"" + key + "\" is already defined in data.", vm);
-        } else if (vm.$options.props && key in vm.$options.props) {
-          warn("The computed property \"" + key + "\" is already defined as a prop.", vm);
-        }
-      }
-    }
-  }
-
-  function defineComputed(target, key, userDef) {
-    var necooData = window.necooPushCallStack(arguments);
-    var shouldCache = !isServerRendering();
-
-    if (typeof userDef === 'function') {
-      sharedPropertyDefinition.get = shouldCache ? createComputedGetter(key) : createGetterInvoker(userDef);
-      sharedPropertyDefinition.set = noop;
-    } else {
-      sharedPropertyDefinition.get = userDef.get ? shouldCache && userDef.cache !== false ? createComputedGetter(key) : createGetterInvoker(userDef.get) : noop;
-      sharedPropertyDefinition.set = userDef.set || noop;
-    }
-
-    if (sharedPropertyDefinition.set === noop) {
-      sharedPropertyDefinition.set = function _anonymous_88() {
-        var necooData = window.necooPushCallStack(arguments);
-        warn("Computed property \"" + key + "\" was assigned to but it has no setter.", this);
-      };
-    }
-
-    Object.defineProperty(target, key, sharedPropertyDefinition);
-  }
-
-  function createComputedGetter(key) {
-    var necooData = window.necooPushCallStack(arguments);
-    return function computedGetter() {
-      var necooData = window.necooPushCallStack(arguments);
-      var watcher = this._computedWatchers && this._computedWatchers[key];
-
-      if (watcher) {
-        if (watcher.dirty) {
-          watcher.evaluate();
-        }
-
-        if (Dep.target) {
-          watcher.depend();
-        }
-
-        return watcher.value;
-      }
-    };
-  }
-
-  function createGetterInvoker(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    return function computedGetter() {
-      var necooData = window.necooPushCallStack(arguments);
-      return fn.call(this, this);
-    };
-  }
-
-  function initMethods(vm, methods) {
-    var necooData = window.necooPushCallStack(arguments);
-    var props = vm.$options.props;
-
-    for (var key in methods) {
-      {
-        if (typeof methods[key] !== 'function') {
-          warn("Method \"" + key + "\" has type \"" + typeof methods[key] + "\" in the component definition. " + "Did you reference the function correctly?", vm);
-        }
-
-        if (props && hasOwn(props, key)) {
-          warn("Method \"" + key + "\" has already been defined as a prop.", vm);
-        }
-
-        if (key in vm && isReserved(key)) {
-          warn("Method \"" + key + "\" conflicts with an existing Vue instance method. " + "Avoid defining component methods that start with _ or $.");
-        }
-      }
-      vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
-    }
-  }
-
-  function initWatch(vm, watch) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    for (var key in watch) {
-      var handler = watch[key];
-
-      if (Array.isArray(handler)) {
-        for (var i = 0; i < handler.length; i++) {
-          createWatcher(vm, key, handler[i]);
-        }
-      } else {
-        createWatcher(vm, key, handler);
-      }
-    }
-  }
-
-  function createWatcher(vm, expOrFn, handler, options) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isPlainObject(handler)) {
-      options = handler;
-      handler = handler.handler;
-    }
-
-    if (typeof handler === 'string') {
-      handler = vm[handler];
-    }
-
-    return vm.$watch(expOrFn, handler, options);
-  }
-
-  function stateMixin(Vue) {
-    var necooData = window.necooPushCallStack(arguments); // flow somehow has problems with directly declared definition object
-    // when using Object.defineProperty, so we have to procedurally build up
-    // the object here.
-
-    var dataDef = {};
-
-    dataDef.get = function _anonymous_89() {
-      var necooData = window.necooPushCallStack(arguments);
-      return this._data;
-    };
-
-    var propsDef = {};
-
-    propsDef.get = function _anonymous_90() {
-      var necooData = window.necooPushCallStack(arguments);
-      return this._props;
-    };
-
-    {
-      dataDef.set = function _anonymous_91() {
-        var necooData = window.necooPushCallStack(arguments);
-        warn('Avoid replacing instance root $data. ' + 'Use nested data properties instead.', this);
-      };
-
-      propsDef.set = function _anonymous_92() {
-        var necooData = window.necooPushCallStack(arguments);
-        warn("$props is readonly.", this);
-      };
-    }
-    Object.defineProperty(Vue.prototype, '$data', dataDef);
-    Object.defineProperty(Vue.prototype, '$props', propsDef);
-    Vue.prototype.$set = set;
-    Vue.prototype.$delete = del;
-
-    Vue.prototype.$watch = function _anonymous_93(expOrFn, cb, options) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this;
-
-      if (isPlainObject(cb)) {
-        return createWatcher(vm, expOrFn, cb, options);
-      }
-
-      options = options || {};
-      options.user = true;
-      var watcher = new Watcher(vm, expOrFn, cb, options);
-
-      if (options.immediate) {
-        try {
-          cb.call(vm, watcher.value);
-        } catch (error) {
-          handleError(error, vm, "callback for immediate watcher \"" + watcher.expression + "\"");
-        }
-      }
-
-      return function unwatchFn() {
-        var necooData = window.necooPushCallStack(arguments);
-        watcher.teardown();
-      };
-    };
-  }
-  /*  */
-
-
-  var uid$3 = 0;
-
-  function initMixin(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    Vue.prototype._init = function _anonymous_94(options) {
-      var necooData = window.necooPushCallStack(arguments);
-      var vm = this; // a uid
-
-      vm._uid = uid$3++;
-      var startTag, endTag;
-      /* istanbul ignore if */
-
-      if (config.performance && mark) {
-        startTag = "vue-perf-start:" + vm._uid;
-        endTag = "vue-perf-end:" + vm._uid;
-        mark(startTag);
-      } // a flag to avoid this being observed
-
-
-      vm._isVue = true; // merge options
-
-      if (options && options._isComponent) {
-        // optimize internal component instantiation
-        // since dynamic options merging is pretty slow, and none of the
-        // internal component options needs special treatment.
-        initInternalComponent(vm, options);
-      } else {
-        vm.$options = mergeOptions(resolveConstructorOptions(vm.constructor), options || {}, vm);
-      }
-      /* istanbul ignore else */
-
-
-      {
-        initProxy(vm);
-      } // expose real self
-
-      vm._self = vm;
-      initLifecycle(vm);
-      initEvents(vm);
-      initRender(vm);
-      callHook(vm, 'beforeCreate');
-      initInjections(vm); // resolve injections before data/props
-
-      initState(vm);
-      initProvide(vm); // resolve provide after data/props
-
-      callHook(vm, 'created');
-      /* istanbul ignore if */
-
-      if (config.performance && mark) {
-        vm._name = formatComponentName(vm, false);
-        mark(endTag);
-        measure("vue " + vm._name + " init", startTag, endTag);
-      }
-
-      if (vm.$options.el) {
-        vm.$mount(vm.$options.el);
-      }
-    };
-  }
-
-  function initInternalComponent(vm, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var opts = vm.$options = Object.create(vm.constructor.options); // doing this because it's faster than dynamic enumeration.
-
-    var parentVnode = options._parentVnode;
-    opts.parent = options.parent;
-    opts._parentVnode = parentVnode;
-    var vnodeComponentOptions = parentVnode.componentOptions;
-    opts.propsData = vnodeComponentOptions.propsData;
-    opts._parentListeners = vnodeComponentOptions.listeners;
-    opts._renderChildren = vnodeComponentOptions.children;
-    opts._componentTag = vnodeComponentOptions.tag;
-
-    if (options.render) {
-      opts.render = options.render;
-      opts.staticRenderFns = options.staticRenderFns;
-    }
-  }
-
-  function resolveConstructorOptions(Ctor) {
-    var necooData = window.necooPushCallStack(arguments);
-    var options = Ctor.options;
-
-    if (Ctor.super) {
-      var superOptions = resolveConstructorOptions(Ctor.super);
-      var cachedSuperOptions = Ctor.superOptions;
-
-      if (superOptions !== cachedSuperOptions) {
-        // super option changed,
-        // need to resolve new options.
-        Ctor.superOptions = superOptions; // check if there are any late-modified/attached options (#4976)
-
-        var modifiedOptions = resolveModifiedOptions(Ctor); // update base extend options
-
-        if (modifiedOptions) {
-          extend(Ctor.extendOptions, modifiedOptions);
-        }
-
-        options = Ctor.options = mergeOptions(superOptions, Ctor.extendOptions);
-
-        if (options.name) {
-          options.components[options.name] = Ctor;
-        }
-      }
-    }
-
-    return options;
-  }
-
-  function resolveModifiedOptions(Ctor) {
-    var necooData = window.necooPushCallStack(arguments);
-    var modified;
-    var latest = Ctor.options;
-    var sealed = Ctor.sealedOptions;
-
-    for (var key in latest) {
-      if (latest[key] !== sealed[key]) {
-        if (!modified) {
-          modified = {};
-        }
-
-        modified[key] = latest[key];
-      }
-    }
-
-    return modified;
-  }
-
-  function Vue(options) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!(this instanceof Vue)) {
-      warn('Vue is a constructor and should be called with the `new` keyword');
-    }
-
-    this._init(options);
-  }
-
-  initMixin(Vue);
-  stateMixin(Vue);
-  eventsMixin(Vue);
-  lifecycleMixin(Vue);
-  renderMixin(Vue);
-  /*  */
-
-  function initUse(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    Vue.use = function _anonymous_95(plugin) {
-      var necooData = window.necooPushCallStack(arguments);
-      var installedPlugins = this._installedPlugins || (this._installedPlugins = []);
-
-      if (installedPlugins.indexOf(plugin) > -1) {
-        return this;
-      } // additional parameters
-
-
-      var args = toArray(arguments, 1);
-      args.unshift(this);
-
-      if (typeof plugin.install === 'function') {
-        plugin.install.apply(plugin, args);
-      } else if (typeof plugin === 'function') {
-        plugin.apply(null, args);
-      }
-
-      installedPlugins.push(plugin);
-      return this;
-    };
-  }
-  /*  */
-
-
-  function initMixin$1(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    Vue.mixin = function _anonymous_96(mixin) {
-      var necooData = window.necooPushCallStack(arguments);
-      this.options = mergeOptions(this.options, mixin);
-      return this;
-    };
-  }
-  /*  */
-
-
-  function initExtend(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-    /**
-     * Each instance constructor, including Vue, has a unique
-     * cid. This enables us to create wrapped "child
-     * constructors" for prototypal inheritance and cache them.
-     */
-
-    Vue.cid = 0;
-    var cid = 1;
-    /**
-     * Class inheritance
-     */
-
-    Vue.extend = function _anonymous_97(extendOptions) {
-      var necooData = window.necooPushCallStack(arguments);
-      extendOptions = extendOptions || {};
-      var Super = this;
-      var SuperId = Super.cid;
-      var cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});
-
-      if (cachedCtors[SuperId]) {
-        return cachedCtors[SuperId];
-      }
-
-      var name = extendOptions.name || Super.options.name;
-
-      if (name) {
-        validateComponentName(name);
-      }
-
-      var Sub = function VueComponent(options) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        this._init(options);
-      };
-
-      Sub.prototype = Object.create(Super.prototype);
-      Sub.prototype.constructor = Sub;
-      Sub.cid = cid++;
-      Sub.options = mergeOptions(Super.options, extendOptions);
-      Sub['super'] = Super; // For props and computed properties, we define the proxy getters on
-      // the Vue instances at extension time, on the extended prototype. This
-      // avoids Object.defineProperty calls for each instance created.
-
-      if (Sub.options.props) {
-        initProps$1(Sub);
-      }
-
-      if (Sub.options.computed) {
-        initComputed$1(Sub);
-      } // allow further extension/mixin/plugin usage
-
-
-      Sub.extend = Super.extend;
-      Sub.mixin = Super.mixin;
-      Sub.use = Super.use; // create asset registers, so extended classes
-      // can have their private assets too.
-
-      ASSET_TYPES.forEach(function _anonymous_98(type) {
-        var necooData = window.necooPushCallStack(arguments);
-        Sub[type] = Super[type];
-      }); // enable recursive self-lookup
-
-      if (name) {
-        Sub.options.components[name] = Sub;
-      } // keep a reference to the super options at extension time.
-      // later at instantiation we can check if Super's options have
-      // been updated.
-
-
-      Sub.superOptions = Super.options;
-      Sub.extendOptions = extendOptions;
-      Sub.sealedOptions = extend({}, Sub.options); // cache constructor
-
-      cachedCtors[SuperId] = Sub;
-      return Sub;
-    };
-  }
-
-  function initProps$1(Comp) {
-    var necooData = window.necooPushCallStack(arguments);
-    var props = Comp.options.props;
-
-    for (var key in props) {
-      proxy(Comp.prototype, "_props", key);
-    }
-  }
-
-  function initComputed$1(Comp) {
-    var necooData = window.necooPushCallStack(arguments);
-    var computed = Comp.options.computed;
-
-    for (var key in computed) {
-      defineComputed(Comp.prototype, key, computed[key]);
-    }
-  }
-  /*  */
-
-
-  function initAssetRegisters(Vue) {
-    var necooData = window.necooPushCallStack(arguments);
-    /**
-     * Create asset registration methods.
-     */
-
-    ASSET_TYPES.forEach(function _anonymous_99(type) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      Vue[type] = function _anonymous_100(id, definition) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (!definition) {
-          return this.options[type + 's'][id];
-        } else {
-          /* istanbul ignore if */
-          if (type === 'component') {
-            validateComponentName(id);
-          }
-
-          if (type === 'component' && isPlainObject(definition)) {
-            definition.name = definition.name || id;
-            definition = this.options._base.extend(definition);
-          }
-
-          if (type === 'directive' && typeof definition === 'function') {
-            definition = {
-              bind: definition,
-              update: definition
-            };
-          }
-
-          this.options[type + 's'][id] = definition;
-          return definition;
-        }
-      };
-    });
-  }
-  /*  */
-
-
-  function getComponentName(opts) {
-    var necooData = window.necooPushCallStack(arguments);
-    return opts && (opts.Ctor.options.name || opts.tag);
-  }
-
-  function matches(pattern, name) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(pattern)) {
-      return pattern.indexOf(name) > -1;
-    } else if (typeof pattern === 'string') {
-      return pattern.split(',').indexOf(name) > -1;
-    } else if (isRegExp(pattern)) {
-      return pattern.test(name);
-    }
-    /* istanbul ignore next */
-
-
-    return false;
-  }
-
-  function pruneCache(keepAliveInstance, filter) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cache = keepAliveInstance.cache;
-    var keys = keepAliveInstance.keys;
-    var _vnode = keepAliveInstance._vnode;
-
-    for (var key in cache) {
-      var cachedNode = cache[key];
-
-      if (cachedNode) {
-        var name = getComponentName(cachedNode.componentOptions);
-
-        if (name && !filter(name)) {
-          pruneCacheEntry(cache, key, keys, _vnode);
-        }
-      }
-    }
-  }
-
-  function pruneCacheEntry(cache, key, keys, current) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cached$$1 = cache[key];
-
-    if (cached$$1 && (!current || cached$$1.tag !== current.tag)) {
-      cached$$1.componentInstance.$destroy();
-    }
-
-    cache[key] = null;
-    remove(keys, key);
-  }
-
-  var patternTypes = [String, RegExp, Array];
-  var KeepAlive = {
-    name: 'keep-alive',
-    abstract: true,
-    props: {
-      include: patternTypes,
-      exclude: patternTypes,
-      max: [String, Number]
-    },
-    created: function created() {
-      var necooData = window.necooPushCallStack(arguments);
-      this.cache = Object.create(null);
-      this.keys = [];
-    },
-    destroyed: function destroyed() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (var key in this.cache) {
-        pruneCacheEntry(this.cache, key, this.keys);
-      }
-    },
-    mounted: function mounted() {
-      var necooData = window.necooPushCallStack(arguments);
-      var this$1 = this;
-      this.$watch('include', function _anonymous_101(val) {
-        var necooData = window.necooPushCallStack(arguments);
-        pruneCache(this$1, function _anonymous_102(name) {
-          var necooData = window.necooPushCallStack(arguments);
-          return matches(val, name);
-        });
-      });
-      this.$watch('exclude', function _anonymous_103(val) {
-        var necooData = window.necooPushCallStack(arguments);
-        pruneCache(this$1, function _anonymous_104(name) {
-          var necooData = window.necooPushCallStack(arguments);
-          return !matches(val, name);
-        });
-      });
-    },
-    render: function render() {
-      var necooData = window.necooPushCallStack(arguments);
-      var slot = this.$slots.default;
-      var vnode = getFirstComponentChild(slot);
-      var componentOptions = vnode && vnode.componentOptions;
-
-      if (componentOptions) {
-        // check pattern
-        var name = getComponentName(componentOptions);
-        var ref = this;
-        var include = ref.include;
-        var exclude = ref.exclude;
-
-        if ( // not included
-        include && (!name || !matches(include, name)) || // excluded
-        exclude && name && matches(exclude, name)) {
-          return vnode;
-        }
-
-        var ref$1 = this;
-        var cache = ref$1.cache;
-        var keys = ref$1.keys;
-        var key = vnode.key == null // same constructor may get registered as different local components
-        // so cid alone is not enough (#3269)
-        ? componentOptions.Ctor.cid + (componentOptions.tag ? "::" + componentOptions.tag : '') : vnode.key;
-
-        if (cache[key]) {
-          vnode.componentInstance = cache[key].componentInstance; // make current key freshest
-
-          remove(keys, key);
-          keys.push(key);
-        } else {
-          cache[key] = vnode;
-          keys.push(key); // prune oldest entry
-
-          if (this.max && keys.length > parseInt(this.max)) {
-            pruneCacheEntry(cache, keys[0], keys, this._vnode);
-          }
-        }
-
-        vnode.data.keepAlive = true;
-      }
-
-      return vnode || slot && slot[0];
-    }
-  };
-  var builtInComponents = {
-    KeepAlive: KeepAlive
-  };
-  /*  */
-
-  function initGlobalAPI(Vue) {
-    var necooData = window.necooPushCallStack(arguments); // config
-
-    var configDef = {};
-
-    configDef.get = function _anonymous_105() {
-      var necooData = window.necooPushCallStack(arguments);
-      return config;
-    };
-
-    {
-      configDef.set = function _anonymous_106() {
-        var necooData = window.necooPushCallStack(arguments);
-        warn('Do not replace the Vue.config object, set individual fields instead.');
-      };
-    }
-    Object.defineProperty(Vue, 'config', configDef); // exposed util methods.
-    // NOTE: these are not considered part of the public API - avoid relying on
-    // them unless you are aware of the risk.
-
-    Vue.util = {
-      warn: warn,
-      extend: extend,
-      mergeOptions: mergeOptions,
-      defineReactive: defineReactive$$1
-    };
-    Vue.set = set;
-    Vue.delete = del;
-    Vue.nextTick = nextTick; // 2.6 explicit observable API
-
-    Vue.observable = function _anonymous_107(obj) {
-      var necooData = window.necooPushCallStack(arguments);
-      observe(obj);
-      return obj;
-    };
-
-    Vue.options = Object.create(null);
-    ASSET_TYPES.forEach(function _anonymous_108(type) {
-      var necooData = window.necooPushCallStack(arguments);
-      Vue.options[type + 's'] = Object.create(null);
-    }); // this is used to identify the "base" constructor to extend all plain-object
-    // components with in Weex's multi-instance scenarios.
-
-    Vue.options._base = Vue;
-    extend(Vue.options.components, builtInComponents);
-    initUse(Vue);
-    initMixin$1(Vue);
-    initExtend(Vue);
-    initAssetRegisters(Vue);
-  }
-
-  initGlobalAPI(Vue);
-  Object.defineProperty(Vue.prototype, '$isServer', {
-    get: isServerRendering
-  });
-  Object.defineProperty(Vue.prototype, '$ssrContext', {
-    get: function get() {
-      var necooData = window.necooPushCallStack(arguments);
-      /* istanbul ignore next */
-
-      return this.$vnode && this.$vnode.ssrContext;
-    }
-  }); // expose FunctionalRenderContext for ssr runtime helper installation
-
-  Object.defineProperty(Vue, 'FunctionalRenderContext', {
-    value: FunctionalRenderContext
-  });
-  Vue.version = '2.6.10';
-  /*  */
-  // these are reserved for web because they are directly compiled away
-  // during template compilation
-
-  var isReservedAttr = makeMap('style,class'); // attributes that should be using props for binding
-
-  var acceptValue = makeMap('input,textarea,option,select,progress');
-
-  var mustUseProp = function _anonymous_109(tag, type, attr) {
-    var necooData = window.necooPushCallStack(arguments);
-    return attr === 'value' && acceptValue(tag) && type !== 'button' || attr === 'selected' && tag === 'option' || attr === 'checked' && tag === 'input' || attr === 'muted' && tag === 'video';
-  };
-
-  var isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck');
-  var isValidContentEditableValue = makeMap('events,caret,typing,plaintext-only');
-
-  var convertEnumeratedValue = function _anonymous_110(key, value) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isFalsyAttrValue(value) || value === 'false' ? 'false' // allow arbitrary string value for contenteditable
-    : key === 'contenteditable' && isValidContentEditableValue(value) ? value : 'true';
-  };
-
-  var isBooleanAttr = makeMap('allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' + 'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' + 'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' + 'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' + 'required,reversed,scoped,seamless,selected,sortable,translate,' + 'truespeed,typemustmatch,visible');
-  var xlinkNS = 'http://www.w3.org/1999/xlink';
-
-  var isXlink = function _anonymous_111(name) {
-    var necooData = window.necooPushCallStack(arguments);
-    return name.charAt(5) === ':' && name.slice(0, 5) === 'xlink';
-  };
-
-  var getXlinkProp = function _anonymous_112(name) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isXlink(name) ? name.slice(6, name.length) : '';
-  };
-
-  var isFalsyAttrValue = function _anonymous_113(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    return val == null || val === false;
-  };
-  /*  */
-
-
-  function genClassForVnode(vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = vnode.data;
-    var parentNode = vnode;
-    var childNode = vnode;
-
-    while (isDef(childNode.componentInstance)) {
-      childNode = childNode.componentInstance._vnode;
-
-      if (childNode && childNode.data) {
-        data = mergeClassData(childNode.data, data);
-      }
-    }
-
-    while (isDef(parentNode = parentNode.parent)) {
-      if (parentNode && parentNode.data) {
-        data = mergeClassData(data, parentNode.data);
-      }
-    }
-
-    return renderClass(data.staticClass, data.class);
-  }
-
-  function mergeClassData(child, parent) {
-    var necooData = window.necooPushCallStack(arguments);
-    return {
-      staticClass: concat(child.staticClass, parent.staticClass),
-      class: isDef(child.class) ? [child.class, parent.class] : parent.class
-    };
-  }
-
-  function renderClass(staticClass, dynamicClass) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isDef(staticClass) || isDef(dynamicClass)) {
-      return concat(staticClass, stringifyClass(dynamicClass));
-    }
-    /* istanbul ignore next */
-
-
-    return '';
-  }
-
-  function concat(a, b) {
-    var necooData = window.necooPushCallStack(arguments);
-    return a ? b ? a + ' ' + b : a : b || '';
-  }
-
-  function stringifyClass(value) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(value)) {
-      return stringifyArray(value);
-    }
-
-    if (isObject(value)) {
-      return stringifyObject(value);
-    }
-
-    if (typeof value === 'string') {
-      return value;
-    }
-    /* istanbul ignore next */
-
-
-    return '';
-  }
-
-  function stringifyArray(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = '';
-    var stringified;
-
-    for (var i = 0, l = value.length; i < l; i++) {
-      if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
-        if (res) {
-          res += ' ';
-        }
-
-        res += stringified;
-      }
-    }
-
-    return res;
-  }
-
-  function stringifyObject(value) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = '';
-
-    for (var key in value) {
-      if (value[key]) {
-        if (res) {
-          res += ' ';
-        }
-
-        res += key;
-      }
-    }
-
-    return res;
-  }
-  /*  */
-
-
-  var namespaceMap = {
-    svg: 'http://www.w3.org/2000/svg',
-    math: 'http://www.w3.org/1998/Math/MathML'
-  };
-  var isHTMLTag = makeMap('html,body,base,head,link,meta,style,title,' + 'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' + 'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' + 'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' + 's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' + 'embed,object,param,source,canvas,script,noscript,del,ins,' + 'caption,col,colgroup,table,thead,tbody,td,th,tr,' + 'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' + 'output,progress,select,textarea,' + 'details,dialog,menu,menuitem,summary,' + 'content,element,shadow,template,blockquote,iframe,tfoot'); // this map is intentionally selective, only covering SVG elements that may
-  // contain child elements.
-
-  var isSVG = makeMap('svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' + 'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' + 'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view', true);
-
-  var isPreTag = function _anonymous_114(tag) {
-    var necooData = window.necooPushCallStack(arguments);
-    return tag === 'pre';
-  };
-
-  var isReservedTag = function _anonymous_115(tag) {
-    var necooData = window.necooPushCallStack(arguments);
-    return isHTMLTag(tag) || isSVG(tag);
-  };
-
-  function getTagNamespace(tag) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isSVG(tag)) {
-      return 'svg';
-    } // basic support for MathML
-    // note it doesn't support other MathML elements being component roots
-
-
-    if (tag === 'math') {
-      return 'math';
-    }
-  }
-
-  var unknownElementCache = Object.create(null);
-
-  function isUnknownElement(tag) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (!inBrowser) {
-      return true;
-    }
-
-    if (isReservedTag(tag)) {
-      return false;
-    }
-
-    tag = tag.toLowerCase();
-    /* istanbul ignore if */
-
-    if (unknownElementCache[tag] != null) {
-      return unknownElementCache[tag];
-    }
-
-    var el = document.createElement(tag);
-
-    if (tag.indexOf('-') > -1) {
-      // http://stackoverflow.com/a/28210364/1070244
-      return unknownElementCache[tag] = el.constructor === window.HTMLUnknownElement || el.constructor === window.HTMLElement;
-    } else {
-      return unknownElementCache[tag] = /HTMLUnknownElement/.test(el.toString());
-    }
-  }
-
-  var isTextInputType = makeMap('text,number,password,search,email,tel,url');
-  /*  */
-
-  /**
-   * Query an element selector if it's not an element already.
-   */
-
-  function query(el) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (typeof el === 'string') {
-      var selected = document.querySelector(el);
-
-      if (!selected) {
-        warn('Cannot find element: ' + el);
-        return document.createElement('div');
-      }
-
-      return selected;
-    } else {
-      return el;
-    }
-  }
-  /*  */
-
-
-  function createElement$1(tagName, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var elm = document.createElement(tagName);
-
-    if (tagName !== 'select') {
-      return elm;
-    } // false or null will remove the attribute but undefined will not
-
-
-    if (vnode.data && vnode.data.attrs && vnode.data.attrs.multiple !== undefined) {
-      elm.setAttribute('multiple', 'multiple');
-    }
-
-    return elm;
-  }
-
-  function createElementNS(namespace, tagName) {
-    var necooData = window.necooPushCallStack(arguments);
-    return document.createElementNS(namespaceMap[namespace], tagName);
-  }
-
-  function createTextNode(text) {
-    var necooData = window.necooPushCallStack(arguments);
-    return document.createTextNode(text);
-  }
-
-  function createComment(text) {
-    var necooData = window.necooPushCallStack(arguments);
-    return document.createComment(text);
-  }
-
-  function insertBefore(parentNode, newNode, referenceNode) {
-    var necooData = window.necooPushCallStack(arguments);
-    parentNode.insertBefore(newNode, referenceNode);
-  }
-
-  function removeChild(node, child) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.removeChild(child);
-  }
-
-  function appendChild(node, child) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.appendChild(child);
-  }
-
-  function parentNode(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return node.parentNode;
-  }
-
-  function nextSibling(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return node.nextSibling;
-  }
-
-  function tagName(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    return node.tagName;
-  }
-
-  function setTextContent(node, text) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.textContent = text;
-  }
-
-  function setStyleScope(node, scopeId) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.setAttribute(scopeId, '');
-  }
-
-  var nodeOps =
-  /*#__PURE__*/
-  Object.freeze({
-    createElement: createElement$1,
-    createElementNS: createElementNS,
-    createTextNode: createTextNode,
-    createComment: createComment,
-    insertBefore: insertBefore,
-    removeChild: removeChild,
-    appendChild: appendChild,
-    parentNode: parentNode,
-    nextSibling: nextSibling,
-    tagName: tagName,
-    setTextContent: setTextContent,
-    setStyleScope: setStyleScope
-  });
-  /*  */
-
-  var ref = {
-    create: function create(_, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      registerRef(vnode);
-    },
-    update: function update(oldVnode, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (oldVnode.data.ref !== vnode.data.ref) {
-        registerRef(oldVnode, true);
-        registerRef(vnode);
-      }
-    },
-    destroy: function destroy(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      registerRef(vnode, true);
-    }
-  };
-
-  function registerRef(vnode, isRemoval) {
-    var necooData = window.necooPushCallStack(arguments);
-    var key = vnode.data.ref;
-
-    if (!isDef(key)) {
-      return;
-    }
-
-    var vm = vnode.context;
-    var ref = vnode.componentInstance || vnode.elm;
-    var refs = vm.$refs;
-
-    if (isRemoval) {
-      if (Array.isArray(refs[key])) {
-        remove(refs[key], ref);
-      } else if (refs[key] === ref) {
-        refs[key] = undefined;
-      }
-    } else {
-      if (vnode.data.refInFor) {
-        if (!Array.isArray(refs[key])) {
-          refs[key] = [ref];
-        } else if (refs[key].indexOf(ref) < 0) {
-          // $flow-disable-line
-          refs[key].push(ref);
-        }
-      } else {
-        refs[key] = ref;
-      }
-    }
-  }
-  /**
-   * Virtual DOM patching algorithm based on Snabbdom by
-   * Simon Friis Vindum (@paldepind)
-   * Licensed under the MIT License
-   * https://github.com/paldepind/snabbdom/blob/master/LICENSE
-   *
-   * modified by Evan You (@yyx990803)
-   *
-   * Not type-checking this because this file is perf-critical and the cost
-   * of making flow understand it is not worth it.
-   */
-
-
-  var emptyNode = new VNode('', {}, []);
-  var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
-
-  function sameVnode(a, b) {
-    var necooData = window.necooPushCallStack(arguments);
-    return a.key === b.key && (a.tag === b.tag && a.isComment === b.isComment && isDef(a.data) === isDef(b.data) && sameInputType(a, b) || isTrue(a.isAsyncPlaceholder) && a.asyncFactory === b.asyncFactory && isUndef(b.asyncFactory.error));
-  }
-
-  function sameInputType(a, b) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (a.tag !== 'input') {
-      return true;
-    }
-
-    var i;
-    var typeA = isDef(i = a.data) && isDef(i = i.attrs) && i.type;
-    var typeB = isDef(i = b.data) && isDef(i = i.attrs) && i.type;
-    return typeA === typeB || isTextInputType(typeA) && isTextInputType(typeB);
-  }
-
-  function createKeyToOldIdx(children, beginIdx, endIdx) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i, key;
-    var map = {};
-
-    for (i = beginIdx; i <= endIdx; ++i) {
-      key = children[i].key;
-
-      if (isDef(key)) {
-        map[key] = i;
-      }
-    }
-
-    return map;
-  }
-
-  function createPatchFunction(backend) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i, j;
-    var cbs = {};
-    var modules = backend.modules;
-    var nodeOps = backend.nodeOps;
-
-    for (i = 0; i < hooks.length; ++i) {
-      cbs[hooks[i]] = [];
-
-      for (j = 0; j < modules.length; ++j) {
-        if (isDef(modules[j][hooks[i]])) {
-          cbs[hooks[i]].push(modules[j][hooks[i]]);
-        }
-      }
-    }
-
-    function emptyNodeAt(elm) {
-      var necooData = window.necooPushCallStack(arguments);
-      return new VNode(nodeOps.tagName(elm).toLowerCase(), {}, [], undefined, elm);
-    }
-
-    function createRmCb(childElm, listeners) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      function remove$$1() {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (--remove$$1.listeners === 0) {
-          removeNode(childElm);
-        }
-      }
-
-      remove$$1.listeners = listeners;
-      return remove$$1;
-    }
-
-    function removeNode(el) {
-      var necooData = window.necooPushCallStack(arguments);
-      var parent = nodeOps.parentNode(el); // element may have already been removed due to v-html / v-text
-
-      if (isDef(parent)) {
-        nodeOps.removeChild(parent, el);
-      }
-    }
-
-    function isUnknownElement$$1(vnode, inVPre) {
-      var necooData = window.necooPushCallStack(arguments);
-      return !inVPre && !vnode.ns && !(config.ignoredElements.length && config.ignoredElements.some(function _anonymous_116(ignore) {
-        var necooData = window.necooPushCallStack(arguments);
-        return isRegExp(ignore) ? ignore.test(vnode.tag) : ignore === vnode.tag;
-      })) && config.isUnknownElement(vnode.tag);
-    }
-
-    var creatingElmInVPre = 0;
-
-    function createElm(vnode, insertedVnodeQueue, parentElm, refElm, nested, ownerArray, index) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isDef(vnode.elm) && isDef(ownerArray)) {
-        // This vnode was used in a previous render!
-        // now it's used as a new node, overwriting its elm would cause
-        // potential patch errors down the road when it's used as an insertion
-        // reference node. Instead, we clone the node on-demand before creating
-        // associated DOM element for it.
-        vnode = ownerArray[index] = cloneVNode(vnode);
-      }
-
-      vnode.isRootInsert = !nested; // for transition enter check
-
-      if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
-        return;
-      }
-
-      var data = vnode.data;
-      var children = vnode.children;
-      var tag = vnode.tag;
-
-      if (isDef(tag)) {
-        {
-          if (data && data.pre) {
-            creatingElmInVPre++;
-          }
-
-          if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
-            warn('Unknown custom element: <' + tag + '> - did you ' + 'register the component correctly? For recursive components, ' + 'make sure to provide the "name" option.', vnode.context);
-          }
-        }
-        vnode.elm = vnode.ns ? nodeOps.createElementNS(vnode.ns, tag) : nodeOps.createElement(tag, vnode);
-        setScope(vnode);
-        /* istanbul ignore if */
-
-        {
-          createChildren(vnode, children, insertedVnodeQueue);
-
-          if (isDef(data)) {
-            invokeCreateHooks(vnode, insertedVnodeQueue);
-          }
-
-          insert(parentElm, vnode.elm, refElm);
-        }
-
-        if (data && data.pre) {
-          creatingElmInVPre--;
-        }
-      } else if (isTrue(vnode.isComment)) {
-        vnode.elm = nodeOps.createComment(vnode.text);
-        insert(parentElm, vnode.elm, refElm);
-      } else {
-        vnode.elm = nodeOps.createTextNode(vnode.text);
-        insert(parentElm, vnode.elm, refElm);
-      }
-    }
-
-    function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
-      var necooData = window.necooPushCallStack(arguments);
-      var i = vnode.data;
-
-      if (isDef(i)) {
-        var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
-
-        if (isDef(i = i.hook) && isDef(i = i.init)) {
-          i(vnode, false
-          /* hydrating */
-          );
-        } // after calling the init hook, if the vnode is a child component
-        // it should've created a child instance and mounted it. the child
-        // component also has set the placeholder vnode's elm.
-        // in that case we can just return the element and be done.
-
-
-        if (isDef(vnode.componentInstance)) {
-          initComponent(vnode, insertedVnodeQueue);
-          insert(parentElm, vnode.elm, refElm);
-
-          if (isTrue(isReactivated)) {
-            reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm);
-          }
-
-          return true;
-        }
-      }
-    }
-
-    function initComponent(vnode, insertedVnodeQueue) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isDef(vnode.data.pendingInsert)) {
-        insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
-        vnode.data.pendingInsert = null;
-      }
-
-      vnode.elm = vnode.componentInstance.$el;
-
-      if (isPatchable(vnode)) {
-        invokeCreateHooks(vnode, insertedVnodeQueue);
-        setScope(vnode);
-      } else {
-        // empty component root.
-        // skip all element-related modules except for ref (#3455)
-        registerRef(vnode); // make sure to invoke the insert hook
-
-        insertedVnodeQueue.push(vnode);
-      }
-    }
-
-    function reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
-      var necooData = window.necooPushCallStack(arguments);
-      var i; // hack for #4339: a reactivated component with inner transition
-      // does not trigger because the inner node's created hooks are not called
-      // again. It's not ideal to involve module-specific logic in here but
-      // there doesn't seem to be a better way to do it.
-
-      var innerNode = vnode;
-
-      while (innerNode.componentInstance) {
-        innerNode = innerNode.componentInstance._vnode;
-
-        if (isDef(i = innerNode.data) && isDef(i = i.transition)) {
-          for (i = 0; i < cbs.activate.length; ++i) {
-            cbs.activate[i](emptyNode, innerNode);
-          }
-
-          insertedVnodeQueue.push(innerNode);
-          break;
-        }
-      } // unlike a newly created component,
-      // a reactivated keep-alive component doesn't insert itself
-
-
-      insert(parentElm, vnode.elm, refElm);
-    }
-
-    function insert(parent, elm, ref$$1) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isDef(parent)) {
-        if (isDef(ref$$1)) {
-          if (nodeOps.parentNode(ref$$1) === parent) {
-            nodeOps.insertBefore(parent, elm, ref$$1);
-          }
-        } else {
-          nodeOps.appendChild(parent, elm);
-        }
-      }
-    }
-
-    function createChildren(vnode, children, insertedVnodeQueue) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (Array.isArray(children)) {
-        {
-          checkDuplicateKeys(children);
-        }
-
-        for (var i = 0; i < children.length; ++i) {
-          createElm(children[i], insertedVnodeQueue, vnode.elm, null, true, children, i);
-        }
-      } else if (isPrimitive(vnode.text)) {
-        nodeOps.appendChild(vnode.elm, nodeOps.createTextNode(String(vnode.text)));
-      }
-    }
-
-    function isPatchable(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      while (vnode.componentInstance) {
-        vnode = vnode.componentInstance._vnode;
-      }
-
-      return isDef(vnode.tag);
-    }
-
-    function invokeCreateHooks(vnode, insertedVnodeQueue) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
-        cbs.create[i$1](emptyNode, vnode);
-      }
-
-      i = vnode.data.hook; // Reuse variable
-
-      if (isDef(i)) {
-        if (isDef(i.create)) {
-          i.create(emptyNode, vnode);
-        }
-
-        if (isDef(i.insert)) {
-          insertedVnodeQueue.push(vnode);
-        }
-      }
-    } // set scope id attribute for scoped CSS.
-    // this is implemented as a special case to avoid the overhead
-    // of going through the normal attribute patching process.
-
-
-    function setScope(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var i;
-
-      if (isDef(i = vnode.fnScopeId)) {
-        nodeOps.setStyleScope(vnode.elm, i);
-      } else {
-        var ancestor = vnode;
-
-        while (ancestor) {
-          if (isDef(i = ancestor.context) && isDef(i = i.$options._scopeId)) {
-            nodeOps.setStyleScope(vnode.elm, i);
-          }
-
-          ancestor = ancestor.parent;
-        }
-      } // for slot content they should also get the scopeId from the host instance.
-
-
-      if (isDef(i = activeInstance) && i !== vnode.context && i !== vnode.fnContext && isDef(i = i.$options._scopeId)) {
-        nodeOps.setStyleScope(vnode.elm, i);
-      }
-    }
-
-    function addVnodes(parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (; startIdx <= endIdx; ++startIdx) {
-        createElm(vnodes[startIdx], insertedVnodeQueue, parentElm, refElm, false, vnodes, startIdx);
-      }
-    }
-
-    function invokeDestroyHook(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var i, j;
-      var data = vnode.data;
-
-      if (isDef(data)) {
-        if (isDef(i = data.hook) && isDef(i = i.destroy)) {
-          i(vnode);
-        }
-
-        for (i = 0; i < cbs.destroy.length; ++i) {
-          cbs.destroy[i](vnode);
-        }
-      }
-
-      if (isDef(i = vnode.children)) {
-        for (j = 0; j < vnode.children.length; ++j) {
-          invokeDestroyHook(vnode.children[j]);
-        }
-      }
-    }
-
-    function removeVnodes(parentElm, vnodes, startIdx, endIdx) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (; startIdx <= endIdx; ++startIdx) {
-        var ch = vnodes[startIdx];
-
-        if (isDef(ch)) {
-          if (isDef(ch.tag)) {
-            removeAndInvokeRemoveHook(ch);
-            invokeDestroyHook(ch);
-          } else {
-            // Text node
-            removeNode(ch.elm);
-          }
-        }
-      }
-    }
-
-    function removeAndInvokeRemoveHook(vnode, rm) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isDef(rm) || isDef(vnode.data)) {
-        var i;
-        var listeners = cbs.remove.length + 1;
-
-        if (isDef(rm)) {
-          // we have a recursively passed down rm callback
-          // increase the listeners count
-          rm.listeners += listeners;
-        } else {
-          // directly removing
-          rm = createRmCb(vnode.elm, listeners);
-        } // recursively invoke hooks on child component root node
-
-
-        if (isDef(i = vnode.componentInstance) && isDef(i = i._vnode) && isDef(i.data)) {
-          removeAndInvokeRemoveHook(i, rm);
-        }
-
-        for (i = 0; i < cbs.remove.length; ++i) {
-          cbs.remove[i](vnode, rm);
-        }
-
-        if (isDef(i = vnode.data.hook) && isDef(i = i.remove)) {
-          i(vnode, rm);
-        } else {
-          rm();
-        }
-      } else {
-        removeNode(vnode.elm);
-      }
-    }
-
-    function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
-      var necooData = window.necooPushCallStack(arguments);
-      var oldStartIdx = 0;
-      var newStartIdx = 0;
-      var oldEndIdx = oldCh.length - 1;
-      var oldStartVnode = oldCh[0];
-      var oldEndVnode = oldCh[oldEndIdx];
-      var newEndIdx = newCh.length - 1;
-      var newStartVnode = newCh[0];
-      var newEndVnode = newCh[newEndIdx];
-      var oldKeyToIdx, idxInOld, vnodeToMove, refElm; // removeOnly is a special flag used only by <transition-group>
-      // to ensure removed elements stay in correct relative positions
-      // during leaving transitions
-
-      var canMove = !removeOnly;
-      {
-        checkDuplicateKeys(newCh);
-      }
-
-      while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-        if (isUndef(oldStartVnode)) {
-          oldStartVnode = oldCh[++oldStartIdx]; // Vnode has been moved left
-        } else if (isUndef(oldEndVnode)) {
-          oldEndVnode = oldCh[--oldEndIdx];
-        } else if (sameVnode(oldStartVnode, newStartVnode)) {
-          patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
-          oldStartVnode = oldCh[++oldStartIdx];
-          newStartVnode = newCh[++newStartIdx];
-        } else if (sameVnode(oldEndVnode, newEndVnode)) {
-          patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
-          oldEndVnode = oldCh[--oldEndIdx];
-          newEndVnode = newCh[--newEndIdx];
-        } else if (sameVnode(oldStartVnode, newEndVnode)) {
-          // Vnode moved right
-          patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
-          canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
-          oldStartVnode = oldCh[++oldStartIdx];
-          newEndVnode = newCh[--newEndIdx];
-        } else if (sameVnode(oldEndVnode, newStartVnode)) {
-          // Vnode moved left
-          patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
-          canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
-          oldEndVnode = oldCh[--oldEndIdx];
-          newStartVnode = newCh[++newStartIdx];
-        } else {
-          if (isUndef(oldKeyToIdx)) {
-            oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
-          }
-
-          idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
-
-          if (isUndef(idxInOld)) {
-            // New element
-            createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
-          } else {
-            vnodeToMove = oldCh[idxInOld];
-
-            if (sameVnode(vnodeToMove, newStartVnode)) {
-              patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
-              oldCh[idxInOld] = undefined;
-              canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
-            } else {
-              // same key but different element. treat as new element
-              createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
-            }
-          }
-
-          newStartVnode = newCh[++newStartIdx];
-        }
-      }
-
-      if (oldStartIdx > oldEndIdx) {
-        refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
-        addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
-      } else if (newStartIdx > newEndIdx) {
-        removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
-      }
-    }
-
-    function checkDuplicateKeys(children) {
-      var necooData = window.necooPushCallStack(arguments);
-      var seenKeys = {};
-
-      for (var i = 0; i < children.length; i++) {
-        var vnode = children[i];
-        var key = vnode.key;
-
-        if (isDef(key)) {
-          if (seenKeys[key]) {
-            warn("Duplicate keys detected: '" + key + "'. This may cause an update error.", vnode.context);
-          } else {
-            seenKeys[key] = true;
-          }
-        }
-      }
-    }
-
-    function findIdxInOld(node, oldCh, start, end) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      for (var i = start; i < end; i++) {
-        var c = oldCh[i];
-
-        if (isDef(c) && sameVnode(node, c)) {
-          return i;
-        }
-      }
-    }
-
-    function patchVnode(oldVnode, vnode, insertedVnodeQueue, ownerArray, index, removeOnly) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (oldVnode === vnode) {
-        return;
-      }
-
-      if (isDef(vnode.elm) && isDef(ownerArray)) {
-        // clone reused vnode
-        vnode = ownerArray[index] = cloneVNode(vnode);
-      }
-
-      var elm = vnode.elm = oldVnode.elm;
-
-      if (isTrue(oldVnode.isAsyncPlaceholder)) {
-        if (isDef(vnode.asyncFactory.resolved)) {
-          hydrate(oldVnode.elm, vnode, insertedVnodeQueue);
-        } else {
-          vnode.isAsyncPlaceholder = true;
-        }
-
-        return;
-      } // reuse element for static trees.
-      // note we only do this if the vnode is cloned -
-      // if the new node is not cloned it means the render functions have been
-      // reset by the hot-reload-api and we need to do a proper re-render.
-
-
-      if (isTrue(vnode.isStatic) && isTrue(oldVnode.isStatic) && vnode.key === oldVnode.key && (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))) {
-        vnode.componentInstance = oldVnode.componentInstance;
-        return;
-      }
-
-      var i;
-      var data = vnode.data;
-
-      if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
-        i(oldVnode, vnode);
-      }
-
-      var oldCh = oldVnode.children;
-      var ch = vnode.children;
-
-      if (isDef(data) && isPatchable(vnode)) {
-        for (i = 0; i < cbs.update.length; ++i) {
-          cbs.update[i](oldVnode, vnode);
-        }
-
-        if (isDef(i = data.hook) && isDef(i = i.update)) {
-          i(oldVnode, vnode);
-        }
-      }
-
-      if (isUndef(vnode.text)) {
-        if (isDef(oldCh) && isDef(ch)) {
-          if (oldCh !== ch) {
-            updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
-          }
-        } else if (isDef(ch)) {
-          {
-            checkDuplicateKeys(ch);
-          }
-
-          if (isDef(oldVnode.text)) {
-            nodeOps.setTextContent(elm, '');
-          }
-
-          addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
-        } else if (isDef(oldCh)) {
-          removeVnodes(elm, oldCh, 0, oldCh.length - 1);
-        } else if (isDef(oldVnode.text)) {
-          nodeOps.setTextContent(elm, '');
-        }
-      } else if (oldVnode.text !== vnode.text) {
-        nodeOps.setTextContent(elm, vnode.text);
-      }
-
-      if (isDef(data)) {
-        if (isDef(i = data.hook) && isDef(i = i.postpatch)) {
-          i(oldVnode, vnode);
-        }
-      }
-    }
-
-    function invokeInsertHook(vnode, queue, initial) {
-      var necooData = window.necooPushCallStack(arguments); // delay insert hooks for component root nodes, invoke them after the
-      // element is really inserted
-
-      if (isTrue(initial) && isDef(vnode.parent)) {
-        vnode.parent.data.pendingInsert = queue;
-      } else {
-        for (var i = 0; i < queue.length; ++i) {
-          queue[i].data.hook.insert(queue[i]);
-        }
-      }
-    }
-
-    var hydrationBailed = false; // list of modules that can skip create hook during hydration because they
-    // are already rendered on the client or has no need for initialization
-    // Note: style is excluded because it relies on initial clone for future
-    // deep updates (#7063).
-
-    var isRenderedModule = makeMap('attrs,class,staticClass,staticStyle,key'); // Note: this is a browser-only function so we can assume elms are DOM nodes.
-
-    function hydrate(elm, vnode, insertedVnodeQueue, inVPre) {
-      var necooData = window.necooPushCallStack(arguments);
-      var i;
-      var tag = vnode.tag;
-      var data = vnode.data;
-      var children = vnode.children;
-      inVPre = inVPre || data && data.pre;
-      vnode.elm = elm;
-
-      if (isTrue(vnode.isComment) && isDef(vnode.asyncFactory)) {
-        vnode.isAsyncPlaceholder = true;
-        return true;
-      } // assert node match
-
-
-      {
-        if (!assertNodeMatch(elm, vnode, inVPre)) {
-          return false;
-        }
-      }
-
-      if (isDef(data)) {
-        if (isDef(i = data.hook) && isDef(i = i.init)) {
-          i(vnode, true
-          /* hydrating */
-          );
-        }
-
-        if (isDef(i = vnode.componentInstance)) {
-          // child component. it should have hydrated its own tree.
-          initComponent(vnode, insertedVnodeQueue);
-          return true;
-        }
-      }
-
-      if (isDef(tag)) {
-        if (isDef(children)) {
-          // empty element, allow client to pick up and populate children
-          if (!elm.hasChildNodes()) {
-            createChildren(vnode, children, insertedVnodeQueue);
-          } else {
-            // v-html and domProps: innerHTML
-            if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
-              if (i !== elm.innerHTML) {
-                /* istanbul ignore if */
-                if (typeof console !== 'undefined' && !hydrationBailed) {
-                  hydrationBailed = true;
-                  console.warn('Parent: ', elm);
-                  console.warn('server innerHTML: ', i);
-                  console.warn('client innerHTML: ', elm.innerHTML);
-                }
-
-                return false;
-              }
-            } else {
-              // iterate and compare children lists
-              var childrenMatch = true;
-              var childNode = elm.firstChild;
-
-              for (var i$1 = 0; i$1 < children.length; i$1++) {
-                if (!childNode || !hydrate(childNode, children[i$1], insertedVnodeQueue, inVPre)) {
-                  childrenMatch = false;
-                  break;
-                }
-
-                childNode = childNode.nextSibling;
-              } // if childNode is not null, it means the actual childNodes list is
-              // longer than the virtual children list.
-
-
-              if (!childrenMatch || childNode) {
-                /* istanbul ignore if */
-                if (typeof console !== 'undefined' && !hydrationBailed) {
-                  hydrationBailed = true;
-                  console.warn('Parent: ', elm);
-                  console.warn('Mismatching childNodes vs. VNodes: ', elm.childNodes, children);
-                }
-
-                return false;
-              }
-            }
-          }
-        }
-
-        if (isDef(data)) {
-          var fullInvoke = false;
-
-          for (var key in data) {
-            if (!isRenderedModule(key)) {
-              fullInvoke = true;
-              invokeCreateHooks(vnode, insertedVnodeQueue);
-              break;
-            }
-          }
-
-          if (!fullInvoke && data['class']) {
-            // ensure collecting deps for deep class bindings for future updates
-            traverse(data['class']);
-          }
-        }
-      } else if (elm.data !== vnode.text) {
-        elm.data = vnode.text;
-      }
-
-      return true;
-    }
-
-    function assertNodeMatch(node, vnode, inVPre) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isDef(vnode.tag)) {
-        return vnode.tag.indexOf('vue-component') === 0 || !isUnknownElement$$1(vnode, inVPre) && vnode.tag.toLowerCase() === (node.tagName && node.tagName.toLowerCase());
-      } else {
-        return node.nodeType === (vnode.isComment ? 8 : 3);
-      }
-    }
-
-    return function patch(oldVnode, vnode, hydrating, removeOnly) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (isUndef(vnode)) {
-        if (isDef(oldVnode)) {
-          invokeDestroyHook(oldVnode);
-        }
-
-        return;
-      }
-
-      var isInitialPatch = false;
-      var insertedVnodeQueue = [];
-
-      if (isUndef(oldVnode)) {
-        // empty mount (likely as component), create new root element
-        isInitialPatch = true;
-        createElm(vnode, insertedVnodeQueue);
-      } else {
-        var isRealElement = isDef(oldVnode.nodeType);
-
-        if (!isRealElement && sameVnode(oldVnode, vnode)) {
-          // patch existing root node
-          patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly);
-        } else {
-          if (isRealElement) {
-            // mounting to a real element
-            // check if this is server-rendered content and if we can perform
-            // a successful hydration.
-            if (oldVnode.nodeType === 1 && oldVnode.hasAttribute(SSR_ATTR)) {
-              oldVnode.removeAttribute(SSR_ATTR);
-              hydrating = true;
-            }
-
-            if (isTrue(hydrating)) {
-              if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
-                invokeInsertHook(vnode, insertedVnodeQueue, true);
-                return oldVnode;
-              } else {
-                warn('The client-side rendered virtual DOM tree is not matching ' + 'server-rendered content. This is likely caused by incorrect ' + 'HTML markup, for example nesting block-level elements inside ' + '<p>, or missing <tbody>. Bailing hydration and performing ' + 'full client-side render.');
-              }
-            } // either not server-rendered, or hydration failed.
-            // create an empty node and replace it
-
-
-            oldVnode = emptyNodeAt(oldVnode);
-          } // replacing existing element
-
-
-          var oldElm = oldVnode.elm;
-          var parentElm = nodeOps.parentNode(oldElm); // create new node
-
-          createElm(vnode, insertedVnodeQueue, // extremely rare edge case: do not insert if old element is in a
-          // leaving transition. Only happens when combining transition +
-          // keep-alive + HOCs. (#4590)
-          oldElm._leaveCb ? null : parentElm, nodeOps.nextSibling(oldElm)); // update parent placeholder node element, recursively
-
-          if (isDef(vnode.parent)) {
-            var ancestor = vnode.parent;
-            var patchable = isPatchable(vnode);
-
-            while (ancestor) {
-              for (var i = 0; i < cbs.destroy.length; ++i) {
-                cbs.destroy[i](ancestor);
-              }
-
-              ancestor.elm = vnode.elm;
-
-              if (patchable) {
-                for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
-                  cbs.create[i$1](emptyNode, ancestor);
-                } // #6513
-                // invoke insert hooks that may have been merged by create hooks.
-                // e.g. for directives that uses the "inserted" hook.
-
-
-                var insert = ancestor.data.hook.insert;
-
-                if (insert.merged) {
-                  // start at index 1 to avoid re-invoking component mounted hook
-                  for (var i$2 = 1; i$2 < insert.fns.length; i$2++) {
-                    insert.fns[i$2]();
-                  }
-                }
-              } else {
-                registerRef(ancestor);
-              }
-
-              ancestor = ancestor.parent;
-            }
-          } // destroy old node
-
-
-          if (isDef(parentElm)) {
-            removeVnodes(parentElm, [oldVnode], 0, 0);
-          } else if (isDef(oldVnode.tag)) {
-            invokeDestroyHook(oldVnode);
-          }
-        }
-      }
-
-      invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);
-      return vnode.elm;
-    };
-  }
-  /*  */
-
-
-  var directives = {
-    create: updateDirectives,
-    update: updateDirectives,
-    destroy: function unbindDirectives(vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      updateDirectives(vnode, emptyNode);
-    }
-  };
-
-  function updateDirectives(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (oldVnode.data.directives || vnode.data.directives) {
-      _update(oldVnode, vnode);
-    }
-  }
-
-  function _update(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var isCreate = oldVnode === emptyNode;
-    var isDestroy = vnode === emptyNode;
-    var oldDirs = normalizeDirectives$1(oldVnode.data.directives, oldVnode.context);
-    var newDirs = normalizeDirectives$1(vnode.data.directives, vnode.context);
-    var dirsWithInsert = [];
-    var dirsWithPostpatch = [];
-    var key, oldDir, dir;
-
-    for (key in newDirs) {
-      oldDir = oldDirs[key];
-      dir = newDirs[key];
-
-      if (!oldDir) {
-        // new directive, bind
-        callHook$1(dir, 'bind', vnode, oldVnode);
-
-        if (dir.def && dir.def.inserted) {
-          dirsWithInsert.push(dir);
-        }
-      } else {
-        // existing directive, update
-        dir.oldValue = oldDir.value;
-        dir.oldArg = oldDir.arg;
-        callHook$1(dir, 'update', vnode, oldVnode);
-
-        if (dir.def && dir.def.componentUpdated) {
-          dirsWithPostpatch.push(dir);
-        }
-      }
-    }
-
-    if (dirsWithInsert.length) {
-      var callInsert = function _anonymous_117() {
-        var necooData = window.necooPushCallStack(arguments);
-
-        for (var i = 0; i < dirsWithInsert.length; i++) {
-          callHook$1(dirsWithInsert[i], 'inserted', vnode, oldVnode);
-        }
-      };
-
-      if (isCreate) {
-        mergeVNodeHook(vnode, 'insert', callInsert);
-      } else {
-        callInsert();
-      }
-    }
-
-    if (dirsWithPostpatch.length) {
-      mergeVNodeHook(vnode, 'postpatch', function _anonymous_118() {
-        var necooData = window.necooPushCallStack(arguments);
-
-        for (var i = 0; i < dirsWithPostpatch.length; i++) {
-          callHook$1(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
-        }
-      });
-    }
-
-    if (!isCreate) {
-      for (key in oldDirs) {
-        if (!newDirs[key]) {
-          // no longer present, unbind
-          callHook$1(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
-        }
-      }
-    }
-  }
-
-  var emptyModifiers = Object.create(null);
-
-  function normalizeDirectives$1(dirs, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = Object.create(null);
-
-    if (!dirs) {
-      // $flow-disable-line
-      return res;
-    }
-
-    var i, dir;
-
-    for (i = 0; i < dirs.length; i++) {
-      dir = dirs[i];
-
-      if (!dir.modifiers) {
-        // $flow-disable-line
-        dir.modifiers = emptyModifiers;
-      }
-
-      res[getRawDirName(dir)] = dir;
-      dir.def = resolveAsset(vm.$options, 'directives', dir.name, true);
-    } // $flow-disable-line
-
-
-    return res;
-  }
-
-  function getRawDirName(dir) {
-    var necooData = window.necooPushCallStack(arguments);
-    return dir.rawName || dir.name + "." + Object.keys(dir.modifiers || {}).join('.');
-  }
-
-  function callHook$1(dir, hook, vnode, oldVnode, isDestroy) {
-    var necooData = window.necooPushCallStack(arguments);
-    var fn = dir.def && dir.def[hook];
-
-    if (fn) {
-      try {
-        fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
-      } catch (e) {
-        handleError(e, vnode.context, "directive " + dir.name + " " + hook + " hook");
-      }
-    }
-  }
-
-  var baseModules = [ref, directives];
-  /*  */
-
-  function updateAttrs(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var opts = vnode.componentOptions;
-
-    if (isDef(opts) && opts.Ctor.options.inheritAttrs === false) {
-      return;
-    }
-
-    if (isUndef(oldVnode.data.attrs) && isUndef(vnode.data.attrs)) {
-      return;
-    }
-
-    var key, cur, old;
-    var elm = vnode.elm;
-    var oldAttrs = oldVnode.data.attrs || {};
-    var attrs = vnode.data.attrs || {}; // clone observed objects, as the user probably wants to mutate it
-
-    if (isDef(attrs.__ob__)) {
-      attrs = vnode.data.attrs = extend({}, attrs);
-    }
-
-    for (key in attrs) {
-      cur = attrs[key];
-      old = oldAttrs[key];
-
-      if (old !== cur) {
-        setAttr(elm, key, cur);
-      }
-    } // #4391: in IE9, setting type can reset value for input[type=radio]
-    // #6666: IE/Edge forces progress value down to 1 before setting a max
-
-    /* istanbul ignore if */
-
-
-    if ((isIE || isEdge) && attrs.value !== oldAttrs.value) {
-      setAttr(elm, 'value', attrs.value);
-    }
-
-    for (key in oldAttrs) {
-      if (isUndef(attrs[key])) {
-        if (isXlink(key)) {
-          elm.removeAttributeNS(xlinkNS, getXlinkProp(key));
-        } else if (!isEnumeratedAttr(key)) {
-          elm.removeAttribute(key);
-        }
-      }
-    }
-  }
-
-  function setAttr(el, key, value) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.tagName.indexOf('-') > -1) {
-      baseSetAttr(el, key, value);
-    } else if (isBooleanAttr(key)) {
-      // set attribute for blank value
-      // e.g. <option disabled>Select one</option>
-      if (isFalsyAttrValue(value)) {
-        el.removeAttribute(key);
-      } else {
-        // technically allowfullscreen is a boolean attribute for <iframe>,
-        // but Flash expects a value of "true" when used on <embed> tag
-        value = key === 'allowfullscreen' && el.tagName === 'EMBED' ? 'true' : key;
-        el.setAttribute(key, value);
-      }
-    } else if (isEnumeratedAttr(key)) {
-      el.setAttribute(key, convertEnumeratedValue(key, value));
-    } else if (isXlink(key)) {
-      if (isFalsyAttrValue(value)) {
-        el.removeAttributeNS(xlinkNS, getXlinkProp(key));
-      } else {
-        el.setAttributeNS(xlinkNS, key, value);
-      }
-    } else {
-      baseSetAttr(el, key, value);
-    }
-  }
-
-  function baseSetAttr(el, key, value) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isFalsyAttrValue(value)) {
-      el.removeAttribute(key);
-    } else {
-      // #7138: IE10 & 11 fires input event when setting placeholder on
-      // <textarea>... block the first input event and remove the blocker
-      // immediately.
-
-      /* istanbul ignore if */
-      if (isIE && !isIE9 && el.tagName === 'TEXTAREA' && key === 'placeholder' && value !== '' && !el.__ieph) {
-        var blocker = function _anonymous_119(e) {
-          var necooData = window.necooPushCallStack(arguments);
-          e.stopImmediatePropagation();
-          el.removeEventListener('input', blocker);
-        };
-
-        el.addEventListener('input', blocker); // $flow-disable-line
-
-        el.__ieph = true;
-        /* IE placeholder patched */
-      }
-
-      el.setAttribute(key, value);
-    }
-  }
-
-  var attrs = {
-    create: updateAttrs,
-    update: updateAttrs
-  };
-  /*  */
-
-  function updateClass(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var el = vnode.elm;
-    var data = vnode.data;
-    var oldData = oldVnode.data;
-
-    if (isUndef(data.staticClass) && isUndef(data.class) && (isUndef(oldData) || isUndef(oldData.staticClass) && isUndef(oldData.class))) {
-      return;
-    }
-
-    var cls = genClassForVnode(vnode); // handle transition classes
-
-    var transitionClass = el._transitionClasses;
-
-    if (isDef(transitionClass)) {
-      cls = concat(cls, stringifyClass(transitionClass));
-    } // set the class
-
-
-    if (cls !== el._prevClass) {
-      el.setAttribute('class', cls);
-      el._prevClass = cls;
-    }
-  }
-
-  var klass = {
-    create: updateClass,
-    update: updateClass
-  };
-  /*  */
-
-  var validDivisionCharRE = /[\w).+\-_$\]]/;
-
-  function parseFilters(exp) {
-    var necooData = window.necooPushCallStack(arguments);
-    var inSingle = false;
-    var inDouble = false;
-    var inTemplateString = false;
-    var inRegex = false;
-    var curly = 0;
-    var square = 0;
-    var paren = 0;
-    var lastFilterIndex = 0;
-    var c, prev, i, expression, filters;
-
-    for (i = 0; i < exp.length; i++) {
-      prev = c;
-      c = exp.charCodeAt(i);
-
-      if (inSingle) {
-        if (c === 0x27 && prev !== 0x5C) {
-          inSingle = false;
-        }
-      } else if (inDouble) {
-        if (c === 0x22 && prev !== 0x5C) {
-          inDouble = false;
-        }
-      } else if (inTemplateString) {
-        if (c === 0x60 && prev !== 0x5C) {
-          inTemplateString = false;
-        }
-      } else if (inRegex) {
-        if (c === 0x2f && prev !== 0x5C) {
-          inRegex = false;
-        }
-      } else if (c === 0x7C && // pipe
-      exp.charCodeAt(i + 1) !== 0x7C && exp.charCodeAt(i - 1) !== 0x7C && !curly && !square && !paren) {
-        if (expression === undefined) {
-          // first filter, end of expression
-          lastFilterIndex = i + 1;
-          expression = exp.slice(0, i).trim();
-        } else {
-          pushFilter();
-        }
-      } else {
-        switch (c) {
-          case 0x22:
-            inDouble = true;
-            break;
-          // "
-
-          case 0x27:
-            inSingle = true;
-            break;
-          // '
-
-          case 0x60:
-            inTemplateString = true;
-            break;
-          // `
-
-          case 0x28:
-            paren++;
-            break;
-          // (
-
-          case 0x29:
-            paren--;
-            break;
-          // )
-
-          case 0x5B:
-            square++;
-            break;
-          // [
-
-          case 0x5D:
-            square--;
-            break;
-          // ]
-
-          case 0x7B:
-            curly++;
-            break;
-          // {
-
-          case 0x7D:
-            curly--;
-            break;
-          // }
-        }
-
-        if (c === 0x2f) {
-          // /
-          var j = i - 1;
-          var p = void 0; // find first non-whitespace prev char
-
-          for (; j >= 0; j--) {
-            p = exp.charAt(j);
-
-            if (p !== ' ') {
-              break;
-            }
-          }
-
-          if (!p || !validDivisionCharRE.test(p)) {
-            inRegex = true;
-          }
-        }
-      }
-    }
-
-    if (expression === undefined) {
-      expression = exp.slice(0, i).trim();
-    } else if (lastFilterIndex !== 0) {
-      pushFilter();
-    }
-
-    function pushFilter() {
-      var necooData = window.necooPushCallStack(arguments);
-      (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
-      lastFilterIndex = i + 1;
-    }
-
-    if (filters) {
-      for (i = 0; i < filters.length; i++) {
-        expression = wrapFilter(expression, filters[i]);
-      }
-    }
-
-    return expression;
-  }
-
-  function wrapFilter(exp, filter) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i = filter.indexOf('(');
-
-    if (i < 0) {
-      // _f: resolveFilter
-      return "_f(\"" + filter + "\")(" + exp + ")";
-    } else {
-      var name = filter.slice(0, i);
-      var args = filter.slice(i + 1);
-      return "_f(\"" + name + "\")(" + exp + (args !== ')' ? ',' + args : args);
-    }
-  }
-  /*  */
-
-  /* eslint-disable no-unused-vars */
-
-
-  function baseWarn(msg, range) {
-    var necooData = window.necooPushCallStack(arguments);
-    console.error("[Vue compiler]: " + msg);
-  }
-  /* eslint-enable no-unused-vars */
-
-
-  function pluckModuleFunction(modules, key) {
-    var necooData = window.necooPushCallStack(arguments);
-    return modules ? modules.map(function _anonymous_120(m) {
-      var necooData = window.necooPushCallStack(arguments);
-      return m[key];
-    }).filter(function _anonymous_121(_) {
-      var necooData = window.necooPushCallStack(arguments);
-      return _;
-    }) : [];
-  }
-
-  function addProp(el, name, value, range, dynamic) {
-    var necooData = window.necooPushCallStack(arguments);
-    (el.props || (el.props = [])).push(rangeSetItem({
-      name: name,
-      value: value,
-      dynamic: dynamic
-    }, range));
-    el.plain = false;
-  }
-
-  function addAttr(el, name, value, range, dynamic) {
-    var necooData = window.necooPushCallStack(arguments);
-    var attrs = dynamic ? el.dynamicAttrs || (el.dynamicAttrs = []) : el.attrs || (el.attrs = []);
-    attrs.push(rangeSetItem({
-      name: name,
-      value: value,
-      dynamic: dynamic
-    }, range));
-    el.plain = false;
-  } // add a raw attr (use this in preTransforms)
-
-
-  function addRawAttr(el, name, value, range) {
-    var necooData = window.necooPushCallStack(arguments);
-    el.attrsMap[name] = value;
-    el.attrsList.push(rangeSetItem({
-      name: name,
-      value: value
-    }, range));
-  }
-
-  function addDirective(el, name, rawName, value, arg, isDynamicArg, modifiers, range) {
-    var necooData = window.necooPushCallStack(arguments);
-    (el.directives || (el.directives = [])).push(rangeSetItem({
-      name: name,
-      rawName: rawName,
-      value: value,
-      arg: arg,
-      isDynamicArg: isDynamicArg,
-      modifiers: modifiers
-    }, range));
-    el.plain = false;
-  }
-
-  function prependModifierMarker(symbol, name, dynamic) {
-    var necooData = window.necooPushCallStack(arguments);
-    return dynamic ? "_p(" + name + ",\"" + symbol + "\")" : symbol + name; // mark the event as captured
-  }
-
-  function addHandler(el, name, value, modifiers, important, warn, range, dynamic) {
-    var necooData = window.necooPushCallStack(arguments);
-    modifiers = modifiers || emptyObject; // warn prevent and passive modifier
-
-    /* istanbul ignore if */
-
-    if (warn && modifiers.prevent && modifiers.passive) {
-      warn('passive and prevent can\'t be used together. ' + 'Passive handler can\'t prevent default event.', range);
-    } // normalize click.right and click.middle since they don't actually fire
-    // this is technically browser-specific, but at least for now browsers are
-    // the only target envs that have right/middle clicks.
-
-
-    if (modifiers.right) {
-      if (dynamic) {
-        name = "(" + name + ")==='click'?'contextmenu':(" + name + ")";
-      } else if (name === 'click') {
-        name = 'contextmenu';
-        delete modifiers.right;
-      }
-    } else if (modifiers.middle) {
-      if (dynamic) {
-        name = "(" + name + ")==='click'?'mouseup':(" + name + ")";
-      } else if (name === 'click') {
-        name = 'mouseup';
-      }
-    } // check capture modifier
-
-
-    if (modifiers.capture) {
-      delete modifiers.capture;
-      name = prependModifierMarker('!', name, dynamic);
-    }
-
-    if (modifiers.once) {
-      delete modifiers.once;
-      name = prependModifierMarker('~', name, dynamic);
-    }
-    /* istanbul ignore if */
-
-
-    if (modifiers.passive) {
-      delete modifiers.passive;
-      name = prependModifierMarker('&', name, dynamic);
-    }
-
-    var events;
-
-    if (modifiers.native) {
-      delete modifiers.native;
-      events = el.nativeEvents || (el.nativeEvents = {});
-    } else {
-      events = el.events || (el.events = {});
-    }
-
-    var newHandler = rangeSetItem({
-      value: value.trim(),
-      dynamic: dynamic
-    }, range);
-
-    if (modifiers !== emptyObject) {
-      newHandler.modifiers = modifiers;
-    }
-
-    var handlers = events[name];
-    /* istanbul ignore if */
-
-    if (Array.isArray(handlers)) {
-      important ? handlers.unshift(newHandler) : handlers.push(newHandler);
-    } else if (handlers) {
-      events[name] = important ? [newHandler, handlers] : [handlers, newHandler];
-    } else {
-      events[name] = newHandler;
-    }
-
-    el.plain = false;
-  }
-
-  function getRawBindingAttr(el, name) {
-    var necooData = window.necooPushCallStack(arguments);
-    return el.rawAttrsMap[':' + name] || el.rawAttrsMap['v-bind:' + name] || el.rawAttrsMap[name];
-  }
-
-  function getBindingAttr(el, name, getStatic) {
-    var necooData = window.necooPushCallStack(arguments);
-    var dynamicValue = getAndRemoveAttr(el, ':' + name) || getAndRemoveAttr(el, 'v-bind:' + name);
-
-    if (dynamicValue != null) {
-      return parseFilters(dynamicValue);
-    } else if (getStatic !== false) {
-      var staticValue = getAndRemoveAttr(el, name);
-
-      if (staticValue != null) {
-        return JSON.stringify(staticValue);
-      }
-    }
-  } // note: this only removes the attr from the Array (attrsList) so that it
-  // doesn't get processed by processAttrs.
-  // By default it does NOT remove it from the map (attrsMap) because the map is
-  // needed during codegen.
-
-
-  function getAndRemoveAttr(el, name, removeFromMap) {
-    var necooData = window.necooPushCallStack(arguments);
-    var val;
-
-    if ((val = el.attrsMap[name]) != null) {
-      var list = el.attrsList;
-
-      for (var i = 0, l = list.length; i < l; i++) {
-        if (list[i].name === name) {
-          list.splice(i, 1);
-          break;
-        }
-      }
-    }
-
-    if (removeFromMap) {
-      delete el.attrsMap[name];
-    }
-
-    return val;
-  }
-
-  function getAndRemoveAttrByRegex(el, name) {
-    var necooData = window.necooPushCallStack(arguments);
-    var list = el.attrsList;
-
-    for (var i = 0, l = list.length; i < l; i++) {
-      var attr = list[i];
-
-      if (name.test(attr.name)) {
-        list.splice(i, 1);
-        return attr;
-      }
-    }
-  }
-
-  function rangeSetItem(item, range) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (range) {
-      if (range.start != null) {
-        item.start = range.start;
-      }
-
-      if (range.end != null) {
-        item.end = range.end;
-      }
-    }
-
-    return item;
-  }
-  /*  */
-
-  /**
-   * Cross-platform code generation for component v-model
-   */
-
-
-  function genComponentModel(el, value, modifiers) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ref = modifiers || {};
-    var number = ref.number;
-    var trim = ref.trim;
-    var baseValueExpression = '$$v';
-    var valueExpression = baseValueExpression;
-
-    if (trim) {
-      valueExpression = "(typeof " + baseValueExpression + " === 'string'" + "? " + baseValueExpression + ".trim()" + ": " + baseValueExpression + ")";
-    }
-
-    if (number) {
-      valueExpression = "_n(" + valueExpression + ")";
-    }
-
-    var assignment = genAssignmentCode(value, valueExpression);
-    el.model = {
-      value: "(" + value + ")",
-      expression: JSON.stringify(value),
-      callback: "function _anonymous_122(" + baseValueExpression + ") {" + assignment + "}"
-    };
-  }
-  /**
-   * Cross-platform codegen helper for generating v-model value assignment code.
-   */
-
-
-  function genAssignmentCode(value, assignment) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = parseModel(value);
-
-    if (res.key === null) {
-      return value + "=" + assignment;
-    } else {
-      return "$set(" + res.exp + ", " + res.key + ", " + assignment + ")";
-    }
-  }
-  /**
-   * Parse a v-model expression into a base path and a final key segment.
-   * Handles both dot-path and possible square brackets.
-   *
-   * Possible cases:
-   *
-   * - test
-   * - test[key]
-   * - test[test1[key]]
-   * - test["a"][key]
-   * - xxx.test[a[a].test1[key]]
-   * - test.xxx.a["asa"][test1[key]]
-   *
-   */
-
-
-  var len, str, chr, index$1, expressionPos, expressionEndPos;
-
-  function parseModel(val) {
-    var necooData = window.necooPushCallStack(arguments); // Fix https://github.com/vuejs/vue/pull/7730
-    // allow v-model="obj.val " (trailing whitespace)
-
-    val = val.trim();
-    len = val.length;
-
-    if (val.indexOf('[') < 0 || val.lastIndexOf(']') < len - 1) {
-      index$1 = val.lastIndexOf('.');
-
-      if (index$1 > -1) {
-        return {
-          exp: val.slice(0, index$1),
-          key: '"' + val.slice(index$1 + 1) + '"'
-        };
-      } else {
-        return {
-          exp: val,
-          key: null
-        };
-      }
-    }
-
-    str = val;
-    index$1 = expressionPos = expressionEndPos = 0;
-
-    while (!eof()) {
-      chr = next();
-      /* istanbul ignore if */
-
-      if (isStringStart(chr)) {
-        parseString(chr);
-      } else if (chr === 0x5B) {
-        parseBracket(chr);
-      }
-    }
-
-    return {
-      exp: val.slice(0, expressionPos),
-      key: val.slice(expressionPos + 1, expressionEndPos)
-    };
-  }
-
-  function next() {
-    var necooData = window.necooPushCallStack(arguments);
-    return str.charCodeAt(++index$1);
-  }
-
-  function eof() {
-    var necooData = window.necooPushCallStack(arguments);
-    return index$1 >= len;
-  }
-
-  function isStringStart(chr) {
-    var necooData = window.necooPushCallStack(arguments);
-    return chr === 0x22 || chr === 0x27;
-  }
-
-  function parseBracket(chr) {
-    var necooData = window.necooPushCallStack(arguments);
-    var inBracket = 1;
-    expressionPos = index$1;
-
-    while (!eof()) {
-      chr = next();
-
-      if (isStringStart(chr)) {
-        parseString(chr);
-        continue;
-      }
-
-      if (chr === 0x5B) {
-        inBracket++;
-      }
-
-      if (chr === 0x5D) {
-        inBracket--;
-      }
-
-      if (inBracket === 0) {
-        expressionEndPos = index$1;
-        break;
-      }
-    }
-  }
-
-  function parseString(chr) {
-    var necooData = window.necooPushCallStack(arguments);
-    var stringQuote = chr;
-
-    while (!eof()) {
-      chr = next();
-
-      if (chr === stringQuote) {
-        break;
-      }
-    }
-  }
-  /*  */
-
-
-  var warn$1; // in some cases, the event used has to be determined at runtime
-  // so we used some reserved tokens during compile.
-
-  var RANGE_TOKEN = '__r';
-  var CHECKBOX_RADIO_TOKEN = '__c';
-
-  function model(el, dir, _warn) {
-    var necooData = window.necooPushCallStack(arguments);
-    warn$1 = _warn;
-    var value = dir.value;
-    var modifiers = dir.modifiers;
-    var tag = el.tag;
-    var type = el.attrsMap.type;
-    {
-      // inputs with type="file" are read only and setting the input's
-      // value will throw an error.
-      if (tag === 'input' && type === 'file') {
-        warn$1("<" + el.tag + " v-model=\"" + value + "\" type=\"file\">:\n" + "File inputs are read only. Use a v-on:change listener instead.", el.rawAttrsMap['v-model']);
-      }
-    }
-
-    if (el.component) {
-      genComponentModel(el, value, modifiers); // component v-model doesn't need extra runtime
-
-      return false;
-    } else if (tag === 'select') {
-      genSelect(el, value, modifiers);
-    } else if (tag === 'input' && type === 'checkbox') {
-      genCheckboxModel(el, value, modifiers);
-    } else if (tag === 'input' && type === 'radio') {
-      genRadioModel(el, value, modifiers);
-    } else if (tag === 'input' || tag === 'textarea') {
-      genDefaultModel(el, value, modifiers);
-    } else if (!config.isReservedTag(tag)) {
-      genComponentModel(el, value, modifiers); // component v-model doesn't need extra runtime
-
-      return false;
-    } else {
-      warn$1("<" + el.tag + " v-model=\"" + value + "\">: " + "v-model is not supported on this element type. " + 'If you are working with contenteditable, it\'s recommended to ' + 'wrap a library dedicated for that purpose inside a custom component.', el.rawAttrsMap['v-model']);
-    } // ensure runtime directive metadata
-
-
-    return true;
-  }
-
-  function genCheckboxModel(el, value, modifiers) {
-    var necooData = window.necooPushCallStack(arguments);
-    var number = modifiers && modifiers.number;
-    var valueBinding = getBindingAttr(el, 'value') || 'null';
-    var trueValueBinding = getBindingAttr(el, 'true-value') || 'true';
-    var falseValueBinding = getBindingAttr(el, 'false-value') || 'false';
-    addProp(el, 'checked', "Array.isArray(" + value + ")" + "?_i(" + value + "," + valueBinding + ")>-1" + (trueValueBinding === 'true' ? ":(" + value + ")" : ":_q(" + value + "," + trueValueBinding + ")"));
-    addHandler(el, 'change', "var $$a=" + value + "," + '$$el=$event.target,' + "$$c=$$el.checked?(" + trueValueBinding + "):(" + falseValueBinding + ");" + 'if(Array.isArray($$a)){' + "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," + '$$i=_i($$a,$$v);' + "if($$el.checked){$$i<0&&(" + genAssignmentCode(value, '$$a.concat([$$v])') + ")}" + "else{$$i>-1&&(" + genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))') + ")}" + "}else{" + genAssignmentCode(value, '$$c') + "}", null, true);
-  }
-
-  function genRadioModel(el, value, modifiers) {
-    var necooData = window.necooPushCallStack(arguments);
-    var number = modifiers && modifiers.number;
-    var valueBinding = getBindingAttr(el, 'value') || 'null';
-    valueBinding = number ? "_n(" + valueBinding + ")" : valueBinding;
-    addProp(el, 'checked', "_q(" + value + "," + valueBinding + ")");
-    addHandler(el, 'change', genAssignmentCode(value, valueBinding), null, true);
-  }
-
-  function genSelect(el, value, modifiers) {
-    var necooData = window.necooPushCallStack(arguments);
-    var number = modifiers && modifiers.number;
-    var selectedVal = "Array.prototype.filter" + ".call($event.target.options,function _anonymous_123(o){return o.selected})" + ".map(function _anonymous_124(o){var val = \"_value\" in o ? o._value : o.value;" + "return " + (number ? '_n(val)' : 'val') + "})";
-    var assignment = '$event.target.multiple ? $$selectedVal : $$selectedVal[0]';
-    var code = "var $$selectedVal = " + selectedVal + ";";
-    code = code + " " + genAssignmentCode(value, assignment);
-    addHandler(el, 'change', code, null, true);
-  }
-
-  function genDefaultModel(el, value, modifiers) {
-    var necooData = window.necooPushCallStack(arguments);
-    var type = el.attrsMap.type; // warn if v-bind:value conflicts with v-model
-    // except for inputs with v-bind:type
-
-    {
-      var value$1 = el.attrsMap['v-bind:value'] || el.attrsMap[':value'];
-      var typeBinding = el.attrsMap['v-bind:type'] || el.attrsMap[':type'];
-
-      if (value$1 && !typeBinding) {
-        var binding = el.attrsMap['v-bind:value'] ? 'v-bind:value' : ':value';
-        warn$1(binding + "=\"" + value$1 + "\" conflicts with v-model on the same element " + 'because the latter already expands to a value binding internally', el.rawAttrsMap[binding]);
-      }
-    }
-    var ref = modifiers || {};
-    var lazy = ref.lazy;
-    var number = ref.number;
-    var trim = ref.trim;
-    var needCompositionGuard = !lazy && type !== 'range';
-    var event = lazy ? 'change' : type === 'range' ? RANGE_TOKEN : 'input';
-    var valueExpression = '$event.target.value';
-
-    if (trim) {
-      valueExpression = "$event.target.value.trim()";
-    }
-
-    if (number) {
-      valueExpression = "_n(" + valueExpression + ")";
-    }
-
-    var code = genAssignmentCode(value, valueExpression);
-
-    if (needCompositionGuard) {
-      code = "if($event.target.composing)return;" + code;
-    }
-
-    addProp(el, 'value', "(" + value + ")");
-    addHandler(el, event, code, null, true);
-
-    if (trim || number) {
-      addHandler(el, 'blur', '$forceUpdate()');
-    }
-  }
-  /*  */
-  // normalize v-model event tokens that can only be determined at runtime.
-  // it's important to place the event as the first in the array because
-  // the whole point is ensuring the v-model callback gets called before
-  // user-attached handlers.
-
-
-  function normalizeEvents(on) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (isDef(on[RANGE_TOKEN])) {
-      // IE input[type=range] only supports `change` event
-      var event = isIE ? 'change' : 'input';
-      on[event] = [].concat(on[RANGE_TOKEN], on[event] || []);
-      delete on[RANGE_TOKEN];
-    } // This was originally intended to fix #4521 but no longer necessary
-    // after 2.5. Keeping it for backwards compat with generated code from < 2.4
-
-    /* istanbul ignore if */
-
-
-    if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
-      on.change = [].concat(on[CHECKBOX_RADIO_TOKEN], on.change || []);
-      delete on[CHECKBOX_RADIO_TOKEN];
-    }
-  }
-
-  var target$1;
-
-  function createOnceHandler$1(event, handler, capture) {
-    var necooData = window.necooPushCallStack(arguments);
-    var _target = target$1; // save current target element in closure
-
-    return function onceHandler() {
-      var necooData = window.necooPushCallStack(arguments);
-      var res = handler.apply(null, arguments);
-
-      if (res !== null) {
-        remove$2(event, onceHandler, capture, _target);
-      }
-    };
-  } // #9446: Firefox <= 53 (in particular, ESR 52) has incorrect Event.timeStamp
-  // implementation and does not fire microtasks in between event propagation, so
-  // safe to exclude.
-
-
-  var useMicrotaskFix = isUsingMicroTask && !(isFF && Number(isFF[1]) <= 53);
-
-  function add$1(name, handler, capture, passive) {
-    var necooData = window.necooPushCallStack(arguments); // async edge case #6566: inner click event triggers patch, event handler
-    // attached to outer element during patch, and triggered again. This
-    // happens because browsers fire microtask ticks between event propagation.
-    // the solution is simple: we save the timestamp when a handler is attached,
-    // and the handler would only fire if the event passed to it was fired
-    // AFTER it was attached.
-
-    if (useMicrotaskFix) {
-      var attachedTimestamp = currentFlushTimestamp;
-      var original = handler;
-
-      handler = original._wrapper = function _anonymous_125(e) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if ( // no bubbling, should always fire.
-        // this is just a safety net in case event.timeStamp is unreliable in
-        // certain weird environments...
-        e.target === e.currentTarget || // event is fired after handler attachment
-        e.timeStamp >= attachedTimestamp || // bail for environments that have buggy event.timeStamp implementations
-        // #9462 iOS 9 bug: event.timeStamp is 0 after history.pushState
-        // #9681 QtWebEngine event.timeStamp is negative value
-        e.timeStamp <= 0 || // #9448 bail if event is fired in another document in a multi-page
-        // electron/nw.js app, since event.timeStamp will be using a different
-        // starting reference
-        e.target.ownerDocument !== document) {
-          return original.apply(this, arguments);
-        }
-      };
-    }
-
-    target$1.addEventListener(name, handler, supportsPassive ? {
-      capture: capture,
-      passive: passive
-    } : capture);
-  }
-
-  function remove$2(name, handler, capture, _target) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    (_target || target$1).removeEventListener(name, handler._wrapper || handler, capture);
-  }
-
-  function updateDOMListeners(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
-      return;
-    }
-
-    var on = vnode.data.on || {};
-    var oldOn = oldVnode.data.on || {};
-    target$1 = vnode.elm;
-    normalizeEvents(on);
-    updateListeners(on, oldOn, add$1, remove$2, createOnceHandler$1, vnode.context);
-    target$1 = undefined;
-  }
-
-  var events = {
-    create: updateDOMListeners,
-    update: updateDOMListeners
-  };
-  /*  */
-
-  var svgContainer;
-
-  function updateDOMProps(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(oldVnode.data.domProps) && isUndef(vnode.data.domProps)) {
-      return;
-    }
-
-    var key, cur;
-    var elm = vnode.elm;
-    var oldProps = oldVnode.data.domProps || {};
-    var props = vnode.data.domProps || {}; // clone observed objects, as the user probably wants to mutate it
-
-    if (isDef(props.__ob__)) {
-      props = vnode.data.domProps = extend({}, props);
-    }
-
-    for (key in oldProps) {
-      if (!(key in props)) {
-        elm[key] = '';
-      }
-    }
-
-    for (key in props) {
-      cur = props[key]; // ignore children if the node has textContent or innerHTML,
-      // as these will throw away existing DOM nodes and cause removal errors
-      // on subsequent patches (#3360)
-
-      if (key === 'textContent' || key === 'innerHTML') {
-        if (vnode.children) {
-          vnode.children.length = 0;
-        }
-
-        if (cur === oldProps[key]) {
-          continue;
-        } // #6601 work around Chrome version <= 55 bug where single textNode
-        // replaced by innerHTML/textContent retains its parentNode property
-
-
-        if (elm.childNodes.length === 1) {
-          elm.removeChild(elm.childNodes[0]);
-        }
-      }
-
-      if (key === 'value' && elm.tagName !== 'PROGRESS') {
-        // store value as _value as well since
-        // non-string values will be stringified
-        elm._value = cur; // avoid resetting cursor position when value is the same
-
-        var strCur = isUndef(cur) ? '' : String(cur);
-
-        if (shouldUpdateValue(elm, strCur)) {
-          elm.value = strCur;
-        }
-      } else if (key === 'innerHTML' && isSVG(elm.tagName) && isUndef(elm.innerHTML)) {
-        // IE doesn't support innerHTML for SVG elements
-        svgContainer = svgContainer || document.createElement('div');
-        svgContainer.innerHTML = "<svg>" + cur + "</svg>";
-        var svg = svgContainer.firstChild;
-
-        while (elm.firstChild) {
-          elm.removeChild(elm.firstChild);
-        }
-
-        while (svg.firstChild) {
-          elm.appendChild(svg.firstChild);
-        }
-      } else if ( // skip the update if old and new VDOM state is the same.
-      // `value` is handled separately because the DOM value may be temporarily
-      // out of sync with VDOM state due to focus, composition and modifiers.
-      // This  #4521 by skipping the unnecesarry `checked` update.
-      cur !== oldProps[key]) {
-        // some property updates can throw
-        // e.g. `value` on <progress> w/ non-finite value
-        try {
-          elm[key] = cur;
-        } catch (e) {}
-      }
-    }
-  } // check platforms/web/util/attrs.js acceptValue
-
-
-  function shouldUpdateValue(elm, checkVal) {
-    var necooData = window.necooPushCallStack(arguments);
-    return !elm.composing && (elm.tagName === 'OPTION' || isNotInFocusAndDirty(elm, checkVal) || isDirtyWithModifiers(elm, checkVal));
-  }
-
-  function isNotInFocusAndDirty(elm, checkVal) {
-    var necooData = window.necooPushCallStack(arguments); // return true when textbox (.number and .trim) loses focus and its value is
-    // not equal to the updated value
-
-    var notInFocus = true; // #6157
-    // work around IE bug when accessing document.activeElement in an iframe
-
-    try {
-      notInFocus = document.activeElement !== elm;
-    } catch (e) {}
-
-    return notInFocus && elm.value !== checkVal;
-  }
-
-  function isDirtyWithModifiers(elm, newVal) {
-    var necooData = window.necooPushCallStack(arguments);
-    var value = elm.value;
-    var modifiers = elm._vModifiers; // injected by v-model runtime
-
-    if (isDef(modifiers)) {
-      if (modifiers.number) {
-        return toNumber(value) !== toNumber(newVal);
-      }
-
-      if (modifiers.trim) {
-        return value.trim() !== newVal.trim();
-      }
-    }
-
-    return value !== newVal;
-  }
-
-  var domProps = {
-    create: updateDOMProps,
-    update: updateDOMProps
-  };
-  /*  */
-
-  var parseStyleText = cached(function _anonymous_126(cssText) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = {};
-    var listDelimiter = /;(?![^(]*\))/g;
-    var propertyDelimiter = /:(.+)/;
-    cssText.split(listDelimiter).forEach(function _anonymous_127(item) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (item) {
-        var tmp = item.split(propertyDelimiter);
-        tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim());
-      }
-    });
-    return res;
-  }); // merge static and dynamic style data on the same vnode
-
-  function normalizeStyleData(data) {
-    var necooData = window.necooPushCallStack(arguments);
-    var style = normalizeStyleBinding(data.style); // static style is pre-processed into an object during compilation
-    // and is always a fresh object, so it's safe to merge into it
-
-    return data.staticStyle ? extend(data.staticStyle, style) : style;
-  } // normalize possible array / string values into Object
-
-
-  function normalizeStyleBinding(bindingStyle) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (Array.isArray(bindingStyle)) {
-      return toObject(bindingStyle);
-    }
-
-    if (typeof bindingStyle === 'string') {
-      return parseStyleText(bindingStyle);
-    }
-
-    return bindingStyle;
-  }
-  /**
-   * parent component style should be after child's
-   * so that parent component's style could override it
-   */
-
-
-  function getStyle(vnode, checkChild) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = {};
-    var styleData;
-
-    if (checkChild) {
-      var childNode = vnode;
-
-      while (childNode.componentInstance) {
-        childNode = childNode.componentInstance._vnode;
-
-        if (childNode && childNode.data && (styleData = normalizeStyleData(childNode.data))) {
-          extend(res, styleData);
-        }
-      }
-    }
-
-    if (styleData = normalizeStyleData(vnode.data)) {
-      extend(res, styleData);
-    }
-
-    var parentNode = vnode;
-
-    while (parentNode = parentNode.parent) {
-      if (parentNode.data && (styleData = normalizeStyleData(parentNode.data))) {
-        extend(res, styleData);
-      }
-    }
-
-    return res;
-  }
-  /*  */
-
-
-  var cssVarRE = /^--/;
-  var importantRE = /\s*!important$/;
-
-  var setProp = function _anonymous_128(el, name, val) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (cssVarRE.test(name)) {
-      el.style.setProperty(name, val);
-    } else if (importantRE.test(val)) {
-      el.style.setProperty(hyphenate(name), val.replace(importantRE, ''), 'important');
-    } else {
-      var normalizedName = normalize(name);
-
-      if (Array.isArray(val)) {
-        // Support values array created by autoprefixer, e.g.
-        // {display: ["-webkit-box", "-ms-flexbox", "flex"]}
-        // Set them one by one, and the browser will only set those it can recognize
-        for (var i = 0, len = val.length; i < len; i++) {
-          el.style[normalizedName] = val[i];
-        }
-      } else {
-        el.style[normalizedName] = val;
-      }
-    }
-  };
-
-  var vendorNames = ['Webkit', 'Moz', 'ms'];
-  var emptyStyle;
-  var normalize = cached(function _anonymous_129(prop) {
-    var necooData = window.necooPushCallStack(arguments);
-    emptyStyle = emptyStyle || document.createElement('div').style;
-    prop = camelize(prop);
-
-    if (prop !== 'filter' && prop in emptyStyle) {
-      return prop;
-    }
-
-    var capName = prop.charAt(0).toUpperCase() + prop.slice(1);
-
-    for (var i = 0; i < vendorNames.length; i++) {
-      var name = vendorNames[i] + capName;
-
-      if (name in emptyStyle) {
-        return name;
-      }
-    }
-  });
-
-  function updateStyle(oldVnode, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = vnode.data;
-    var oldData = oldVnode.data;
-
-    if (isUndef(data.staticStyle) && isUndef(data.style) && isUndef(oldData.staticStyle) && isUndef(oldData.style)) {
-      return;
-    }
-
-    var cur, name;
-    var el = vnode.elm;
-    var oldStaticStyle = oldData.staticStyle;
-    var oldStyleBinding = oldData.normalizedStyle || oldData.style || {}; // if static style exists, stylebinding already merged into it when doing normalizeStyleData
-
-    var oldStyle = oldStaticStyle || oldStyleBinding;
-    var style = normalizeStyleBinding(vnode.data.style) || {}; // store normalized style under a different key for next diff
-    // make sure to clone it if it's reactive, since the user likely wants
-    // to mutate it.
-
-    vnode.data.normalizedStyle = isDef(style.__ob__) ? extend({}, style) : style;
-    var newStyle = getStyle(vnode, true);
-
-    for (name in oldStyle) {
-      if (isUndef(newStyle[name])) {
-        setProp(el, name, '');
-      }
-    }
-
-    for (name in newStyle) {
-      cur = newStyle[name];
-
-      if (cur !== oldStyle[name]) {
-        // ie9 setting to null has no effect, must use empty string
-        setProp(el, name, cur == null ? '' : cur);
-      }
-    }
-  }
-
-  var style = {
-    create: updateStyle,
-    update: updateStyle
-  };
-  /*  */
-
-  var whitespaceRE = /\s+/;
-  /**
-   * Add class with compatibility for SVG since classList is not supported on
-   * SVG elements in IE
-   */
-
-  function addClass(el, cls) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (!cls || !(cls = cls.trim())) {
-      return;
-    }
-    /* istanbul ignore else */
-
-
-    if (el.classList) {
-      if (cls.indexOf(' ') > -1) {
-        cls.split(whitespaceRE).forEach(function _anonymous_130(c) {
-          var necooData = window.necooPushCallStack(arguments);
-          return el.classList.add(c);
-        });
-      } else {
-        el.classList.add(cls);
-      }
-    } else {
-      var cur = " " + (el.getAttribute('class') || '') + " ";
-
-      if (cur.indexOf(' ' + cls + ' ') < 0) {
-        el.setAttribute('class', (cur + cls).trim());
-      }
-    }
-  }
-  /**
-   * Remove class with compatibility for SVG since classList is not supported on
-   * SVG elements in IE
-   */
-
-
-  function removeClass(el, cls) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (!cls || !(cls = cls.trim())) {
-      return;
-    }
-    /* istanbul ignore else */
-
-
-    if (el.classList) {
-      if (cls.indexOf(' ') > -1) {
-        cls.split(whitespaceRE).forEach(function _anonymous_131(c) {
-          var necooData = window.necooPushCallStack(arguments);
-          return el.classList.remove(c);
-        });
-      } else {
-        el.classList.remove(cls);
-      }
-
-      if (!el.classList.length) {
-        el.removeAttribute('class');
-      }
-    } else {
-      var cur = " " + (el.getAttribute('class') || '') + " ";
-      var tar = ' ' + cls + ' ';
-
-      while (cur.indexOf(tar) >= 0) {
-        cur = cur.replace(tar, ' ');
-      }
-
-      cur = cur.trim();
-
-      if (cur) {
-        el.setAttribute('class', cur);
-      } else {
-        el.removeAttribute('class');
-      }
-    }
-  }
-  /*  */
-
-
-  function resolveTransition(def$$1) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!def$$1) {
-      return;
-    }
-    /* istanbul ignore else */
-
-
-    if (typeof def$$1 === 'object') {
-      var res = {};
-
-      if (def$$1.css !== false) {
-        extend(res, autoCssTransition(def$$1.name || 'v'));
-      }
-
-      extend(res, def$$1);
-      return res;
-    } else if (typeof def$$1 === 'string') {
-      return autoCssTransition(def$$1);
-    }
-  }
-
-  var autoCssTransition = cached(function _anonymous_132(name) {
-    var necooData = window.necooPushCallStack(arguments);
-    return {
-      enterClass: name + "-enter",
-      enterToClass: name + "-enter-to",
-      enterActiveClass: name + "-enter-active",
-      leaveClass: name + "-leave",
-      leaveToClass: name + "-leave-to",
-      leaveActiveClass: name + "-leave-active"
-    };
-  });
-  var hasTransition = inBrowser && !isIE9;
-  var TRANSITION = 'transition';
-  var ANIMATION = 'animation'; // Transition property/event sniffing
-
-  var transitionProp = 'transition';
-  var transitionEndEvent = 'transitionend';
-  var animationProp = 'animation';
-  var animationEndEvent = 'animationend';
-
-  if (hasTransition) {
-    /* istanbul ignore if */
-    if (window.ontransitionend === undefined && window.onwebkittransitionend !== undefined) {
-      transitionProp = 'WebkitTransition';
-      transitionEndEvent = 'webkitTransitionEnd';
-    }
-
-    if (window.onanimationend === undefined && window.onwebkitanimationend !== undefined) {
-      animationProp = 'WebkitAnimation';
-      animationEndEvent = 'webkitAnimationEnd';
-    }
-  } // binding to window is necessary to make hot reload work in IE in strict mode
-
-
-  var raf = inBrowser ? window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : setTimeout :
-  /* istanbul ignore next */
-  function _anonymous_133(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    return fn();
-  };
-
-  function nextFrame(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-    raf(function _anonymous_134() {
-      var necooData = window.necooPushCallStack(arguments);
-      raf(fn);
-    });
-  }
-
-  function addTransitionClass(el, cls) {
-    var necooData = window.necooPushCallStack(arguments);
-    var transitionClasses = el._transitionClasses || (el._transitionClasses = []);
-
-    if (transitionClasses.indexOf(cls) < 0) {
-      transitionClasses.push(cls);
-      addClass(el, cls);
-    }
-  }
-
-  function removeTransitionClass(el, cls) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el._transitionClasses) {
-      remove(el._transitionClasses, cls);
-    }
-
-    removeClass(el, cls);
-  }
-
-  function whenTransitionEnds(el, expectedType, cb) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ref = getTransitionInfo(el, expectedType);
-    var type = ref.type;
-    var timeout = ref.timeout;
-    var propCount = ref.propCount;
-
-    if (!type) {
-      return cb();
-    }
-
-    var event = type === TRANSITION ? transitionEndEvent : animationEndEvent;
-    var ended = 0;
-
-    var end = function _anonymous_135() {
-      var necooData = window.necooPushCallStack(arguments);
-      el.removeEventListener(event, onEnd);
-      cb();
-    };
-
-    var onEnd = function _anonymous_136(e) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (e.target === el) {
-        if (++ended >= propCount) {
-          end();
-        }
-      }
-    };
-
-    setTimeout(function _anonymous_137() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (ended < propCount) {
-        end();
-      }
-    }, timeout + 1);
-    el.addEventListener(event, onEnd);
-  }
-
-  var transformRE = /\b(transform|all)(,|$)/;
-
-  function getTransitionInfo(el, expectedType) {
-    var necooData = window.necooPushCallStack(arguments);
-    var styles = window.getComputedStyle(el); // JSDOM may return undefined for transition properties
-
-    var transitionDelays = (styles[transitionProp + 'Delay'] || '').split(', ');
-    var transitionDurations = (styles[transitionProp + 'Duration'] || '').split(', ');
-    var transitionTimeout = getTimeout(transitionDelays, transitionDurations);
-    var animationDelays = (styles[animationProp + 'Delay'] || '').split(', ');
-    var animationDurations = (styles[animationProp + 'Duration'] || '').split(', ');
-    var animationTimeout = getTimeout(animationDelays, animationDurations);
-    var type;
-    var timeout = 0;
-    var propCount = 0;
-    /* istanbul ignore if */
-
-    if (expectedType === TRANSITION) {
-      if (transitionTimeout > 0) {
-        type = TRANSITION;
-        timeout = transitionTimeout;
-        propCount = transitionDurations.length;
-      }
-    } else if (expectedType === ANIMATION) {
-      if (animationTimeout > 0) {
-        type = ANIMATION;
-        timeout = animationTimeout;
-        propCount = animationDurations.length;
-      }
-    } else {
-      timeout = Math.max(transitionTimeout, animationTimeout);
-      type = timeout > 0 ? transitionTimeout > animationTimeout ? TRANSITION : ANIMATION : null;
-      propCount = type ? type === TRANSITION ? transitionDurations.length : animationDurations.length : 0;
-    }
-
-    var hasTransform = type === TRANSITION && transformRE.test(styles[transitionProp + 'Property']);
-    return {
-      type: type,
-      timeout: timeout,
-      propCount: propCount,
-      hasTransform: hasTransform
-    };
-  }
-
-  function getTimeout(delays, durations) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore next */
-
-    while (delays.length < durations.length) {
-      delays = delays.concat(delays);
-    }
-
-    return Math.max.apply(null, durations.map(function _anonymous_138(d, i) {
-      var necooData = window.necooPushCallStack(arguments);
-      return toMs(d) + toMs(delays[i]);
-    }));
-  } // Old versions of Chromium (below 61.0.3163.100) formats floating pointer numbers
-  // in a locale-dependent way, using a comma instead of a dot.
-  // If comma is not replaced with a dot, the input will be rounded down (i.e. acting
-  // as a floor function) causing unexpected behaviors
-
-
-  function toMs(s) {
-    var necooData = window.necooPushCallStack(arguments);
-    return Number(s.slice(0, -1).replace(',', '.')) * 1000;
-  }
-  /*  */
-
-
-  function enter(vnode, toggleDisplay) {
-    var necooData = window.necooPushCallStack(arguments);
-    var el = vnode.elm; // call leave callback now
-
-    if (isDef(el._leaveCb)) {
-      el._leaveCb.cancelled = true;
-
-      el._leaveCb();
-    }
-
-    var data = resolveTransition(vnode.data.transition);
-
-    if (isUndef(data)) {
-      return;
-    }
-    /* istanbul ignore if */
-
-
-    if (isDef(el._enterCb) || el.nodeType !== 1) {
-      return;
-    }
-
-    var css = data.css;
-    var type = data.type;
-    var enterClass = data.enterClass;
-    var enterToClass = data.enterToClass;
-    var enterActiveClass = data.enterActiveClass;
-    var appearClass = data.appearClass;
-    var appearToClass = data.appearToClass;
-    var appearActiveClass = data.appearActiveClass;
-    var beforeEnter = data.beforeEnter;
-    var enter = data.enter;
-    var afterEnter = data.afterEnter;
-    var enterCancelled = data.enterCancelled;
-    var beforeAppear = data.beforeAppear;
-    var appear = data.appear;
-    var afterAppear = data.afterAppear;
-    var appearCancelled = data.appearCancelled;
-    var duration = data.duration; // activeInstance will always be the <transition> component managing this
-    // transition. One edge case to check is when the <transition> is placed
-    // as the root node of a child component. In that case we need to check
-    // <transition>'s parent for appear check.
-
-    var context = activeInstance;
-    var transitionNode = activeInstance.$vnode;
-
-    while (transitionNode && transitionNode.parent) {
-      context = transitionNode.context;
-      transitionNode = transitionNode.parent;
-    }
-
-    var isAppear = !context._isMounted || !vnode.isRootInsert;
-
-    if (isAppear && !appear && appear !== '') {
-      return;
-    }
-
-    var startClass = isAppear && appearClass ? appearClass : enterClass;
-    var activeClass = isAppear && appearActiveClass ? appearActiveClass : enterActiveClass;
-    var toClass = isAppear && appearToClass ? appearToClass : enterToClass;
-    var beforeEnterHook = isAppear ? beforeAppear || beforeEnter : beforeEnter;
-    var enterHook = isAppear ? typeof appear === 'function' ? appear : enter : enter;
-    var afterEnterHook = isAppear ? afterAppear || afterEnter : afterEnter;
-    var enterCancelledHook = isAppear ? appearCancelled || enterCancelled : enterCancelled;
-    var explicitEnterDuration = toNumber(isObject(duration) ? duration.enter : duration);
-
-    if (explicitEnterDuration != null) {
-      checkDuration(explicitEnterDuration, 'enter', vnode);
-    }
-
-    var expectsCSS = css !== false && !isIE9;
-    var userWantsControl = getHookArgumentsLength(enterHook);
-    var cb = el._enterCb = once(function _anonymous_139() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (expectsCSS) {
-        removeTransitionClass(el, toClass);
-        removeTransitionClass(el, activeClass);
-      }
-
-      if (cb.cancelled) {
-        if (expectsCSS) {
-          removeTransitionClass(el, startClass);
-        }
-
-        enterCancelledHook && enterCancelledHook(el);
-      } else {
-        afterEnterHook && afterEnterHook(el);
-      }
-
-      el._enterCb = null;
-    });
-
-    if (!vnode.data.show) {
-      // remove pending leave element on enter by injecting an insert hook
-      mergeVNodeHook(vnode, 'insert', function _anonymous_140() {
-        var necooData = window.necooPushCallStack(arguments);
-        var parent = el.parentNode;
-        var pendingNode = parent && parent._pending && parent._pending[vnode.key];
-
-        if (pendingNode && pendingNode.tag === vnode.tag && pendingNode.elm._leaveCb) {
-          pendingNode.elm._leaveCb();
-        }
-
-        enterHook && enterHook(el, cb);
-      });
-    } // start enter transition
-
-
-    beforeEnterHook && beforeEnterHook(el);
-
-    if (expectsCSS) {
-      addTransitionClass(el, startClass);
-      addTransitionClass(el, activeClass);
-      nextFrame(function _anonymous_141() {
-        var necooData = window.necooPushCallStack(arguments);
-        removeTransitionClass(el, startClass);
-
-        if (!cb.cancelled) {
-          addTransitionClass(el, toClass);
-
-          if (!userWantsControl) {
-            if (isValidDuration(explicitEnterDuration)) {
-              setTimeout(cb, explicitEnterDuration);
-            } else {
-              whenTransitionEnds(el, type, cb);
-            }
-          }
-        }
-      });
-    }
-
-    if (vnode.data.show) {
-      toggleDisplay && toggleDisplay();
-      enterHook && enterHook(el, cb);
-    }
-
-    if (!expectsCSS && !userWantsControl) {
-      cb();
-    }
-  }
-
-  function leave(vnode, rm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var el = vnode.elm; // call enter callback now
-
-    if (isDef(el._enterCb)) {
-      el._enterCb.cancelled = true;
-
-      el._enterCb();
-    }
-
-    var data = resolveTransition(vnode.data.transition);
-
-    if (isUndef(data) || el.nodeType !== 1) {
-      return rm();
-    }
-    /* istanbul ignore if */
-
-
-    if (isDef(el._leaveCb)) {
-      return;
-    }
-
-    var css = data.css;
-    var type = data.type;
-    var leaveClass = data.leaveClass;
-    var leaveToClass = data.leaveToClass;
-    var leaveActiveClass = data.leaveActiveClass;
-    var beforeLeave = data.beforeLeave;
-    var leave = data.leave;
-    var afterLeave = data.afterLeave;
-    var leaveCancelled = data.leaveCancelled;
-    var delayLeave = data.delayLeave;
-    var duration = data.duration;
-    var expectsCSS = css !== false && !isIE9;
-    var userWantsControl = getHookArgumentsLength(leave);
-    var explicitLeaveDuration = toNumber(isObject(duration) ? duration.leave : duration);
-
-    if (isDef(explicitLeaveDuration)) {
-      checkDuration(explicitLeaveDuration, 'leave', vnode);
-    }
-
-    var cb = el._leaveCb = once(function _anonymous_142() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (el.parentNode && el.parentNode._pending) {
-        el.parentNode._pending[vnode.key] = null;
-      }
-
-      if (expectsCSS) {
-        removeTransitionClass(el, leaveToClass);
-        removeTransitionClass(el, leaveActiveClass);
-      }
-
-      if (cb.cancelled) {
-        if (expectsCSS) {
-          removeTransitionClass(el, leaveClass);
-        }
-
-        leaveCancelled && leaveCancelled(el);
-      } else {
-        rm();
-        afterLeave && afterLeave(el);
-      }
-
-      el._leaveCb = null;
-    });
-
-    if (delayLeave) {
-      delayLeave(performLeave);
-    } else {
-      performLeave();
-    }
-
-    function performLeave() {
-      var necooData = window.necooPushCallStack(arguments); // the delayed leave may have already been cancelled
-
-      if (cb.cancelled) {
-        return;
-      } // record leaving element
-
-
-      if (!vnode.data.show && el.parentNode) {
-        (el.parentNode._pending || (el.parentNode._pending = {}))[vnode.key] = vnode;
-      }
-
-      beforeLeave && beforeLeave(el);
-
-      if (expectsCSS) {
-        addTransitionClass(el, leaveClass);
-        addTransitionClass(el, leaveActiveClass);
-        nextFrame(function _anonymous_143() {
-          var necooData = window.necooPushCallStack(arguments);
-          removeTransitionClass(el, leaveClass);
-
-          if (!cb.cancelled) {
-            addTransitionClass(el, leaveToClass);
-
-            if (!userWantsControl) {
-              if (isValidDuration(explicitLeaveDuration)) {
-                setTimeout(cb, explicitLeaveDuration);
-              } else {
-                whenTransitionEnds(el, type, cb);
-              }
-            }
-          }
-        });
-      }
-
-      leave && leave(el, cb);
-
-      if (!expectsCSS && !userWantsControl) {
-        cb();
-      }
-    }
-  } // only used in dev mode
-
-
-  function checkDuration(val, name, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (typeof val !== 'number') {
-      warn("<transition> explicit " + name + " duration is not a valid number - " + "got " + JSON.stringify(val) + ".", vnode.context);
-    } else if (isNaN(val)) {
-      warn("<transition> explicit " + name + " duration is NaN - " + 'the duration expression might be incorrect.', vnode.context);
-    }
-  }
-
-  function isValidDuration(val) {
-    var necooData = window.necooPushCallStack(arguments);
-    return typeof val === 'number' && !isNaN(val);
-  }
-  /**
-   * Normalize a transition hook's argument length. The hook may be:
-   * - a merged hook (invoker) with the original in .fns
-   * - a wrapped component method (check ._length)
-   * - a plain function _anonymous_144(.length)
-   */
-
-
-  function getHookArgumentsLength(fn) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (isUndef(fn)) {
-      return false;
-    }
-
-    var invokerFns = fn.fns;
-
-    if (isDef(invokerFns)) {
-      // invoker
-      return getHookArgumentsLength(Array.isArray(invokerFns) ? invokerFns[0] : invokerFns);
-    } else {
-      return (fn._length || fn.length) > 1;
-    }
-  }
-
-  function _enter(_, vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (vnode.data.show !== true) {
-      enter(vnode);
-    }
-  }
-
-  var transition = inBrowser ? {
-    create: _enter,
-    activate: _enter,
-    remove: function remove$$1(vnode, rm) {
-      var necooData = window.necooPushCallStack(arguments);
-      /* istanbul ignore else */
-
-      if (vnode.data.show !== true) {
-        leave(vnode, rm);
-      } else {
-        rm();
-      }
-    }
-  } : {};
-  var platformModules = [attrs, klass, events, domProps, style, transition];
-  /*  */
-  // the directive module should be applied last, after all
-  // built-in modules have been applied.
-
-  var modules = platformModules.concat(baseModules);
-  var patch = createPatchFunction({
-    nodeOps: nodeOps,
-    modules: modules
-  });
-  /**
-   * Not type checking this file because flow doesn't like attaching
-   * properties to Elements.
-   */
-
-  /* istanbul ignore if */
-
-  if (isIE9) {
-    // http://www.matts411.com/post/internet-explorer-9-oninput/
-    document.addEventListener('selectionchange', function _anonymous_145() {
-      var necooData = window.necooPushCallStack(arguments);
-      var el = document.activeElement;
-
-      if (el && el.vmodel) {
-        trigger(el, 'input');
-      }
-    });
-  }
-
-  var directive = {
-    inserted: function inserted(el, binding, vnode, oldVnode) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (vnode.tag === 'select') {
-        // #6903
-        if (oldVnode.elm && !oldVnode.elm._vOptions) {
-          mergeVNodeHook(vnode, 'postpatch', function _anonymous_146() {
-            var necooData = window.necooPushCallStack(arguments);
-            directive.componentUpdated(el, binding, vnode);
-          });
-        } else {
-          setSelected(el, binding, vnode.context);
-        }
-
-        el._vOptions = [].map.call(el.options, getValue);
-      } else if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
-        el._vModifiers = binding.modifiers;
-
-        if (!binding.modifiers.lazy) {
-          el.addEventListener('compositionstart', onCompositionStart);
-          el.addEventListener('compositionend', onCompositionEnd); // Safari < 10.2 & UIWebView doesn't fire compositionend when
-          // switching focus before confirming composition choice
-          // this also fixes the issue where some browsers e.g. iOS Chrome
-          // fires "change" instead of "input" on autocomplete.
-
-          el.addEventListener('change', onCompositionEnd);
-          /* istanbul ignore if */
-
-          if (isIE9) {
-            el.vmodel = true;
-          }
-        }
-      }
-    },
-    componentUpdated: function componentUpdated(el, binding, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (vnode.tag === 'select') {
-        setSelected(el, binding, vnode.context); // in case the options rendered by v-for have changed,
-        // it's possible that the value is out-of-sync with the rendered options.
-        // detect such cases and filter out values that no longer has a matching
-        // option in the DOM.
-
-        var prevOptions = el._vOptions;
-        var curOptions = el._vOptions = [].map.call(el.options, getValue);
-
-        if (curOptions.some(function _anonymous_147(o, i) {
-          var necooData = window.necooPushCallStack(arguments);
-          return !looseEqual(o, prevOptions[i]);
-        })) {
-          // trigger change event if
-          // no matching option found for at least one value
-          var needReset = el.multiple ? binding.value.some(function _anonymous_148(v) {
-            var necooData = window.necooPushCallStack(arguments);
-            return hasNoMatchingOption(v, curOptions);
-          }) : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, curOptions);
-
-          if (needReset) {
-            trigger(el, 'change');
-          }
-        }
-      }
-    }
-  };
-
-  function setSelected(el, binding, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    actuallySetSelected(el, binding, vm);
-    /* istanbul ignore if */
-
-    if (isIE || isEdge) {
-      setTimeout(function _anonymous_149() {
-        var necooData = window.necooPushCallStack(arguments);
-        actuallySetSelected(el, binding, vm);
-      }, 0);
-    }
-  }
-
-  function actuallySetSelected(el, binding, vm) {
-    var necooData = window.necooPushCallStack(arguments);
-    var value = binding.value;
-    var isMultiple = el.multiple;
-
-    if (isMultiple && !Array.isArray(value)) {
-      warn("<select multiple v-model=\"" + binding.expression + "\"> " + "expects an Array value for its binding, but got " + Object.prototype.toString.call(value).slice(8, -1), vm);
-      return;
-    }
-
-    var selected, option;
-
-    for (var i = 0, l = el.options.length; i < l; i++) {
-      option = el.options[i];
-
-      if (isMultiple) {
-        selected = looseIndexOf(value, getValue(option)) > -1;
-
-        if (option.selected !== selected) {
-          option.selected = selected;
-        }
-      } else {
-        if (looseEqual(getValue(option), value)) {
-          if (el.selectedIndex !== i) {
-            el.selectedIndex = i;
-          }
-
-          return;
-        }
-      }
-    }
-
-    if (!isMultiple) {
-      el.selectedIndex = -1;
-    }
-  }
-
-  function hasNoMatchingOption(value, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    return options.every(function _anonymous_150(o) {
-      var necooData = window.necooPushCallStack(arguments);
-      return !looseEqual(o, value);
-    });
-  }
-
-  function getValue(option) {
-    var necooData = window.necooPushCallStack(arguments);
-    return '_value' in option ? option._value : option.value;
-  }
-
-  function onCompositionStart(e) {
-    var necooData = window.necooPushCallStack(arguments);
-    e.target.composing = true;
-  }
-
-  function onCompositionEnd(e) {
-    var necooData = window.necooPushCallStack(arguments); // prevent triggering an input event for no reason
-
-    if (!e.target.composing) {
-      return;
-    }
-
-    e.target.composing = false;
-    trigger(e.target, 'input');
-  }
-
-  function trigger(el, type) {
-    var necooData = window.necooPushCallStack(arguments);
-    var e = document.createEvent('HTMLEvents');
-    e.initEvent(type, true, true);
-    el.dispatchEvent(e);
-  }
-  /*  */
-  // recursively search for possible transition defined inside the component root
-
-
-  function locateNode(vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    return vnode.componentInstance && (!vnode.data || !vnode.data.transition) ? locateNode(vnode.componentInstance._vnode) : vnode;
-  }
-
-  var show = {
-    bind: function bind(el, ref, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var value = ref.value;
-      vnode = locateNode(vnode);
-      var transition$$1 = vnode.data && vnode.data.transition;
-      var originalDisplay = el.__vOriginalDisplay = el.style.display === 'none' ? '' : el.style.display;
-
-      if (value && transition$$1) {
-        vnode.data.show = true;
-        enter(vnode, function _anonymous_151() {
-          var necooData = window.necooPushCallStack(arguments);
-          el.style.display = originalDisplay;
-        });
-      } else {
-        el.style.display = value ? originalDisplay : 'none';
-      }
-    },
-    update: function update(el, ref, vnode) {
-      var necooData = window.necooPushCallStack(arguments);
-      var value = ref.value;
-      var oldValue = ref.oldValue;
-      /* istanbul ignore if */
-
-      if (!value === !oldValue) {
-        return;
-      }
-
-      vnode = locateNode(vnode);
-      var transition$$1 = vnode.data && vnode.data.transition;
-
-      if (transition$$1) {
-        vnode.data.show = true;
-
-        if (value) {
-          enter(vnode, function _anonymous_152() {
-            var necooData = window.necooPushCallStack(arguments);
-            el.style.display = el.__vOriginalDisplay;
-          });
-        } else {
-          leave(vnode, function _anonymous_153() {
-            var necooData = window.necooPushCallStack(arguments);
-            el.style.display = 'none';
-          });
-        }
-      } else {
-        el.style.display = value ? el.__vOriginalDisplay : 'none';
-      }
-    },
-    unbind: function unbind(el, binding, vnode, oldVnode, isDestroy) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (!isDestroy) {
-        el.style.display = el.__vOriginalDisplay;
-      }
-    }
-  };
-  var platformDirectives = {
-    model: directive,
-    show: show
-  };
-  /*  */
-
-  var transitionProps = {
-    name: String,
-    appear: Boolean,
-    css: Boolean,
-    mode: String,
-    type: String,
-    enterClass: String,
-    leaveClass: String,
-    enterToClass: String,
-    leaveToClass: String,
-    enterActiveClass: String,
-    leaveActiveClass: String,
-    appearClass: String,
-    appearActiveClass: String,
-    appearToClass: String,
-    duration: [Number, String, Object]
-  }; // in case the child is also an abstract component, e.g. <keep-alive>
-  // we want to recursively retrieve the real component to be rendered
-
-  function getRealChild(vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var compOptions = vnode && vnode.componentOptions;
-
-    if (compOptions && compOptions.Ctor.options.abstract) {
-      return getRealChild(getFirstComponentChild(compOptions.children));
-    } else {
-      return vnode;
-    }
-  }
-
-  function extractTransitionData(comp) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = {};
-    var options = comp.$options; // props
-
-    for (var key in options.propsData) {
-      data[key] = comp[key];
-    } // events.
-    // extract listeners and pass them directly to the transition methods
-
-
-    var listeners = options._parentListeners;
-
-    for (var key$1 in listeners) {
-      data[camelize(key$1)] = listeners[key$1];
-    }
-
-    return data;
-  }
-
-  function placeholder(h, rawChild) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (/\d-keep-alive$/.test(rawChild.tag)) {
-      return h('keep-alive', {
-        props: rawChild.componentOptions.propsData
-      });
-    }
-  }
-
-  function hasParentTransition(vnode) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    while (vnode = vnode.parent) {
-      if (vnode.data.transition) {
-        return true;
-      }
-    }
-  }
-
-  function isSameChild(child, oldChild) {
-    var necooData = window.necooPushCallStack(arguments);
-    return oldChild.key === child.key && oldChild.tag === child.tag;
-  }
-
-  var isNotTextNode = function _anonymous_154(c) {
-    var necooData = window.necooPushCallStack(arguments);
-    return c.tag || isAsyncPlaceholder(c);
-  };
-
-  var isVShowDirective = function _anonymous_155(d) {
-    var necooData = window.necooPushCallStack(arguments);
-    return d.name === 'show';
-  };
-
-  var Transition = {
-    name: 'transition',
-    props: transitionProps,
-    abstract: true,
-    render: function render(h) {
-      var necooData = window.necooPushCallStack(arguments);
-      var this$1 = this;
-      var children = this.$slots.default;
-
-      if (!children) {
-        return;
-      } // filter out text nodes (possible whitespaces)
-
-
-      children = children.filter(isNotTextNode);
-      /* istanbul ignore if */
-
-      if (!children.length) {
-        return;
-      } // warn multiple elements
-
-
-      if (children.length > 1) {
-        warn('<transition> can only be used on a single element. Use ' + '<transition-group> for lists.', this.$parent);
-      }
-
-      var mode = this.mode; // warn invalid mode
-
-      if (mode && mode !== 'in-out' && mode !== 'out-in') {
-        warn('invalid <transition> mode: ' + mode, this.$parent);
-      }
-
-      var rawChild = children[0]; // if this is a component root node and the component's
-      // parent container node also has transition, skip.
-
-      if (hasParentTransition(this.$vnode)) {
-        return rawChild;
-      } // apply transition data to child
-      // use getRealChild() to ignore abstract components e.g. keep-alive
-
-
-      var child = getRealChild(rawChild);
-      /* istanbul ignore if */
-
-      if (!child) {
-        return rawChild;
-      }
-
-      if (this._leaving) {
-        return placeholder(h, rawChild);
-      } // ensure a key that is unique to the vnode type and to this transition
-      // component instance. This key will be used to remove pending leaving nodes
-      // during entering.
-
-
-      var id = "__transition-" + this._uid + "-";
-      child.key = child.key == null ? child.isComment ? id + 'comment' : id + child.tag : isPrimitive(child.key) ? String(child.key).indexOf(id) === 0 ? child.key : id + child.key : child.key;
-      var data = (child.data || (child.data = {})).transition = extractTransitionData(this);
-      var oldRawChild = this._vnode;
-      var oldChild = getRealChild(oldRawChild); // mark v-show
-      // so that the transition module can hand over the control to the directive
-
-      if (child.data.directives && child.data.directives.some(isVShowDirective)) {
-        child.data.show = true;
-      }
-
-      if (oldChild && oldChild.data && !isSameChild(child, oldChild) && !isAsyncPlaceholder(oldChild) && // #6687 component root is a comment node
-      !(oldChild.componentInstance && oldChild.componentInstance._vnode.isComment)) {
-        // replace old child transition data with fresh one
-        // important for dynamic transitions!
-        var oldData = oldChild.data.transition = extend({}, data); // handle transition mode
-
-        if (mode === 'out-in') {
-          // return placeholder node and queue update when leave finishes
-          this._leaving = true;
-          mergeVNodeHook(oldData, 'afterLeave', function _anonymous_156() {
-            var necooData = window.necooPushCallStack(arguments);
-            this$1._leaving = false;
-            this$1.$forceUpdate();
-          });
-          return placeholder(h, rawChild);
-        } else if (mode === 'in-out') {
-          if (isAsyncPlaceholder(child)) {
-            return oldRawChild;
-          }
-
-          var delayedLeave;
-
-          var performLeave = function _anonymous_157() {
-            var necooData = window.necooPushCallStack(arguments);
-            delayedLeave();
-          };
-
-          mergeVNodeHook(data, 'afterEnter', performLeave);
-          mergeVNodeHook(data, 'enterCancelled', performLeave);
-          mergeVNodeHook(oldData, 'delayLeave', function _anonymous_158(leave) {
-            var necooData = window.necooPushCallStack(arguments);
-            delayedLeave = leave;
-          });
-        }
-      }
-
-      return rawChild;
-    }
-  };
-  /*  */
-
-  var props = extend({
-    tag: String,
-    moveClass: String
-  }, transitionProps);
-  delete props.mode;
-  var TransitionGroup = {
-    props: props,
-    beforeMount: function beforeMount() {
-      var necooData = window.necooPushCallStack(arguments);
-      var this$1 = this;
-      var update = this._update;
-
-      this._update = function _anonymous_159(vnode, hydrating) {
-        var necooData = window.necooPushCallStack(arguments);
-        var restoreActiveInstance = setActiveInstance(this$1); // force removing pass
-
-        this$1.__patch__(this$1._vnode, this$1.kept, false, // hydrating
-        true // removeOnly (!important, avoids unnecessary moves)
-        );
-
-        this$1._vnode = this$1.kept;
-        restoreActiveInstance();
-        update.call(this$1, vnode, hydrating);
-      };
-    },
-    render: function render(h) {
-      var necooData = window.necooPushCallStack(arguments);
-      var tag = this.tag || this.$vnode.data.tag || 'span';
-      var map = Object.create(null);
-      var prevChildren = this.prevChildren = this.children;
-      var rawChildren = this.$slots.default || [];
-      var children = this.children = [];
-      var transitionData = extractTransitionData(this);
-
-      for (var i = 0; i < rawChildren.length; i++) {
-        var c = rawChildren[i];
-
-        if (c.tag) {
-          if (c.key != null && String(c.key).indexOf('__vlist') !== 0) {
-            children.push(c);
-            map[c.key] = c;
-            (c.data || (c.data = {})).transition = transitionData;
-          } else {
-            var opts = c.componentOptions;
-            var name = opts ? opts.Ctor.options.name || opts.tag || '' : c.tag;
-            warn("<transition-group> children must be keyed: <" + name + ">");
-          }
-        }
-      }
-
-      if (prevChildren) {
-        var kept = [];
-        var removed = [];
-
-        for (var i$1 = 0; i$1 < prevChildren.length; i$1++) {
-          var c$1 = prevChildren[i$1];
-          c$1.data.transition = transitionData;
-          c$1.data.pos = c$1.elm.getBoundingClientRect();
-
-          if (map[c$1.key]) {
-            kept.push(c$1);
-          } else {
-            removed.push(c$1);
-          }
-        }
-
-        this.kept = h(tag, null, kept);
-        this.removed = removed;
-      }
-
-      return h(tag, null, children);
-    },
-    updated: function updated() {
-      var necooData = window.necooPushCallStack(arguments);
-      var children = this.prevChildren;
-      var moveClass = this.moveClass || (this.name || 'v') + '-move';
-
-      if (!children.length || !this.hasMove(children[0].elm, moveClass)) {
-        return;
-      } // we divide the work into three loops to avoid mixing DOM reads and writes
-      // in each iteration - which helps prevent layout thrashing.
-
-
-      children.forEach(callPendingCbs);
-      children.forEach(recordPosition);
-      children.forEach(applyTranslation); // force reflow to put everything in position
-      // assign to this to avoid being removed in tree-shaking
-      // $flow-disable-line
-
-      this._reflow = document.body.offsetHeight;
-      children.forEach(function _anonymous_160(c) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (c.data.moved) {
-          var el = c.elm;
-          var s = el.style;
-          addTransitionClass(el, moveClass);
-          s.transform = s.WebkitTransform = s.transitionDuration = '';
-          el.addEventListener(transitionEndEvent, el._moveCb = function cb(e) {
-            var necooData = window.necooPushCallStack(arguments);
-
-            if (e && e.target !== el) {
-              return;
-            }
-
-            if (!e || /transform$/.test(e.propertyName)) {
-              el.removeEventListener(transitionEndEvent, cb);
-              el._moveCb = null;
-              removeTransitionClass(el, moveClass);
-            }
-          });
-        }
-      });
-    },
-    methods: {
-      hasMove: function hasMove(el, moveClass) {
-        var necooData = window.necooPushCallStack(arguments);
-        /* istanbul ignore if */
-
-        if (!hasTransition) {
-          return false;
-        }
-        /* istanbul ignore if */
-
-
-        if (this._hasMove) {
-          return this._hasMove;
-        } // Detect whether an element with the move class applied has
-        // CSS transitions. Since the element may be inside an entering
-        // transition at this very moment, we make a clone of it and remove
-        // all other transition classes applied to ensure only the move class
-        // is applied.
-
-
-        var clone = el.cloneNode();
-
-        if (el._transitionClasses) {
-          el._transitionClasses.forEach(function _anonymous_161(cls) {
-            var necooData = window.necooPushCallStack(arguments);
-            removeClass(clone, cls);
-          });
-        }
-
-        addClass(clone, moveClass);
-        clone.style.display = 'none';
-        this.$el.appendChild(clone);
-        var info = getTransitionInfo(clone);
-        this.$el.removeChild(clone);
-        return this._hasMove = info.hasTransform;
-      }
-    }
-  };
-
-  function callPendingCbs(c) {
-    var necooData = window.necooPushCallStack(arguments);
-    /* istanbul ignore if */
-
-    if (c.elm._moveCb) {
-      c.elm._moveCb();
-    }
-    /* istanbul ignore if */
-
-
-    if (c.elm._enterCb) {
-      c.elm._enterCb();
-    }
-  }
-
-  function recordPosition(c) {
-    var necooData = window.necooPushCallStack(arguments);
-    c.data.newPos = c.elm.getBoundingClientRect();
-  }
-
-  function applyTranslation(c) {
-    var necooData = window.necooPushCallStack(arguments);
-    var oldPos = c.data.pos;
-    var newPos = c.data.newPos;
-    var dx = oldPos.left - newPos.left;
-    var dy = oldPos.top - newPos.top;
-
-    if (dx || dy) {
-      c.data.moved = true;
-      var s = c.elm.style;
-      s.transform = s.WebkitTransform = "translate(" + dx + "px," + dy + "px)";
-      s.transitionDuration = '0s';
-    }
-  }
-
-  var platformComponents = {
-    Transition: Transition,
-    TransitionGroup: TransitionGroup
-  };
-  /*  */
-  // install platform specific utils
-
-  Vue.config.mustUseProp = mustUseProp;
-  Vue.config.isReservedTag = isReservedTag;
-  Vue.config.isReservedAttr = isReservedAttr;
-  Vue.config.getTagNamespace = getTagNamespace;
-  Vue.config.isUnknownElement = isUnknownElement; // install platform runtime directives & components
-
-  extend(Vue.options.directives, platformDirectives);
-  extend(Vue.options.components, platformComponents); // install platform patch function
-
-  Vue.prototype.__patch__ = inBrowser ? patch : noop; // public mount method
-
-  Vue.prototype.$mount = function _anonymous_162(el, hydrating) {
-    var necooData = window.necooPushCallStack(arguments);
-    el = el && inBrowser ? query(el) : undefined;
-    return mountComponent(this, el, hydrating);
-  }; // devtools global hook
-
-  /* istanbul ignore next */
-
-
-  if (inBrowser) {
-    setTimeout(function _anonymous_163() {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (config.devtools) {
-        if (devtools) {
-          devtools.emit('init', Vue);
-        } else {
-          console[console.info ? 'info' : 'log']('Download the Vue Devtools extension for a better development experience:\n' + 'https://github.com/vuejs/vue-devtools');
-        }
-      }
-
-      if (config.productionTip !== false && typeof console !== 'undefined') {
-        console[console.info ? 'info' : 'log']("You are running Vue in development mode.\n" + "Make sure to turn on production mode when deploying for production.\n" + "See more tips at https://vuejs.org/guide/deployment.html");
-      }
-    }, 0);
-  }
-  /*  */
-
-
-  var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
-  var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
-  var buildRegex = cached(function _anonymous_164(delimiters) {
-    var necooData = window.necooPushCallStack(arguments);
-    var open = delimiters[0].replace(regexEscapeRE, '\\$&');
-    var close = delimiters[1].replace(regexEscapeRE, '\\$&');
-    return new RegExp(open + '((?:.|\\n)+?)' + close, 'g');
-  });
-
-  function parseText(text, delimiters) {
-    var necooData = window.necooPushCallStack(arguments);
-    var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
-
-    if (!tagRE.test(text)) {
-      return;
-    }
-
-    var tokens = [];
-    var rawTokens = [];
-    var lastIndex = tagRE.lastIndex = 0;
-    var match, index, tokenValue;
-
-    while (match = tagRE.exec(text)) {
-      index = match.index; // push text token
-
-      if (index > lastIndex) {
-        rawTokens.push(tokenValue = text.slice(lastIndex, index));
-        tokens.push(JSON.stringify(tokenValue));
-      } // tag token
-
-
-      var exp = parseFilters(match[1].trim());
-      tokens.push("_s(" + exp + ")");
-      rawTokens.push({
-        '@binding': exp
-      });
-      lastIndex = index + match[0].length;
-    }
-
-    if (lastIndex < text.length) {
-      rawTokens.push(tokenValue = text.slice(lastIndex));
-      tokens.push(JSON.stringify(tokenValue));
-    }
-
-    return {
-      expression: tokens.join('+'),
-      tokens: rawTokens
-    };
-  }
-  /*  */
-
-
-  function transformNode(el, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var warn = options.warn || baseWarn;
-    var staticClass = getAndRemoveAttr(el, 'class');
-
-    if (staticClass) {
-      var res = parseText(staticClass, options.delimiters);
-
-      if (res) {
-        warn("class=\"" + staticClass + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div class="{{ val }}">, use <div :class="val">.', el.rawAttrsMap['class']);
-      }
-    }
-
-    if (staticClass) {
-      el.staticClass = JSON.stringify(staticClass);
-    }
-
-    var classBinding = getBindingAttr(el, 'class', false
-    /* getStatic */
-    );
-
-    if (classBinding) {
-      el.classBinding = classBinding;
-    }
-  }
-
-  function genData(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = '';
-
-    if (el.staticClass) {
-      data += "staticClass:" + el.staticClass + ",";
-    }
-
-    if (el.classBinding) {
-      data += "class:" + el.classBinding + ",";
-    }
-
-    return data;
-  }
-
-  var klass$1 = {
-    staticKeys: ['staticClass'],
-    transformNode: transformNode,
-    genData: genData
-  };
-  /*  */
-
-  function transformNode$1(el, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var warn = options.warn || baseWarn;
-    var staticStyle = getAndRemoveAttr(el, 'style');
-
-    if (staticStyle) {
-      /* istanbul ignore if */
-      {
-        var res = parseText(staticStyle, options.delimiters);
-
-        if (res) {
-          warn("style=\"" + staticStyle + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div style="{{ val }}">, use <div :style="val">.', el.rawAttrsMap['style']);
-        }
-      }
-      el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
-    }
-
-    var styleBinding = getBindingAttr(el, 'style', false
-    /* getStatic */
-    );
-
-    if (styleBinding) {
-      el.styleBinding = styleBinding;
-    }
-  }
-
-  function genData$1(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = '';
-
-    if (el.staticStyle) {
-      data += "staticStyle:" + el.staticStyle + ",";
-    }
-
-    if (el.styleBinding) {
-      data += "style:(" + el.styleBinding + "),";
-    }
-
-    return data;
-  }
-
-  var style$1 = {
-    staticKeys: ['staticStyle'],
-    transformNode: transformNode$1,
-    genData: genData$1
-  };
-  /*  */
-
-  var decoder;
-  var he = {
-    decode: function decode(html) {
-      var necooData = window.necooPushCallStack(arguments);
-      decoder = decoder || document.createElement('div');
-      decoder.innerHTML = html;
-      return decoder.textContent;
-    }
-  };
-  /*  */
-
-  var isUnaryTag = makeMap('area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' + 'link,meta,param,source,track,wbr'); // Elements that you can, intentionally, leave open
-  // (and which close themselves)
-
-  var canBeLeftOpenTag = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source'); // HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
-  // Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
-
-  var isNonPhrasingTag = makeMap('address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' + 'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' + 'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' + 'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' + 'title,tr,track');
-  /**
-   * Not type-checking this file because it's mostly vendor code.
-   */
-  // Regular Expressions for parsing tags and attributes
-
-  var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-  var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-  var ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z" + unicodeRegExp.source + "]*";
-  var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
-  var startTagOpen = new RegExp("^<" + qnameCapture);
-  var startTagClose = /^\s*(\/?)>/;
-  var endTag = new RegExp("^<\\/" + qnameCapture + "[^>]*>");
-  var doctype = /^<!DOCTYPE [^>]+>/i; // #7298: escape - to avoid being pased as HTML comment when inlined in page
-
-  var comment = /^<!\--/;
-  var conditionalComment = /^<!\[/; // Special Elements (can contain anything)
-
-  var isPlainTextElement = makeMap('script,style,textarea', true);
-  var reCache = {};
-  var decodingMap = {
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&amp;': '&',
-    '&#10;': '\n',
-    '&#9;': '\t',
-    '&#39;': "'"
-  };
-  var encodedAttr = /&(?:lt|gt|quot|amp|#39);/g;
-  var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g; // #5992
-
-  var isIgnoreNewlineTag = makeMap('pre,textarea', true);
-
-  var shouldIgnoreFirstNewline = function _anonymous_165(tag, html) {
-    var necooData = window.necooPushCallStack(arguments);
-    return tag && isIgnoreNewlineTag(tag) && html[0] === '\n';
-  };
-
-  function decodeAttr(value, shouldDecodeNewlines) {
-    var necooData = window.necooPushCallStack(arguments);
-    var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
-    return value.replace(re, function _anonymous_166(match) {
-      var necooData = window.necooPushCallStack(arguments);
-      return decodingMap[match];
-    });
-  }
-
-  function parseHTML(html, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var stack = [];
-    var expectHTML = options.expectHTML;
-    var isUnaryTag$$1 = options.isUnaryTag || no;
-    var canBeLeftOpenTag$$1 = options.canBeLeftOpenTag || no;
-    var index = 0;
-    var last, lastTag;
-
-    while (html) {
-      last = html; // Make sure we're not in a plaintext content element like script/style
-
-      if (!lastTag || !isPlainTextElement(lastTag)) {
-        var textEnd = html.indexOf('<');
-
-        if (textEnd === 0) {
-          // Comment:
-          if (comment.test(html)) {
-            var commentEnd = html.indexOf('-->');
-
-            if (commentEnd >= 0) {
-              if (options.shouldKeepComment) {
-                options.comment(html.substring(4, commentEnd), index, index + commentEnd + 3);
-              }
-
-              advance(commentEnd + 3);
-              continue;
-            }
-          } // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
-
-
-          if (conditionalComment.test(html)) {
-            var conditionalEnd = html.indexOf(']>');
-
-            if (conditionalEnd >= 0) {
-              advance(conditionalEnd + 2);
-              continue;
-            }
-          } // Doctype:
-
-
-          var doctypeMatch = html.match(doctype);
-
-          if (doctypeMatch) {
-            advance(doctypeMatch[0].length);
-            continue;
-          } // End tag:
-
-
-          var endTagMatch = html.match(endTag);
-
-          if (endTagMatch) {
-            var curIndex = index;
-            advance(endTagMatch[0].length);
-            parseEndTag(endTagMatch[1], curIndex, index);
-            continue;
-          } // Start tag:
-
-
-          var startTagMatch = parseStartTag();
-
-          if (startTagMatch) {
-            handleStartTag(startTagMatch);
-
-            if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
-              advance(1);
-            }
-
-            continue;
-          }
-        }
-
-        var text = void 0,
-            rest = void 0,
-            next = void 0;
-
-        if (textEnd >= 0) {
-          rest = html.slice(textEnd);
-
-          while (!endTag.test(rest) && !startTagOpen.test(rest) && !comment.test(rest) && !conditionalComment.test(rest)) {
-            // < in plain text, be forgiving and treat it as text
-            next = rest.indexOf('<', 1);
-
-            if (next < 0) {
-              break;
-            }
-
-            textEnd += next;
-            rest = html.slice(textEnd);
-          }
-
-          text = html.substring(0, textEnd);
-        }
-
-        if (textEnd < 0) {
-          text = html;
-        }
-
-        if (text) {
-          advance(text.length);
-        }
-
-        if (options.chars && text) {
-          options.chars(text, index - text.length, index);
-        }
-      } else {
-        var endTagLength = 0;
-        var stackedTag = lastTag.toLowerCase();
-        var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
-        var rest$1 = html.replace(reStackedTag, function _anonymous_167(all, text, endTag) {
-          var necooData = window.necooPushCallStack(arguments);
-          endTagLength = endTag.length;
-
-          if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
-            text = text.replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
-            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
-          }
-
-          if (shouldIgnoreFirstNewline(stackedTag, text)) {
-            text = text.slice(1);
-          }
-
-          if (options.chars) {
-            options.chars(text);
-          }
-
-          return '';
-        });
-        index += html.length - rest$1.length;
-        html = rest$1;
-        parseEndTag(stackedTag, index - endTagLength, index);
-      }
-
-      if (html === last) {
-        options.chars && options.chars(html);
-
-        if (!stack.length && options.warn) {
-          options.warn("Mal-formatted tag at end of template: \"" + html + "\"", {
-            start: index + html.length
-          });
-        }
-
-        break;
-      }
-    } // Clean up any remaining tags
-
-
-    parseEndTag();
-
-    function advance(n) {
-      var necooData = window.necooPushCallStack(arguments);
-      index += n;
-      html = html.substring(n);
-    }
-
-    function parseStartTag() {
-      var necooData = window.necooPushCallStack(arguments);
-      var start = html.match(startTagOpen);
-
-      if (start) {
-        var match = {
-          tagName: start[1],
-          attrs: [],
-          start: index
-        };
-        advance(start[0].length);
-        var end, attr;
-
-        while (!(end = html.match(startTagClose)) && (attr = html.match(dynamicArgAttribute) || html.match(attribute))) {
-          attr.start = index;
-          advance(attr[0].length);
-          attr.end = index;
-          match.attrs.push(attr);
-        }
-
-        if (end) {
-          match.unarySlash = end[1];
-          advance(end[0].length);
-          match.end = index;
-          return match;
-        }
-      }
-    }
-
-    function handleStartTag(match) {
-      var necooData = window.necooPushCallStack(arguments);
-      var tagName = match.tagName;
-      var unarySlash = match.unarySlash;
-
-      if (expectHTML) {
-        if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
-          parseEndTag(lastTag);
-        }
-
-        if (canBeLeftOpenTag$$1(tagName) && lastTag === tagName) {
-          parseEndTag(tagName);
-        }
-      }
-
-      var unary = isUnaryTag$$1(tagName) || !!unarySlash;
-      var l = match.attrs.length;
-      var attrs = new Array(l);
-
-      for (var i = 0; i < l; i++) {
-        var args = match.attrs[i];
-        var value = args[3] || args[4] || args[5] || '';
-        var shouldDecodeNewlines = tagName === 'a' && args[1] === 'href' ? options.shouldDecodeNewlinesForHref : options.shouldDecodeNewlines;
-        attrs[i] = {
-          name: args[1],
-          value: decodeAttr(value, shouldDecodeNewlines)
-        };
-
-        if (options.outputSourceRange) {
-          attrs[i].start = args.start + args[0].match(/^\s*/).length;
-          attrs[i].end = args.end;
-        }
-      }
-
-      if (!unary) {
-        stack.push({
-          tag: tagName,
-          lowerCasedTag: tagName.toLowerCase(),
-          attrs: attrs,
-          start: match.start,
-          end: match.end
-        });
-        lastTag = tagName;
-      }
-
-      if (options.start) {
-        options.start(tagName, attrs, unary, match.start, match.end);
-      }
-    }
-
-    function parseEndTag(tagName, start, end) {
-      var necooData = window.necooPushCallStack(arguments);
-      var pos, lowerCasedTagName;
-
-      if (start == null) {
-        start = index;
-      }
-
-      if (end == null) {
-        end = index;
-      } // Find the closest opened tag of the same type
-
-
-      if (tagName) {
-        lowerCasedTagName = tagName.toLowerCase();
-
-        for (pos = stack.length - 1; pos >= 0; pos--) {
-          if (stack[pos].lowerCasedTag === lowerCasedTagName) {
-            break;
-          }
-        }
-      } else {
-        // If no tag name is provided, clean shop
-        pos = 0;
-      }
-
-      if (pos >= 0) {
-        // Close all the open elements, up the stack
-        for (var i = stack.length - 1; i >= pos; i--) {
-          if (i > pos || !tagName && options.warn) {
-            options.warn("tag <" + stack[i].tag + "> has no matching end tag.", {
-              start: stack[i].start,
-              end: stack[i].end
-            });
-          }
-
-          if (options.end) {
-            options.end(stack[i].tag, start, end);
-          }
-        } // Remove the open elements from the stack
-
-
-        stack.length = pos;
-        lastTag = pos && stack[pos - 1].tag;
-      } else if (lowerCasedTagName === 'br') {
-        if (options.start) {
-          options.start(tagName, [], true, start, end);
-        }
-      } else if (lowerCasedTagName === 'p') {
-        if (options.start) {
-          options.start(tagName, [], false, start, end);
-        }
-
-        if (options.end) {
-          options.end(tagName, start, end);
-        }
-      }
-    }
-  }
-  /*  */
-
-
-  var onRE = /^@|^v-on:/;
-  var dirRE = /^v-|^@|^:/;
-  var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
-  var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
-  var stripParensRE = /^\(|\)$/g;
-  var dynamicArgRE = /^\[.*\]$/;
-  var argRE = /:(.*)$/;
-  var bindRE = /^:|^\.|^v-bind:/;
-  var modifierRE = /\.[^.\]]+(?=[^\]]*$)/g;
-  var slotRE = /^v-slot(:|$)|^#/;
-  var lineBreakRE = /[\r\n]/;
-  var whitespaceRE$1 = /\s+/g;
-  var invalidAttributeRE = /[\s"'<>\/=]/;
-  var decodeHTMLCached = cached(he.decode);
-  var emptySlotScopeToken = "_empty_"; // configurable state
-
-  var warn$2;
-  var delimiters;
-  var transforms;
-  var preTransforms;
-  var postTransforms;
-  var platformIsPreTag;
-  var platformMustUseProp;
-  var platformGetTagNamespace;
-  var maybeComponent;
-
-  function createASTElement(tag, attrs, parent) {
-    var necooData = window.necooPushCallStack(arguments);
-    return {
-      type: 1,
-      tag: tag,
-      attrsList: attrs,
-      attrsMap: makeAttrsMap(attrs),
-      rawAttrsMap: {},
-      parent: parent,
-      children: []
-    };
-  }
-  /**
-   * Convert HTML string to AST.
-   */
-
-
-  function parse(template, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    warn$2 = options.warn || baseWarn;
-    platformIsPreTag = options.isPreTag || no;
-    platformMustUseProp = options.mustUseProp || no;
-    platformGetTagNamespace = options.getTagNamespace || no;
-    var isReservedTag = options.isReservedTag || no;
-
-    maybeComponent = function _anonymous_168(el) {
-      var necooData = window.necooPushCallStack(arguments);
-      return !!el.component || !isReservedTag(el.tag);
-    };
-
-    transforms = pluckModuleFunction(options.modules, 'transformNode');
-    preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
-    postTransforms = pluckModuleFunction(options.modules, 'postTransformNode');
-    delimiters = options.delimiters;
-    var stack = [];
-    var preserveWhitespace = options.preserveWhitespace !== false;
-    var whitespaceOption = options.whitespace;
-    var root;
-    var currentParent;
-    var inVPre = false;
-    var inPre = false;
-    var warned = false;
-
-    function warnOnce(msg, range) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (!warned) {
-        warned = true;
-        warn$2(msg, range);
-      }
-    }
-
-    function closeElement(element) {
-      var necooData = window.necooPushCallStack(arguments);
-      trimEndingWhitespace(element);
-
-      if (!inVPre && !element.processed) {
-        element = processElement(element, options);
-      } // tree management
-
-
-      if (!stack.length && element !== root) {
-        // allow root elements with v-if, v-else-if and v-else
-        if (root.if && (element.elseif || element.else)) {
-          {
-            checkRootConstraints(element);
-          }
-          addIfCondition(root, {
-            exp: element.elseif,
-            block: element
-          });
-        } else {
-          warnOnce("Component template should contain exactly one root element. " + "If you are using v-if on multiple elements, " + "use v-else-if to chain them instead.", {
-            start: element.start
-          });
-        }
-      }
-
-      if (currentParent && !element.forbidden) {
-        if (element.elseif || element.else) {
-          processIfConditions(element, currentParent);
-        } else {
-          if (element.slotScope) {
-            // scoped slot
-            // keep it in the children list so that v-else(-if) conditions can
-            // find it as the prev node.
-            var name = element.slotTarget || '"default"';
-            (currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
-          }
-
-          currentParent.children.push(element);
-          element.parent = currentParent;
-        }
-      } // final children cleanup
-      // filter out scoped slots
-
-
-      element.children = element.children.filter(function _anonymous_169(c) {
-        var necooData = window.necooPushCallStack(arguments);
-        return !c.slotScope;
-      }); // remove trailing whitespace node again
-
-      trimEndingWhitespace(element); // check pre state
-
-      if (element.pre) {
-        inVPre = false;
-      }
-
-      if (platformIsPreTag(element.tag)) {
-        inPre = false;
-      } // apply post-transforms
-
-
-      for (var i = 0; i < postTransforms.length; i++) {
-        postTransforms[i](element, options);
-      }
-    }
-
-    function trimEndingWhitespace(el) {
-      var necooData = window.necooPushCallStack(arguments); // remove trailing whitespace node
-
-      if (!inPre) {
-        var lastNode;
-
-        while ((lastNode = el.children[el.children.length - 1]) && lastNode.type === 3 && lastNode.text === ' ') {
-          el.children.pop();
-        }
-      }
-    }
-
-    function checkRootConstraints(el) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      if (el.tag === 'slot' || el.tag === 'template') {
-        warnOnce("Cannot use <" + el.tag + "> as component root element because it may " + 'contain multiple nodes.', {
-          start: el.start
-        });
-      }
-
-      if (el.attrsMap.hasOwnProperty('v-for')) {
-        warnOnce('Cannot use v-for on stateful component root element because ' + 'it renders multiple elements.', el.rawAttrsMap['v-for']);
-      }
-    }
-
-    parseHTML(template, {
-      warn: warn$2,
-      expectHTML: options.expectHTML,
-      isUnaryTag: options.isUnaryTag,
-      canBeLeftOpenTag: options.canBeLeftOpenTag,
-      shouldDecodeNewlines: options.shouldDecodeNewlines,
-      shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
-      shouldKeepComment: options.comments,
-      outputSourceRange: options.outputSourceRange,
-      start: function start(tag, attrs, unary, start$1, end) {
-        var necooData = window.necooPushCallStack(arguments); // check namespace.
-        // inherit parent ns if there is one
-
-        var ns = currentParent && currentParent.ns || platformGetTagNamespace(tag); // handle IE svg bug
-
-        /* istanbul ignore if */
-
-        if (isIE && ns === 'svg') {
-          attrs = guardIESVGBug(attrs);
-        }
-
-        var element = createASTElement(tag, attrs, currentParent);
-
-        if (ns) {
-          element.ns = ns;
-        }
-
-        {
-          if (options.outputSourceRange) {
-            element.start = start$1;
-            element.end = end;
-            element.rawAttrsMap = element.attrsList.reduce(function _anonymous_170(cumulated, attr) {
-              var necooData = window.necooPushCallStack(arguments);
-              cumulated[attr.name] = attr;
-              return cumulated;
-            }, {});
-          }
-
-          attrs.forEach(function _anonymous_171(attr) {
-            var necooData = window.necooPushCallStack(arguments);
-
-            if (invalidAttributeRE.test(attr.name)) {
-              warn$2("Invalid dynamic argument expression: attribute names cannot contain " + "spaces, quotes, <, >, / or =.", {
-                start: attr.start + attr.name.indexOf("["),
-                end: attr.start + attr.name.length
-              });
-            }
-          });
-        }
-
-        if (isForbiddenTag(element) && !isServerRendering()) {
-          element.forbidden = true;
-          warn$2('Templates should only be responsible for mapping the state to the ' + 'UI. Avoid placing tags with side-effects in your templates, such as ' + "<" + tag + ">" + ', as they will not be parsed.', {
-            start: element.start
-          });
-        } // apply pre-transforms
-
-
-        for (var i = 0; i < preTransforms.length; i++) {
-          element = preTransforms[i](element, options) || element;
-        }
-
-        if (!inVPre) {
-          processPre(element);
-
-          if (element.pre) {
-            inVPre = true;
-          }
-        }
-
-        if (platformIsPreTag(element.tag)) {
-          inPre = true;
-        }
-
-        if (inVPre) {
-          processRawAttrs(element);
-        } else if (!element.processed) {
-          // structural directives
-          processFor(element);
-          processIf(element);
-          processOnce(element);
-        }
-
-        if (!root) {
-          root = element;
-          {
-            checkRootConstraints(root);
-          }
-        }
-
-        if (!unary) {
-          currentParent = element;
-          stack.push(element);
-        } else {
-          closeElement(element);
-        }
-      },
-      end: function end(tag, start, end$1) {
-        var necooData = window.necooPushCallStack(arguments);
-        var element = stack[stack.length - 1]; // pop stack
-
-        stack.length -= 1;
-        currentParent = stack[stack.length - 1];
-
-        if (options.outputSourceRange) {
-          element.end = end$1;
-        }
-
-        closeElement(element);
-      },
-      chars: function chars(text, start, end) {
-        var necooData = window.necooPushCallStack(arguments);
-
-        if (!currentParent) {
-          {
-            if (text === template) {
-              warnOnce('Component template requires a root element, rather than just text.', {
-                start: start
-              });
-            } else if (text = text.trim()) {
-              warnOnce("text \"" + text + "\" outside root element will be ignored.", {
-                start: start
-              });
-            }
-          }
-          return;
-        } // IE textarea placeholder bug
-
-        /* istanbul ignore if */
-
-
-        if (isIE && currentParent.tag === 'textarea' && currentParent.attrsMap.placeholder === text) {
-          return;
-        }
-
-        var children = currentParent.children;
-
-        if (inPre || text.trim()) {
-          text = isTextTag(currentParent) ? text : decodeHTMLCached(text);
-        } else if (!children.length) {
-          // remove the whitespace-only node right after an opening tag
-          text = '';
-        } else if (whitespaceOption) {
-          if (whitespaceOption === 'condense') {
-            // in condense mode, remove the whitespace node if it contains
-            // line break, otherwise condense to a single space
-            text = lineBreakRE.test(text) ? '' : ' ';
-          } else {
-            text = ' ';
-          }
-        } else {
-          text = preserveWhitespace ? ' ' : '';
-        }
-
-        if (text) {
-          if (!inPre && whitespaceOption === 'condense') {
-            // condense consecutive whitespaces into single space
-            text = text.replace(whitespaceRE$1, ' ');
-          }
-
-          var res;
-          var child;
-
-          if (!inVPre && text !== ' ' && (res = parseText(text, delimiters))) {
-            child = {
-              type: 2,
-              expression: res.expression,
-              tokens: res.tokens,
-              text: text
-            };
-          } else if (text !== ' ' || !children.length || children[children.length - 1].text !== ' ') {
-            child = {
-              type: 3,
-              text: text
-            };
-          }
-
-          if (child) {
-            if (options.outputSourceRange) {
-              child.start = start;
-              child.end = end;
-            }
-
-            children.push(child);
-          }
-        }
-      },
-      comment: function comment(text, start, end) {
-        var necooData = window.necooPushCallStack(arguments); // adding anyting as a sibling to the root node is forbidden
-        // comments should still be allowed, but ignored
-
-        if (currentParent) {
-          var child = {
-            type: 3,
-            text: text,
-            isComment: true
-          };
-
-          if (options.outputSourceRange) {
-            child.start = start;
-            child.end = end;
-          }
-
-          currentParent.children.push(child);
-        }
-      }
-    });
-    return root;
-  }
-
-  function processPre(el) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (getAndRemoveAttr(el, 'v-pre') != null) {
-      el.pre = true;
-    }
-  }
-
-  function processRawAttrs(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var list = el.attrsList;
-    var len = list.length;
-
-    if (len) {
-      var attrs = el.attrs = new Array(len);
-
-      for (var i = 0; i < len; i++) {
-        attrs[i] = {
-          name: list[i].name,
-          value: JSON.stringify(list[i].value)
-        };
-
-        if (list[i].start != null) {
-          attrs[i].start = list[i].start;
-          attrs[i].end = list[i].end;
-        }
-      }
-    } else if (!el.pre) {
-      // non root node in pre blocks with no attributes
-      el.plain = true;
-    }
-  }
-
-  function processElement(element, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    processKey(element); // determine whether this is a plain element after
-    // removing structural attributes
-
-    element.plain = !element.key && !element.scopedSlots && !element.attrsList.length;
-    processRef(element);
-    processSlotContent(element);
-    processSlotOutlet(element);
-    processComponent(element);
-
-    for (var i = 0; i < transforms.length; i++) {
-      element = transforms[i](element, options) || element;
-    }
-
-    processAttrs(element);
-    return element;
-  }
-
-  function processKey(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var exp = getBindingAttr(el, 'key');
-
-    if (exp) {
-      {
-        if (el.tag === 'template') {
-          warn$2("<template> cannot be keyed. Place the key on real elements instead.", getRawBindingAttr(el, 'key'));
-        }
-
-        if (el.for) {
-          var iterator = el.iterator2 || el.iterator1;
-          var parent = el.parent;
-
-          if (iterator && iterator === exp && parent && parent.tag === 'transition-group') {
-            warn$2("Do not use v-for index as key on <transition-group> children, " + "this is the same as not using keys.", getRawBindingAttr(el, 'key'), true
-            /* tip */
-            );
-          }
-        }
-      }
-      el.key = exp;
-    }
-  }
-
-  function processRef(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ref = getBindingAttr(el, 'ref');
-
-    if (ref) {
-      el.ref = ref;
-      el.refInFor = checkInFor(el);
-    }
-  }
-
-  function processFor(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var exp;
-
-    if (exp = getAndRemoveAttr(el, 'v-for')) {
-      var res = parseFor(exp);
-
-      if (res) {
-        extend(el, res);
-      } else {
-        warn$2("Invalid v-for expression: " + exp, el.rawAttrsMap['v-for']);
-      }
-    }
-  }
-
-  function parseFor(exp) {
-    var necooData = window.necooPushCallStack(arguments);
-    var inMatch = exp.match(forAliasRE);
-
-    if (!inMatch) {
-      return;
-    }
-
-    var res = {};
-    res.for = inMatch[2].trim();
-    var alias = inMatch[1].trim().replace(stripParensRE, '');
-    var iteratorMatch = alias.match(forIteratorRE);
-
-    if (iteratorMatch) {
-      res.alias = alias.replace(forIteratorRE, '').trim();
-      res.iterator1 = iteratorMatch[1].trim();
-
-      if (iteratorMatch[2]) {
-        res.iterator2 = iteratorMatch[2].trim();
-      }
-    } else {
-      res.alias = alias;
-    }
-
-    return res;
-  }
-
-  function processIf(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var exp = getAndRemoveAttr(el, 'v-if');
-
-    if (exp) {
-      el.if = exp;
-      addIfCondition(el, {
-        exp: exp,
-        block: el
-      });
-    } else {
-      if (getAndRemoveAttr(el, 'v-else') != null) {
-        el.else = true;
-      }
-
-      var elseif = getAndRemoveAttr(el, 'v-else-if');
-
-      if (elseif) {
-        el.elseif = elseif;
-      }
-    }
-  }
-
-  function processIfConditions(el, parent) {
-    var necooData = window.necooPushCallStack(arguments);
-    var prev = findPrevElement(parent.children);
-
-    if (prev && prev.if) {
-      addIfCondition(prev, {
-        exp: el.elseif,
-        block: el
-      });
-    } else {
-      warn$2("v-" + (el.elseif ? 'else-if="' + el.elseif + '"' : 'else') + " " + "used on element <" + el.tag + "> without corresponding v-if.", el.rawAttrsMap[el.elseif ? 'v-else-if' : 'v-else']);
-    }
-  }
-
-  function findPrevElement(children) {
-    var necooData = window.necooPushCallStack(arguments);
-    var i = children.length;
-
-    while (i--) {
-      if (children[i].type === 1) {
-        return children[i];
-      } else {
-        if (children[i].text !== ' ') {
-          warn$2("text \"" + children[i].text.trim() + "\" between v-if and v-else(-if) " + "will be ignored.", children[i]);
-        }
-
-        children.pop();
-      }
-    }
-  }
-
-  function addIfCondition(el, condition) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!el.ifConditions) {
-      el.ifConditions = [];
-    }
-
-    el.ifConditions.push(condition);
-  }
-
-  function processOnce(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var once$$1 = getAndRemoveAttr(el, 'v-once');
-
-    if (once$$1 != null) {
-      el.once = true;
-    }
-  } // handle content being passed to a component as slot,
-  // e.g. <template slot="xxx">, <div slot-scope="xxx">
-
-
-  function processSlotContent(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var slotScope;
-
-    if (el.tag === 'template') {
-      slotScope = getAndRemoveAttr(el, 'scope');
-      /* istanbul ignore if */
-
-      if (slotScope) {
-        warn$2("the \"scope\" attribute for scoped slots have been deprecated and " + "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " + "can also be used on plain elements in addition to <template> to " + "denote scoped slots.", el.rawAttrsMap['scope'], true);
-      }
-
-      el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope');
-    } else if (slotScope = getAndRemoveAttr(el, 'slot-scope')) {
-      /* istanbul ignore if */
-      if (el.attrsMap['v-for']) {
-        warn$2("Ambiguous combined usage of slot-scope and v-for on <" + el.tag + "> " + "(v-for takes higher priority). Use a wrapper <template> for the " + "scoped slot to make it clearer.", el.rawAttrsMap['slot-scope'], true);
-      }
-
-      el.slotScope = slotScope;
-    } // slot="xxx"
-
-
-    var slotTarget = getBindingAttr(el, 'slot');
-
-    if (slotTarget) {
-      el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget;
-      el.slotTargetDynamic = !!(el.attrsMap[':slot'] || el.attrsMap['v-bind:slot']); // preserve slot as an attribute for native shadow DOM compat
-      // only for non-scoped slots.
-
-      if (el.tag !== 'template' && !el.slotScope) {
-        addAttr(el, 'slot', slotTarget, getRawBindingAttr(el, 'slot'));
-      }
-    } // 2.6 v-slot syntax
-
-
-    {
-      if (el.tag === 'template') {
-        // v-slot on <template>
-        var slotBinding = getAndRemoveAttrByRegex(el, slotRE);
-
-        if (slotBinding) {
-          {
-            if (el.slotTarget || el.slotScope) {
-              warn$2("Unexpected mixed usage of different slot syntaxes.", el);
-            }
-
-            if (el.parent && !maybeComponent(el.parent)) {
-              warn$2("<template v-slot> can only appear at the root level inside " + "the receiving the component", el);
-            }
-          }
-          var ref = getSlotName(slotBinding);
-          var name = ref.name;
-          var dynamic = ref.dynamic;
-          el.slotTarget = name;
-          el.slotTargetDynamic = dynamic;
-          el.slotScope = slotBinding.value || emptySlotScopeToken; // force it into a scoped slot for perf
-        }
-      } else {
-        // v-slot on component, denotes default slot
-        var slotBinding$1 = getAndRemoveAttrByRegex(el, slotRE);
-
-        if (slotBinding$1) {
-          {
-            if (!maybeComponent(el)) {
-              warn$2("v-slot can only be used on components or <template>.", slotBinding$1);
-            }
-
-            if (el.slotScope || el.slotTarget) {
-              warn$2("Unexpected mixed usage of different slot syntaxes.", el);
-            }
-
-            if (el.scopedSlots) {
-              warn$2("To avoid scope ambiguity, the default slot should also use " + "<template> syntax when there are other named slots.", slotBinding$1);
-            }
-          } // add the component's children to its default slot
-
-          var slots = el.scopedSlots || (el.scopedSlots = {});
-          var ref$1 = getSlotName(slotBinding$1);
-          var name$1 = ref$1.name;
-          var dynamic$1 = ref$1.dynamic;
-          var slotContainer = slots[name$1] = createASTElement('template', [], el);
-          slotContainer.slotTarget = name$1;
-          slotContainer.slotTargetDynamic = dynamic$1;
-          slotContainer.children = el.children.filter(function _anonymous_172(c) {
-            var necooData = window.necooPushCallStack(arguments);
-
-            if (!c.slotScope) {
-              c.parent = slotContainer;
-              return true;
-            }
-          });
-          slotContainer.slotScope = slotBinding$1.value || emptySlotScopeToken; // remove children as they are returned from scopedSlots now
-
-          el.children = []; // mark el non-plain so data gets generated
-
-          el.plain = false;
-        }
-      }
-    }
-  }
-
-  function getSlotName(binding) {
-    var necooData = window.necooPushCallStack(arguments);
-    var name = binding.name.replace(slotRE, '');
-
-    if (!name) {
-      if (binding.name[0] !== '#') {
-        name = 'default';
-      } else {
-        warn$2("v-slot shorthand syntax requires a slot name.", binding);
-      }
-    }
-
-    return dynamicArgRE.test(name) // dynamic [name]
-    ? {
-      name: name.slice(1, -1),
-      dynamic: true // static name
-
-    } : {
-      name: "\"" + name + "\"",
-      dynamic: false
-    };
-  } // handle <slot/> outlets
-
-
-  function processSlotOutlet(el) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.tag === 'slot') {
-      el.slotName = getBindingAttr(el, 'name');
-
-      if (el.key) {
-        warn$2("`key` does not work on <slot> because slots are abstract outlets " + "and can possibly expand into multiple elements. " + "Use the key on a wrapping element instead.", getRawBindingAttr(el, 'key'));
-      }
-    }
-  }
-
-  function processComponent(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var binding;
-
-    if (binding = getBindingAttr(el, 'is')) {
-      el.component = binding;
-    }
-
-    if (getAndRemoveAttr(el, 'inline-template') != null) {
-      el.inlineTemplate = true;
-    }
-  }
-
-  function processAttrs(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var list = el.attrsList;
-    var i, l, name, rawName, value, modifiers, syncGen, isDynamic;
-
-    for (i = 0, l = list.length; i < l; i++) {
-      name = rawName = list[i].name;
-      value = list[i].value;
-
-      if (dirRE.test(name)) {
-        // mark element as dynamic
-        el.hasBindings = true; // modifiers
-
-        modifiers = parseModifiers(name.replace(dirRE, '')); // support .foo shorthand syntax for the .prop modifier
-
-        if (modifiers) {
-          name = name.replace(modifierRE, '');
-        }
-
-        if (bindRE.test(name)) {
-          // v-bind
-          name = name.replace(bindRE, '');
-          value = parseFilters(value);
-          isDynamic = dynamicArgRE.test(name);
-
-          if (isDynamic) {
-            name = name.slice(1, -1);
-          }
-
-          if (value.trim().length === 0) {
-            warn$2("The value for a v-bind expression cannot be empty. Found in \"v-bind:" + name + "\"");
-          }
-
-          if (modifiers) {
-            if (modifiers.prop && !isDynamic) {
-              name = camelize(name);
-
-              if (name === 'innerHtml') {
-                name = 'innerHTML';
-              }
-            }
-
-            if (modifiers.camel && !isDynamic) {
-              name = camelize(name);
-            }
-
-            if (modifiers.sync) {
-              syncGen = genAssignmentCode(value, "$event");
-
-              if (!isDynamic) {
-                addHandler(el, "update:" + camelize(name), syncGen, null, false, warn$2, list[i]);
-
-                if (hyphenate(name) !== camelize(name)) {
-                  addHandler(el, "update:" + hyphenate(name), syncGen, null, false, warn$2, list[i]);
-                }
-              } else {
-                // handler w/ dynamic event name
-                addHandler(el, "\"update:\"+(" + name + ")", syncGen, null, false, warn$2, list[i], true // dynamic
-                );
-              }
-            }
-          }
-
-          if (modifiers && modifiers.prop || !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)) {
-            addProp(el, name, value, list[i], isDynamic);
-          } else {
-            addAttr(el, name, value, list[i], isDynamic);
-          }
-        } else if (onRE.test(name)) {
-          // v-on
-          name = name.replace(onRE, '');
-          isDynamic = dynamicArgRE.test(name);
-
-          if (isDynamic) {
-            name = name.slice(1, -1);
-          }
-
-          addHandler(el, name, value, modifiers, false, warn$2, list[i], isDynamic);
-        } else {
-          // normal directives
-          name = name.replace(dirRE, ''); // parse arg
-
-          var argMatch = name.match(argRE);
-          var arg = argMatch && argMatch[1];
-          isDynamic = false;
-
-          if (arg) {
-            name = name.slice(0, -(arg.length + 1));
-
-            if (dynamicArgRE.test(arg)) {
-              arg = arg.slice(1, -1);
-              isDynamic = true;
-            }
-          }
-
-          addDirective(el, name, rawName, value, arg, isDynamic, modifiers, list[i]);
-
-          if (name === 'model') {
-            checkForAliasModel(el, value);
-          }
-        }
-      } else {
-        // literal attribute
-        {
-          var res = parseText(value, delimiters);
-
-          if (res) {
-            warn$2(name + "=\"" + value + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div id="{{ val }}">, use <div :id="val">.', list[i]);
-          }
-        }
-        addAttr(el, name, JSON.stringify(value), list[i]); // #6887 firefox doesn't update muted state if set via attribute
-        // even immediately after element creation
-
-        if (!el.component && name === 'muted' && platformMustUseProp(el.tag, el.attrsMap.type, name)) {
-          addProp(el, name, 'true', list[i]);
-        }
-      }
-    }
-  }
-
-  function checkInFor(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    var parent = el;
-
-    while (parent) {
-      if (parent.for !== undefined) {
-        return true;
-      }
-
-      parent = parent.parent;
-    }
-
-    return false;
-  }
-
-  function parseModifiers(name) {
-    var necooData = window.necooPushCallStack(arguments);
-    var match = name.match(modifierRE);
-
-    if (match) {
-      var ret = {};
-      match.forEach(function _anonymous_173(m) {
-        var necooData = window.necooPushCallStack(arguments);
-        ret[m.slice(1)] = true;
-      });
-      return ret;
-    }
-  }
-
-  function makeAttrsMap(attrs) {
-    var necooData = window.necooPushCallStack(arguments);
-    var map = {};
-
-    for (var i = 0, l = attrs.length; i < l; i++) {
-      if (map[attrs[i].name] && !isIE && !isEdge) {
-        warn$2('duplicate attribute: ' + attrs[i].name, attrs[i]);
-      }
-
-      map[attrs[i].name] = attrs[i].value;
-    }
-
-    return map;
-  } // for script (e.g. type="x/template") or style, do not decode content
-
-
-  function isTextTag(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    return el.tag === 'script' || el.tag === 'style';
-  }
-
-  function isForbiddenTag(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    return el.tag === 'style' || el.tag === 'script' && (!el.attrsMap.type || el.attrsMap.type === 'text/javascript');
-  }
-
-  var ieNSBug = /^xmlns:NS\d+/;
-  var ieNSPrefix = /^NS\d+:/;
-  /* istanbul ignore next */
-
-  function guardIESVGBug(attrs) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = [];
-
-    for (var i = 0; i < attrs.length; i++) {
-      var attr = attrs[i];
-
-      if (!ieNSBug.test(attr.name)) {
-        attr.name = attr.name.replace(ieNSPrefix, '');
-        res.push(attr);
-      }
-    }
-
-    return res;
-  }
-
-  function checkForAliasModel(el, value) {
-    var necooData = window.necooPushCallStack(arguments);
-    var _el = el;
-
-    while (_el) {
-      if (_el.for && _el.alias === value) {
-        warn$2("<" + el.tag + " v-model=\"" + value + "\">: " + "You are binding v-model directly to a v-for iteration alias. " + "This will not be able to modify the v-for source array because " + "writing to the alias is like modifying a function local variable. " + "Consider using an array of objects and use v-model on an object property instead.", el.rawAttrsMap['v-model']);
-      }
-
-      _el = _el.parent;
-    }
-  }
-  /*  */
-
-
-  function preTransformNode(el, options) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.tag === 'input') {
-      var map = el.attrsMap;
-
-      if (!map['v-model']) {
-        return;
-      }
-
-      var typeBinding;
-
-      if (map[':type'] || map['v-bind:type']) {
-        typeBinding = getBindingAttr(el, 'type');
-      }
-
-      if (!map.type && !typeBinding && map['v-bind']) {
-        typeBinding = "(" + map['v-bind'] + ").type";
-      }
-
-      if (typeBinding) {
-        var ifCondition = getAndRemoveAttr(el, 'v-if', true);
-        var ifConditionExtra = ifCondition ? "&&(" + ifCondition + ")" : "";
-        var hasElse = getAndRemoveAttr(el, 'v-else', true) != null;
-        var elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true); // 1. checkbox
-
-        var branch0 = cloneASTElement(el); // process for on the main node
-
-        processFor(branch0);
-        addRawAttr(branch0, 'type', 'checkbox');
-        processElement(branch0, options);
-        branch0.processed = true; // prevent it from double-processed
-
-        branch0.if = "(" + typeBinding + ")==='checkbox'" + ifConditionExtra;
-        addIfCondition(branch0, {
-          exp: branch0.if,
-          block: branch0
-        }); // 2. add radio else-if condition
-
-        var branch1 = cloneASTElement(el);
-        getAndRemoveAttr(branch1, 'v-for', true);
-        addRawAttr(branch1, 'type', 'radio');
-        processElement(branch1, options);
-        addIfCondition(branch0, {
-          exp: "(" + typeBinding + ")==='radio'" + ifConditionExtra,
-          block: branch1
-        }); // 3. other
-
-        var branch2 = cloneASTElement(el);
-        getAndRemoveAttr(branch2, 'v-for', true);
-        addRawAttr(branch2, ':type', typeBinding);
-        processElement(branch2, options);
-        addIfCondition(branch0, {
-          exp: ifCondition,
-          block: branch2
-        });
-
-        if (hasElse) {
-          branch0.else = true;
-        } else if (elseIfCondition) {
-          branch0.elseif = elseIfCondition;
-        }
-
-        return branch0;
-      }
-    }
-  }
-
-  function cloneASTElement(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    return createASTElement(el.tag, el.attrsList.slice(), el.parent);
-  }
-
-  var model$1 = {
-    preTransformNode: preTransformNode
-  };
-  var modules$1 = [klass$1, style$1, model$1];
-  /*  */
-
-  function text(el, dir) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (dir.value) {
-      addProp(el, 'textContent', "_s(" + dir.value + ")", dir);
-    }
-  }
-  /*  */
-
-
-  function html(el, dir) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (dir.value) {
-      addProp(el, 'innerHTML', "_s(" + dir.value + ")", dir);
-    }
-  }
-
-  var directives$1 = {
-    model: model,
-    text: text,
-    html: html
-  };
-  /*  */
-
-  var baseOptions = {
-    expectHTML: true,
-    modules: modules$1,
-    directives: directives$1,
-    isPreTag: isPreTag,
-    isUnaryTag: isUnaryTag,
-    mustUseProp: mustUseProp,
-    canBeLeftOpenTag: canBeLeftOpenTag,
-    isReservedTag: isReservedTag,
-    getTagNamespace: getTagNamespace,
-    staticKeys: genStaticKeys(modules$1)
-  };
-  /*  */
-
-  var isStaticKey;
-  var isPlatformReservedTag;
-  var genStaticKeysCached = cached(genStaticKeys$1);
-  /**
-   * Goal of the optimizer: walk the generated template AST tree
-   * and detect sub-trees that are purely static, i.e. parts of
-   * the DOM that never needs to change.
-   *
-   * Once we detect these sub-trees, we can:
-   *
-   * 1. Hoist them into constants, so that we no longer need to
-   *    create fresh nodes for them on each re-render;
-   * 2. Completely skip them in the patching process.
-   */
-
-  function optimize(root, options) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!root) {
-      return;
-    }
-
-    isStaticKey = genStaticKeysCached(options.staticKeys || '');
-    isPlatformReservedTag = options.isReservedTag || no; // first pass: mark all non-static nodes.
-
-    markStatic$1(root); // second pass: mark static roots.
-
-    markStaticRoots(root, false);
-  }
-
-  function genStaticKeys$1(keys) {
-    var necooData = window.necooPushCallStack(arguments);
-    return makeMap('type,tag,attrsList,attrsMap,plain,parent,children,attrs,start,end,rawAttrsMap' + (keys ? ',' + keys : ''));
-  }
-
-  function markStatic$1(node) {
-    var necooData = window.necooPushCallStack(arguments);
-    node.static = isStatic(node);
-
-    if (node.type === 1) {
-      // do not make component slot content static. this avoids
-      // 1. components not able to mutate slot nodes
-      // 2. static slot content fails for hot-reloading
-      if (!isPlatformReservedTag(node.tag) && node.tag !== 'slot' && node.attrsMap['inline-template'] == null) {
-        return;
-      }
-
-      for (var i = 0, l = node.children.length; i < l; i++) {
-        var child = node.children[i];
-        markStatic$1(child);
-
-        if (!child.static) {
-          node.static = false;
-        }
-      }
-
-      if (node.ifConditions) {
-        for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
-          var block = node.ifConditions[i$1].block;
-          markStatic$1(block);
-
-          if (!block.static) {
-            node.static = false;
-          }
-        }
-      }
-    }
-  }
-
-  function markStaticRoots(node, isInFor) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (node.type === 1) {
-      if (node.static || node.once) {
-        node.staticInFor = isInFor;
-      } // For a node to qualify as a static root, it should have children that
-      // are not just static text. Otherwise the cost of hoisting out will
-      // outweigh the benefits and it's better off to just always render it fresh.
-
-
-      if (node.static && node.children.length && !(node.children.length === 1 && node.children[0].type === 3)) {
-        node.staticRoot = true;
-        return;
-      } else {
-        node.staticRoot = false;
-      }
-
-      if (node.children) {
-        for (var i = 0, l = node.children.length; i < l; i++) {
-          markStaticRoots(node.children[i], isInFor || !!node.for);
-        }
-      }
-
-      if (node.ifConditions) {
-        for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
-          markStaticRoots(node.ifConditions[i$1].block, isInFor);
-        }
-      }
-    }
-  }
-
-  function isStatic(node) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (node.type === 2) {
-      // expression
-      return false;
-    }
-
-    if (node.type === 3) {
-      // text
-      return true;
-    }
-
-    return !!(node.pre || !node.hasBindings && // no dynamic bindings
-    !node.if && !node.for && // not v-if or v-for or v-else
-    !isBuiltInTag(node.tag) && // not a built-in
-    isPlatformReservedTag(node.tag) && // not a component
-    !isDirectChildOfTemplateFor(node) && Object.keys(node).every(isStaticKey));
-  }
-
-  function isDirectChildOfTemplateFor(node) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    while (node.parent) {
-      node = node.parent;
-
-      if (node.tag !== 'template') {
-        return false;
-      }
-
-      if (node.for) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-  /*  */
-
-
-  var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
-  var fnInvokeRE = /\([^)]*?\);*$/;
-  var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/; // KeyboardEvent.keyCode aliases
-
-  var keyCodes = {
-    esc: 27,
-    tab: 9,
-    enter: 13,
-    space: 32,
-    up: 38,
-    left: 37,
-    right: 39,
-    down: 40,
-    'delete': [8, 46]
-  }; // KeyboardEvent.key aliases
-
-  var keyNames = {
-    // #7880: IE11 and Edge use `Esc` for Escape key name.
-    esc: ['Esc', 'Escape'],
-    tab: 'Tab',
-    enter: 'Enter',
-    // #9112: IE11 uses `Spacebar` for Space key name.
-    space: [' ', 'Spacebar'],
-    // #7806: IE11 uses key names without `Arrow` prefix for arrow keys.
-    up: ['Up', 'ArrowUp'],
-    left: ['Left', 'ArrowLeft'],
-    right: ['Right', 'ArrowRight'],
-    down: ['Down', 'ArrowDown'],
-    // #9112: IE11 uses `Del` for Delete key name.
-    'delete': ['Backspace', 'Delete', 'Del']
-  }; // #4868: modifiers that prevent the execution of the listener
-  // need to explicitly return null so that we can determine whether to remove
-  // the listener for .once
-
-  var genGuard = function _anonymous_174(condition) {
-    var necooData = window.necooPushCallStack(arguments);
-    return "if(" + condition + ")return null;";
-  };
-
-  var modifierCode = {
-    stop: '$event.stopPropagation();',
-    prevent: '$event.preventDefault();',
-    self: genGuard("$event.target !== $event.currentTarget"),
-    ctrl: genGuard("!$event.ctrlKey"),
-    shift: genGuard("!$event.shiftKey"),
-    alt: genGuard("!$event.altKey"),
-    meta: genGuard("!$event.metaKey"),
-    left: genGuard("'button' in $event && $event.button !== 0"),
-    middle: genGuard("'button' in $event && $event.button !== 1"),
-    right: genGuard("'button' in $event && $event.button !== 2")
-  };
-
-  function genHandlers(events, isNative) {
-    var necooData = window.necooPushCallStack(arguments);
-    var prefix = isNative ? 'nativeOn:' : 'on:';
-    var staticHandlers = "";
-    var dynamicHandlers = "";
-
-    for (var name in events) {
-      var handlerCode = genHandler(events[name]);
-
-      if (events[name] && events[name].dynamic) {
-        dynamicHandlers += name + "," + handlerCode + ",";
-      } else {
-        staticHandlers += "\"" + name + "\":" + handlerCode + ",";
-      }
-    }
-
-    staticHandlers = "{" + staticHandlers.slice(0, -1) + "}";
-
-    if (dynamicHandlers) {
-      return prefix + "_d(" + staticHandlers + ",[" + dynamicHandlers.slice(0, -1) + "])";
-    } else {
-      return prefix + staticHandlers;
-    }
-  }
-
-  function genHandler(handler) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!handler) {
-      return 'function _anonymous_175(){}';
-    }
-
-    if (Array.isArray(handler)) {
-      return "[" + handler.map(function _anonymous_176(handler) {
-        var necooData = window.necooPushCallStack(arguments);
-        return genHandler(handler);
-      }).join(',') + "]";
-    }
-
-    var isMethodPath = simplePathRE.test(handler.value);
-    var isFunctionExpression = fnExpRE.test(handler.value);
-    var isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, ''));
-
-    if (!handler.modifiers) {
-      if (isMethodPath || isFunctionExpression) {
-        return handler.value;
-      }
-
-      return "function _anonymous_177($event){" + (isFunctionInvocation ? "return " + handler.value : handler.value) + "}"; // inline statement
-    } else {
-      var code = '';
-      var genModifierCode = '';
-      var keys = [];
-
-      for (var key in handler.modifiers) {
-        if (modifierCode[key]) {
-          genModifierCode += modifierCode[key]; // left/right
-
-          if (keyCodes[key]) {
-            keys.push(key);
-          }
-        } else if (key === 'exact') {
-          var modifiers = handler.modifiers;
-          genModifierCode += genGuard(['ctrl', 'shift', 'alt', 'meta'].filter(function _anonymous_178(keyModifier) {
-            var necooData = window.necooPushCallStack(arguments);
-            return !modifiers[keyModifier];
-          }).map(function _anonymous_179(keyModifier) {
-            var necooData = window.necooPushCallStack(arguments);
-            return "$event." + keyModifier + "Key";
-          }).join('||'));
-        } else {
-          keys.push(key);
-        }
-      }
-
-      if (keys.length) {
-        code += genKeyFilter(keys);
-      } // Make sure modifiers like prevent and stop get executed after key filtering
-
-
-      if (genModifierCode) {
-        code += genModifierCode;
-      }
-
-      var handlerCode = isMethodPath ? "return " + handler.value + "($event)" : isFunctionExpression ? "return (" + handler.value + ")($event)" : isFunctionInvocation ? "return " + handler.value : handler.value;
-      return "function _anonymous_180($event){" + code + handlerCode + "}";
-    }
-  }
-
-  function genKeyFilter(keys) {
-    var necooData = window.necooPushCallStack(arguments);
-    return (// make sure the key filters only apply to KeyboardEvents
-      // #9441: can't use 'keyCode' in $event because Chrome autofill fires fake
-      // key events that do not have keyCode property...
-      "if(!$event.type.indexOf('key')&&" + keys.map(genFilterCode).join('&&') + ")return null;"
-    );
-  }
-
-  function genFilterCode(key) {
-    var necooData = window.necooPushCallStack(arguments);
-    var keyVal = parseInt(key, 10);
-
-    if (keyVal) {
-      return "$event.keyCode!==" + keyVal;
-    }
-
-    var keyCode = keyCodes[key];
-    var keyName = keyNames[key];
-    return "_k($event.keyCode," + JSON.stringify(key) + "," + JSON.stringify(keyCode) + "," + "$event.key," + "" + JSON.stringify(keyName) + ")";
-  }
-  /*  */
-
-
-  function on(el, dir) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (dir.modifiers) {
-      warn("v-on without argument does not support modifiers.");
-    }
-
-    el.wrapListeners = function _anonymous_181(code) {
-      var necooData = window.necooPushCallStack(arguments);
-      return "_g(" + code + "," + dir.value + ")";
-    };
-  }
-  /*  */
-
-
-  function bind$1(el, dir) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    el.wrapData = function _anonymous_182(code) {
-      var necooData = window.necooPushCallStack(arguments);
-      return "_b(" + code + ",'" + el.tag + "'," + dir.value + "," + (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') + (dir.modifiers && dir.modifiers.sync ? ',true' : '') + ")";
-    };
-  }
-  /*  */
-
-
-  var baseDirectives = {
-    on: on,
-    bind: bind$1,
-    cloak: noop
-  };
-  /*  */
-
-  var CodegenState = function CodegenState(options) {
-    var necooData = window.necooPushCallStack(arguments);
-    this.options = options;
-    this.warn = options.warn || baseWarn;
-    this.transforms = pluckModuleFunction(options.modules, 'transformCode');
-    this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
-    this.directives = extend(extend({}, baseDirectives), options.directives);
-    var isReservedTag = options.isReservedTag || no;
-
-    this.maybeComponent = function _anonymous_183(el) {
-      var necooData = window.necooPushCallStack(arguments);
-      return !!el.component || !isReservedTag(el.tag);
-    };
-
-    this.onceId = 0;
-    this.staticRenderFns = [];
-    this.pre = false;
-  };
-
-  function generate(ast, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var state = new CodegenState(options);
-    var code = ast ? genElement(ast, state) : '_c("div")';
-    return {
-      render: "with(this){return " + code + "}",
-      staticRenderFns: state.staticRenderFns
-    };
-  }
-
-  function genElement(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.parent) {
-      el.pre = el.pre || el.parent.pre;
-    }
-
-    if (el.staticRoot && !el.staticProcessed) {
-      return genStatic(el, state);
-    } else if (el.once && !el.onceProcessed) {
-      return genOnce(el, state);
-    } else if (el.for && !el.forProcessed) {
-      return genFor(el, state);
-    } else if (el.if && !el.ifProcessed) {
-      return genIf(el, state);
-    } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
-      return genChildren(el, state) || 'void 0';
-    } else if (el.tag === 'slot') {
-      return genSlot(el, state);
-    } else {
-      // component or element
-      var code;
-
-      if (el.component) {
-        code = genComponent(el.component, el, state);
-      } else {
-        var data;
-
-        if (!el.plain || el.pre && state.maybeComponent(el)) {
-          data = genData$2(el, state);
-        }
-
-        var children = el.inlineTemplate ? null : genChildren(el, state, true);
-        code = "_c('" + el.tag + "'" + (data ? "," + data : '') + (children ? "," + children : '') + ")";
-      } // module transforms
-
-
-      for (var i = 0; i < state.transforms.length; i++) {
-        code = state.transforms[i](el, code);
-      }
-
-      return code;
-    }
-  } // hoist static sub-trees out
-
-
-  function genStatic(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    el.staticProcessed = true; // Some elements (templates) need to behave differently inside of a v-pre
-    // node.  All pre nodes are static roots, so we can use this as a location to
-    // wrap a state change and reset it upon exiting the pre node.
-
-    var originalPreState = state.pre;
-
-    if (el.pre) {
-      state.pre = el.pre;
-    }
-
-    state.staticRenderFns.push("with(this){return " + genElement(el, state) + "}");
-    state.pre = originalPreState;
-    return "_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")";
-  } // v-once
-
-
-  function genOnce(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    el.onceProcessed = true;
-
-    if (el.if && !el.ifProcessed) {
-      return genIf(el, state);
-    } else if (el.staticInFor) {
-      var key = '';
-      var parent = el.parent;
-
-      while (parent) {
-        if (parent.for) {
-          key = parent.key;
-          break;
-        }
-
-        parent = parent.parent;
-      }
-
-      if (!key) {
-        state.warn("v-once can only be used inside v-for that is keyed. ", el.rawAttrsMap['v-once']);
-        return genElement(el, state);
-      }
-
-      return "_o(" + genElement(el, state) + "," + state.onceId++ + "," + key + ")";
-    } else {
-      return genStatic(el, state);
-    }
-  }
-
-  function genIf(el, state, altGen, altEmpty) {
-    var necooData = window.necooPushCallStack(arguments);
-    el.ifProcessed = true; // avoid recursion
-
-    return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty);
-  }
-
-  function genIfConditions(conditions, state, altGen, altEmpty) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (!conditions.length) {
-      return altEmpty || '_e()';
-    }
-
-    var condition = conditions.shift();
-
-    if (condition.exp) {
-      return "(" + condition.exp + ")?" + genTernaryExp(condition.block) + ":" + genIfConditions(conditions, state, altGen, altEmpty);
-    } else {
-      return "" + genTernaryExp(condition.block);
-    } // v-if with v-once should generate code like (a)?_m(0):_m(1)
-
-
-    function genTernaryExp(el) {
-      var necooData = window.necooPushCallStack(arguments);
-      return altGen ? altGen(el, state) : el.once ? genOnce(el, state) : genElement(el, state);
-    }
-  }
-
-  function genFor(el, state, altGen, altHelper) {
-    var necooData = window.necooPushCallStack(arguments);
-    var exp = el.for;
-    var alias = el.alias;
-    var iterator1 = el.iterator1 ? "," + el.iterator1 : '';
-    var iterator2 = el.iterator2 ? "," + el.iterator2 : '';
-
-    if (state.maybeComponent(el) && el.tag !== 'slot' && el.tag !== 'template' && !el.key) {
-      state.warn("<" + el.tag + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " + "v-for should have explicit keys. " + "See https://vuejs.org/guide/list.html#key for more info.", el.rawAttrsMap['v-for'], true
-      /* tip */
-      );
-    }
-
-    el.forProcessed = true; // avoid recursion
-
-    return (altHelper || '_l') + "((" + exp + ")," + "function _anonymous_184(" + alias + iterator1 + iterator2 + "){" + "return " + (altGen || genElement)(el, state) + '})';
-  }
-
-  function genData$2(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var data = '{'; // directives first.
-    // directives may mutate the el's other properties before they are generated.
-
-    var dirs = genDirectives(el, state);
-
-    if (dirs) {
-      data += dirs + ',';
-    } // key
-
-
-    if (el.key) {
-      data += "key:" + el.key + ",";
-    } // ref
-
-
-    if (el.ref) {
-      data += "ref:" + el.ref + ",";
-    }
-
-    if (el.refInFor) {
-      data += "refInFor:true,";
-    } // pre
-
-
-    if (el.pre) {
-      data += "pre:true,";
-    } // record original tag name for components using "is" attribute
-
-
-    if (el.component) {
-      data += "tag:\"" + el.tag + "\",";
-    } // module data generation functions
-
-
-    for (var i = 0; i < state.dataGenFns.length; i++) {
-      data += state.dataGenFns[i](el);
-    } // attributes
-
-
-    if (el.attrs) {
-      data += "attrs:" + genProps(el.attrs) + ",";
-    } // DOM props
-
-
-    if (el.props) {
-      data += "domProps:" + genProps(el.props) + ",";
-    } // event handlers
-
-
-    if (el.events) {
-      data += genHandlers(el.events, false) + ",";
-    }
-
-    if (el.nativeEvents) {
-      data += genHandlers(el.nativeEvents, true) + ",";
-    } // slot target
-    // only for non-scoped slots
-
-
-    if (el.slotTarget && !el.slotScope) {
-      data += "slot:" + el.slotTarget + ",";
-    } // scoped slots
-
-
-    if (el.scopedSlots) {
-      data += genScopedSlots(el, el.scopedSlots, state) + ",";
-    } // component v-model
-
-
-    if (el.model) {
-      data += "model:{value:" + el.model.value + ",callback:" + el.model.callback + ",expression:" + el.model.expression + "},";
-    } // inline-template
-
-
-    if (el.inlineTemplate) {
-      var inlineTemplate = genInlineTemplate(el, state);
-
-      if (inlineTemplate) {
-        data += inlineTemplate + ",";
-      }
-    }
-
-    data = data.replace(/,$/, '') + '}'; // v-bind dynamic argument wrap
-    // v-bind with dynamic arguments must be applied using the same v-bind object
-    // merge helper so that class/style/mustUseProp attrs are handled correctly.
-
-    if (el.dynamicAttrs) {
-      data = "_b(" + data + ",\"" + el.tag + "\"," + genProps(el.dynamicAttrs) + ")";
-    } // v-bind data wrap
-
-
-    if (el.wrapData) {
-      data = el.wrapData(data);
-    } // v-on data wrap
-
-
-    if (el.wrapListeners) {
-      data = el.wrapListeners(data);
-    }
-
-    return data;
-  }
-
-  function genDirectives(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var dirs = el.directives;
-
-    if (!dirs) {
-      return;
-    }
-
-    var res = 'directives:[';
-    var hasRuntime = false;
-    var i, l, dir, needRuntime;
-
-    for (i = 0, l = dirs.length; i < l; i++) {
-      dir = dirs[i];
-      needRuntime = true;
-      var gen = state.directives[dir.name];
-
-      if (gen) {
-        // compile-time directive that manipulates AST.
-        // returns true if it also needs a runtime counterpart.
-        needRuntime = !!gen(el, dir, state.warn);
-      }
-
-      if (needRuntime) {
-        hasRuntime = true;
-        res += "{name:\"" + dir.name + "\",rawName:\"" + dir.rawName + "\"" + (dir.value ? ",value:(" + dir.value + "),expression:" + JSON.stringify(dir.value) : '') + (dir.arg ? ",arg:" + (dir.isDynamicArg ? dir.arg : "\"" + dir.arg + "\"") : '') + (dir.modifiers ? ",modifiers:" + JSON.stringify(dir.modifiers) : '') + "},";
-      }
-    }
-
-    if (hasRuntime) {
-      return res.slice(0, -1) + ']';
-    }
-  }
-
-  function genInlineTemplate(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ast = el.children[0];
-
-    if (el.children.length !== 1 || ast.type !== 1) {
-      state.warn('Inline-template components must have exactly one child element.', {
-        start: el.start
-      });
-    }
-
-    if (ast && ast.type === 1) {
-      var inlineRenderFns = generate(ast, state.options);
-      return "inlineTemplate:{render:function _anonymous_185(){" + inlineRenderFns.render + "},staticRenderFns:[" + inlineRenderFns.staticRenderFns.map(function _anonymous_186(code) {
-        var necooData = window.necooPushCallStack(arguments);
-        return "function _anonymous_187(){" + code + "}";
-      }).join(',') + "]}";
-    }
-  }
-
-  function genScopedSlots(el, slots, state) {
-    var necooData = window.necooPushCallStack(arguments); // by default scoped slots are considered "stable", this allows child
-    // components with only scoped slots to skip forced updates from parent.
-    // but in some cases we have to bail-out of this optimization
-    // for example if the slot contains dynamic names, has v-if or v-for on them...
-
-    var needsForceUpdate = el.for || Object.keys(slots).some(function _anonymous_188(key) {
-      var necooData = window.necooPushCallStack(arguments);
-      var slot = slots[key];
-      return slot.slotTargetDynamic || slot.if || slot.for || containsSlotChild(slot) // is passing down slot from parent which may be dynamic
-      ;
-    }); // #9534: if a component with scoped slots is inside a conditional branch,
-    // it's possible for the same component to be reused but with different
-    // compiled slot content. To avoid that, we generate a unique key based on
-    // the generated code of all the slot contents.
-
-    var needsKey = !!el.if; // OR when it is inside another scoped slot or v-for (the reactivity may be
-    // disconnected due to the intermediate scope variable)
-    // #9438, #9506
-    // TODO: this can be further optimized by properly analyzing in-scope bindings
-    // and skip force updating ones that do not actually use scope variables.
-
-    if (!needsForceUpdate) {
-      var parent = el.parent;
-
-      while (parent) {
-        if (parent.slotScope && parent.slotScope !== emptySlotScopeToken || parent.for) {
-          needsForceUpdate = true;
-          break;
-        }
-
-        if (parent.if) {
-          needsKey = true;
-        }
-
-        parent = parent.parent;
-      }
-    }
-
-    var generatedSlots = Object.keys(slots).map(function _anonymous_189(key) {
-      var necooData = window.necooPushCallStack(arguments);
-      return genScopedSlot(slots[key], state);
-    }).join(',');
-    return "scopedSlots:_u([" + generatedSlots + "]" + (needsForceUpdate ? ",null,true" : "") + (!needsForceUpdate && needsKey ? ",null,false," + hash(generatedSlots) : "") + ")";
-  }
-
-  function hash(str) {
-    var necooData = window.necooPushCallStack(arguments);
-    var hash = 5381;
-    var i = str.length;
-
-    while (i) {
-      hash = hash * 33 ^ str.charCodeAt(--i);
-    }
-
-    return hash >>> 0;
-  }
-
-  function containsSlotChild(el) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.type === 1) {
-      if (el.tag === 'slot') {
-        return true;
-      }
-
-      return el.children.some(containsSlotChild);
-    }
-
-    return false;
-  }
-
-  function genScopedSlot(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var isLegacySyntax = el.attrsMap['slot-scope'];
-
-    if (el.if && !el.ifProcessed && !isLegacySyntax) {
-      return genIf(el, state, genScopedSlot, "null");
-    }
-
-    if (el.for && !el.forProcessed) {
-      return genFor(el, state, genScopedSlot);
-    }
-
-    var slotScope = el.slotScope === emptySlotScopeToken ? "" : String(el.slotScope);
-    var fn = "function _anonymous_190(" + slotScope + "){" + "return " + (el.tag === 'template' ? el.if && isLegacySyntax ? "(" + el.if + ")?" + (genChildren(el, state) || 'undefined') + ":undefined" : genChildren(el, state) || 'undefined' : genElement(el, state)) + "}"; // reverse proxy v-slot without scope on this.$slots
-
-    var reverseProxy = slotScope ? "" : ",proxy:true";
-    return "{key:" + (el.slotTarget || "\"default\"") + ",fn:" + fn + reverseProxy + "}";
-  }
-
-  function genChildren(el, state, checkSkip, altGenElement, altGenNode) {
-    var necooData = window.necooPushCallStack(arguments);
-    var children = el.children;
-
-    if (children.length) {
-      var el$1 = children[0]; // optimize single v-for
-
-      if (children.length === 1 && el$1.for && el$1.tag !== 'template' && el$1.tag !== 'slot') {
-        var normalizationType = checkSkip ? state.maybeComponent(el$1) ? ",1" : ",0" : "";
-        return "" + (altGenElement || genElement)(el$1, state) + normalizationType;
-      }
-
-      var normalizationType$1 = checkSkip ? getNormalizationType(children, state.maybeComponent) : 0;
-      var gen = altGenNode || genNode;
-      return "[" + children.map(function _anonymous_191(c) {
-        var necooData = window.necooPushCallStack(arguments);
-        return gen(c, state);
-      }).join(',') + "]" + (normalizationType$1 ? "," + normalizationType$1 : '');
-    }
-  } // determine the normalization needed for the children array.
-  // 0: no normalization needed
-  // 1: simple normalization needed (possible 1-level deep nested array)
-  // 2: full normalization needed
-
-
-  function getNormalizationType(children, maybeComponent) {
-    var necooData = window.necooPushCallStack(arguments);
-    var res = 0;
-
-    for (var i = 0; i < children.length; i++) {
-      var el = children[i];
-
-      if (el.type !== 1) {
-        continue;
-      }
-
-      if (needsNormalization(el) || el.ifConditions && el.ifConditions.some(function _anonymous_192(c) {
-        var necooData = window.necooPushCallStack(arguments);
-        return needsNormalization(c.block);
-      })) {
-        res = 2;
-        break;
-      }
-
-      if (maybeComponent(el) || el.ifConditions && el.ifConditions.some(function _anonymous_193(c) {
-        var necooData = window.necooPushCallStack(arguments);
-        return maybeComponent(c.block);
-      })) {
-        res = 1;
-      }
-    }
-
-    return res;
-  }
-
-  function needsNormalization(el) {
-    var necooData = window.necooPushCallStack(arguments);
-    return el.for !== undefined || el.tag === 'template' || el.tag === 'slot';
-  }
-
-  function genNode(node, state) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (node.type === 1) {
-      return genElement(node, state);
-    } else if (node.type === 3 && node.isComment) {
-      return genComment(node);
-    } else {
-      return genText(node);
-    }
-  }
-
-  function genText(text) {
-    var necooData = window.necooPushCallStack(arguments);
-    return "_v(" + (text.type === 2 ? text.expression // no need for () because already wrapped in _s()
-    : transformSpecialNewlines(JSON.stringify(text.text))) + ")";
-  }
-
-  function genComment(comment) {
-    var necooData = window.necooPushCallStack(arguments);
-    return "_e(" + JSON.stringify(comment.text) + ")";
-  }
-
-  function genSlot(el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var slotName = el.slotName || '"default"';
-    var children = genChildren(el, state);
-    var res = "_t(" + slotName + (children ? "," + children : '');
-    var attrs = el.attrs || el.dynamicAttrs ? genProps((el.attrs || []).concat(el.dynamicAttrs || []).map(function _anonymous_194(attr) {
-      var necooData = window.necooPushCallStack(arguments);
-      return {
-        // slot props are camelized
-        name: camelize(attr.name),
-        value: attr.value,
-        dynamic: attr.dynamic
-      };
-    })) : null;
-    var bind$$1 = el.attrsMap['v-bind'];
-
-    if ((attrs || bind$$1) && !children) {
-      res += ",null";
-    }
-
-    if (attrs) {
-      res += "," + attrs;
-    }
-
-    if (bind$$1) {
-      res += (attrs ? '' : ',null') + "," + bind$$1;
-    }
-
-    return res + ')';
-  } // componentName is el.component, take it as argument to shun flow's pessimistic refinement
-
-
-  function genComponent(componentName, el, state) {
-    var necooData = window.necooPushCallStack(arguments);
-    var children = el.inlineTemplate ? null : genChildren(el, state, true);
-    return "_c(" + componentName + "," + genData$2(el, state) + (children ? "," + children : '') + ")";
-  }
-
-  function genProps(props) {
-    var necooData = window.necooPushCallStack(arguments);
-    var staticProps = "";
-    var dynamicProps = "";
-
-    for (var i = 0; i < props.length; i++) {
-      var prop = props[i];
-      var value = transformSpecialNewlines(prop.value);
-
-      if (prop.dynamic) {
-        dynamicProps += prop.name + "," + value + ",";
-      } else {
-        staticProps += "\"" + prop.name + "\":" + value + ",";
-      }
-    }
-
-    staticProps = "{" + staticProps.slice(0, -1) + "}";
-
-    if (dynamicProps) {
-      return "_d(" + staticProps + ",[" + dynamicProps.slice(0, -1) + "])";
-    } else {
-      return staticProps;
-    }
-  } // #3895, #4268
-
-
-  function transformSpecialNewlines(text) {
-    var necooData = window.necooPushCallStack(arguments);
-    return text.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
-  }
-  /*  */
-  // these keywords should not appear inside expressions, but operators like
-  // typeof, instanceof and in are allowed
-
-
-  var prohibitedKeywordRE = new RegExp('\\b' + ('do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' + 'super,throw,while,yield,delete,export,import,return,switch,default,' + 'extends,finally,continue,debugger,function,arguments').split(',').join('\\b|\\b') + '\\b'); // these unary operators should not be used as property/method names
-
-  var unaryOperatorsRE = new RegExp('\\b' + 'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)'); // strip strings in expressions
-
-  var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g; // detect problematic expressions in a template
-
-  function detectErrors(ast, warn) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (ast) {
-      checkNode(ast, warn);
-    }
-  }
-
-  function checkNode(node, warn) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (node.type === 1) {
-      for (var name in node.attrsMap) {
-        if (dirRE.test(name)) {
-          var value = node.attrsMap[name];
-
-          if (value) {
-            var range = node.rawAttrsMap[name];
-
-            if (name === 'v-for') {
-              checkFor(node, "v-for=\"" + value + "\"", warn, range);
-            } else if (onRE.test(name)) {
-              checkEvent(value, name + "=\"" + value + "\"", warn, range);
-            } else {
-              checkExpression(value, name + "=\"" + value + "\"", warn, range);
-            }
-          }
-        }
-      }
-
-      if (node.children) {
-        for (var i = 0; i < node.children.length; i++) {
-          checkNode(node.children[i], warn);
-        }
-      }
-    } else if (node.type === 2) {
-      checkExpression(node.expression, node.text, warn, node);
-    }
-  }
-
-  function checkEvent(exp, text, warn, range) {
-    var necooData = window.necooPushCallStack(arguments);
-    var stipped = exp.replace(stripStringRE, '');
-    var keywordMatch = stipped.match(unaryOperatorsRE);
-
-    if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
-      warn("avoid using JavaScript unary operator as property name: " + "\"" + keywordMatch[0] + "\" in expression " + text.trim(), range);
-    }
-
-    checkExpression(exp, text, warn, range);
-  }
-
-  function checkFor(node, text, warn, range) {
-    var necooData = window.necooPushCallStack(arguments);
-    checkExpression(node.for || '', text, warn, range);
-    checkIdentifier(node.alias, 'v-for alias', text, warn, range);
-    checkIdentifier(node.iterator1, 'v-for iterator', text, warn, range);
-    checkIdentifier(node.iterator2, 'v-for iterator', text, warn, range);
-  }
-
-  function checkIdentifier(ident, type, text, warn, range) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (typeof ident === 'string') {
-      try {
-        new Function("var " + ident + "=_");
-      } catch (e) {
-        warn("invalid " + type + " \"" + ident + "\" in expression: " + text.trim(), range);
-      }
-    }
-  }
-
-  function checkExpression(exp, text, warn, range) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    try {
-      new Function("return " + exp);
-    } catch (e) {
-      var keywordMatch = exp.replace(stripStringRE, '').match(prohibitedKeywordRE);
-
-      if (keywordMatch) {
-        warn("avoid using JavaScript keyword as property name: " + "\"" + keywordMatch[0] + "\"\n  Raw expression: " + text.trim(), range);
-      } else {
-        warn("invalid expression: " + e.message + " in\n\n" + "    " + exp + "\n\n" + "  Raw expression: " + text.trim() + "\n", range);
-      }
-    }
-  }
-  /*  */
-
-
-  var range = 2;
-
-  function generateCodeFrame(source, start, end) {
-    var necooData = window.necooPushCallStack(arguments);
-    if (start === void 0) start = 0;
-    if (end === void 0) end = source.length;
-    var lines = source.split(/\r?\n/);
-    var count = 0;
-    var res = [];
-
-    for (var i = 0; i < lines.length; i++) {
-      count += lines[i].length + 1;
-
-      if (count >= start) {
-        for (var j = i - range; j <= i + range || end > count; j++) {
-          if (j < 0 || j >= lines.length) {
-            continue;
-          }
-
-          res.push("" + (j + 1) + repeat$1(" ", 3 - String(j + 1).length) + "|  " + lines[j]);
-          var lineLength = lines[j].length;
-
-          if (j === i) {
-            // push underline
-            var pad = start - (count - lineLength) + 1;
-            var length = end > count ? lineLength - pad : end - start;
-            res.push("   |  " + repeat$1(" ", pad) + repeat$1("^", length));
-          } else if (j > i) {
-            if (end > count) {
-              var length$1 = Math.min(end - count, lineLength);
-              res.push("   |  " + repeat$1("^", length$1));
-            }
-
-            count += lineLength + 1;
-          }
-        }
-
-        break;
-      }
-    }
-
-    return res.join('\n');
-  }
-
-  function repeat$1(str, n) {
-    var necooData = window.necooPushCallStack(arguments);
-    var result = '';
-
-    if (n > 0) {
-      while (true) {
-        // eslint-disable-line
-        if (n & 1) {
-          result += str;
-        }
-
-        n >>>= 1;
-
-        if (n <= 0) {
-          break;
-        }
-
-        str += str;
-      }
-    }
-
-    return result;
-  }
-  /*  */
-
-
-  function createFunction(code, errors) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    try {
-      return new Function(code);
-    } catch (err) {
-      errors.push({
-        err: err,
-        code: code
-      });
-      return noop;
-    }
-  }
-
-  function createCompileToFunctionFn(compile) {
-    var necooData = window.necooPushCallStack(arguments);
-    var cache = Object.create(null);
-    return function compileToFunctions(template, options, vm) {
-      var necooData = window.necooPushCallStack(arguments);
-      options = extend({}, options);
-      var warn$$1 = options.warn || warn;
-      delete options.warn;
-      /* istanbul ignore if */
-
-      {
-        // detect possible CSP restriction
-        try {
-          new Function('return 1');
-        } catch (e) {
-          if (e.toString().match(/unsafe-eval|CSP/)) {
-            warn$$1('It seems you are using the standalone build of Vue.js in an ' + 'environment with Content Security Policy that prohibits unsafe-eval. ' + 'The template compiler cannot work in this environment. Consider ' + 'relaxing the policy to allow unsafe-eval or pre-compiling your ' + 'templates into render functions.');
-          }
-        }
-      } // check cache
-
-      var key = options.delimiters ? String(options.delimiters) + template : template;
-
-      if (cache[key]) {
-        return cache[key];
-      } // compile
-
-
-      var compiled = compile(template, options); // check compilation errors/tips
-
-      {
-        if (compiled.errors && compiled.errors.length) {
-          if (options.outputSourceRange) {
-            compiled.errors.forEach(function _anonymous_195(e) {
-              var necooData = window.necooPushCallStack(arguments);
-              warn$$1("Error compiling template:\n\n" + e.msg + "\n\n" + generateCodeFrame(template, e.start, e.end), vm);
-            });
-          } else {
-            warn$$1("Error compiling template:\n\n" + template + "\n\n" + compiled.errors.map(function _anonymous_196(e) {
-              var necooData = window.necooPushCallStack(arguments);
-              return "- " + e;
-            }).join('\n') + '\n', vm);
-          }
-        }
-
-        if (compiled.tips && compiled.tips.length) {
-          if (options.outputSourceRange) {
-            compiled.tips.forEach(function _anonymous_197(e) {
-              var necooData = window.necooPushCallStack(arguments);
-              return tip(e.msg, vm);
-            });
-          } else {
-            compiled.tips.forEach(function _anonymous_198(msg) {
-              var necooData = window.necooPushCallStack(arguments);
-              return tip(msg, vm);
-            });
-          }
-        }
-      } // turn code into functions
-
-      var res = {};
-      var fnGenErrors = [];
-      res.render = createFunction(compiled.render, fnGenErrors);
-      res.staticRenderFns = compiled.staticRenderFns.map(function _anonymous_199(code) {
-        var necooData = window.necooPushCallStack(arguments);
-        return createFunction(code, fnGenErrors);
-      }); // check function generation errors.
-      // this should only happen if there is a bug in the compiler itself.
-      // mostly for codegen development use
-
-      /* istanbul ignore if */
-
-      {
-        if ((!compiled.errors || !compiled.errors.length) && fnGenErrors.length) {
-          warn$$1("Failed to generate render function:\n\n" + fnGenErrors.map(function _anonymous_200(ref) {
-            var necooData = window.necooPushCallStack(arguments);
-            var err = ref.err;
-            var code = ref.code;
-            return err.toString() + " in\n\n" + code + "\n";
-          }).join('\n'), vm);
-        }
-      }
-      return cache[key] = res;
-    };
-  }
-  /*  */
-
-
-  function createCompilerCreator(baseCompile) {
-    var necooData = window.necooPushCallStack(arguments);
-    return function createCompiler(baseOptions) {
-      var necooData = window.necooPushCallStack(arguments);
-
-      function compile(template, options) {
-        var necooData = window.necooPushCallStack(arguments);
-        var finalOptions = Object.create(baseOptions);
-        var errors = [];
-        var tips = [];
-
-        var warn = function _anonymous_201(msg, range, tip) {
-          var necooData = window.necooPushCallStack(arguments);
-          (tip ? tips : errors).push(msg);
-        };
-
-        if (options) {
-          if (options.outputSourceRange) {
-            // $flow-disable-line
-            var leadingSpaceLength = template.match(/^\s*/)[0].length;
-
-            warn = function _anonymous_202(msg, range, tip) {
-              var necooData = window.necooPushCallStack(arguments);
-              var data = {
-                msg: msg
-              };
-
-              if (range) {
-                if (range.start != null) {
-                  data.start = range.start + leadingSpaceLength;
-                }
-
-                if (range.end != null) {
-                  data.end = range.end + leadingSpaceLength;
-                }
-              }
-
-              (tip ? tips : errors).push(data);
-            };
-          } // merge custom modules
-
-
-          if (options.modules) {
-            finalOptions.modules = (baseOptions.modules || []).concat(options.modules);
-          } // merge custom directives
-
-
-          if (options.directives) {
-            finalOptions.directives = extend(Object.create(baseOptions.directives || null), options.directives);
-          } // copy other options
-
-
-          for (var key in options) {
-            if (key !== 'modules' && key !== 'directives') {
-              finalOptions[key] = options[key];
-            }
-          }
-        }
-
-        finalOptions.warn = warn;
-        var compiled = baseCompile(template.trim(), finalOptions);
-        {
-          detectErrors(compiled.ast, warn);
-        }
-        compiled.errors = errors;
-        compiled.tips = tips;
-        return compiled;
-      }
-
-      return {
-        compile: compile,
-        compileToFunctions: createCompileToFunctionFn(compile)
-      };
-    };
-  }
-  /*  */
-  // `createCompilerCreator` allows creating compilers that use alternative
-  // parser/optimizer/codegen, e.g the SSR optimizing compiler.
-  // Here we just export a default compiler using the default parts.
-
-
-  var createCompiler = createCompilerCreator(function baseCompile(template, options) {
-    var necooData = window.necooPushCallStack(arguments);
-    var ast = parse(template.trim(), options);
-
-    if (options.optimize !== false) {
-      optimize(ast, options);
-    }
-
-    var code = generate(ast, options);
-    return {
-      ast: ast,
-      render: code.render,
-      staticRenderFns: code.staticRenderFns
-    };
-  });
-  /*  */
-
-  var ref$1 = createCompiler(baseOptions);
-  var compile = ref$1.compile;
-  var compileToFunctions = ref$1.compileToFunctions;
-  /*  */
-  // check whether current browser encodes a char inside attribute values
-
-  var div;
-
-  function getShouldDecode(href) {
-    var necooData = window.necooPushCallStack(arguments);
-    div = div || document.createElement('div');
-    div.innerHTML = href ? "<a href=\"\n\"/>" : "<div a=\"\n\"/>";
-    return div.innerHTML.indexOf('&#10;') > 0;
-  } // #3663: IE encodes newlines inside attribute values while other browsers don't
-
-
-  var shouldDecodeNewlines = inBrowser ? getShouldDecode(false) : false; // #6828: chrome encodes content in a[href]
-
-  var shouldDecodeNewlinesForHref = inBrowser ? getShouldDecode(true) : false;
-  /*  */
-
-  var idToTemplate = cached(function _anonymous_203(id) {
-    var necooData = window.necooPushCallStack(arguments);
-    var el = query(id);
-    return el && el.innerHTML;
-  });
-  var mount = Vue.prototype.$mount;
-
-  Vue.prototype.$mount = function _anonymous_204(el, hydrating) {
-    var necooData = window.necooPushCallStack(arguments);
-    el = el && query(el);
-    /* istanbul ignore if */
-
-    if (el === document.body || el === document.documentElement) {
-      warn("Do not mount Vue to <html> or <body> - mount to normal elements instead.");
-      return this;
-    }
-
-    var options = this.$options; // resolve template/el and convert to render function
-
-    if (!options.render) {
-      var template = options.template;
-
-      if (template) {
-        if (typeof template === 'string') {
-          if (template.charAt(0) === '#') {
-            template = idToTemplate(template);
-            /* istanbul ignore if */
-
-            if (!template) {
-              warn("Template element not found or is empty: " + options.template, this);
-            }
-          }
-        } else if (template.nodeType) {
-          template = template.innerHTML;
-        } else {
-          {
-            warn('invalid template option:' + template, this);
-          }
-          return this;
-        }
-      } else if (el) {
-        template = getOuterHTML(el);
-      }
-
-      if (template) {
-        /* istanbul ignore if */
-        if (config.performance && mark) {
-          mark('compile');
-        }
-
-        var ref = compileToFunctions(template, {
-          outputSourceRange: "development" !== 'production',
-          shouldDecodeNewlines: shouldDecodeNewlines,
-          shouldDecodeNewlinesForHref: shouldDecodeNewlinesForHref,
-          delimiters: options.delimiters,
-          comments: options.comments
-        }, this);
-        var render = ref.render;
-        var staticRenderFns = ref.staticRenderFns;
-        options.render = render;
-        options.staticRenderFns = staticRenderFns;
-        /* istanbul ignore if */
-
-        if (config.performance && mark) {
-          mark('compile end');
-          measure("vue " + this._name + " compile", 'compile', 'compile end');
-        }
-      }
-    }
-
-    return mount.call(this, el, hydrating);
-  };
-  /**
-   * Get outerHTML of elements, taking care
-   * of SVG elements in IE as well.
-   */
-
-
-  function getOuterHTML(el) {
-    var necooData = window.necooPushCallStack(arguments);
-
-    if (el.outerHTML) {
-      return el.outerHTML;
-    } else {
-      var container = document.createElement('div');
-      container.appendChild(el.cloneNode(true));
-      return container.innerHTML;
-    }
-  }
-
-  Vue.compile = compileToFunctions;
-  return Vue;
-});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/amd-options.js":
 /*!****************************************!*\
   !*** (webpack)/buildin/amd-options.js ***!
@@ -17524,17 +10120,16 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./webpack/src/vue/index.js":
-/*!**********************************!*\
-  !*** ./webpack/src/vue/index.js ***!
-  \**********************************/
+/***/ "./webpack/src/mobx/index.js":
+/*!***********************************!*\
+  !*** ./webpack/src/mobx/index.js ***!
+  \***********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
+// "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx */ "./node_modules/mobx/lib/mobx.module.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var stacktrace = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
@@ -17632,7 +10227,7 @@ window.StackTrace = stacktrace;
           callerName = args.callee.caller && args.callee.caller.prototype.name;
 
           if (!callerName) {
-            var caller = getCallerFromSourceStack(stackTrace.sourceStack);
+            var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
 
             if (caller) {
               callerName = caller;
@@ -17644,7 +10239,7 @@ window.StackTrace = stacktrace;
 
         if (callerName === 'anonymous') {
           // get callerName from stackTrace
-          var caller = getCallerFromSourceStack(stackTrace.sourceStack);
+          var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
 
           if (caller) {
             callerName = caller;
@@ -17662,7 +10257,7 @@ window.StackTrace = stacktrace;
           callerInfo: {
             stackTrace: stackTrace,
             father: stackTrace && typeof stackTrace.stackTrace[3] !== 'undefined' ? stackTrace.stackTrace[3] : null,
-            self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[3] : null
+            self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[2] : null
           }
         };
         window.necooData[window.necooIndex].push(callStack);
@@ -17683,13 +10278,16 @@ window.StackTrace = stacktrace;
 
 
 window.necooIndex = 0;
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
-  template: "<div>{{message}}</div>",
-  data: {
-    message: 'Hello Vue!'
+var t = {
+  d: {
+    e: {
+      f: 2
+    }
   }
-});
+};
+var b = Object(mobx__WEBPACK_IMPORTED_MODULE_0__["observable"])(t); // autorun(() => {
+//     console.log('b', b.d);
+// });
 
 /***/ })
 
