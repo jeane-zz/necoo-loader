@@ -1,1 +1,2 @@
-import './dependence/inject';
+import './css/index';
+import './setCodemirror';

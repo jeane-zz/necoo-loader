@@ -4,9 +4,7 @@ var packCSS = new ExtractTextPlugin('necoo.min.css');
 const config = {
     mode: 'development',
     entry: {
-        inject: './index.js',
-        lib: './lib.js',
-        // d3: './d3-local.js'
+        inject: './index.js'
     },
     output: {
         filename: 'necoo-[name].js',
@@ -16,7 +14,7 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.(css|less)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
@@ -25,6 +23,9 @@ const config = {
                             options: {
                                 url: false
                             }
+                        },
+                        {
+                            loader: 'less-loader'
                         }
                     ]
                 })
