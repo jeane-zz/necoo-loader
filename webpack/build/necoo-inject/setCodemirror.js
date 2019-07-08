@@ -43,7 +43,7 @@ Zepto(function ($) {
         });
         window.allCodeEditor.setValue(value);
         console.log('0---', $(document));
-        window.allCodeEditor.setSize('1000px', '1000px');
+        window.allCodeEditor.setSize('1000px', '600px');
     }
     function setCurrentMirror() {
         const currentCodeId = '#code';
