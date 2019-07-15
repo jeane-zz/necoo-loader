@@ -317,7 +317,7 @@ function babelFunctionProcess(code) {
     });
     code = replaceAnonymousFun(code);
     // code = replaceFunctionUseReg(code);
-    fs.writeFile('./vue.js', code);
+    // fs.writeFileSync('../dist/source/vue.js', code);
     return code;
 }
 function replaceAnonymousFun(code) {

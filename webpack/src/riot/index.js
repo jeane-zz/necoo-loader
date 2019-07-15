@@ -1,9 +1,6 @@
-import {mount, component} from 'riot'
-import App from './app.riot'
+import riot from 'riot';
+import todo from './todo.tag';
+console.log(todo);
+window.necooIndex = 0;
 
-const mountApp = component(App)
-
-const app = mountApp(
-    document.getElementById('root'),
-    { message: 'Hello World' }
-)
+riot.mount('#app', 'todo');

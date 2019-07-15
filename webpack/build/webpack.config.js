@@ -5,11 +5,22 @@ const webpackConfig =  {
     // devtool: 'cheap-module-eval-source-map',
     devtool: 'source-map',
     entry: {
-        app: path.resolve(__dirname, '../src/mobx/index.js')
+        app: path.resolve(__dirname, '../src/riot/index.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'bundle.js',
+    },
+    devServer: {
+        contentBase: path.resolve(__dirname, '../dist'),
+        inline: true,
+        hot: true,
+        port: 7070,
+        disableHostCheck: true,
+        overlay: true,
+        host: '0.0.0.0',
+        useLocalIp: true,
+        publicPath: '/'
     },
     resolveLoader: {
         modules: [path.join(__dirname, '../loaders/'), 'node_modules']
@@ -41,7 +52,7 @@ const webpackConfig =  {
                 ]
             },
             {
-                test: /mobx.*\.js$/,
+                test: /riot.*\.js$/,
                 use:  {
                     loader: 'necoo-loader'
                 }
@@ -56,7 +67,19 @@ const webpackConfig =  {
             //             hot: false,
             //         }
             //     }]
-            // }
+            // },
+            {
+                test: /\.tag$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'riot-tag-loader',
+                    options: {
+                        hot: true, // set it to true if you are using hmr
+                        // add here all the other riot-compiler options riot.js.org/guide/compiler/
+                        // template: 'pug' for example
+                    }
+                }]
+            }
         ]
     },
 };

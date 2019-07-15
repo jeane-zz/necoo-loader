@@ -13,6 +13,7 @@ function astCode(sourceCode) {
     // sourceCode = babelZhProcess(sourceCode);
     // sourceCode = babelVariableProcess(sourceCode);
     // sourceCode = babelAssignProcess(sourceCode);
+    // @todo: 改成链式
     sourceCode = babelStrictProcess(sourceCode);
     sourceCode = babelFunctionProcess(sourceCode);
     sourceCode = babelProgramProcess(sourceCode);

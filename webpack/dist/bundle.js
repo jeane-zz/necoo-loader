@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./webpack/src/mobx/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../src/mobx/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/error-stack-parser/error-stack-parser.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/error-stack-parser/error-stack-parser.js ***!
-  \***************************************************************/
+/***/ "../../node_modules/_error-stack-parser@2.0.2@error-stack-parser/error-stack-parser.js":
+/*!***************************************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_error-stack-parser@2.0.2@error-stack-parser/error-stack-parser.js ***!
+  \***************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,7 +98,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   /* istanbul ignore next */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "../../node_modules/_stackframe@1.0.4@stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -269,14 +269,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./node_modules/mobx/lib/mobx.module.js":
-/*!**********************************************!*\
-  !*** ./node_modules/mobx/lib/mobx.module.js ***!
-  \**********************************************/
+/***/ "../../node_modules/_mobx@5.11.0@mobx/lib/mobx.module.js":
+/*!*********************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_mobx@5.11.0@mobx/lib/mobx.module.js ***!
+  \*********************************************************************************************************/
 /*! exports provided: $mobx, IDerivationState, ObservableMap, ObservableSet, Reaction, _allowStateChanges, _allowStateChangesInsideComputed, _getAdministration, _getGlobalState, _interceptReads, _isComputingDerivation, _resetGlobalState, action, autorun, comparer, computed, configure, createAtom, decorate, entries, extendObservable, flow, get, getAtom, getDebugName, getDependencyTree, getObserverTree, has, intercept, isAction, isArrayLike, isBoxedObservable, isComputed, isComputedProp, isObservable, isObservableArray, isObservableMap, isObservableObject, isObservableProp, isObservableSet, keys, observable, observe, onBecomeObserved, onBecomeUnobserved, onReactionError, reaction, remove, runInAction, set, spy, toJS, trace, transaction, untracked, values, when */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// "use strict";
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process, global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$mobx", function() { return $mobx; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IDerivationState", function() { return IDerivationState; });
@@ -335,13 +335,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "untracked", function() { return untracked; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "values", function() { return values; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "when", function() { return when; });
-const stacktrace = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
+const stacktrace = __webpack_require__(/*! stacktrace-js */ "../../node_modules/_stacktrace-js@2.0.0@stacktrace-js/stacktrace.js");
 
 window.StackTrace = stacktrace;
 
 (function (global, factory) {
   console.log('0000', typeof exports === 'object' && typeof module !== 'undefined');
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") ? define(['exports'], factory) : (global = global || self, factory(global.necoo = {}));
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && __webpack_require__(/*! !webpack amd options */ "../../node_modules/_webpack@4.35.3@webpack/buildin/amd-options.js") ? define(['exports'], factory) : (global = global || self, factory(global.necoo = {}));
 })(undefined, function (exports) {
   function initNecooData() {
     if (typeof window.necooData === 'undefined') {
@@ -2185,6 +2185,12 @@ function _anonymous_65() {
      */
 
     this.computedRequiresReaction = false;
+    /**
+     * Allows overwriting of computed properties, useful in tests but not prod as it can cause
+     * memory leaks. See https://github.com/mobxjs/mobx/issues/1867
+     */
+
+    this.computedConfigurable = false;
     /*
      * Don't catch and rethrow exceptions. This is useful for inspecting the state of
      * the stack when an exception occurs while debugging.
@@ -3146,6 +3152,7 @@ function configure(options) {
   var necooData = window.necooPushCallStack(arguments);
   var enforceActions = options.enforceActions,
       computedRequiresReaction = options.computedRequiresReaction,
+      computedConfigurable = options.computedConfigurable,
       disableErrorBoundaries = options.disableErrorBoundaries,
       reactionScheduler = options.reactionScheduler;
 
@@ -3183,6 +3190,10 @@ function configure(options) {
 
   if (computedRequiresReaction !== undefined) {
     globalState.computedRequiresReaction = !!computedRequiresReaction;
+  }
+
+  if (computedConfigurable !== undefined) {
+    globalState.computedConfigurable = !!computedConfigurable;
   }
 
   if (disableErrorBoundaries !== undefined) {
@@ -3254,15 +3265,29 @@ function getDefaultDecoratorFromObjectOptions(options) {
 function extendObservableObjectWithProperties(target, properties, decorators, defaultDecorator) {
   var necooData = window.necooPushCallStack(arguments);
 
+  var e_1, _a, e_2, _b;
+
   if (true) {
     invariant(!isObservable(properties), "Extending an object with another observable (object) is not supported. Please construct an explicit propertymap, using `toJS` if need. See issue #540");
 
     if (decorators) {
       var keys = getPlainObjectKeys(decorators);
 
-      for (var i in keys) {
-        var key = keys[i];
-        if (!(key in properties)) fail("Trying to declare a decorator for unspecified property '" + stringifyKey(key) + "'");
+      try {
+        for (var keys_1 = __values(keys), keys_1_1 = keys_1.next(); !keys_1_1.done; keys_1_1 = keys_1.next()) {
+          var key = keys_1_1.value;
+          if (!(key in properties)) fail("Trying to declare a decorator for unspecified property '" + stringifyKey(key) + "'");
+        }
+      } catch (e_1_1) {
+        e_1 = {
+          error: e_1_1
+        };
+      } finally {
+        try {
+          if (keys_1_1 && !keys_1_1.done && (_a = keys_1.return)) _a.call(keys_1);
+        } finally {
+          if (e_1) throw e_1.error;
+        }
       }
     }
   }
@@ -3272,20 +3297,32 @@ function extendObservableObjectWithProperties(target, properties, decorators, de
   try {
     var keys = getPlainObjectKeys(properties);
 
-    for (var i in keys) {
-      var key = keys[i];
-      var descriptor = Object.getOwnPropertyDescriptor(properties, key);
+    try {
+      for (var keys_2 = __values(keys), keys_2_1 = keys_2.next(); !keys_2_1.done; keys_2_1 = keys_2.next()) {
+        var key = keys_2_1.value;
+        var descriptor = Object.getOwnPropertyDescriptor(properties, key);
 
-      if (true) {
-        if (Object.getOwnPropertyDescriptor(target, key)) fail("'extendObservable' can only be used to introduce new properties. Use 'set' or 'decorate' instead. The property '" + stringifyKey(key) + "' already exists on '" + target + "'");
-        if (isComputed(descriptor.value)) fail("Passing a 'computed' as initial property value is no longer supported by extendObservable. Use a getter or decorator instead");
+        if (true) {
+          if (Object.getOwnPropertyDescriptor(target, key)) fail("'extendObservable' can only be used to introduce new properties. Use 'set' or 'decorate' instead. The property '" + stringifyKey(key) + "' already exists on '" + target + "'");
+          if (isComputed(descriptor.value)) fail("Passing a 'computed' as initial property value is no longer supported by extendObservable. Use a getter or decorator instead");
+        }
+
+        var decorator = decorators && key in decorators ? decorators[key] : descriptor.get ? computedDecorator : defaultDecorator;
+        if ( true && typeof decorator !== "function") fail("Not a valid decorator for '" + stringifyKey(key) + "', got: " + decorator);
+        var resultDescriptor = decorator(target, key, descriptor, true);
+        if (resultDescriptor // otherwise, assume already applied, due to `applyToInstance`
+        ) Object.defineProperty(target, key, resultDescriptor);
       }
-
-      var decorator = decorators && key in decorators ? decorators[key] : descriptor.get ? computedDecorator : defaultDecorator;
-      if ( true && typeof decorator !== "function") fail("Not a valid decorator for '" + stringifyKey(key) + "', got: " + decorator);
-      var resultDescriptor = decorator(target, key, descriptor, true);
-      if (resultDescriptor // otherwise, assume already applied, due to `applyToInstance`
-      ) Object.defineProperty(target, key, resultDescriptor);
+    } catch (e_2_1) {
+      e_2 = {
+        error: e_2_1
+      };
+    } finally {
+      try {
+        if (keys_2_1 && !keys_2_1.done && (_b = keys_2.return)) _b.call(keys_2);
+      } finally {
+        if (e_2) throw e_2.error;
+      }
     }
   } finally {
     endBatch();
@@ -5657,7 +5694,7 @@ function getAdministrationForComputedPropOwner(owner) {
 function generateComputedPropConfig(propName) {
   var necooData = window.necooPushCallStack(arguments);
   return computedPropertyConfigs[propName] || (computedPropertyConfigs[propName] = {
-    configurable: false,
+    configurable: globalState.computedConfigurable,
     enumerable: false,
     get: function _anonymous_255() {
       var necooData = window.necooPushCallStack(arguments);
@@ -5964,14 +6001,14 @@ if (typeof __MOBX_DEVTOOLS_GLOBAL_HOOK__ === "object") {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_process@0.11.10@process/browser.js */ "../../node_modules/_process@0.11.10@process/browser.js"), __webpack_require__(/*! ./../../_webpack@4.35.3@webpack/buildin/global.js */ "../../node_modules/_webpack@4.35.3@webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
+/***/ "../../node_modules/_process@0.11.10@process/browser.js":
+/*!********************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_process@0.11.10@process/browser.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -6186,192 +6223,10 @@ process.umask = function () {
 
 /***/ }),
 
-/***/ "./node_modules/stack-generator/stack-generator.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/stack-generator/stack-generator.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function (StackFrame) {
-  return {
-    backtrace: function StackGenerator$$backtrace(opts) {
-      var stack = [];
-      var maxStackSize = 10;
-
-      if (typeof opts === 'object' && typeof opts.maxStackSize === 'number') {
-        maxStackSize = opts.maxStackSize;
-      }
-
-      var curr = arguments.callee;
-
-      while (curr && stack.length < maxStackSize && curr['arguments']) {
-        // Allow V8 optimizations
-        var args = new Array(curr['arguments'].length);
-
-        for (var i = 0; i < args.length; ++i) {
-          args[i] = curr['arguments'][i];
-        }
-
-        if (/function(?:\s+([\w$]+))+\s*\(/.test(curr.toString())) {
-          stack.push(new StackFrame({
-            functionName: RegExp.$1 || undefined,
-            args: args
-          }));
-        } else {
-          stack.push(new StackFrame({
-            args: args
-          }));
-        }
-
-        try {
-          curr = curr.caller;
-        } catch (e) {
-          break;
-        }
-      }
-
-      return stack;
-    }
-  };
-});
-
-/***/ }),
-
-/***/ "./node_modules/stackframe/stackframe.js":
-/*!***********************************************!*\
-  !*** ./node_modules/stackframe/stackframe.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function () {
-  function _isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-
-  function _capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.substring(1);
-  }
-
-  function _getter(p) {
-    return function () {
-      return this[p];
-    };
-  }
-
-  var booleanProps = ['isConstructor', 'isEval', 'isNative', 'isToplevel'];
-  var numericProps = ['columnNumber', 'lineNumber'];
-  var stringProps = ['fileName', 'functionName', 'source'];
-  var arrayProps = ['args'];
-  var props = booleanProps.concat(numericProps, stringProps, arrayProps);
-
-  function StackFrame(obj) {
-    if (obj instanceof Object) {
-      for (var i = 0; i < props.length; i++) {
-        if (obj.hasOwnProperty(props[i]) && obj[props[i]] !== undefined) {
-          this['set' + _capitalize(props[i])](obj[props[i]]);
-        }
-      }
-    }
-  }
-
-  StackFrame.prototype = {
-    getArgs: function () {
-      return this.args;
-    },
-    setArgs: function (v) {
-      if (Object.prototype.toString.call(v) !== '[object Array]') {
-        throw new TypeError('Args must be an Array');
-      }
-
-      this.args = v;
-    },
-    getEvalOrigin: function () {
-      return this.evalOrigin;
-    },
-    setEvalOrigin: function (v) {
-      if (v instanceof StackFrame) {
-        this.evalOrigin = v;
-      } else if (v instanceof Object) {
-        this.evalOrigin = new StackFrame(v);
-      } else {
-        throw new TypeError('Eval Origin must be an Object or StackFrame');
-      }
-    },
-    toString: function () {
-      var functionName = this.getFunctionName() || '{anonymous}';
-      var args = '(' + (this.getArgs() || []).join(',') + ')';
-      var fileName = this.getFileName() ? '@' + this.getFileName() : '';
-      var lineNumber = _isNumber(this.getLineNumber()) ? ':' + this.getLineNumber() : '';
-      var columnNumber = _isNumber(this.getColumnNumber()) ? ':' + this.getColumnNumber() : '';
-      return functionName + args + fileName + lineNumber + columnNumber;
-    }
-  };
-
-  for (var i = 0; i < booleanProps.length; i++) {
-    StackFrame.prototype['get' + _capitalize(booleanProps[i])] = _getter(booleanProps[i]);
-
-    StackFrame.prototype['set' + _capitalize(booleanProps[i])] = function (p) {
-      return function (v) {
-        this[p] = Boolean(v);
-      };
-    }(booleanProps[i]);
-  }
-
-  for (var j = 0; j < numericProps.length; j++) {
-    StackFrame.prototype['get' + _capitalize(numericProps[j])] = _getter(numericProps[j]);
-
-    StackFrame.prototype['set' + _capitalize(numericProps[j])] = function (p) {
-      return function (v) {
-        if (!_isNumber(v)) {
-          throw new TypeError(p + ' must be a Number');
-        }
-
-        this[p] = Number(v);
-      };
-    }(numericProps[j]);
-  }
-
-  for (var k = 0; k < stringProps.length; k++) {
-    StackFrame.prototype['get' + _capitalize(stringProps[k])] = _getter(stringProps[k]);
-
-    StackFrame.prototype['set' + _capitalize(stringProps[k])] = function (p) {
-      return function (v) {
-        this[p] = String(v);
-      };
-    }(stringProps[k]);
-  }
-
-  return StackFrame;
-});
-
-/***/ }),
-
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/array-set.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/array-set.js ***!
-  \******************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/array-set.js":
+/*!******************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/array-set.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6382,7 +6237,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
  * Licensed under the New BSD license. See LICENSE or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-var util = __webpack_require__(/*! ./util */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js");
+var util = __webpack_require__(/*! ./util */ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js");
 
 var has = Object.prototype.hasOwnProperty;
 /**
@@ -6497,10 +6352,10 @@ exports.ArraySet = ArraySet;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/base64-vlq.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/base64-vlq.js ***!
-  \*******************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/base64-vlq.js":
+/*!*******************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/base64-vlq.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6541,7 +6396,7 @@ exports.ArraySet = ArraySet;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-var base64 = __webpack_require__(/*! ./base64 */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/base64.js"); // A single base 64 digit can contain 6 bits of data. For the base 64 variable
+var base64 = __webpack_require__(/*! ./base64 */ "../../node_modules/_source-map@0.5.6@source-map/lib/base64.js"); // A single base 64 digit can contain 6 bits of data. For the base 64 variable
 // length quantities we use in the source map spec, the first bit is the sign,
 // the next four bits are the actual value, and the 6th bit is the
 // continuation bit. The continuation bit tells us whether there are more
@@ -6644,10 +6499,10 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/base64.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/base64.js ***!
-  \***************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/base64.js":
+/*!***************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/base64.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -6726,10 +6581,10 @@ exports.decode = function (charCode) {
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/binary-search.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/binary-search.js ***!
-  \**********************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/binary-search.js":
+/*!**********************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/binary-search.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -6848,10 +6703,10 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/mapping-list.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/mapping-list.js ***!
-  \*********************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/mapping-list.js":
+/*!*********************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/mapping-list.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6862,7 +6717,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
  * Licensed under the New BSD license. See LICENSE or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-var util = __webpack_require__(/*! ./util */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js");
+var util = __webpack_require__(/*! ./util */ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js");
 /**
  * Determine whether mappingB is after mappingA with respect to generated
  * position.
@@ -6947,10 +6802,10 @@ exports.MappingList = MappingList;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/quick-sort.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/quick-sort.js ***!
-  \*******************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/quick-sort.js":
+/*!*******************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/quick-sort.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7068,10 +6923,10 @@ exports.quickSort = function (ary, comparator) {
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-consumer.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-consumer.js ***!
-  \****************************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/source-map-consumer.js":
+/*!****************************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/source-map-consumer.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7082,15 +6937,15 @@ exports.quickSort = function (ary, comparator) {
  * Licensed under the New BSD license. See LICENSE or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-var util = __webpack_require__(/*! ./util */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js");
+var util = __webpack_require__(/*! ./util */ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js");
 
-var binarySearch = __webpack_require__(/*! ./binary-search */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/binary-search.js");
+var binarySearch = __webpack_require__(/*! ./binary-search */ "../../node_modules/_source-map@0.5.6@source-map/lib/binary-search.js");
 
-var ArraySet = __webpack_require__(/*! ./array-set */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/array-set.js").ArraySet;
+var ArraySet = __webpack_require__(/*! ./array-set */ "../../node_modules/_source-map@0.5.6@source-map/lib/array-set.js").ArraySet;
 
-var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/base64-vlq.js");
+var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "../../node_modules/_source-map@0.5.6@source-map/lib/base64-vlq.js");
 
-var quickSort = __webpack_require__(/*! ./quick-sort */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/quick-sort.js").quickSort;
+var quickSort = __webpack_require__(/*! ./quick-sort */ "../../node_modules/_source-map@0.5.6@source-map/lib/quick-sort.js").quickSort;
 
 function SourceMapConsumer(aSourceMap) {
   var sourceMap = aSourceMap;
@@ -8122,10 +7977,10 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-generator.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-generator.js ***!
-  \*****************************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/source-map-generator.js":
+/*!*****************************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/source-map-generator.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8136,13 +7991,13 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
  * Licensed under the New BSD license. See LICENSE or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/base64-vlq.js");
+var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "../../node_modules/_source-map@0.5.6@source-map/lib/base64-vlq.js");
 
-var util = __webpack_require__(/*! ./util */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js");
+var util = __webpack_require__(/*! ./util */ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js");
 
-var ArraySet = __webpack_require__(/*! ./array-set */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/array-set.js").ArraySet;
+var ArraySet = __webpack_require__(/*! ./array-set */ "../../node_modules/_source-map@0.5.6@source-map/lib/array-set.js").ArraySet;
 
-var MappingList = __webpack_require__(/*! ./mapping-list */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/mapping-list.js").MappingList;
+var MappingList = __webpack_require__(/*! ./mapping-list */ "../../node_modules/_source-map@0.5.6@source-map/lib/mapping-list.js").MappingList;
 /**
  * An instance of the SourceMapGenerator represents a source map which is
  * being built incrementally. You may pass an object with the following
@@ -8545,10 +8400,10 @@ exports.SourceMapGenerator = SourceMapGenerator;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-node.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/source-node.js ***!
-  \********************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/source-node.js":
+/*!********************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/source-node.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8559,9 +8414,9 @@ exports.SourceMapGenerator = SourceMapGenerator;
  * Licensed under the New BSD license. See LICENSE or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-var SourceMapGenerator = __webpack_require__(/*! ./source-map-generator */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-generator.js").SourceMapGenerator;
+var SourceMapGenerator = __webpack_require__(/*! ./source-map-generator */ "../../node_modules/_source-map@0.5.6@source-map/lib/source-map-generator.js").SourceMapGenerator;
 
-var util = __webpack_require__(/*! ./util */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js"); // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
+var util = __webpack_require__(/*! ./util */ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js"); // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
 // operating systems these days (capturing the result).
 
 
@@ -8965,10 +8820,10 @@ exports.SourceNode = SourceNode;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/lib/util.js ***!
-  \*************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/lib/util.js":
+/*!*************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/lib/util.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9456,10 +9311,10 @@ exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflate
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/node_modules/source-map/source-map.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/stacktrace-gps/node_modules/source-map/source-map.js ***!
-  \***************************************************************************/
+/***/ "../../node_modules/_source-map@0.5.6@source-map/source-map.js":
+/*!***************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_source-map@0.5.6@source-map/source-map.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9468,16 +9323,16 @@ exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflate
  * Licensed under the New BSD license. See LICENSE.txt or:
  * http://opensource.org/licenses/BSD-3-Clause
  */
-exports.SourceMapGenerator = __webpack_require__(/*! ./lib/source-map-generator */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-generator.js").SourceMapGenerator;
-exports.SourceMapConsumer = __webpack_require__(/*! ./lib/source-map-consumer */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-map-consumer.js").SourceMapConsumer;
-exports.SourceNode = __webpack_require__(/*! ./lib/source-node */ "./node_modules/stacktrace-gps/node_modules/source-map/lib/source-node.js").SourceNode;
+exports.SourceMapGenerator = __webpack_require__(/*! ./lib/source-map-generator */ "../../node_modules/_source-map@0.5.6@source-map/lib/source-map-generator.js").SourceMapGenerator;
+exports.SourceMapConsumer = __webpack_require__(/*! ./lib/source-map-consumer */ "../../node_modules/_source-map@0.5.6@source-map/lib/source-map-consumer.js").SourceMapConsumer;
+exports.SourceNode = __webpack_require__(/*! ./lib/source-node */ "../../node_modules/_source-map@0.5.6@source-map/lib/source-node.js").SourceNode;
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-gps/stacktrace-gps.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/stacktrace-gps/stacktrace-gps.js ***!
-  \*******************************************************/
+/***/ "../../node_modules/_stack-generator@2.0.3@stack-generator/stack-generator.js":
+/*!******************************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_stack-generator@2.0.3@stack-generator/stack-generator.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9486,7 +9341,189 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   /* istanbul ignore next */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! source-map */ "./node_modules/stacktrace-gps/node_modules/source-map/source-map.js"), __webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "../../node_modules/_stackframe@1.0.4@stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+})(this, function (StackFrame) {
+  return {
+    backtrace: function StackGenerator$$backtrace(opts) {
+      var stack = [];
+      var maxStackSize = 10;
+
+      if (typeof opts === 'object' && typeof opts.maxStackSize === 'number') {
+        maxStackSize = opts.maxStackSize;
+      }
+
+      var curr = arguments.callee;
+
+      while (curr && stack.length < maxStackSize && curr['arguments']) {
+        // Allow V8 optimizations
+        var args = new Array(curr['arguments'].length);
+
+        for (var i = 0; i < args.length; ++i) {
+          args[i] = curr['arguments'][i];
+        }
+
+        if (/function(?:\s+([\w$]+))+\s*\(/.test(curr.toString())) {
+          stack.push(new StackFrame({
+            functionName: RegExp.$1 || undefined,
+            args: args
+          }));
+        } else {
+          stack.push(new StackFrame({
+            args: args
+          }));
+        }
+
+        try {
+          curr = curr.caller;
+        } catch (e) {
+          break;
+        }
+      }
+
+      return stack;
+    }
+  };
+});
+
+/***/ }),
+
+/***/ "../../node_modules/_stackframe@1.0.4@stackframe/stackframe.js":
+/*!***************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_stackframe@1.0.4@stackframe/stackframe.js ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
+  // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
+
+  /* istanbul ignore next */
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+})(this, function () {
+  function _isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  function _capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.substring(1);
+  }
+
+  function _getter(p) {
+    return function () {
+      return this[p];
+    };
+  }
+
+  var booleanProps = ['isConstructor', 'isEval', 'isNative', 'isToplevel'];
+  var numericProps = ['columnNumber', 'lineNumber'];
+  var stringProps = ['fileName', 'functionName', 'source'];
+  var arrayProps = ['args'];
+  var props = booleanProps.concat(numericProps, stringProps, arrayProps);
+
+  function StackFrame(obj) {
+    if (obj instanceof Object) {
+      for (var i = 0; i < props.length; i++) {
+        if (obj.hasOwnProperty(props[i]) && obj[props[i]] !== undefined) {
+          this['set' + _capitalize(props[i])](obj[props[i]]);
+        }
+      }
+    }
+  }
+
+  StackFrame.prototype = {
+    getArgs: function () {
+      return this.args;
+    },
+    setArgs: function (v) {
+      if (Object.prototype.toString.call(v) !== '[object Array]') {
+        throw new TypeError('Args must be an Array');
+      }
+
+      this.args = v;
+    },
+    getEvalOrigin: function () {
+      return this.evalOrigin;
+    },
+    setEvalOrigin: function (v) {
+      if (v instanceof StackFrame) {
+        this.evalOrigin = v;
+      } else if (v instanceof Object) {
+        this.evalOrigin = new StackFrame(v);
+      } else {
+        throw new TypeError('Eval Origin must be an Object or StackFrame');
+      }
+    },
+    toString: function () {
+      var functionName = this.getFunctionName() || '{anonymous}';
+      var args = '(' + (this.getArgs() || []).join(',') + ')';
+      var fileName = this.getFileName() ? '@' + this.getFileName() : '';
+      var lineNumber = _isNumber(this.getLineNumber()) ? ':' + this.getLineNumber() : '';
+      var columnNumber = _isNumber(this.getColumnNumber()) ? ':' + this.getColumnNumber() : '';
+      return functionName + args + fileName + lineNumber + columnNumber;
+    }
+  };
+
+  for (var i = 0; i < booleanProps.length; i++) {
+    StackFrame.prototype['get' + _capitalize(booleanProps[i])] = _getter(booleanProps[i]);
+
+    StackFrame.prototype['set' + _capitalize(booleanProps[i])] = function (p) {
+      return function (v) {
+        this[p] = Boolean(v);
+      };
+    }(booleanProps[i]);
+  }
+
+  for (var j = 0; j < numericProps.length; j++) {
+    StackFrame.prototype['get' + _capitalize(numericProps[j])] = _getter(numericProps[j]);
+
+    StackFrame.prototype['set' + _capitalize(numericProps[j])] = function (p) {
+      return function (v) {
+        if (!_isNumber(v)) {
+          throw new TypeError(p + ' must be a Number');
+        }
+
+        this[p] = Number(v);
+      };
+    }(numericProps[j]);
+  }
+
+  for (var k = 0; k < stringProps.length; k++) {
+    StackFrame.prototype['get' + _capitalize(stringProps[k])] = _getter(stringProps[k]);
+
+    StackFrame.prototype['set' + _capitalize(stringProps[k])] = function (p) {
+      return function (v) {
+        this[p] = String(v);
+      };
+    }(stringProps[k]);
+  }
+
+  return StackFrame;
+});
+
+/***/ }),
+
+/***/ "../../node_modules/_stacktrace-gps@3.0.2@stacktrace-gps/stacktrace-gps.js":
+/*!***************************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_stacktrace-gps@3.0.2@stacktrace-gps/stacktrace-gps.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
+  // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
+
+  /* istanbul ignore next */
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! source-map */ "../../node_modules/_source-map@0.5.6@source-map/source-map.js"), __webpack_require__(/*! stackframe */ "../../node_modules/_stackframe@1.0.4@stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -9832,10 +9869,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./node_modules/stacktrace-js/stacktrace.js":
-/*!**************************************************!*\
-  !*** ./node_modules/stacktrace-js/stacktrace.js ***!
-  \**************************************************/
+/***/ "../../node_modules/_stacktrace-js@2.0.0@stacktrace-js/stacktrace.js":
+/*!*********************************************************************************************************************!*\
+  !*** /Users/hongrunhui/Documents/mydoc/necoo-webpack/node_modules/_stacktrace-js@2.0.0@stacktrace-js/stacktrace.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9844,7 +9881,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   /* istanbul ignore next */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! error-stack-parser */ "./node_modules/error-stack-parser/error-stack-parser.js"), __webpack_require__(/*! stack-generator */ "./node_modules/stack-generator/stack-generator.js"), __webpack_require__(/*! stacktrace-gps */ "./node_modules/stacktrace-gps/stacktrace-gps.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! error-stack-parser */ "../../node_modules/_error-stack-parser@2.0.2@error-stack-parser/error-stack-parser.js"), __webpack_require__(/*! stack-generator */ "../../node_modules/_stack-generator@2.0.3@stack-generator/stack-generator.js"), __webpack_require__(/*! stacktrace-gps */ "../../node_modules/_stacktrace-gps@3.0.2@stacktrace-gps/stacktrace-gps.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -10078,7 +10115,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/amd-options.js":
+/***/ "../../node_modules/_webpack@4.35.3@webpack/buildin/amd-options.js":
 /*!****************************************!*\
   !*** (webpack)/buildin/amd-options.js ***!
   \****************************************/
@@ -10092,7 +10129,7 @@ module.exports = __webpack_amd_options__;
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
+/***/ "../../node_modules/_webpack@4.35.3@webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -10120,25 +10157,23 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./webpack/src/mobx/index.js":
-/*!***********************************!*\
-  !*** ./webpack/src/mobx/index.js ***!
-  \***********************************/
+/***/ "../src/mobx/index.js":
+/*!****************************!*\
+  !*** ../src/mobx/index.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// "use strict";
+"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx */ "./node_modules/mobx/lib/mobx.module.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var stacktrace = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
+/* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx */ "../../node_modules/_mobx@5.11.0@mobx/lib/mobx.module.js");
+const stacktrace = __webpack_require__(/*! stacktrace-js */ "../../node_modules/_stacktrace-js@2.0.0@stacktrace-js/stacktrace.js");
 
 window.StackTrace = stacktrace;
 
 (function (global, factory) {
-  console.log('0000', (typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined');
-  (typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") ? define(['exports'], factory) : (global = global || self, factory(global.necoo = {}));
+  console.log('0000', typeof exports === 'object' && typeof module !== 'undefined');
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && __webpack_require__(/*! !webpack amd options */ "../../node_modules/_webpack@4.35.3@webpack/buildin/amd-options.js") ? define(['exports'], factory) : (global = global || self, factory(global.necoo = {}));
 })(undefined, function (exports) {
   function initNecooData() {
     if (typeof window.necooData === 'undefined') {
@@ -10278,14 +10313,14 @@ window.StackTrace = stacktrace;
 
 
 window.necooIndex = 0;
-var t = {
+let t = {
   d: {
     e: {
       f: 2
     }
   }
 };
-var b = Object(mobx__WEBPACK_IMPORTED_MODULE_0__["observable"])(t); // autorun(() => {
+let b = Object(mobx__WEBPACK_IMPORTED_MODULE_0__["observable"])(t); // autorun(() => {
 //     console.log('b', b.d);
 // });
 
