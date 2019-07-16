@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node webpack/build/dev.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +13,8 @@
     "@riotjs/compiler": "^4.3.2",
     "@riotjs/webpack-loader": "^4.0.1",
     "babel-loader": "^8.0.6",
+    "riot-compiler": "^3.6.0",
+    "riot-tag-loader": "^2.1.0",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
@@ -26,11 +29,12 @@
     "mobx": "^5.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "riot": "^4.3.1",
+    "riot": "^3.13.2",
     "stacktrace-js": "^2.0.0",
     "string": "^3.3.3",
     "superagent": "^5.1.0",
     "vue": "^2.6.10",
+    "webpack-dev-server": "^3.7.2",
     "zepto": "^1.2.0"
   }
 }
