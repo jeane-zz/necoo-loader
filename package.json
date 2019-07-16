@@ -1,22 +1,23 @@
 {
-  "name": "necoo-webpack-loader",
+  "name": "necoo-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "A webpack loader help you to learn Javascript source code.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node webpack/build/dev.js"
+    "dev": "node build/dev.js",
+    "build:inject": "cd ./loaders/necoo-inject/ && webpack"
   },
-  "author": "",
+  "author": "hongrunhui",
   "license": "ISC",
   "devDependencies": {
-    "@riotjs/compiler": "^4.3.2",
-    "@riotjs/webpack-loader": "^4.0.1",
     "babel-loader": "^8.0.6",
-    "riot-compiler": "^3.6.0",
-    "riot-tag-loader": "^2.1.0",
     "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "internal-ip": "^4.3.0",
+    "opn": "^6.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
@@ -30,11 +31,21 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "riot": "^3.13.2",
+    "@riotjs/compiler": "^4.3.2",
+    "@riotjs/webpack-loader": "^4.0.1",
+    "riot-compiler": "^3.6.0",
+    "riot-tag-loader": "^2.1.0",
     "stacktrace-js": "^2.0.0",
     "string": "^3.3.3",
     "superagent": "^5.1.0",
     "vue": "^2.6.10",
-    "webpack-dev-server": "^3.7.2",
-    "zepto": "^1.2.0"
+    "zepto": "^1.2.0",
+    "codemirror": "^5.48.0",
+    "codemirror-formatting": "^1.0.0",
+    "css-loader": "^3.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "n-zepto": "^1.2.0",
+    "style-loader": "^0.23.1"
   }
 }

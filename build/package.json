@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "internal-ip": "^4.3.0",
-    "opn": "^6.0.0"
-  }
-}
