@@ -1,8 +1,5 @@
 node_modules/
-/node_modules/
-/node_modules/*
 dist/
-build/node_modules/
 package-lock.json
 .idea/
 .DS_Store
@@ -12,7 +9,6 @@ package-lock.json
 *.sublime-workspace
 .idea/
 .idea_modules/
-node_modules
 logs
 *.log
 npm-debug.log
@@ -26,7 +22,6 @@ npm-debug.log
 *.sublime-workspace
 .idea/
 .idea_modules/
-node_modules
 logs
 *.log
 npm-debug.log
