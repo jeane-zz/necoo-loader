@@ -174,15 +174,15 @@ class Inject {
             codeMirrorInstance.autoFormatRange(range.from, range.to);
         }
     }
-    update(root) {
-        let nodes = root.descendants();
+    update(source) {
+        let nodes = this.root.descendants();
         let height = Math.max(500, nodes.length * this.d3Config.barHeight + this.d3Config.margin.top + this.d3Config.margin.bottom);
         d3.select("svg")
             .transition()
             .duration(this.d3Config.duration)
             .attr("height", height);
-        let index = -1;
-        root.eachBefore(n => {
+        let index = -1, i = 0;
+        this.root.eachBefore(n => {
             n.x = ++index * this.d3Config.barHeight;
             n.y = n.depth * 20;
         });
@@ -197,7 +197,7 @@ class Inject {
             .append("g")
             .attr("class", "node")
             .attr("transform", d => {
-                return "translate(" + root.y0 + "," + root.x0 + ")";
+                return "translate(" + source.y0 + "," + source.x0 + ")";
             })
             .style("opacity", 0);
         // Enter any new nodes at the parent's previous position.
@@ -206,7 +206,7 @@ class Inject {
             .attr("height", this.d3Config.barHeight)
             .attr("width", this.d3Config.barWidth)
             .style("fill", this.color)
-            .on("click", this.click);
+            .on("click", this.click.bind(this));
         nodeEnter.append("text")
             .attr("dy", 3.5)
             .attr("dx", 5.5)
@@ -227,14 +227,14 @@ class Inject {
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
             .style("fill", 'green')
-            .on("click", this.renderFuncSource.bind(null, 'source'));
+            .on("click", this.renderFuncSource.bind(this, 'source'));
          this.clickToExec = nodeEnter.append("rect")
             .attr("y", -this.d3Config.barHeight/2)
             .attr("x", this.d3Config.barWidth + 40)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
             .style("fill", 'red')
-            .on("click", this.renderFuncSource.bind(null, 'exec'));
+            .on("click", this.renderFuncSource.bind(this, 'exec'));
         nodeEnter.append("text")
             .attr("dy", this.d3Config.barHeight/2-5)
             .attr("dx", this.d3Config.barWidth - 20)
@@ -275,13 +275,13 @@ class Inject {
             .transition()
             .duration(this.d3Config.duration)
             .attr("transform", d => {
-                return "translate(" + root.y + "," + root.x + ")";
+                return "translate(" + source.y + "," + source.x + ")";
             })
             .style("opacity", 0)
             .remove();
         // Update the links…
         let link = this.svg.selectAll(".link")
-            .data(root.links(), d => {
+            .data(this.root.links(), d => {
                 return d.target.id;
             });
         // Enter any new links at the parent's previous position.
@@ -290,7 +290,7 @@ class Inject {
             .insert("path", "g")
             .attr("class", "link")
             .attr("d", d => {
-                let o = {x: root.x0, y: root.y0};
+                let o = {x: source.x0, y: source.y0};
                 return this.diagonal({source: o, target: o});
             })
             .transition()
@@ -307,12 +307,12 @@ class Inject {
             .transition()
             .duration(this.d3Config.duration)
             .attr("d", d => {
-                let o = {x: root.x, y: root.y};
+                let o = {x: source.x, y: source.y};
                 return this.diagonal({source: o, target: o});
             })
             .remove();
         // Stash the old positions for transition.
-        root.each(d => {
+        this.root.each(d => {
             d.x0 = d.x;
             d.y0 = d.y;
         });
@@ -404,11 +404,10 @@ class Inject {
             .attr("transform", "translate(" + this.d3Config.margin.left + "," + this.d3Config.margin.top + ")");
         d3.json("treeData.json", (error, flare) => {
             if (error) throw error;
-            let root;
-            root = d3.hierarchy(flare);
-            root.x0 = 0;
-            root.y0 = 0;
-            this.update(root);
+            this.root = d3.hierarchy(flare);
+            this.root.x0 = 0;
+            this.root.y0 = 0;
+            this.update(this.root);
         });
     }
     parseCode(code) {
