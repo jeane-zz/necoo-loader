@@ -28,20 +28,18 @@ window.StackTrace = stacktrace;
     }
 
     function getCallerFromSourceStack(sourceStack) {
+        // 为什么不用stackTrace.stackTrace呢？好像stackTrace.stackTrace会丢信息
         var callerName = null;
         if (sourceStack) {
             var stackArr = [];
-            if (sourceStack) {
-                stackArr = sourceStack.split('  at ');
-                if (stackArr[4]) {
-                    try {
-                        callerName = stackArr[4].split('eval at ')[1].split(' ')[0];
-                    }
-                    catch (e) {
-                    }
+            stackArr = sourceStack.split('  at ');
+            if (stackArr[4]) {
+                try {
+                    callerName = stackArr[4].split('eval at ')[1].split(' ')[0];
+                }
+                catch (e) {
                 }
             }
-
             // for (var i = 0; i < stackArr.length; i++) {
             //     var nowStack = stackArr[i];
             //
@@ -64,7 +62,7 @@ window.StackTrace = stacktrace;
 
         }
     }
-    function necooPushCallStack(args) {
+    function necooPush(args) {
         if (!initNecooData()) {
             return;
         }
@@ -98,6 +96,9 @@ window.StackTrace = stacktrace;
                     }
                     console.log('anonymous', callerName, caller, stackTrace);
                 }
+                if (callerName === 'Object.<anonymous>') {
+                    callerName = stackTrace.stackTrace[4].functionName;
+                }
                 callStack = {
                     name: calleeName,
                     showName: 'function: ' + calleeName,
@@ -118,9 +119,9 @@ window.StackTrace = stacktrace;
         }
         return callStack || {};
     }
-    exports.necooPushCallStack = necooPushCallStack;
+    exports.necooPush = necooPush;
     if (window) {
-        window.necooPushCallStack = necooPushCallStack;
+        window.necooPush = necooPush;
     }
 }));
 

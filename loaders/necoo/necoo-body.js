@@ -1,1 +1,1 @@
-    var necooData = window.necooPushCallStack(arguments);
+    var necooData = window.necooPush(arguments);

@@ -446,7 +446,7 @@ class Inject {
         this.currentFunCodemirror.codeMirror.setValue(code)
     }
     removeNecooPushCallStack(code) {
-        const re = /var necooData = window\.necooPushCallStack\(arguments\);/gi;
+        const re = /var necooData = window\.necooPush\(arguments\);/gi;
         return code.replace(re, '');
     }
 }
