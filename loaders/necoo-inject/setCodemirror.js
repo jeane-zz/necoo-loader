@@ -33,6 +33,7 @@ class CodeMirrorInstance {
         this.config = Object.assign(config, this.defaultConfig);
         this.$textarea = this.config.$textarea;
         this.codeMirror = CodeMirror.fromTextArea(this.$textarea, this.config);
+        this.clickIndex = -1;
     }
     setValue(value) {
         this.codeMirror.setValue(value);
@@ -206,7 +207,9 @@ class Inject {
             .attr("y", -this.d3Config.barHeight / 2)
             .attr("height", this.d3Config.barHeight)
             .attr("width", this.d3Config.barWidth)
-            .attr('class', this.setClass)
+            .attr('class', this.setClass.bind(this))
+            .attr('fill', (d) => {
+            })
             // .style("fill", this.color)
             .on("click", this.click.bind(this));
         // 函数名字
@@ -222,13 +225,13 @@ class Inject {
             .attr("x", this.d3Config.barWidth - 30)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '30')
-            .attr('class', 'node-index');
+            .attr('class', this.getCls.bind(this, 'node-index'));
          this.clickToSource = nodeEnter.append("rect")
             .attr("y", -this.d3Config.barHeight/2)
             .attr("x", this.d3Config.barWidth)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
-             .attr('class', 'node-to-source')
+             .attr('class', this.getCls.bind(this, 'node-to-source'))
             // .style("fill", 'green')
             .on("click", this.renderFuncSource.bind(this, 'source'));
          this.clickToExec = nodeEnter.append("rect")
@@ -236,7 +239,7 @@ class Inject {
             .attr("x", this.d3Config.barWidth + 40)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
-             .attr('class', 'node-to-exec')
+             .attr('class', this.getCls.bind(this, 'node-to-exec'))
              // .style("fill", 'red')
             .on("click", this.renderFuncSource.bind(this, 'exec'));
          // 设置右侧文字
@@ -273,7 +276,7 @@ class Inject {
             })
             .style("opacity", 1)
             .select("rect")
-            .attr('class', this.setClass);
+            .attr('class', this.setClass.bind(this));
         // .style("fill", this.color);
         // Transition exiting nodes to the parent's new position.
         node
@@ -324,7 +327,6 @@ class Inject {
         });
     }
     renderFuncSource(type, d) {
-        console.log(type, d);
         let me = this;
         let index = d.data.index;
         let sourceLine = '';
@@ -347,14 +349,7 @@ class Inject {
                 this.lastTextMaker = me.sourceCodemirror.codeMirror.doc.markText({line: self.lineNumber-1, ch: 0},{line: self.lineNumber-1, ch: self.columnNumber}, {className: "errorHighlight"});
             }
         }
-        this.clickEl._groups.forEach(item => {
-            item.forEach(list => {
-                list.__data__.isClick = false;
-            });
-        });
-        d.isClick = true;
-        console.log('------', d, d.fill);
-        this.clickEl.style('fill', this.setClickColor);
+        this.clickIndex = d.id;
         if (typeof index !== 'undefined') {
             // let sourceBox = d3.select('#preCode');
             // sourceBox.style("position", 'absolute');
@@ -369,15 +364,6 @@ class Inject {
         console.table('%c输入：', 'color:#0f0;;font-size:20px;', d.data.obj.args);
         console.log('%c输出' + sourceLine + '行：', 'color:red;font-size:20px;', d.data.obj.returnValue);
         console.log('%c-----------------------', 'color: #f0f');
-        function addClass(obj,cls) {
-            var obj_class=obj.className,//获取class的内容；
-                blank = ( obj_class != '' ) ? ' ' : '';//判断获取的class是否为空，如果不为空，则添加空格；
-            if (obj_class.indexOf(cls) > -1) {
-                return;
-            }
-            var added = obj_class + blank + cls;//组合原来的class和需要添加的class，中间加上空格；
-            obj.className = added;//替换原来的class；
-        }
         this.update(d);
     }
     // Toggle children on click.
@@ -395,11 +381,15 @@ class Inject {
     setClickColor(d) {
         return d.isClick ? "red" : "green";
     }
-    color(d) {
-        return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+    getCls(defaultCls, d) {
+        return defaultCls;
     }
     setClass(d) {
-        return d._children ? "node-parent-close" : d.children ? "node-parent-open" : "node-children";
+        let cls = d._children ? "node-parent-close" : d.children ? "node-parent-open" : "node-children";
+        if (d.id === this.clickIndex) {
+            cls += ' click-node';
+        }
+        return cls;
     }
     renderTree() {
         document.querySelector(this.d3Config.treeBoxCls).innerHTML = '';
