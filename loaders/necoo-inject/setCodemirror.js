@@ -363,7 +363,8 @@ class Inject {
         }
         console.table('%c输入：', 'color:#0f0;;font-size:20px;', d.data.obj.args);
         console.log('%c输出' + sourceLine + '行：', 'color:red;font-size:20px;', d.data.obj.returnValue);
-        console.log('%c-----------------------', 'color: #f0f');
+        console.log('%c-----------------------', 'color: #f0f', d);
+        this.getArgsFuncStr(d);
         this.update(d);
     }
     // Toggle children on click.
@@ -438,6 +439,23 @@ class Inject {
     removeNecooPushCallStack(code) {
         const re = /var necooData = window\.necooPush\(arguments\);/gi;
         return code.replace(re, '');
+    }
+    getArgsFuncStr(d) {
+        const callerInfo = d.data.obj.callerInfo.father;
+        const defineInfo = d.data.obj.callerInfo.self;
+        const execLine = callerInfo ? {
+            columnNumber: callerInfo.columnNumber,
+            lineNumber: callerInfo.lineNumber - 1
+        } : null;
+        const defineLine = defineInfo ? {
+            columnNumber: defineInfo.columnNumber,
+            lineNumber: defineInfo.lineNumber - 2
+        } : null;
+        let execLineStr = this.sourceCodemirror.codeMirror.getLine(execLine.lineNumber);
+        let defineLineStr = this.sourceCodemirror.codeMirror.getLine(defineLine.lineNumber);
+        let args = d.data.obj.arguments;
+        console.log('exec', execLineStr);
+        console.log('define', defineLineStr, Array.prototype.slice.apply(args));
     }
 }
 
