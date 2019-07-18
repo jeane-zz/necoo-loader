@@ -33,9 +33,12 @@
 .node rect {
     cursor: pointer;
     fill: #fff;
-    fill-opacity: 0.5;
+    fill-opacity: 0.8;
     stroke: #3182bd;
-    stroke-width: 1.5px;
+    transition: fill .4s;
+    &:hover {
+        background-color: #fabd2f;
+    }
 }
 .node text {
     font: 10px sans-serif;
@@ -75,23 +78,59 @@
 }
 
 .errorHighlight {
+    background: rgba(255, 0, 0, 0.73);;
     /*animation:mymove 5s;*/
     /*-webkit-animation:mymove 5s;*/
     /*animation-iteration-count:1;*/
     /*-webkit-animation-iteration-count:1;*/
 }
-@keyframes mymove
-{
-    0% {
-        background: none;
+//@keyframes mymove
+//{
+//    0% {
+//        background: none;
+//    }
+//    50% {background: red;}
+//    100% {background: none;}
+//}
+//
+//@-webkit-keyframes mymove /*Safari and Chrome*/
+//{
+//    0% {background: none;}
+//    50% {background: red;}
+//    100% {background: none;}
+//}
+.node-parent-close {
+    fill: #3182bd !important;
+    &:hover {
+        fill: #fabd2f !important;
     }
-    50% {background: red;}
-    100% {background: none;}
+}
+.node-parent-open {
+    fill: #c6dbef !important;
+    &:hover {
+        fill: #fabd2f !important;
+    }
+}
+.node-children {
+    fill: #fd8d3c !important;
+    cursor: default;
 }
 
-@-webkit-keyframes mymove /*Safari and Chrome*/
-{
-    0% {background: none;}
-    50% {background: red;}
-    100% {background: none;}
+.node-index {
+    fill: #fabd2f !important;
+    &:hover {
+        fill: #fabd2f !important;
+    }
+}
+.node-to-source {
+    fill: #fae817 !important;
+    &:hover {
+        fill: #fadf00 !important;
+    }
+}
+.node-to-exec {
+    fill: #fa6162 !important;
+    &:hover {
+        fill: #FA3000 !important;
+    }
 }

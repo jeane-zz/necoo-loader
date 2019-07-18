@@ -298,7 +298,8 @@ function replaceFunction(path, code) {
 function replaceFunctionUseReg(code) {
     const RE_FUNC = /[^\'\"](function(\s[\w\$\_]+)?\s*\([\s\S]*?\)\s*\{)/g;
     const template = fs.readFileSync(__dirname + '/necoo-body.js', 'utf8');
-    code = code.replace(RE_FUNC, "$1\n" + template + '\n');
+    console.log('=====template', template);
+    code = code.replace(RE_FUNC, "$1" + template + '\n');
     return code;
 }
 function babelFunctionProcess(code) {

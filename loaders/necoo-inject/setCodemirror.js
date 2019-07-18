@@ -95,7 +95,7 @@ class Inject {
             barWidth: (width - margin.left - margin.right) * 0.2,
             duration: 400,
         };
-
+        this.lastTextMaker = null;
         this.initButtons();
         this.currentFunCodemirror = initCodemirror(currentFunCodeId);
         this.sourceCodemirror = initCodemirror(allCodeId);
@@ -126,7 +126,8 @@ class Inject {
     async setSourceToCodeMirror(codeMirrorInstance) {
         try {
             const url = window.necooData[0][0].callerInfo.stackTrace.stackTrace[0].fileName;
-            const sourceCode = await getSourceCodeData(url);
+            let sourceCode = await getSourceCodeData(url);
+            sourceCode = this.removeNecooPushCallStack(sourceCode);
             codeMirrorInstance.setValue(sourceCode);
         }
         catch (e) {
@@ -205,13 +206,14 @@ class Inject {
             .attr("y", -this.d3Config.barHeight / 2)
             .attr("height", this.d3Config.barHeight)
             .attr("width", this.d3Config.barWidth)
-            .style("fill", this.color)
+            .attr('class', this.setClass)
+            // .style("fill", this.color)
             .on("click", this.click.bind(this));
+        // 函数名字
         nodeEnter.append("text")
             .attr("dy", 3.5)
             .attr("dx", 5.5)
             .text(d => {
-                console.log(d.data);
                 return d.data && d.data.name;
             });
         // Transition nodes to their new position.
@@ -220,21 +222,24 @@ class Inject {
             .attr("x", this.d3Config.barWidth - 30)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '30')
-            .style("fill", 'green');
+            .attr('class', 'node-index');
          this.clickToSource = nodeEnter.append("rect")
             .attr("y", -this.d3Config.barHeight/2)
             .attr("x", this.d3Config.barWidth)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
-            .style("fill", 'green')
+             .attr('class', 'node-to-source')
+            // .style("fill", 'green')
             .on("click", this.renderFuncSource.bind(this, 'source'));
          this.clickToExec = nodeEnter.append("rect")
             .attr("y", -this.d3Config.barHeight/2)
             .attr("x", this.d3Config.barWidth + 40)
             .attr("height", this.d3Config.barHeight)
             .attr("width", '40')
-            .style("fill", 'red')
+             .attr('class', 'node-to-exec')
+             // .style("fill", 'red')
             .on("click", this.renderFuncSource.bind(this, 'exec'));
+         // 设置右侧文字
         nodeEnter.append("text")
             .attr("dy", this.d3Config.barHeight/2-5)
             .attr("dx", this.d3Config.barWidth - 20)
@@ -268,7 +273,8 @@ class Inject {
             })
             .style("opacity", 1)
             .select("rect")
-            .style("fill", this.color);
+            .attr('class', this.setClass);
+        // .style("fill", this.color);
         // Transition exiting nodes to the parent's new position.
         node
             .exit()
@@ -322,19 +328,23 @@ class Inject {
         let me = this;
         let index = d.data.index;
         let sourceLine = '';
+        let textMarker = '';
+        if (this.lastTextMaker) {
+            this.lastTextMaker.clear();
+        }
         if (type === 'exec') {
             if (d.data.obj.callerInfo.father) {
                 sourceLine = d.data.obj.callerInfo.father.lineNumber;
-                me.sourceCodemirror.codeMirror.scrollIntoView({line: d.data.obj.callerInfo.father.lineNumber, ch: d.data.obj.callerInfo.father.columnNumber});
-                me.sourceCodemirror.codeMirror.doc.markText({line:d.data.obj.callerInfo.father.lineNumber-1, ch: 0},{line: d.data.obj.callerInfo.father.lineNumber-1, ch: d.data.obj.callerInfo.father.columnNumber}, {className: "errorHighlight", css: 'animation:mymove 5s;'});
+                me.sourceCodemirror.codeMirror.scrollIntoView({line: d.data.obj.callerInfo.father.lineNumber, ch: d.data.obj.callerInfo.father.columnNumber}, 100);
+                this.lastTextMaker = me.sourceCodemirror.codeMirror.doc.markText({line:d.data.obj.callerInfo.father.lineNumber-1, ch: 0},{line: d.data.obj.callerInfo.father.lineNumber-1, ch: d.data.obj.callerInfo.father.columnNumber}, {className: "errorHighlight"});
             }
         }
         if (type === 'source') {
             if (d.data.obj.callerInfo.self) {
                 let self = d.data.obj.callerInfo.self;
                 sourceLine = self.lineNumber;
-                me.sourceCodemirror.codeMirror.scrollIntoView({line: self.lineNumber, ch: self.columnNumber});
-                me.sourceCodemirror.codeMirror.doc.markText({line: self.lineNumber-1, ch: 0},{line: self.lineNumber-1, ch: self.columnNumber}, {className: "errorHighlight", css: 'animation:mymove 5s;'});
+                me.sourceCodemirror.codeMirror.scrollIntoView({line: self.lineNumber, ch: self.columnNumber}, 100);
+                this.lastTextMaker = me.sourceCodemirror.codeMirror.doc.markText({line: self.lineNumber-1, ch: 0},{line: self.lineNumber-1, ch: self.columnNumber}, {className: "errorHighlight"});
             }
         }
         this.clickEl._groups.forEach(item => {
@@ -343,6 +353,7 @@ class Inject {
             });
         });
         d.isClick = true;
+        console.log('------', d, d.fill);
         this.clickEl.style('fill', this.setClickColor);
         if (typeof index !== 'undefined') {
             // let sourceBox = d3.select('#preCode');
@@ -387,6 +398,9 @@ class Inject {
     color(d) {
         return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
     }
+    setClass(d) {
+        return d._children ? "node-parent-close" : d.children ? "node-parent-open" : "node-children";
+    }
     renderTree() {
         document.querySelector(this.d3Config.treeBoxCls).innerHTML = '';
         this.diagonal = d3.linkHorizontal()
@@ -430,6 +444,10 @@ class Inject {
         }
         code = this.parseCode(code);
         this.currentFunCodemirror.codeMirror.setValue(code)
+    }
+    removeNecooPushCallStack(code) {
+        const re = /var necooData = window\.necooPushCallStack\(arguments\);/gi;
+        return code.replace(re, '');
     }
 }
 
