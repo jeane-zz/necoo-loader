@@ -6,7 +6,8 @@ const {babelReturnProcess,
     babelAssignProcess,
     babelFunctionProcess,
     babelProgramProcess,
-    babelStrictProcess
+    babelStrictProcess,
+    babelReplaceReturn
 } = require('./necoo-babel');
 function astCode(sourceCode) {
     // sourceCode = babelReturnProcess(sourceCode);
@@ -15,6 +16,7 @@ function astCode(sourceCode) {
     // sourceCode = babelAssignProcess(sourceCode);
     // @todo: 改成链式
     sourceCode = babelStrictProcess(sourceCode);
+    sourceCode = babelReplaceReturn(sourceCode);
     sourceCode = babelFunctionProcess(sourceCode);
     sourceCode = babelProgramProcess(sourceCode);
     // console.log(sourceCode);

@@ -63,10 +63,14 @@ window.StackTrace = stacktrace;
         }
     }
     function necooPush(args) {
+        var callStack = {};
+        callStack.pushReturn = (returnVal) => {
+            callStack.returnVal = returnVal;
+            return returnVal;
+        };
         if (!initNecooData()) {
-            return;
+            return callStack;
         }
-        var callStack;
         if (window.necooIndex >= 0) {
             var stackTrace = getStackTrace();
             var calleeName = null;
@@ -111,13 +115,17 @@ window.StackTrace = stacktrace;
                         self: stackTrace && typeof stackTrace.stackTrace[2] !== 'undefined' ? stackTrace.stackTrace[2] : null,
                     }
                 };
+                callStack.pushReturn = (returnVal) => {
+                    callStack.returnVal = returnVal;
+                    return returnVal;
+                };
                 window.necooData[window.necooIndex].push(callStack);
             }
             catch (e) {
                 console.log('sorry for error', e);
             }
         }
-        return callStack || {};
+        return callStack;
     }
     exports.necooPush = necooPush;
     if (window) {

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const RemoveStrictPlugin = require('../plugins/RemoveStrictPlugin');
 const webpackConfig =  {
     mode: 'development',
     // devtool: 'cheap-module-eval-source-map',
@@ -28,7 +29,8 @@ const webpackConfig =  {
     plugins: [
         new webpack.LoaderOptionsPlugin({
             debug: true
-        })
+        }),
+        new RemoveStrictPlugin()
     ],
     resolve: {
         alias: {
@@ -36,16 +38,21 @@ const webpackConfig =  {
         }
     },
     module: {
+        // buildInfo: {
+        //     strict: false,
+        //     hello: false
+        // },
         rules: [
             {
-                test: /\.js$/,
+                test: /(\.js|\.tag|\.jsx)$/,
                 use: [
-                    {
-                        loader: 'babel-loader',
-                        query: {
-                            plugins: ["transform-remove-strict-mode"]
-                        },
-                    },
+                    // {
+                    //     loader: 'babel-loader',
+                    //     query: {
+                    //         plugins: ["transform-remove-strict-mode"],
+                    //     }
+                    // }
+                    // ,
                     {
                         loader: 'remove-strict'
                     }
@@ -78,7 +85,16 @@ const webpackConfig =  {
                         // add here all the other riot-compiler options riot.js.org/guide/compiler/
                         // template: 'pug' for example
                     }
-                }]
+                }
+                ]
+            },
+            {
+                test: /\.src\/riot\/index\.js$/,
+                use: [
+                    {
+                        loader: 'remove-strict'
+                    }
+                ]
             }
         ]
     },

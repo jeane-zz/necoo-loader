@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node build/dev.js",
-    "build:inject": "cd ./loaders/necoo-inject/ && webpack"
+    "build:inject": "cd ./loaders/necoo-inject/ && webpack",
+    "debugger": "node --inspect-brk build/dev.js"
   },
   "author": "hongrunhui",
   "license": "ISC",

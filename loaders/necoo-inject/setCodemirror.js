@@ -361,9 +361,7 @@ class Inject {
             console.log('%c变量： ', 'color:red;font-size:20px;', d.data.obj.variable);
             return;
         }
-        console.table('%c输入：', 'color:#0f0;;font-size:20px;', d.data.obj.args);
-        console.log('%c输出' + sourceLine + '行：', 'color:red;font-size:20px;', d.data.obj.returnValue);
-        console.log('%c-----------------------', 'color: #f0f', d);
+        console.log(`%c-----------${sourceLine}------------`, 'color: #f0f', d);
         this.getArgsFuncStr(d);
         this.update(d);
     }
@@ -438,11 +436,13 @@ class Inject {
     }
     removeNecooPushCallStack(code) {
         const re = /var necooData = window\.necooPush\(arguments\);/gi;
-        return code.replace(re, '');
+        const returnRe = /necooData\.pushReturn\(|\); \/\/ necoo专用注释/gi;
+        return code.replace(re, '').replace(returnRe, '');
     }
     getArgsFuncStr(d) {
         const callerInfo = d.data.obj.callerInfo.father;
         const defineInfo = d.data.obj.callerInfo.self;
+        const returnVal = d.data.obj.returnVal;
         const execLine = callerInfo ? {
             columnNumber: callerInfo.columnNumber,
             lineNumber: callerInfo.lineNumber - 1
@@ -454,8 +454,10 @@ class Inject {
         let execLineStr = this.sourceCodemirror.codeMirror.getLine(execLine.lineNumber);
         let defineLineStr = this.sourceCodemirror.codeMirror.getLine(defineLine.lineNumber);
         let args = d.data.obj.arguments;
-        console.log('exec', execLineStr);
-        console.log('define', defineLineStr, Array.prototype.slice.apply(args));
+        console.log('exec: ', execLineStr);
+        console.log('%cdefine: ', 'color: #f00', defineLineStr);
+        console.log('%cparams: ', 'color: green', Array.prototype.slice.apply(args));
+        console.log('%creturn: ', 'color: gray', returnVal);
     }
 }
 

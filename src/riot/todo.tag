@@ -1,8 +1,11 @@
 <todo>
 
     <!-- layout -->
-    <h3>{ title }</h3>
-
+    <title></title>
+    <div>
+        I am Y
+        <yield>11111<yield/>
+    </div>
     // logic comes here
     function myname() {
         window.necooPush(arguments);

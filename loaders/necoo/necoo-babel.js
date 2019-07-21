@@ -277,9 +277,6 @@ function replaceFunction(path, code) {
             // .replace(/\\\\/g, '\\')
             // .replace(/\\\\"/g, '\\"')
         ;
-        if (section.indexOf('function updateListeners') === 0) {
-            console.log(reSectionStr);
-        }
         try {
             code = code.replace(reSectionStr, (_) => {
 
@@ -300,6 +297,34 @@ function replaceFunctionUseReg(code) {
     const template = fs.readFileSync(__dirname + '/necoo-body.js', 'utf8');
     console.log('=====template', template);
     code = code.replace(RE_FUNC, "$1" + template + '\n');
+    return code;
+}
+function babelReplaceReturn(code) {
+    const visitor = {
+        ReturnStatement(path) {
+            const section = path.getSource();
+            const argument = path.node.argument;
+            if (argument) {
+                const {start, end} = argument;
+                const endPos = section[section.length - 1] === ';' ? section.length - 1 : section.length;
+                const newReturnStr = `return necooData.pushReturn(` + section.slice(7, endPos) + `); // necoo专用注释\n`;
+                try {
+                    code = code.replace(section, (_) => {
+                        return newReturnStr;
+                    });
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+    };
+    const result = babel.transform(code, {
+        plugins: [{
+            visitor: visitor
+        }]
+    });
+    fs.writeFileSync(path.resolve(__dirname, '../../dist/source/source.js'), code);
     return code;
 }
 function babelFunctionProcess(code) {
@@ -361,5 +386,6 @@ module.exports = {
     babelAssignProcess,
     babelFunctionProcess,
     babelProgramProcess,
-    babelStrictProcess
+    babelStrictProcess,
+    babelReplaceReturn
 };
