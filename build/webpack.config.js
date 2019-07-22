@@ -38,21 +38,16 @@ const webpackConfig =  {
         }
     },
     module: {
-        // buildInfo: {
-        //     strict: false,
-        //     hello: false
-        // },
         rules: [
             {
-                test: /(\.js|\.tag|\.jsx)$/,
+                test: /\.js$/,
                 use: [
-                    // {
-                    //     loader: 'babel-loader',
-                    //     query: {
-                    //         plugins: ["transform-remove-strict-mode"],
-                    //     }
-                    // }
-                    // ,
+                    {
+                        loader: 'babel-loader',
+                        query: {
+                            plugins: ["transform-remove-strict-mode"],
+                        }
+                    },
                     {
                         loader: 'remove-strict'
                     }
@@ -86,14 +81,6 @@ const webpackConfig =  {
                         // template: 'pug' for example
                     }
                 }
-                ]
-            },
-            {
-                test: /\.src\/riot\/index\.js$/,
-                use: [
-                    {
-                        loader: 'remove-strict'
-                    }
                 ]
             }
         ]

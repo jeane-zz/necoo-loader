@@ -21,19 +21,21 @@ class RemoveStrictPlugin {
                 files.forEach(file => {
                     let chunkSource = compilation.assets[file];
                     let source = chunkSource._source;
-                    let children = source.children;
-                    source.children = children.map(item => {
-                        if (typeof item === 'string') {
-                            return self.removeStrict(item);
-                        }
-                        else if (typeof item === 'object' && item._source) {
-                            item._source.value = self.removeStrict(item._source.value);
-                            return item;
-                        }
-                        else {
-                            return item;
-                        }
-                    });
+                    if (source && source.children) {
+                        let children = source.children;
+                        source.children = children.map(item => {
+                            if (typeof item === 'string') {
+                                return self.removeStrict(item);
+                            }
+                            else if (typeof item === 'object' && item._source) {
+                                item._source.value = self.removeStrict(item._source.value);
+                                return item;
+                            }
+                            else {
+                                return item;
+                            }
+                        });
+                    }
                 });
                 callback();
             });

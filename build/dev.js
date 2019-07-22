@@ -9,7 +9,6 @@ const buildPath = '../dist';
 let port = process.argv[3] || '8181';
 let host = ip.v4.sync();
 const compiler = webpack(webpackConfig);
-console.log('---', compiler);
 let server = new WebpackDevServer(compiler, {
     inline: true,
     contentBase: path.join(__dirname, buildPath),

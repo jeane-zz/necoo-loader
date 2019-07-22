@@ -82,7 +82,7 @@ window.StackTrace = stacktrace;
                     calleeName = args.callee && args.callee.prototype.name;
                 }
                 if (!callerName) {
-                    callerName = args.callee.caller && args.callee.caller.prototype.name;
+                    callerName = args.callee.caller && args.callee.caller.prototype && args.callee.caller.prototype.name;
                     if (!callerName) {
                         var caller = getCallerFromSourceStack(stackTrace.sourceStack) || stackTrace.stackTrace[3].functionName;
                         if (caller) {
@@ -102,6 +102,9 @@ window.StackTrace = stacktrace;
                 }
                 if (callerName === 'Object.<anonymous>') {
                     callerName = stackTrace.stackTrace[4].functionName;
+                }
+                if (callerName && /\./.test(callerName)) {
+                    callerName = callerName.split('.').reverse() && callerName.split('.').reverse()[0]
                 }
                 callStack = {
                     name: calleeName,
