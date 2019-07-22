@@ -342,6 +342,13 @@ function babelFunctionProcess(code) {
         }]
     });
     code = replaceAnonymousFun(code);
+    // 修复字符串的函数形式（new Function）
+    code = code.replace(/(([\'|\"])function\s+\w*\([^\)]*\)\s*{)\2/gi, (_, $1, $2) => {
+        if ($1 && $2) {
+            return $1 + ' window.necooPush(arguments);' + $2;
+        }
+        return _;
+    });
     // code = replaceFunctionUseReg(code);
     // fs.writeFileSync('../dist/source/vue.js', code);
     return code;

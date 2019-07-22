@@ -1,12 +1,13 @@
 <!--import './title.tag';-->
+import './each.tag';
 <todo>
-
+    <each-tag></each-tag>
     <!-- layout -->
 <!--    <title-tag></title-tag>-->
-    <div>
-        I am Y
-        <yield>11111<yield/>
-    </div>
+    <!--<div>-->
+        <!--I am Y-->
+        <!--<yield>11111<yield/>-->
+    <!--</div>-->
     // logic comes here
     let self = this;
     self.on('before-mount', () => {
