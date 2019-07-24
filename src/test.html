@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function loadXML(xmlString) {
+        var xmlDoc;
+        // IE浏览器, window.DOMParser 判断是否是非ie浏览器,loadXML方法载入xml字符串
+        if (!window.DOMParser && window.ActiveXObject) {
+            var xmlDomVersions = ['MSXML.2.DOMDocument.6.0', 'MSXML.2.DOMDocument.3.0', 'Microsoft.XMLDOM'];
+            for (var i = 0; i < xmlDomVersions.length; i++) {
+                try {
+                    xmlDoc = new ActiveXObject(xmlDomVersions[i]);
+                    xmlDoc.async = false;
+                    xmlDoc.loadXML(xmlString);
+                    break;
+                } catch (e) {
+                    console.error('IE 浏览器, xml 解析失败');
+                }
+            }
+        }
+        // 支持Mozilla浏览器
+        else if (window.DOMParser && document.implementation && document.implementation.createDocument) {
+            try {
+                /* DOMParser 对象解析 XML 文本并返回一个 XML Document 对象。
+                 * 要使用 DOMParser，使用不带参数的构造函数来实例化它，然后调用其 parseFromString() 方法
+                 * parseFromString(text, contentType) 参数text:要解析的 XML 标记 参数contentType文本的内容类型
+                 * 可能是 "text/xml" 、"application/xml" 或 "application/xhtml+xml" 中的一个。注意，不支持 "text/html"。
+                 */
+                var domParser = new DOMParser();
+                xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
+            } catch (e) {
+                console.error('xml 解析失败');
+            }
+        }
+        else {
+            return null;
+        }
+
+        return xmlDoc;
+    }
+    var xmlStr = `<?xml version="1.0" encoding="utf-8"?>
+<msg>
+    <text c="Skype-会议邀请" cfn="8" apns="你收到一条skype的会议邀请">
+        <content>
+            <img md5="" t="" n="" o_md5="" o_size="0" o_t="" w="0" h="0" o_w="0" o_h="0" url="" o_url="" id="1"/>
+            <func_info name="电话会议" func_id="4" id="2"/>
+            <label c="邀请者：" id="3"/>
+            <text c="longxi" id="4"/>
+            <label c="电   话：" id="5"/>
+            <text c="(010)50819999,, 6125716#" id="6"/>
+            <text c="(010)56799999,, 6125716#" id="7"/>
+            <label c="会议ID：" id="8"/>
+            <text c="6125716" id="9"/>
+            <img md5="" t="" n="" o_md5="" o_size="0" o_t="" w="0" h="0" o_w="0" o_h="0" url="" o_url="" id="10"/>
+            <text c="进入会议" id="11"/>
+            <phone c="(010)50819999,, 6125716#" id="12"/>
+            <img md5="" t="" n="" o_md5="" o_size="0" o_t="" w="0" h="0" o_w="0" o_h="0" url="" o_url="" id="13"/>
+            <text c="转发" id="14"/>
+            <label c="Skype加入：" id="15"/>
+            <url c="https://meet.baidu.com/longxi/1FNH17MG" id="16">
+                <selector platform="0" ref="https://meet.baidu.com/longxi/1FNH17MG" open_type="N"/>
+            </url>
+        </content>
+        <engines>
+            <engine t="hi-rm-3" v="1">
+                <top_bar>
+                    <image id="1"/>
+                    <title id="2" type="func_info"/>
+                </top_bar>
+                <content_container>
+                    <contents>
+                        <row>
+                            <label id="3"/>
+                            <text id="4"/>
+                        </row>
+                        <row>
+                            <label id="5"/>
+                            <text id="6"/>
+                            <text id="7"/>
+                        </row>
+                        <row>
+                            <label id="8"/>
+                            <text id="9"/>
+                        </row>
+                    </contents>
+                </content_container>
+                <actions>
+                    <action type="call">
+                        <img id="10"/>
+                        <text id="11"/>
+                        <phone id="12"/>
+                    </action>
+                    <action type="share">
+                        <img id="13"/>
+                        <text id="14"/>
+                    </action>
+                </actions>
+                <bottom_bar>
+                    <label id="15"/>
+                    <action_url id="16"/>
+                </bottom_bar>
+            </engine>
+        </engines>
+    </text>
+    <text c="，请" cfn="999"/>
+    <url ref="https://im.baidu.com/upgrade?t=note" c="下载新版百度Hi" cfn="999"/>
+    <text c="查看" cfn="999"/>
+</msg>`;
+    // var xmlObj = loadXML(xmlStr);
+    // console.log('xmlObj', xmlObj);
+    // function xml2json() {
+    //
+    // }
+    // var xmlObj = xmlToJson(loadXML(xmlStr));
+    // console.log('xmlObj', xmlObj);
+    var xmlObj = parsePhoneMeetingXml(loadXML(xmlStr));
+
+
+    function loadXML(xmlString) {
+        var xmlDoc;
+        // IE浏览器, window.DOMParser 判断是否是非ie浏览器,loadXML方法载入xml字符串
+        if (!window.DOMParser && window.ActiveXObject) {
+            var xmlDomVersions = ['MSXML.2.DOMDocument.6.0', 'MSXML.2.DOMDocument.3.0', 'Microsoft.XMLDOM'];
+            for (var i = 0; i < xmlDomVersions.length; i++) {
+                try {
+                    xmlDoc = new ActiveXObject(xmlDomVersions[i]);
+                    xmlDoc.async = false;
+                    xmlDoc.loadXML(xmlString);
+                    break;
+                } catch (e) {
+                    console.error('IE 浏览器, xml 解析失败');
+                }
+            }
+        }
+        // 支持Mozilla浏览器
+        else if (window.DOMParser && document.implementation && document.implementation.createDocument) {
+            try {
+                /* DOMParser 对象解析 XML 文本并返回一个 XML Document 对象。
+                 * 要使用 DOMParser，使用不带参数的构造函数来实例化它，然后调用其 parseFromString() 方法
+                 * parseFromString(text, contentType) 参数text:要解析的 XML 标记 参数contentType文本的内容类型
+                 * 可能是 "text/xml" 、"application/xml" 或 "application/xhtml+xml" 中的一个。注意，不支持 "text/html"。
+                 */
+                var domParser = new DOMParser();
+                xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
+            } catch (e) {
+                console.error('xml 解析失败');
+            }
+        }
+        else {
+            return null;
+        }
+
+        return xmlDoc;
+    }
+    function getData(parent, nodeName, dataObj) {
+        var els = parent.querySelectorAll(nodeName);
+        var contentEl = parent;
+        var data = getObjItem(els, contentEl);
+        dataObj[nodeName] = data;
+    }
+    function parsePhoneMeetingXml(xmlObj) {
+        var parseData = {};
+        ['row', 'top_bar', 'bottom_bar', 'action'].forEach(function (name) {
+            getData(xmlObj, name, parseData);
+        });
+        console.log('parseData', parseData, xmlObj.querySelector('content'));
+    }
+    function sliceNode(node) {
+        return Array.prototype.slice.call(node);
+    }
+    function parseAttr(node) {
+        var map = {};
+        var attrs = node.attributes;
+        for(var i = attrs.length - 1; i >= 0; i--) {
+            var attr = attrs[i];
+            var name = attr.name;
+            var value = attr.nodeValue;
+            map[name] = value;
+        }
+        return map;
+    }
+    function getObjItem(nodeArr, mapNode) {
+        var obj = [];
+        nodeArr = sliceNode(nodeArr);
+        nodeArr && nodeArr.length && sliceNode(nodeArr).forEach(function (node) {
+            var name = node.nodeName;
+            var childs = node.children;
+            var childValue = {};
+            childs && sliceNode(childs).forEach(function (children) {
+                var id = children.getAttribute('id');
+                var el = mapNode.getElementById(id);
+                childValue[id] = {
+                    name: el.nodeName,
+                    attrs: parseAttr(el)
+                };
+            });
+            obj.push(childValue);
+        });
+        return obj;
+    }
+    // Changes XML to JSON
+    function xmlToJson(xml) {
+        // Create the return object
+        var obj = {};
+        if (xml.nodeType == 1) { // element
+            // do attributes
+            if (xml.attributes.length > 0) {
+                obj["@attributes"] = {};
+                for (var j = 0; j < xml.attributes.length; j++) {
+                    var attribute = xml.attributes.item(j);
+                    obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                }
+            }
+        } else if (xml.nodeType == 3) { // text
+            obj = xml.nodeValue;
+        }
+        // do children
+        if (xml.hasChildNodes()) {
+            for(var i = 0; i < xml.childNodes.length; i++) {
+                var item = xml.childNodes.item(i);
+                var nodeName = item.nodeName;
+                if (typeof(obj[nodeName]) == "undefined") {
+                    obj[nodeName] = xmlToJson(item);
+                } else {
+                    if (typeof(obj[nodeName].length) == "undefined") {
+                        var old = obj[nodeName];
+                        obj[nodeName] = [];
+                        obj[nodeName].push(old);
+                    }
+                    if (obj[nodeName].push) {
+                        obj[nodeName].push(xmlToJson(item));
+                    }
+                }
+            }
+        }
+        return obj;
+    }
+
+</script>
+</body>
+</html>
